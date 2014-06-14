@@ -1,0 +1,82 @@
+mamasync
+
+sync one or more working directories with one or more storage directories.
+working directories and storage directories which are associated together are called a sync-tree.
+mamasync software is installed only on user machine where the working directories are. Machines holding the storage directories don't run any software: a memory stick or simple cloud storage will do.
+
+storage directories:
+    - they are encrypted: the names and the content of the files and sub directories are encrypted.
+    - they must be changed ONLY by mamasync.
+    - they may be local or in the cloud (Amazon S3 and similar)
+    - they may not be always available.
+
+working directories:
+    - they are plain.
+    - they are monitored by mamasync.
+    - they may not be always available (usb stick for example).
+
+for a given sync-tree, several instances of mamasync may be running to maintain sync with working directories on different devices.
+
+sync-tree creation:
+    - need path to a first working directory and first storage directory.
+    - the working directory is imported into the storage directory.
+	- a mamasync file is created. By default, it is created at the top level of the working directory. it contains:
+		- the relative path to the working directory
+		- the absolute path to the storage directory
+		- optionally the encryption key
+		- a structure representing the working directory, it is referred as the cache. for each file, the following is available:
+			- file name (that's the key to access the other data)
+			- SHA2 hash
+			- version number on 64 bit
+			- file ID or 0 if the file is new
+			- timestamp of the last modification by an external program, or from the last sync
+			- a boolean flag: marked for deletion or not.
+    - mamasync starts to monitor the working directory.
+
+storage directory format:
+    - The directory tree follows the structure of the working directory (KISS)
+	- the names of directories are SHA2 hash of the real name
+	- each directory contain an index file. The index file contain the encrypted name of the directory.
+    - The file names consist of a file ID and a timestamp. The file ID is the SHA2 hash of the first version of this file and its initial file name and a 64 bit random. The timestamp is the UTC time (64 bit number representing the number of milliseconds since the unix Epoch), written in hex.
+    - the files contains the following fields:
+		- the file data length in bytes, on 64 bits
+		- the encrypted file data
+		- the SHA2 hash over the plain data
+		- boolean flag: deleted or not (in this case the file data length must be 0)
+		- the file version number on 64 bits: main (32 bit) local (16 bit) and accidental (16 bit)
+		- the length of the file name in bytes, on 32 bits
+		- the encrypted file name
+		- the length of the working directory ID
+		- the ID of the working directory this version comes from (host name + absolute path).
+    - This format leaks some side channel information about the general activity in the sync tree as well as the amount of data, the number of files and the directories hierarchy. This is judged non critical and a worthwhile sacrifice as it considerably simply the overall schemes.
+	- the storage directory keeps all the versions of files unless it runs out of space, from there it deletes the older versions of files or deleted ones to find the space needed for new files. this is called garbage collection step.
+	- a file stored in the top level gives some crucial info in its name: 0_SHA256_AES128
+		- the storage directory format version: 0
+		- the hash algorithm: SHA256
+		- the encryption algorithm: AES128
+
+working directory format: nothing special, just the user files. Mamasync enforce that the file modification date is the correct one and match the timestamp as much as possible. Each time a working directory is created, a mamasync file is created and associated with it. Loosing the mamasync file has the no consequences except the extra time to rebuild one from scratch.
+
+working directory sync process:
+	- recursive procedure over the directories.
+	- check consistency between the working directory and its cache by verifying SHA2 hashes. 
+		- If mismatch on an existing file, update the cache (the working directory is always right against the cache). The timestamp is the current time as there is no way to know when the file was actually modified (but that does not matter anyway). the accidental version number is incremented by 1 to signify that this version number is somehow arbitrary.
+		- If a file is missing in the working directory, mark it as deleted in the cache
+	- check consistency between the cache and the storage directory
+		- if the cache contain a newer version of a file, upload it to the storage directory, with a new main version number. update the cache to match version numbers. (so the previous version of the file remains in the storage directory until next garbage collection)
+		- if storage contain a newer version of a file
+			- if the local file has no local or accidental version, update the local file 
+			- if local version, ask user
+			- if accidental version, ask user, insisting on the accidental nature of the situation (local file may be corrupted...)
+		- if storage contain a new file, create it in the cache and the working directory
+		- if cache has a file marked as deleted:
+			- if it is still in storage:
+				- if storage version is newer than the cache, update the cache and the working directory (file is not deleted, but updated instead)
+				- if cache version is newer, create a new version of the file in the storage directory with no data and the deleted marker (so the last version remain in the storage directory until garbage collection).
+			- else, delete the cache entry
+			
+Software design:
+	encrypted files are read/written by implementation of StorageFileCodec interface
+	storage directory is accessed through implementation of StorageDirectory interface
+	cache/work directory are maintained by implementation of WorkDirectory interface
+	the sync processs is done by implementation of the SyncTree interface
