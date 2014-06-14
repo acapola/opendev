@@ -2,9 +2,9 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$USER_HOME$/dev/mamasync">
-      <sourceFolder url="file://$USER_HOME$/dev/mamasync/src" isTestSource="false" />
-      <excludeFolder url="file://$USER_HOME$/dev/mamasync/doc" />
+    <content url="file://$USER_HOME$/dev/opendev/mamasync">
+      <sourceFolder url="file://$USER_HOME$/dev/opendev/mamasync/src" isTestSource="false" />
+      <excludeFolder url="file://$USER_HOME$/dev/opendev/mamasync/doc" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
