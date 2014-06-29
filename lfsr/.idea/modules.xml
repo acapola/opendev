@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file:///media/sf_dev/lfsr/lfsr.iml" filepath="/media/sf_dev/lfsr/lfsr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lfsr.iml" filepath="$PROJECT_DIR$/.idea/lfsr.iml" />
     </modules>
   </component>
 </project>

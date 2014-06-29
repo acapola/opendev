@@ -141,7 +141,7 @@ public class Lfsr {
         return "1"+Z2.toBinaryString(Z2.reverse(taps));
     }
     public boolean isSingular(){
-        return taps[l-1];
+        return !taps[0];
     }
     public boolean isMaximumLength(){
         if(isSingular()) return false;

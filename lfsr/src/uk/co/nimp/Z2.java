@@ -1,7 +1,6 @@
 package uk.co.nimp;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 
 /**
  * Created by seb on 6/22/14.

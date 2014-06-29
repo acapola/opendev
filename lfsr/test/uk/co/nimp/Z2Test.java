@@ -2,8 +2,6 @@ package uk.co.nimp;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class Z2Test {
     @Test
     public void testBitWidth() throws Exception {
