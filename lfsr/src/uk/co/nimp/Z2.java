@@ -92,11 +92,20 @@ public class Z2 {
         }
     }
     static void copy(boolean[] src,boolean[] dst){System.arraycopy(src,0,dst,0,src.length);}
+    static boolean[] cloneRange(boolean[] src,int offset, int length){
+        boolean[] out = new boolean[length];
+        System.arraycopy(src,offset,out,0,length);
+        return out;
+    }
 
     static int msbIndex(boolean[] in){
         int i = in.length-1;
         while(i>0 && !in[i]) i--;
         return i;
+    }
+    static boolean[] substitute(boolean[] in, boolean[][] sbox){
+        int input = booleansToInt(in);
+        return sbox[input].clone();
     }
 
     /**
@@ -123,6 +132,23 @@ public class Z2 {
             if(a[i]!=b[i]) return false;
         }
         return true;
+    }
+    public static boolean[] xor(boolean[] a, boolean[] b){
+        int len = Math.max(a.length,b.length);
+        boolean[] out = new boolean[len];
+        copy(a, out);
+        for(int i=0;i<b.length;i++){
+            out[i] ^= b[i];
+        }
+        return out;
+    }
+    public static boolean[] xor(boolean[] a, boolean[] b,int outputLength){
+        boolean[] out = new boolean[outputLength];
+        System.arraycopy(a,0, out,0,Math.min(outputLength,a.length));
+        for(int i=0;i<Math.min(outputLength,b.length);i++){
+            out[i] ^= b[i];
+        }
+        return out;
     }
     public static boolean[] add(boolean[] a, boolean[] b){
         return add(a,b,0);
@@ -256,9 +282,24 @@ public class Z2 {
         return out;
     }
     public static boolean[] toBooleans(BigInteger in) {
-        boolean[] out = new boolean[in.bitLength()];
-        for(int i=0;i<out.length;i++){
+        return toBooleans(in,in.bitLength());
+    }
+    public static boolean[] toBooleans(BigInteger in, int outputLength) {
+        boolean[] out = new boolean[outputLength];
+        int iMax = Math.min(in.bitLength(),outputLength);
+        for(int i=0;i<iMax;i++){
             if(in.testBit(i)) out[i] = true;
+        }
+        return out;
+    }
+    public static boolean[] toBooleans(int in) {
+        return toBooleans(in,Integer.highestOneBit(in));
+    }
+    public static boolean[] toBooleans(int in, int outputLength) {
+        boolean[] out = new boolean[outputLength];
+        int iMax = Math.min(Integer.highestOneBit(in),outputLength);
+        for(int i=0;i<iMax;i++){
+            if((in & (1<<i)) != 0) out[i] = true;
         }
         return out;
     }
@@ -269,26 +310,6 @@ public class Z2 {
             if(in<(1<<i)) return i;
         }
         return i;
-    }
-    public static boolean[] toBooleans(int in) {
-        boolean[] out = new boolean[Integer.highestOneBit(in)];
-        for(int i=0;i<out.length;i++){
-            if((in & (1<<i)) != 0) out[i] = true;
-        }
-        return out;
-    }
-    static boolean isIrreducible(BigInteger fx){
-        int m = fx.bitLength();
-        BigInteger two  = new BigInteger("2");
-        BigInteger x = two;
-        BigInteger ux = x;
-        for(int i=1;i<=m/2;i++){
-            ux = ux.modPow(two,fx);
-            BigInteger delta = ux.xor(x);//u(x) - x in Z2 is bitwise xor
-            BigInteger dx = fx.gcd(delta);
-            if(!dx.equals(BigInteger.ONE)) return false;
-        }
-        return true;
     }
     static boolean []reverse(boolean []in) {
         return reverse(in, 0, in.length);
@@ -301,4 +322,5 @@ public class Z2 {
     public static String toBinaryString(boolean in){
         return in ? "1" : "0";
     }
+    public static int toInt(boolean in) {return in ? 1 : 0;}
 }
