@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: uk.co.nimp.Lfsr
+Main-Class: uk.co.nimp.app.LfsrTool
 

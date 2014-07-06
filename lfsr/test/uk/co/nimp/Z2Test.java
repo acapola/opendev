@@ -2,6 +2,9 @@ package uk.co.nimp;
 
 import org.junit.Test;
 
+import java.io.File;
+import java.util.Random;
+
 public class Z2Test {
     @Test
     public void testBitWidth() throws Exception {
@@ -33,7 +36,55 @@ public class Z2Test {
         boolean[] product = Z2.polynomialToBooleans("x5+x4+x3+x");
         assert(Z2.equal(product,Z2.mul(a,b)));
     }
+
     @Test
+    public void testHammingWeight() throws Exception {
+        assert(0==Z2.hammingWeight(Z2.ZERO));
+        assert(1==Z2.hammingWeight(Z2.ONE));
+        assert(1==Z2.hammingWeight(Z2.TWO));
+        assert(4==Z2.hammingWeight(Z2.polynomialToBooleans("x5+x4+x3+x")));
+        assert(5==Z2.hammingWeight(Z2.polynomialToBooleans("x5+x4+x3+x+x234")));
+    }
+
+    @Test
+    public void testMinHammingWeight() throws Exception {
+        boolean [][]test = new boolean[5][];
+        test[0] = Z2.ZERO;
+        test[1] = Z2.polynomialToBooleans("x4+x3+x");
+        test[2] = Z2.polynomialToBooleans("x5+x4+x2");
+        test[3] = Z2.polynomialToBooleans("x5+x3+1");
+        test[4] = Z2.polynomialToBooleans("x654+x4+1");
+        //System.out.println(Z2.minHammingDistance(test));
+        assert(3==Z2.minHammingDistance(test));
+        test[0] = Z2.ONE;
+        //System.out.println(Z2.minHammingDistance(test));
+        assert(2==Z2.minHammingDistance(test));
+        test[0] = Z2.polynomialToBooleans("x65+x41+x23+x2");
+        //System.out.println(Z2.minHammingDistance(test));
+        assert(4==Z2.minHammingDistance(test));
+    }
+
+    @Test
+    public void testBinaryStringFileToBooleansArray() throws Exception {
+        int nTests = 100;
+        int maxLen = 50;
+        int minWidth = 0;
+        int maxWidth = 100;
+        Random rng = new Random();
+        for(int i=0;i<nTests;i++){
+            int len = rng.nextInt(maxLen);
+            boolean[][] dat = Z2.randomBooleansArray(len,minWidth,maxWidth);
+            File tmp = File.createTempFile("Z2Test","testBinaryStringFileToBooleansArray");
+            Z2.toBinaryStringFile(tmp,dat);
+            boolean[][] check = Z2.binaryStringFileToBooleansArray(tmp);
+            assert(check.length==dat.length);
+            for(int j=0;j<dat.length;j++) {
+                assert(Z2.equal(dat[j],check[j]));
+            }
+        }
+    }
+
+        @Test
     public void testIsGreater() throws Exception {
         boolean[] a = Z2.polynomialToBooleans("x2+x");
         boolean[] b = Z2.polynomialToBooleans("x3+x+1");

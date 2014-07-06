@@ -1,6 +1,9 @@
 package uk.co.nimp;
 
+import java.io.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by seb on 6/22/14.
@@ -126,6 +129,25 @@ public class Z2 {
         assert(out[out.length-1]);
         return out;
     }
+    public static boolean equalValue(boolean[] a, boolean[] b){
+        boolean []bigger;
+        boolean []smaller;
+        if(a.length>b.length){
+            bigger = a;
+            smaller = b;
+        }else{
+            bigger = b;
+            smaller = a;
+        }
+        for(int i=0;i<smaller.length;i++){
+            if(bigger[i]!=smaller[i]) return false;
+        }
+        //check the msb of bigger array: if they are all 0, then we have equality
+        for(int i=smaller.length;i<bigger.length;i++){
+            if(bigger[i]) return false;
+        }
+        return true;
+    }
     public static boolean equal(boolean[] a, boolean[] b){
         if(a.length!=b.length) return false;
         for(int i=0;i<a.length;i++){
@@ -144,7 +166,7 @@ public class Z2 {
     }
     public static boolean[] xor(boolean[] a, boolean[] b,int outputLength){
         boolean[] out = new boolean[outputLength];
-        System.arraycopy(a,0, out,0,Math.min(outputLength,a.length));
+        System.arraycopy(a, 0, out, 0, Math.min(outputLength, a.length));
         for(int i=0;i<Math.min(outputLength,b.length);i++){
             out[i] ^= b[i];
         }
@@ -177,7 +199,164 @@ public class Z2 {
         assert(out[out.length-1] || equal(out,Z2.ZERO));
         return out;
     }
-    static boolean isGreater(boolean[] a, boolean[] b){
+    static int hammingWeight(boolean []in){
+        return booleansToBigInteger(in).bitCount();
+    }
+    static int hammingDistance(boolean []a, boolean []b){
+        BigInteger aBi = booleansToBigInteger(a);
+        BigInteger bBi = booleansToBigInteger(b);
+        return hammingDistance(aBi, bBi);
+    }
+    static int hammingDistance(BigInteger a, BigInteger b){
+        return a.xor(b).bitCount();
+    }
+    static int minHammingDistance(BigInteger [] in){
+        if(in.length<2) throw new RuntimeException("Need at least two element to compute hamming distance, got "+in.length);
+        int out = Integer.MAX_VALUE;
+        for(int i=0;i<in.length;i++){
+            for(int j=i+1;j<in.length;j++){
+                out = Math.min(out,hammingDistance(in[i],in[j]));
+                if(0==out) return out;
+            }
+        }
+        return out;
+    }
+    public static int minHammingDistance(boolean [][] in) {
+        BigInteger [] inBi = booleansArrayToBigIntegers(in);
+        return minHammingDistance(inBi);
+    }
+    static BigInteger[] booleansArrayToBigIntegers(boolean [][] in){
+        BigInteger []out= new BigInteger[in.length];
+        for(int i=0;i<in.length;i++){
+            out[i] = booleansToBigInteger(in[i]);
+        }
+        return out;
+    }
+    public static void toBinaryFile(File file,BigInteger in) throws IOException {
+        byte []data = in.toByteArray();
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(data);
+        fos.flush();
+        fos.close();
+    }
+    public static BigInteger binaryFileToBigInteger(File file) throws IOException {
+        byte[] data = new byte[(int) file.length()];
+        FileInputStream fis = new FileInputStream(file);
+        fis.read(data);
+        fis.close();
+        return new BigInteger(data);
+    }
+    static void toBinaryStringFile(File file, BigInteger in) throws IOException {
+        BufferedWriter writer = new BufferedWriter( new FileWriter(file));
+        try {
+            for(int i=0;i<in.bitLength();i++) {
+                if(in.testBit(i)) writer.write("1");
+                else writer.write("0");
+                if((i%(1<<16)==0) && (i!=0)) writer.newLine();
+            }
+        } finally {
+            writer.flush();
+            writer.close();
+        }
+    }
+    static BigInteger binaryStringFileToBigInteger(File file) throws IOException {
+        BigInteger out = BigInteger.ZERO;
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        int bitLength=0;
+        try {
+            String line = br.readLine();
+            while (line != null) {
+                for(int i=0;i<line.length();i++){
+                    char c = line.charAt(i);
+                    if(Character.isWhitespace(c)) continue;
+                    if(c=='_') continue;
+                    if(c=='-') continue;
+                    if(c=='0') {bitLength++;continue;};
+                    if(c=='1') {out=out.setBit(bitLength++);continue;};
+                }
+                line = br.readLine();
+            }
+        } finally {
+            br.close();
+        }
+        return out;
+    }
+    static void toBinaryStringFile(File file, boolean[] in) throws IOException {
+        BigInteger inBi = booleansToBigInteger(in);
+        toBinaryStringFile(file,inBi);
+    }
+    static boolean[] binaryStringFileToBooleans(File file) throws IOException {
+        BigInteger bi=binaryFileToBigInteger(file);
+        return toBooleans(bi);
+    }
+    public static void toBinaryStringFile(File file, boolean[][] in) throws IOException {
+        BufferedWriter writer = new BufferedWriter( new FileWriter(file));
+        try {
+            for(int i=0;i<in.length;i++) {
+                writer.write(toBinaryString(in[i]));
+                writer.newLine();
+            }
+        } finally {
+            writer.flush();
+            writer.close();
+        }
+    }
+    static BigInteger[] binaryStringFileToBigIntegers(File file) throws IOException {
+        ArrayList<BigInteger> out = new ArrayList<BigInteger>();
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        try {
+            String line = br.readLine();
+            while (line != null) {
+                int bitLength=0;
+                BigInteger bi = BigInteger.ZERO;
+                for(int i=0;i<line.length();i++){
+                    char c = line.charAt(i);
+                    if(Character.isWhitespace(c)) continue;
+                    if(c=='_') continue;
+                    if(c=='-') continue;
+                    if(c=='0') {bitLength++;continue;};
+                    if(c=='1') {bi=bi.setBit(bitLength++);continue;};
+                }
+                out.add(bi);
+                line = br.readLine();
+            }
+        } finally {
+            br.close();
+        }
+        return (BigInteger[]) out.toArray();
+    }
+    static boolean[] toBooleans(ArrayList<Boolean> list){
+        boolean[] out = new boolean[list.size()];
+        for(int i=0;i<list.size();i++) out[i] = list.get(i);
+        return out;
+    }
+    public static boolean[][] binaryStringFileToBooleansArray(File file) throws IOException {
+        ArrayList<boolean[]> tmp = new ArrayList<boolean[]>();
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        try {
+            String line = br.readLine();
+            while (line != null) {
+                ArrayList<Boolean> b = new ArrayList<Boolean>();
+                for(int i=0;i<line.length();i++){
+                    char c = line.charAt(i);
+                    if(Character.isWhitespace(c)) continue;
+                    if(c=='_') continue;
+                    if(c=='-') continue;
+                    if(c=='0') {b.add(false);continue;};
+                    if(c=='1') {b.add(true);continue;};
+                }
+                tmp.add(toBooleans(b));
+                line = br.readLine();
+            }
+        } finally {
+            br.close();
+        }
+        boolean [][]out = new boolean[tmp.size()][];
+        for(int i=0;i<tmp.size();i++) out[i]=tmp.get(i);
+        return out;
+    }
+
+    public static boolean isGreater(boolean[] a, boolean[] b){
         int aMsbIndex = msbIndex(a);
         int bMsbIndex = msbIndex(b);
         if(aMsbIndex>bMsbIndex) return true;
@@ -250,7 +429,7 @@ public class Z2 {
     }
 
     /**
-     * Algorithm 4.69 Testing a poolynomial for irreducibility
+     * Algorithm 4.69 Testing a polynomial for irreducibility
      * @param fx
      * @return true if fx is irreducible over Z2
      */
@@ -264,6 +443,19 @@ public class Z2 {
             boolean[] dx = gcd(delta,fx);
             if(!isOne(dx)) return false;
         }
+        return true;
+    }
+
+    /**
+     * Algorithm 4.77 Testing a polynomial for primitivity
+     * @param fx
+     * @return true if fx is primitive over Z2
+     */
+    static boolean isPrimitive(boolean[] fx){
+        assert(fx[fx.length-1] || equal(fx,Z2.ZERO));
+        if(!isIrreducible(fx)) return false;//fx must be irreducible to have a chance to be primitive
+        BigInteger p = BigInteger.ONE;
+
         return true;
     }
     public static BigInteger booleansToBigInteger(boolean[] in){
@@ -292,8 +484,14 @@ public class Z2 {
         }
         return out;
     }
+    public static int highestOneBitPosition(int in){
+        for(int i=31;i>0;i--){
+            if((in & (1<<i)) == (1<<i)) return i;
+        }
+        return 0;
+    }
     public static boolean[] toBooleans(int in) {
-        return toBooleans(in,Integer.highestOneBit(in));
+        return toBooleans(in,highestOneBitPosition(in));
     }
     public static boolean[] toBooleans(int in, int outputLength) {
         boolean[] out = new boolean[outputLength];
@@ -323,4 +521,29 @@ public class Z2 {
         return in ? "1" : "0";
     }
     public static int toInt(boolean in) {return in ? 1 : 0;}
+
+    public static boolean[] randomBooleans(int len) {
+        boolean[] out = new boolean[len];
+        Random rng = new Random();
+        for(int i = 0;i<len;i++) out[i] = rng.nextBoolean();
+        return out;
+    }
+    public static boolean[][] randomBooleansArray(int len, int width){
+        return randomBooleansArray(len,width,width);
+    }
+    public static boolean[][] randomBooleansArray(int len, int minWidth, int maxWidth){
+        int delta = maxWidth-minWidth+1;
+        Random rng = new Random();
+        boolean[][] dat = new boolean[len][];
+        for(int j=0;j<len;j++) {
+            dat[j] = Z2.randomBooleans(minWidth+rng.nextInt(delta));
+        }
+        return dat;
+    }
+    public static String toBinaryString(boolean[][] in){
+        String out="";
+        for(int i=0;i<in.length;i++) out+=Z2.toBinaryString(in[i])+"\n";
+        if(out.isEmpty()) return "";
+        return out.substring(0,out.length()-1);
+    }
 }

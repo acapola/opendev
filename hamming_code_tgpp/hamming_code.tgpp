@@ -1,0 +1,550 @@
+``
+#find out the directory of this script
+#that allow us to find the input files no matter what is the current directory
+set scriptDir [file dirname [info script]]
+
+#################
+# utility procs #
+#################
+#comment the body of this proc to disable all debug output
+proc dbgPutsPlain { msg } {
+#    puts $msg
+}
+proc dbgStr { varName {level 1}} {
+    upvar $level $varName var
+    return "$varName=$var"
+}
+proc dbgPuts { msg {relLevel 0} {level -1}} {
+    if {$level==-1} {set level [expr [info level]-1]}
+    set level [expr $level + $relLevel]
+    dbgPutsPlain [string repeat "   " $level]$msg
+}
+proc dbgPutsVar { varName {relLevel 0} } {
+    dbgPuts [dbgStr $varName 2] $relLevel [expr [info level]-1]
+}
+proc putsVar { varName {relLevel 0} } {
+    puts [dbgStr $varName 2]
+}
+
+proc log2 {a} {expr log($a)/log(2)}
+proc log10 {a} {expr log($a)/log(10)}
+
+#return number of bits to encode a in binary. a must be >=0.
+proc binWidth {a} {
+    if {$a} {
+        return [expr int(floor([log2 $a])) + 1]
+    } else {
+        return 1
+    }
+}
+#return number of digit to write a in decimal. a must be >=0.
+proc decWidth {a} {
+    if {$a} {
+        return [expr int(floor([log10 $a])) + 1]
+    } else {
+        return 1
+    }
+}
+proc random { bitWidth } {
+	set out 0
+	for {set i 0} {$i<$bitWidth} {incr i} {
+		set out [expr $out | (int(rand()*2)<<$i)]
+	}
+	return $out
+}
+proc listToString {aList {separator ""} } {
+    set out ""
+    if {[llength $aList]} {
+        for {set i 0} {$i<[llength $aList]-1} {incr i} {
+            append out "[lindex $aList $i]$separator"
+        }
+        append out [lindex $aList end]
+    }
+    return $out
+}
+#return the list of bits which are set in input
+#5 --> {0 2}
+proc bitsSet { a } {
+    set len [binWidth $a]
+    set out [list]
+    for {set i 0} {$i<$len} {incr i} {
+        if {$a & 1} {
+            lappend out $i
+        }
+        set a [expr $a>>1]
+    }
+    return $out
+}
+proc assertEqual { a b } {
+    if {$a!=$b} {
+        puts "INTERNAL ERROR: equal assertion failed."
+        puts "$a"
+        puts "$b"
+        exit -1
+    }
+}
+proc hammingWeight { a } {
+    set len [binWidth $a]
+    set out 0
+    for {set i 0} {$i<$len} {incr i} {
+        set out [expr $out + ($a & 1)]
+        set a [expr $a>>1]
+    }
+    return $out
+}
+proc hammingDistance { a b } {
+	set delta [expr $a ^ $b]
+	return [hammingWeight $delta]
+}
+proc minHammingDistance { vectors } {
+	set len [llength $vectors]
+	if {$len<2} {
+		error "Need at least two element to compute hamming distance, got $len"
+	}
+	set out [expr 1<<32]
+	for {set i 0} {$i<[llength $vectors]} {incr i} {
+		set vectorI [lindex $vectors $i]
+		#puts "$i --> $vectorI"
+		for {set j [expr $i+1]} {$j<[llength $vectors]} {incr j} {
+			set ijhd [hammingDistance $vectorI [lindex $vectors $j]]
+			if {$ijhd<$out} {
+				if {0==$ijhd} {return 0}
+				set out $ijhd
+			}
+		}
+	}
+	return $out
+}
+proc nextWithHammingWeightSmallNumbersOnly { startVal targetHammingWeight {targetWidth 0} } {
+    set out [expr $startVal+1]
+    while {[hammingWeight $out]!=$targetHammingWeight} {
+        incr out
+        if {$targetWidth} {
+            if {[binWidth $out]>$targetWidth} {return 0}
+        }
+    }
+    return $out
+}
+proc valToBits { val width} {
+    set out [list]
+    for {set i 0} {$i<$width} {incr i} {
+        if {$val & (1<<$i)} {
+            lappend out "1"
+        } else {
+			lappend out "0"
+		}
+    }
+    return $out
+}
+#return a list of bit index set to 1 in the binary representation of val
+proc valToOnes { val } {
+    set out [list]
+    set width [binWidth $val]
+    for {set i 0} {$i<$width} {incr i} {
+        if {$val & (1<<$i)} {
+            lappend out $i
+        }
+    }
+    return $out
+}
+#return the integer value which contain a 1 at each bit position specified in ones
+proc onesToVal { ones } {
+    set out 0
+    foreach bitIndex $ones {
+        set out [expr $out + (1<<$bitIndex)]
+    }
+    return $out
+}
+proc firstWithHammingWeight {targetHammingWeight {targetWidth 0}} {
+    set out 0
+    for {set i 0} {$i<$targetHammingWeight} {incr i} {
+        set out [expr $out + (1<<$i)]
+    }
+    if {$targetWidth} {assertEqual [expr [binWidth $out]>$targetWidth] 0}
+    return $out
+}
+proc nextWithHammingWeight { startVal targetHammingWeight {targetWidth 0} } {
+    if {$startVal} {
+        #support only startVal with the target hamming weight
+        assertEqual [hammingWeight $startVal] $targetHammingWeight
+        if {$targetWidth} {assertEqual [expr [binWidth $startVal]>$targetWidth] 0}
+    } else {
+        #start the sequence
+        return [firstWithHammingWeight $targetHammingWeight $targetWidth]
+    }
+    set ones [valToOnes $startVal]
+    for {set bitIndex 0} {$bitIndex<$targetHammingWeight} {incr bitIndex} {
+        #bitIndex refers to the list $ones
+        #bitPos refers to the binary representation
+       	set bitPos [lindex $ones $bitIndex]
+        set nextBitPos [expr [lindex $ones $bitIndex] + 1]
+        set nextBitIndex [expr $bitIndex + 1]
+        if {(($nextBitIndex < $targetHammingWeight) && ($nextBitPos < [lindex $ones $nextBitIndex])) || (($nextBitIndex == $targetHammingWeight) && ($nextBitPos < $targetWidth)) } {
+            #move the bit by one position left
+            lset ones $bitIndex $nextBitPos
+            if {$bitIndex>0} {
+	            #re initialize all bits of lower significiance
+	            set lsbs [valToOnes [firstWithHammingWeight $bitIndex $bitPos]]
+	            set ones [lreplace $ones 0 [expr $bitIndex-1] {*}$lsbs]
+	          }
+            return [onesToVal $ones]
+        }
+        #bit cannot be moved further, try next one
+    }
+    #all numbers enumerated
+    return 0
+}
+proc sortDictByValue {dict args} {
+    set lst {}
+    dict for {k v} $dict {lappend lst [list $k $v]}
+    return [concat {*}[lsort -index 1 {*}$args $lst]]
+}
+proc dict_sort {dict args} {
+    set res {}
+    foreach key [lsort {*}$args [dict keys $dict]] {
+        dict set res $key [dict get $dict $key] 
+    }
+    set res
+}
+proc filter {list script} {
+   set res {}
+   foreach e $list {if {[uplevel 1 $script [list $e]]} {lappend res $e}}
+   set res
+}
+proc lremove {listVariable value} {
+    upvar 1 $listVariable var
+    set idx [lsearch -exact $var $value]
+    set var [lreplace $var $idx $idx]
+}
+
+proc dictToVars { varDefs {levelOut 1} } {
+    dict for {varName value} $varDefs {
+        #create a tcl variable in the caller for each key-value pair
+        upvar $levelOut $varName var
+        set var $value
+    }
+}
+
+##############
+# Main procs #
+##############
+
+proc hammingCodeFunctionParams { inputWidth {extended 0} {userOutputWidth 0} } {
+    # Computation of EDC parameters #
+    #theory: 
+    #message length k: number of data bits
+    #code length r: number of code bits
+    #block length n: total max number of bits (max data + code)
+    #   k = 2^r - r - 1
+    #   n = 2^r - 1
+    #we need to get r from k, we start from a lower bound and increment until we get a match 
+    set k $inputWidth
+    set r [binWidth [expr $k+1+2]]
+    while {(1<<$r) - $r - 1 < $k} {
+        incr r
+    }
+    if {$extended} {
+    	#make sure extended equals either 0 or 1
+    	set extended 1
+    	incr r
+    }
+    if {$userOutputWidth} {
+        if {$r>$userOutputWidth} {
+            #the user request a width inferior to the lower bound, reject it (we can't garantee the advertized detection capabilities in this condition)
+            puts "ERROR: requested output width is inferior to the lower bound."
+            puts "At least $r bits are needed, but $userOutputWidth has been specified in the third arguement"
+            exit -1
+        }
+        set r $userOutputWidth
+    }
+    dbgPutsVar r
+
+    set n [expr (1<<$r) - 1]
+    dbgPutsVar n
+
+    set totalWidth [expr $r+$k]
+    set nTotalWords [expr 1<<$totalWidth]
+    set nValidWords [expr 1<<$k]
+	
+	set funcName hamming_code_${totalWidth}_$k
+
+    if {$extended} {
+        set funcName extended_$funcName
+    }
+    return [dict create r $r k $k n $n totalWidth $totalWidth nTotalWords $nTotalWords nValidWords $nValidWords funcName $funcName]
+}
+
+proc hammingCodeFunctionName { inputWidth {extended 0} {userOutputWidth 0} } {
+    set parameters [hammingCodeFunctionParams $inputWidth $extended $userOutputWidth]
+    return [dict get $parameters funcName]
+}
+
+proc hammingCode { inputWidth {extended 0} {userOutputWidth 0} } {
+    set parameters [hammingCodeFunctionParams $inputWidth $extended $userOutputWidth]
+    dictToVars $parameters
+
+    # main algorithm #
+    set targetHammingWeight [expr 2+$extended]
+    #build a list of numbers with hamming weight targetHammingWeight and width r
+    set vcodes [list]
+    set code 0
+    while {[set code [nextWithHammingWeight $code $targetHammingWeight $r]]} {lappend vcodes $code}
+
+    set bits [dict create]
+    set bitsInputs [dict create]
+    for {set i 0} {$i<$r} {incr i} {
+        dict set bits $i [list]
+        dict set bitsInputs $i 0
+    }
+    for {set col 0} {$col<$k} {incr col} {
+        if {[llength $vcodes]==0} {
+            #we ran out of codes, get the next batch
+            incr targetHammingWeight
+           	if {$extended} {
+           		#keep the hamming weight odd
+           		incr targetHammingWeight
+           	}
+            set code 0
+            while {[set code [nextWithHammingWeight $code $targetHammingWeight $r]]} {lappend vcodes $code}
+        }
+        #find the bits with the least inputs
+        dbgPuts "$bitsInputs -> [sortDictByValue $bitsInputs -integer]" 1
+        set bitsInputs [sortDictByValue $bitsInputs -integer]
+        set rank 0
+        set candidateCodes $vcodes
+        for {set i 0} {$i<$targetHammingWeight} {incr i} {
+            dbgPutsVar i 2
+            while 1 {
+                set minInputRow [lindex [dict keys $bitsInputs] $rank]
+                dbgPutsVar minInputRow 3
+                set newCandidateCodes [filter $candidateCodes {expr (1<<$minInputRow) & }]
+                incr rank
+                if {[llength $newCandidateCodes]} {
+                    #found a match, add the bit to the row
+                    dict lappend bits $minInputRow $col
+                    dict incr bitsInputs $minInputRow
+                    break
+                }
+            }
+            set candidateCodes $newCandidateCodes
+        }
+        set code [lindex $candidateCodes 0]    
+        lremove vcodes $code
+        dbgPuts "[format %2d $col]: [bitsSet $code] ([format %2d $code]) [dict keys $bitsInputs] - [dict values [dict_sort $bitsInputs]]" 1
+        dbgPuts ""
+    }
+    #set totalWidth [expr $r+$k]
+    #set nTotalWords [expr 1<<$totalWidth]
+	
+	set loads [dict create]
+    set dots [dict create]
+    # results formating to generate output #
+    for {set syndromBit 0} {$syndromBit<$r} {incr syndromBit} {
+        #loads is used later on in the input usage report.
+        foreach b [dict get $bits $syndromBit] {
+            dict lappend loads $b $syndromBit
+        }
+        set inBits  [dict get $bits $syndromBit]
+        for {set b 0} {$b<$k} {incr b} {
+             if {[lsearch $inBits $b]!=-1} { 
+                dict append dots $syndromBit "x" 
+             } else { 
+                dict append dots $syndromBit " " 
+             }
+        }
+    }
+	
+	set codeDescription "a hamming code capable of detecting any 1 and 2 bits errors"
+
+    if {$extended} {
+        set funcName extended_$funcName
+        set codeDescription "an extended hamming code capable of detecting any 1,2 and 3 bits errors"
+    }
+
+    set indexesWidth [decWidth $k]
+    set syndromIndexesWidth [decWidth $r]
+    assertEqual $r [llength [dict keys $bits]]
+	
+	set out [dict create]
+	dict set out inputWidth $inputWidth
+	dict set out extended $extended
+	dict set out userOutputWidth $userOutputWidth
+	
+	dict set out parameters $parameters
+	
+	dict set out funcName [dict get $parameters funcName]
+	dict set out r [dict get $parameters r]
+	dict set out k [dict get $parameters k]
+	dict set out nValidWords [dict get $parameters nValidWords]
+	dict set out nTotalWords [dict get $parameters nTotalWords]
+	
+	dict set out codeDescription $codeDescription
+	dict set out syndromIndexesWidth $syndromIndexesWidth
+	dict set out indexesWidth $indexesWidth
+	dict set out dots $dots
+	dict set out loads $loads
+	dict set out bitsInputs $bitsInputs
+	dict set out bits $bits
+	return $out
+}
+
+proc hammingCodeCommentsC { hammingCodeDict } {
+	dictToVars $hammingCodeDict
+``
+//`$funcName`
+//Compute `$r` bits Error Detection Code from a `$k` bits input.
+//The EDC is `$codeDescription` in the input data or the EDC.
+//There are `$nValidWords` valid code words out of `$nTotalWords` therefore `expr round(($nTotalWords-$nValidWords)*100/$nTotalWords)`% of errors are detected. 
+//Dot graphic view: in[0]...in[`expr $k-1`]
+``for {set syndromBit 0} {$syndromBit<$r} {incr syndromBit} {``
+//  syndrom[`format %${syndromIndexesWidth}s $syndromBit`]: `dict get $dots $syndromBit` (`dict get $bitsInputs $syndromBit` inputs)
+``}``
+//Input usage report:
+``for {set inBit 0} {$inBit<$k} {incr inBit} {
+    set inBitLoads [dict get $loads $inBit]
+``
+//  input bit `format %${indexesWidth}s $inBit` used `format %${syndromIndexesWidth}s [llength $inBitLoads]` times (syndrom bits `$inBitLoads`)
+``}
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+} 
+#end of hammingCodeFunction
+
+proc checkHammingCode { hammingCodeDict } {
+	dictToVars $hammingCodeDict
+	set actualOutputWidth $r
+	set tclModelProc [hammingCodeTclProcNumbers $hammingCodeDict]
+	#puts $tclModelProc
+	eval $tclModelProc
+	
+	set validWords [list]
+	if {$inputWidth<16} {
+		#exhaustive checking for small input width
+		for {set i 0} {$i<$nValidWords} {incr i} {
+			set syndromBits [$funcName $i]
+			set word [expr $i | ($syndromBits<<$inputWidth)]
+			lappend validWords $word
+		}
+		set minHd [minHammingDistance $validWords]
+		puts "Achieved minimum hamming distance: $minHd"
+	} else {
+		set base [random $inputWidth]
+		set mask [expr (1<<$inputWidth) - 1]
+		set testSize 100
+		puts "Estimating minimum hamming distance using $testSize consecutive values"
+		puts "Base: $base"
+		for {set i $base} {$i<$base+$testSize} {incr i} {
+			set in [expr $i & $mask]
+			set syndromBits [$funcName $in]
+			set word [expr $in | ($syndromBits<<$inputWidth)]
+			lappend validWords $word
+			#puts [string map {" " ""} [valToBits $word [expr $inputWidth+$actualOutputWidth]]]
+		}
+		set minHd [minHammingDistance $validWords]
+		puts "Estimated minimum hamming distance: $minHd"
+	}
+	set expectedMinHd [expr 3+$extended]
+	if {$minHd < $expectedMinHd} {
+		error "INTERNAL ERROR: expected minimum hamming distance is $expectedMinHd, generated code achieve $minHd. Please report this error."
+	}
+}
+
+#verilog output
+tgpp::source [file join $scriptDir hamming_code.tgpp.v]
+tgpp::source [file join $scriptDir hamming_code.tgpp.tcl]
+tgpp::source [file join $scriptDir hamming_code.tgpp.dat]
+
+##################################
+# command line arguments parsing #
+##################################
+#parse command line only if this file is executed as a stand alone generator (ie. not included in another file)
+dbgPuts "[info ex argv0] && [file tail [info script]] == [file tail $argv0]"
+if {[info ex argv0] && [file tail [info script]] == [file tail $argv0]} {
+
+    if { ($argc < 1) || ($argc >6) } {
+        puts "ERROR: $argc argument provided, need 1 or up to 6."
+        puts "argc=$argc, argv=$argv"
+        puts "arguments: input_width \[extended\] \[output_width\] \[output_type\]"
+		puts "supported value for output_type: verilog, tcl, vectors
+        exit -1
+    }
+    set inputWidth [lindex $argv 0]
+    #default values for optional parameters
+    set extended 0
+    set userOutputWidth 0
+    set verilogOutput 0
+	set tclOutput 0
+	set vectorsOutput 0
+	if { [llength $argv] >= 2 } {
+        if {[lindex $argv 1]} {
+            set extended 1
+        }
+    }
+    if { [llength $argv] >= 3 } {
+        #user specified output width
+        #withdraw the optional parity bit from that count to have a direct comparison with the r parameter computed later on.
+        #set userOutputWidth [expr [lindex $argv 2] - $extended]
+		set userOutputWidth [lindex $argv 2]
+    }
+    if { [llength $argv] <= 3 } {
+		#no output_type specified, enable verilog output by default
+		set verilogOutput 1
+	} else {
+		for {set i 3} {$i<[llength $argv]} {incr i} {
+			set output [lindex $argv $i]
+			#puts $output
+			#if { $output == "verilog" } { set verilogOutput 1 } 
+			#if { $output == "tcl" } { set tclOutput 1 } 
+			#if { $output == "vectors" } { set vectorsOutput 1 }
+			switch $output {
+				verilog {set verilogOutput 1}
+				tcl     {set tclOutput 1}
+				vectors {set vectorsOutput 1}
+				default {
+					puts "ERROR: $output output type not supported."
+					puts "Supported value for output_type: verilog, tcl, vectors
+					exit -1
+				}
+			}
+		}
+	}
+	
+	dbgPutsVar inputWidth
+	dbgPutsVar extended
+	dbgPutsVar userOutputWidth
+	
+    #the actual output to file take place in the following lines
+	set hammingCodeDict [hammingCode $inputWidth $extended $userOutputWidth]
+	#do a bit of self checking
+	checkHammingCode $hammingCodeDict
+	
+	if {$verilogOutput} {
+	#::tgpp::renameOutput hamming_code.v
+		::tgpp::off all
+		::tgpp::on hamming_code.v
+``
+`hammingCodeVerilogFunction2 $hammingCodeDict`
+``  
+	}
+	if {$tclOutput} {
+		::tgpp::off all
+		::tgpp::on hamming_code.tcl
+``
+`hammingCodeTclProcNumbers $hammingCodeDict`
+``  
+	}
+	if {$vectorsOutput} {
+		::tgpp::off all
+		::tgpp::on hamming_code.dat
+		set tclModelProc [hammingCodeTclProc2 $hammingCodeDict]
+		#puts $tclModelProc
+		eval $tclModelProc
+``
+`hammingCodeVectors2 $hammingCodeDict`
+``
+	}
+	#delete default output
+	::tgpp::renameOutput tmp
+	::tgpp::renameOutput tmp ""
+}
+``

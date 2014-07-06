@@ -1,0 +1,22 @@
+``
+#this file is not meant to be used directly, the entry point is hamming_code.tgpp
+
+proc hammingCodeVectors { inputWidth {extended 0} {userOutputWidth 0} } {
+    set hammingCodeDict [hammingCode $inputWidth $extended $userOutputWidth]
+	return [hammingCodeVectors2 $hammingCodeDict]
+}
+
+proc hammingCodeVectors2 { hammingCodeDict } {
+	dictToVars $hammingCodeDict
+	for {set i 0} {$i<$nValidWords} {incr i} {
+		set inBits [valToBits $i $k]
+		#puts $inBits
+		set syndromBits [$funcName $inBits]
+``
+`$inBits` `$syndromBits`
+``  }
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+} 
+#end of hammingCodeFunction
+``
