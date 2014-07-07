@@ -27,6 +27,10 @@ public class Z2Test {
         boolean[] b = Z2.polynomialToBooleans("x3+x+1");
         boolean[] sum = Z2.polynomialToBooleans("x3+x2+1");
         assert(Z2.equal(sum,Z2.add(a,b)));
+        a = Z2.polynomialToBooleans("x+1");
+        b = Z2.X;
+        sum=Z2.polynomialToBooleans("1");
+        assert(Z2.equal(sum,Z2.add(a,b)));
     }
 
     @Test
@@ -119,6 +123,22 @@ public class Z2Test {
         assert(Z2.equal(Z2.ZERO,Z2.mod(product,b)));
         boolean[] pa = Z2.add(a,product);
         assert(Z2.equal(a,Z2.mod(pa,b)));
+        a = Z2.polynomialToBooleans("x12");
+        b = Z2.polynomialToBooleans("x12+x3+1");
+        assert(Z2.equal(Z2.mod(a,b),Z2.polynomialToBooleans("x3+1")));
+        a = Z2.polynomialToBooleans("x12+x3+1");
+        b = Z2.polynomialToBooleans("x2+x");
+        assert(Z2.equal(Z2.mod(a,b),Z2.ONE));
+        a = Z2.polynomialToBooleans("x13");
+        b = Z2.polynomialToBooleans("x12+x3+1");
+        assert(Z2.equal(Z2.mod(a,b),Z2.polynomialToBooleans("x4+x")));
+        a = Z2.polynomialToBooleans("x315");
+        b = Z2.polynomialToBooleans("x12+x3+1");
+        assert(Z2.equal(Z2.mod(a,b),Z2.ONE));
+        a = Z2.polynomialToBooleans("x12+x3+1");
+        b = Z2.polynomialToBooleans("1");
+        assert(Z2.equal(Z2.mod(a,b),Z2.ZERO));
+
     }
 
     @Test
@@ -127,6 +147,15 @@ public class Z2Test {
         boolean[] hx = Z2.polynomialToBooleans("x9+x6+x5+x3+x2+1");
         assert(Z2.equal(Z2.gcd(gx,hx),Z2.polynomialToBooleans("x3+x+1")));
         assert(Z2.equal(Z2.gcd(gx,hx),Z2.gcd(hx,gx)));
+        gx = Z2.polynomialToBooleans("x12+x3+1");
+        hx = Z2.polynomialToBooleans("x2+x");
+        assert(Z2.equal(Z2.gcd(gx,hx),Z2.ONE));
+        gx = Z2.polynomialToBooleans("x2");
+        assert(Z2.equal(Z2.gcd(gx,hx),Z2.X));
+        gx = Z2.polynomialToBooleans("x3+x+1");
+        hx = Z2.polynomialToBooleans("x2");
+        assert(Z2.equal(Z2.gcd(gx,hx),Z2.ONE));
+
     }
 
     @Test
@@ -143,8 +172,32 @@ public class Z2Test {
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x+x4")));
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x2+x5")));
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x+x6")));
+        assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x3+x12")));
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("x13+x12+x11+x8+1")));
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("x16+x14+x13+x11+1")));
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("x19+x18+x17+x14+1")));
+    }
+
+    @Test
+    public void testIsPrimitive() throws Exception {
+        //reducible polynomials (since there is an even number of non zero terms, x+1 is a divisor):
+        assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x")));
+        assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x2")));
+        assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x2+x3+x7")));
+        assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x2+x4+x9")));
+
+        //irreducible but not primitive
+        assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x3+x12")));
+
+        //primitive polynomials:
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x2")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x3")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x4")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x2+x5")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x6")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x7")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x5+x6+x8")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x4+x9")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x3+x4+x7+x12")));
     }
 }

@@ -146,7 +146,8 @@ public class Lfsr {
     public boolean isMaximumLength(){
         if(isSingular()) return false;
         boolean[] fx = getTaps();
-        return Z2.isIrreducible(fx);//TODO: replace by isPrimitive (isIrreductible is necessut not sufficient, isPrimitive is sufficient)
+        //return Z2.isIrreducible(fx);//TODO: replace by isPrimitive (isIrreductible is necessut not sufficient, isPrimitive is sufficient)
+        return Z2.isPrimitive(fx);
     }
 
     /**

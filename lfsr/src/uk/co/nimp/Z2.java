@@ -187,7 +187,9 @@ public class Z2 {
             out[i+bShift] ^= b[i];
         }
         if(isZero(out)) return Z2.ZERO.clone();
-        assert(out[out.length-1]);
+        //assert(out[out.length-1]);
+        if(!out[out.length-1])
+            out = Z2.minimumLengthCopy(out);
         return out;
     }
     static boolean[] mul(boolean[] a, boolean[] b){
@@ -389,17 +391,21 @@ public class Z2 {
     static boolean[] mod(boolean[] in, boolean[] moduli){
         boolean[] divider = moduli;
         assert(in[in.length-1] || equal(in,Z2.ZERO));assert(divider[divider.length-1]);
+        if(in.length<moduli.length) return in.clone();
+        if(Z2.isOne(moduli)) return Z2.ZERO.clone();
         boolean[] quotient = new boolean[in.length];
         boolean[] reminder = in.clone();
         int reminderMsbIndex = reminder.length-1;
         int i=0;
-        while(isGreaterOrEqual(reminder, divider)){
+        //while(isGreaterOrEqual(reminder, divider)){
+        while(reminder.length>=divider.length){
             quotient[i++]=true;
             int shift = reminderMsbIndex-(divider.length-1);
             selfAdd(reminder, divider, shift);
-            while(reminderMsbIndex>divider.length-1 && !reminder[--reminderMsbIndex]){
+            while(reminderMsbIndex>=divider.length-1 && !reminder[--reminderMsbIndex]){
                 i++;
             }
+            reminder = minimumLengthCopy(reminder);
         }
         boolean[] out = minimumLengthCopy(reminder);
         assert(out[out.length-1] || equal(out,Z2.ZERO));
@@ -416,6 +422,7 @@ public class Z2 {
     }
     static boolean[] gcd(boolean[] a, boolean[] b){
         assert(a[a.length-1] || equal(a,Z2.ZERO));assert(b[b.length-1] || equal(b,Z2.ZERO));
+        if(Z2.isOne(a)||Z2.isOne(b)) return Z2.ONE.clone();
         boolean[] gx = a.clone();
         boolean[] hx = b.clone();
         while(!isZero(hx)){
@@ -454,8 +461,24 @@ public class Z2 {
     static boolean isPrimitive(boolean[] fx){
         assert(fx[fx.length-1] || equal(fx,Z2.ZERO));
         if(!isIrreducible(fx)) return false;//fx must be irreducible to have a chance to be primitive
-        BigInteger p = BigInteger.ONE;
-
+        //1 is alsways a factor, so we check it now:
+        //if(!isPrimitiveCore(1,fx)) return false;//never going to return false as x is always smaller than fx except in extreme cases fx=1 or fx=x...
+        BigInteger p = BigInteger.valueOf(2);//computing in Z2
+        int m = fx.length-1;
+        BigInteger product = p.pow(m).subtract(BigInteger.ONE);
+        BigInteger[] factors = PollardRho.factor(product);
+        for(int i=0;i<factors.length;i++){
+            BigInteger ri = factors[i];
+            BigInteger exp = product.divide(ri);
+            if(!isPrimitiveCore(exp.intValue(),fx)) return false;
+        }
+        return true;
+    }
+    static boolean isPrimitiveCore(int expInt,boolean[] fx){
+        boolean[] x_exp = new boolean[expInt+1];
+        x_exp[expInt]=true;
+        boolean[] lx = Z2.mod(x_exp,fx);
+        if(Z2.equal(lx,Z2.ONE)) return false;
         return true;
     }
     public static BigInteger booleansToBigInteger(boolean[] in){
