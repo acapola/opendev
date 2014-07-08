@@ -121,7 +121,7 @@ public class Lfsr {
     }
     public void setState(boolean[] state, int from, int to) {
         boolean [] newState = Arrays.copyOfRange(state,from,to);
-        if(newState.length!=l) throw new RuntimeException("State length ("+newState.length+") does not match the ARG_LFSR size ("+l+")");
+        if(newState.length!=l) throw new RuntimeException("State length ("+newState.length+") does not match the LFSR size ("+l+")");
         //if(Arrays.equals(newState,nullState)) throw new RuntimeException("Can't set a state with only zeroes");
         this.state = newState;
     }
@@ -146,12 +146,19 @@ public class Lfsr {
     public boolean isMaximumLength(){
         if(isSingular()) return false;
         boolean[] fx = getTaps();
-        //return Z2.isIrreducible(fx);//TODO: replace by isPrimitive (isIrreductible is necessut not sufficient, isPrimitive is sufficient)
+        return Z2.isPrimitive(fx);
+    }
+    public boolean isPolynomialIrreducible(){
+        boolean[] fx = getTaps();
+        return Z2.isIrreducible(fx);
+    }
+    public boolean isPolynomialPrimitive(){
+        boolean[] fx = getTaps();
         return Z2.isPrimitive(fx);
     }
 
     /**
-     * if the ARG_LFSR generates the sequence, its state is set to the initial state to generate the sequence.
+     * if the LFSR generates the sequence, its state is set to the initial state to generate the sequence.
      * @param sequence
      * @return
      */
@@ -167,7 +174,11 @@ public class Lfsr {
     @Override
     public String toString() {
         String properties = "not maximum length)";
-        if(isMaximumLength()) properties = "maximum length ARG_LFSR: period of "+((1<<l)-1)+")";
+        if(isMaximumLength()) properties = "maximum length LFSR: period of "+((1<<l)-1)+")";
+        else{
+            if(isPolynomialIrreducible()) properties = "irreducible but not primitive --> "+properties;
+            else properties = "reducible --> "+properties;
+        }
         if(isSingular()) properties = "(Singular, "+properties;
         else properties = "(Non singular, "+properties;
         return "Lfsr{" +
@@ -177,21 +188,39 @@ public class Lfsr {
                 '}';
     }
     public Set<boolean[]> sequences() {
+        Set<boolean[]> out = sequences(false).keySet();
+        return out;
+    }
+    public Map<boolean[],boolean[][]> sequencesAndStates() {
+        return sequences(true);
+    }
+    public Map<boolean[],boolean[][]> sequences(boolean storeStates) {
         boolean[] done = new boolean[1<<l];
-        HashSet<boolean[]> out = new HashSet<boolean[]>();
+        HashMap<boolean[],boolean[][]> out = new HashMap<boolean[],boolean[][]>();
         int maxLen= (1<<l)-1;
         boolean[] seq = new boolean[maxLen];
         for(int i=1;i<done.length;i++){
             if(done[i]) continue;
             boolean[] initState = Z2.toBooleans(i);
+            done[i] = true;
             setState(initState);
             boolean[] trace = new boolean[1<<l];//used to detects loops
             int j=0;
+            boolean[][] states = null;
+            if(storeStates) {
+                states = new boolean[maxLen][];
+                states[j] = new boolean[l];
+                Z2.copy(state, states[j]);
+            }
             do{
                 seq[j++]=step();
+                if(storeStates) {
+                    states[j] = new boolean[l];
+                    Z2.copy(state,states[j]);
+                }
                 int coveredState = Z2.booleansToInt(getState());
                 if(trace[coveredState]) {
-                    if(!Z2.equalValue(state,initState) && !Z2.isZero(state)) {//this sequence has a b shape: go straight and the loop
+                    if(!Z2.equalValue(state,initState) && !Z2.isZero(state)) {//this sequence has a b shape: go straight and then loop
                         i=coveredState-1;//launch next computation to get the sequence with the loop only.
                         done[coveredState] = false;
                     }
@@ -200,8 +229,8 @@ public class Lfsr {
                 done[coveredState] = true;
                 trace[coveredState] = true;
             }while((!Z2.equalValue(state, initState)) && (!Z2.isZero(state)));
-            if(!Z2.isZero(state)) j--;
-            out.add(Arrays.copyOfRange(seq,0,j));
+            if(storeStates) out.put(Arrays.copyOfRange(seq,0,j),Arrays.copyOfRange(states,0,j));
+            else  out.put(Arrays.copyOfRange(seq,0,j),null);
         }
         return out;
     }

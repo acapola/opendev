@@ -19,6 +19,20 @@ public class Z2Test {
         assert(Z2.bitWidth(31)==5);
         assert(Z2.bitWidth(32)==6);
         assert(Z2.bitWidth(0)==1);
+        assert(Z2.bitWidth(Integer.MAX_VALUE)==31);
+        assert(Z2.bitWidth(Integer.MIN_VALUE)==32);
+        assert(Z2.bitWidth(-1)==32);
+    }
+
+    @Test
+    public void testToBooleans() throws Exception {
+        assert(Z2.equal(Z2.toBooleans(0x00000000),new boolean[]{false}));
+        assert(Z2.equal(Z2.toBooleans(0x00000001),new boolean[]{true}));
+        boolean[] expected = new boolean[32];
+        expected[31]=true;
+        assert(Z2.equal(Z2.toBooleans(0x80000000),expected));
+        for(int i=0;i<31;i++) expected[i]=true;
+        assert(Z2.equal(Z2.toBooleans(0xFFFFFFFF),expected));
     }
 
     @Test
@@ -128,10 +142,10 @@ public class Z2Test {
         assert(Z2.equal(Z2.mod(a,b),Z2.polynomialToBooleans("x3+1")));
         a = Z2.polynomialToBooleans("x12+x3+1");
         b = Z2.polynomialToBooleans("x2+x");
-        assert(Z2.equal(Z2.mod(a,b),Z2.ONE));
+        assert(Z2.equal(Z2.mod(a, b), Z2.ONE));
         a = Z2.polynomialToBooleans("x13");
         b = Z2.polynomialToBooleans("x12+x3+1");
-        assert(Z2.equal(Z2.mod(a,b),Z2.polynomialToBooleans("x4+x")));
+        assert(Z2.equal(Z2.mod(a, b),Z2.polynomialToBooleans("x4+x")));
         a = Z2.polynomialToBooleans("x315");
         b = Z2.polynomialToBooleans("x12+x3+1");
         assert(Z2.equal(Z2.mod(a,b),Z2.ONE));

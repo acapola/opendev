@@ -507,18 +507,13 @@ public class Z2 {
         }
         return out;
     }
-    public static int highestOneBitPosition(int in){
-        for(int i=31;i>0;i--){
-            if((in & (1<<i)) == (1<<i)) return i;
-        }
-        return 0;
-    }
+
     public static boolean[] toBooleans(int in) {
-        return toBooleans(in,highestOneBitPosition(in));
+        return toBooleans(in, bitWidth(in));
     }
     public static boolean[] toBooleans(int in, int outputLength) {
         boolean[] out = new boolean[outputLength];
-        int iMax = Math.min(Integer.highestOneBit(in),outputLength);
+        int iMax = Math.min(bitWidth(in),outputLength);
         for(int i=0;i<iMax;i++){
             if((in & (1<<i)) != 0) out[i] = true;
         }
@@ -527,7 +522,8 @@ public class Z2 {
     public static int bitWidth(int in){
         //return (int) Math.ceil(Math.log(in)/Math.log(2));
         int i;
-        for(i=1;i<32;i++){
+        if(in<0) return 32;
+        for(i=1;i<31;i++){
             if(in<(1<<i)) return i;
         }
         return i;
