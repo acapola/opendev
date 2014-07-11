@@ -9,7 +9,7 @@ import java.io.IOException;
  * Created by seb on 6/22/14.
  */
 public class MainHelpers {
-    public static String credits = "Written by Sebastien Riou, 20140708-221700";
+    public static String credits = "Written by Sebastien Riou, 20140711-221700";
     static String formatArg(String arg){
         return "-"+arg.substring(0,1).toLowerCase()+arg.substring(1);
     }
@@ -27,6 +27,7 @@ public class MainHelpers {
 
     public static final String ARG_BINSTRFILE = formatArg(BINSTRFILE);
     public static final String ARG_SEQ_BINSTR = formatArg(SEQ +BINSTR);
+    public static final String ARG_SEQ_BINSTRFILE = formatArg(SEQ +BINSTRFILE);
     public static final String ARG_SEQ_BINFILE = formatArg(SEQ +BINFILE);
     public static final String ARG_LFSR_BINSTR = formatArg(LFSR +BINSTR);
     public static final String ARG_LFSR_POLY = formatArg(LFSR +POLY);
@@ -72,10 +73,11 @@ public class MainHelpers {
         return out;
     }
     static String argDescription(String argName,String arg1,String description){
-        String out = tab+ padTo(argName, 12)+tab;
-        if(arg1!=null) out += padTo("[" + arg1 + "]", 6 * tab.length());
-        else out+=tab+tab+tab+tab+tab+tab;
-        out+=description+"\n";
+        String out = tab+ padTo(argName, 14)+tab;
+        if (arg1 != null){
+            out +="["+arg1+"]";
+        }
+        out+="\n"+padTo("",14+2*tab.length())+description+"\n\n";
         return out;
     }
     static void writeToFile(File file, String str)throws IOException {

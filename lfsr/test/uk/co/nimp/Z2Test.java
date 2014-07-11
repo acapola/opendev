@@ -7,6 +7,33 @@ import java.util.Random;
 
 public class Z2Test {
     @Test
+    public void testrowEchellonMatrix() throws Exception {
+        boolean[][] in = new boolean[][]{
+                {false, true, true,false,false},
+                { true, true,false,false,false},
+                { true,false, true, true,false},
+                { true, true,false, true,false},
+                { true, true,false,false,false}
+        };
+        boolean[][] expected = new boolean[][]{
+                { true,false, true,false,false},
+                {false, true, true,false,false},
+                {false,false,false, true,false},
+                {false,false,false,false,false},
+                {false,false,false,false,false}
+        };
+        System.out.println(Z2.toBinaryString(in)+"\n");
+
+        boolean[][] out = Z2.rowEchelonMatrix(in);
+        System.out.println(Z2.toBinaryString(in)+"\n");
+        System.out.println(Z2.toBinaryString(expected)+"\n");
+        System.out.println(Z2.toBinaryString(out)+"\n");
+        for(int i=0;i<in.length;i++){
+            assert(Z2.equal(out[i],expected[i]));
+        }
+    }
+
+    @Test
     public void testBitWidth() throws Exception {
         assert(Z2.bitWidth(1)==1);
         assert(Z2.bitWidth(2)==2);
@@ -179,6 +206,8 @@ public class Z2Test {
         assert(!Z2.isIrreducible(Z2.polynomialToBooleans("1+x2")));
         assert(!Z2.isIrreducible(Z2.polynomialToBooleans("1+x2+x3+x7")));
         assert(!Z2.isIrreducible(Z2.polynomialToBooleans("1+x2+x4+x9")));
+        assert(!Z2.isIrreducible(Z2.polynomialToBooleans("1 + x3 + x6 + x7 + x10 + x12 + x14 + x15 + x17 + x18 + x19 + x20 + x21 + x23 + x25 + x26 + x28 + x29 + x30 + x31 + x32")));
+        //assert(!Z2.isIrreducible(Z2.toBooleans("1001001100101011011111010110111110000")));
 
         //irreducible polynomials:
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x+x2")));
@@ -213,5 +242,6 @@ public class Z2Test {
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x5+x6+x8")));
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x4+x9")));
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x3+x4+x7+x12")));
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x42+x47")));
     }
 }

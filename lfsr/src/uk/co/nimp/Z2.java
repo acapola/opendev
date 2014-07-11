@@ -20,6 +20,10 @@ public class Z2 {
     }
     public static final boolean[] X = TWO;
     public static boolean[] toBooleans(String in){
+        in = in.replace(" ","");
+        in = in.replace("\t","");
+        in = in.replace("\n","");
+        in = in.replace("_","");
         boolean[] out = new boolean[in.length()];
         for(int i=0;i<in.length();i++){
             if(in.charAt(i)=='1') out[i]=true;
@@ -95,7 +99,10 @@ public class Z2 {
         }
     }
     static void copy(boolean[] src,boolean[] dst){System.arraycopy(src,0,dst,0,src.length);}
-    static boolean[] cloneRange(boolean[] src,int offset, int length){
+    static boolean[] clone(boolean[] src) {
+        return cloneRange(src,0,src.length);
+    }
+    public static boolean[] cloneRange(boolean[] src, int offset, int length){
         boolean[] out = new boolean[length];
         System.arraycopy(src,offset,out,0,length);
         return out;
@@ -234,6 +241,10 @@ public class Z2 {
         }
         return out;
     }
+    public static void toBinaryFile(File file,boolean[] in) throws IOException {
+        BigInteger inBi = Z2.booleansToBigInteger(in);
+        toBinaryFile(file,inBi);
+    }
     public static void toBinaryFile(File file,BigInteger in) throws IOException {
         byte []data = in.toByteArray();
         FileOutputStream fos = new FileOutputStream(file);
@@ -283,12 +294,12 @@ public class Z2 {
         }
         return out;
     }
-    static void toBinaryStringFile(File file, boolean[] in) throws IOException {
+    public static void toBinaryStringFile(File file, boolean[] in) throws IOException {
         BigInteger inBi = booleansToBigInteger(in);
         toBinaryStringFile(file,inBi);
     }
-    static boolean[] binaryStringFileToBooleans(File file) throws IOException {
-        BigInteger bi=binaryFileToBigInteger(file);
+    public static boolean[] binaryStringFileToBooleans(File file) throws IOException {
+        BigInteger bi=binaryStringFileToBigInteger(file);
         return toBooleans(bi);
     }
     public static void toBinaryStringFile(File file, boolean[][] in) throws IOException {
@@ -470,17 +481,49 @@ public class Z2 {
         for(int i=0;i<factors.length;i++){
             BigInteger ri = factors[i];
             BigInteger exp = product.divide(ri);
-            if(!isPrimitiveCore(exp.intValue(),fx)) return false;
+            if(!isPrimitiveCore(exp,fx)) return false;
         }
         return true;
     }
+    static boolean isPrimitiveCore(BigInteger exp,boolean[] fx){
+        boolean[] lx = Z2.modExp(Z2.X,exp,fx);
+        if(Z2.equal(lx,Z2.ONE)) return false;
+        return true;
+    }
     static boolean isPrimitiveCore(int expInt,boolean[] fx){
+        assert(expInt>=0);
         boolean[] x_exp = new boolean[expInt+1];
         x_exp[expInt]=true;
         boolean[] lx = Z2.mod(x_exp,fx);
         if(Z2.equal(lx,Z2.ONE)) return false;
         return true;
     }
+
+    /**
+     * Algorithm 2.227 Repeated square and multiply for exponentiation in Fp^m
+     * @param gx
+     * @param exp positive integer <= p^m - 1
+     * @param moduli irreducible polynomial of degree m over Z2
+     * @return (gx^exp) mod moduli in Z2
+     */
+    static boolean[] modExp(boolean[] gx,BigInteger exp, boolean[] moduli){
+        BigInteger k = exp;
+        boolean[] fx = moduli;
+        boolean[] sx = Z2.ONE.clone();
+        if(k==BigInteger.ZERO) return sx;
+        boolean [] Gx = gx;
+        if(k.testBit(0)) sx = gx.clone();
+        for(int i=1;i<k.bitLength();i++){
+            Gx = Z2.mul(Gx,Gx);
+            Gx = Z2.mod(Gx,fx);
+            if(k.testBit(i)){
+                sx = Z2.mul(Gx,sx);
+                sx = Z2.mod(sx,fx);
+            }
+        }
+        return sx;
+    }
+
     public static BigInteger booleansToBigInteger(boolean[] in){
         BigInteger out = BigInteger.ZERO;
         for(int i = 0;i<in.length;i++){
@@ -542,8 +585,11 @@ public class Z2 {
     public static int toInt(boolean in) {return in ? 1 : 0;}
 
     public static boolean[] randomBooleans(int len) {
+        return randomBooleans(len,System.currentTimeMillis());
+    }
+    public static boolean[] randomBooleans(int len,long seed) {
         boolean[] out = new boolean[len];
-        Random rng = new Random();
+        Random rng = new Random(seed);
         for(int i = 0;i<len;i++) out[i] = rng.nextBoolean();
         return out;
     }
@@ -564,5 +610,63 @@ public class Z2 {
         for(int i=0;i<in.length;i++) out+=Z2.toBinaryString(in[i])+"\n";
         if(out.isEmpty()) return "";
         return out.substring(0,out.length()-1);
+    }
+
+    /**
+     * also called gaussian elimination
+     * pseudo code
+     * for k = 1 ... m:
+         Find pivot for column k:
+         i_max  := argmax (i = k ... m, abs(A[i, k]))
+         if A[i_max, k] = 0
+            error "Matrix is singular!"
+         swap rows(k, i_max)
+         Do for all rows below pivot:
+         for i = k + 1 ... m:
+             Do for all remaining elements in current row:
+             for j = k + 1 ... n:
+                A[i, j]  := A[i, j] - A[k, j] * (A[i, k] / A[k, k])
+             Fill lower triangular matrix with zeros:
+                A[i, k]  := 0
+     * @param in
+     * @return
+     */
+    public static boolean[][] rowEchelonMatrix(boolean[][] in){
+        boolean[][] out = new boolean[in.length][];
+        int nRows = in.length;
+        int nColumns = in[0].length;
+        for(int i=0;i<nRows;i++){
+            out[i] = new boolean[nColumns];
+            for(int j=0;j<nColumns;j++){
+                out[i][j]=in[i][j];
+            }
+        }
+        int row=0;
+        for(int k=0;k<nColumns;k++){
+            System.out.println(Z2.toBinaryString(out)+"\n");
+            int iMax = -1;
+            for(int i = row;i<nRows;i++){
+                if(out[i][k]) {
+                    iMax = i;
+                    break;//stop the loop here, as 1 is the maximum in Z2...
+                }
+            }
+            if(iMax==-1) continue;
+            //if(!out[iMax][k]) continue;//throw new RuntimeException("Singular Matrix");
+            if(iMax!=k) {//swap
+                boolean[] tmp = out[iMax];
+                out[iMax] = out[k];
+                out[k] = tmp;
+            }
+            //nullify other rows at column k
+            for(int i=0;i<nRows;i++){
+                if(i==row) continue;
+                if(out[i][k]){
+                    selfAdd(out[i],out[k],0);
+                }
+            }
+            row++;
+        }
+        return out;
     }
 }

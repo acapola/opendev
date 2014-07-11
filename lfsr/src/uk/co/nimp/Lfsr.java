@@ -145,15 +145,14 @@ public class Lfsr {
     }
     public boolean isMaximumLength(){
         if(isSingular()) return false;
-        boolean[] fx = getTaps();
-        return Z2.isPrimitive(fx);
+        return isPolynomialPrimitive();
     }
     public boolean isPolynomialIrreducible(){
-        boolean[] fx = getTaps();
+        boolean[] fx = Z2.minimumLengthCopy(getTaps());
         return Z2.isIrreducible(fx);
     }
     public boolean isPolynomialPrimitive(){
-        boolean[] fx = getTaps();
+        boolean[] fx = Z2.minimumLengthCopy(getTaps());
         return Z2.isPrimitive(fx);
     }
 
@@ -174,8 +173,10 @@ public class Lfsr {
     @Override
     public String toString() {
         String properties = "not maximum length)";
-        if(isMaximumLength()) properties = "maximum length LFSR: period of "+((1<<l)-1)+")";
-        else{
+        if(isMaximumLength()){
+            BigInteger maxLength = BigInteger.ONE.shiftLeft(l).subtract(BigInteger.ONE);
+            properties = "maximum length LFSR: period of "+maxLength+")";
+        }else{
             if(isPolynomialIrreducible()) properties = "irreducible but not primitive --> "+properties;
             else properties = "reducible --> "+properties;
         }

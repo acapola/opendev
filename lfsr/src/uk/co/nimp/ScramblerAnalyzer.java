@@ -83,9 +83,35 @@ public class ScramblerAnalyzer {
         return uniqueMappings.size()+" effective keys";
     }
 
+    public String effectiveKeyRangeEstimationAnalysis(){
+        HashSet<int[]> uniqueMappings = new HashSet<int[]>();
+        int keyWidth = dut.getKeyWidth();
+        int maxKey = 1<<keyWidth;
+        if(keyWidth>31) maxKey = Integer.MAX_VALUE;
+        int collisionCnt=0;
+        for(int key=0;key<maxKey;key++){
+            int[] map = keyOutput(Z2.randomBooleans(keyWidth,key));
+            boolean exists = false;
+            for(int[] existing: uniqueMappings){
+                if(equals(map,existing)) {
+                    exists = true;
+                    collisionCnt++;
+                    System.out.println(collisionCnt+" collision found so far out of "+key+" trials");
+                    break;
+                }
+            }
+            if(!exists) {
+                uniqueMappings.add(map);
+                if((key%1000)==0) System.out.println(collisionCnt+" collision found so far out of "+key+" trials");
+            }
+        }
+        return uniqueMappings.size()+" effective keys";
+    }
+
     public static void main(String[] args){
-        ScramblerAnalyzer scramblerAnalyzer = new ScramblerAnalyzer(new DpeScrambler());
+        ScramblerAnalyzer scramblerAnalyzer = new ScramblerAnalyzer(new Scrambler_5_64());
         System.out.println(scramblerAnalyzer.inputBitsToOutputBitsAnalysis());
-        System.out.println(scramblerAnalyzer.effectiveKeyRangeAnalysis());
+        //System.out.println(scramblerAnalyzer.effectiveKeyRangeAnalysis());
+        System.out.println(scramblerAnalyzer.effectiveKeyRangeEstimationAnalysis());
     }
 }

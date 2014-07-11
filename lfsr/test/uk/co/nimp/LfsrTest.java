@@ -116,6 +116,12 @@ public class LfsrTest {
         assert(Lfsr.fromPolynomial("1+x+x6").isMaximumLength());
     }
 
+    @Test
+    public void testIsPolynomialIrreducible() throws Exception {
+        assert(!Lfsr.fromPolynomial("1 + x3 + x6 + x7 + x10 + x12 + x14 + x15 + x17 + x18 + x19 + x20 + x21 + x23 + x25 + x26 + x28 + x29 + x30 + x31 + x32").isPolynomialIrreducible());
+
+    }
+
     @org.junit.Test
     public void testFromTapsPositions() throws Exception {
         Lfsr dut = Lfsr.fromTapsPositions(new int[]{9,11});
