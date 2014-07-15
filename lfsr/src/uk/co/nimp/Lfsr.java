@@ -38,9 +38,9 @@ public class Lfsr {
         return out;
     }
     /**
-     * Build the ARG_LFSR which generate a given bit sequence. See "Berlekamp-Massey algorithm"
+     * Build the LFSR which generate a given bit sequence. See "Berlekamp-Massey algorithm"
      * @param seq: a bit sequence with at least one bit set to 1
-     * @return the minimal ARG_LFSR to generate the seq
+     * @return the minimal LFSR to generate the seq
      */
     public static Lfsr fromSequence(boolean[] seq){
         int len = seq.length;
@@ -71,9 +71,11 @@ public class Lfsr {
             //System.out.println("sn:"+toBinaryString(sn)+" d:"+toBinaryString(d)+" t: "+toBinaryString(t)+" c:"+toBinaryString(c)+" l:"+l+" m:"+m+" b:"+toBinaryString(b)+" n:"+n);
         }
         if(l==0) l=seq.length;//corner cases: we simply store the whole sequence
-        Lfsr out = new Lfsr(c,l+1);
+        c = Z2.cloneRange(c,0,l+1);
+        //c = Z2.reverse(c);
+        Lfsr out = fromTaps(c);
         //System.out.println(out);
-        //set the state so that the ARG_LFSR start to generate the desired sequence
+        //set the state so that the LFSR start to generate the desired sequence
         /*for(int i=0;i<l-1;i++){
             out.state[i+1]=seq[i];
         }

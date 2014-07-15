@@ -162,6 +162,13 @@ public class Z2 {
         }
         return true;
     }
+    public static boolean equal(boolean[][] a, boolean[][] b){
+        if(a.length!=b.length) return false;
+        for(int i=0;i<a.length;i++) {
+            if (!Z2.equal(a[i], b[i])) return false;
+        }
+        return true;
+    }
     public static boolean[] xor(boolean[] a, boolean[] b){
         int len = Math.max(a.length,b.length);
         boolean[] out = new boolean[len];
@@ -368,7 +375,29 @@ public class Z2 {
         for(int i=0;i<tmp.size();i++) out[i]=tmp.get(i);
         return out;
     }
-
+    public static boolean[][] toBooleansArray(String in) {
+        String []lines = in.split("\n");
+        boolean[][] out = new boolean[lines.length][];
+        for(int line=0;line<lines.length;line++){
+            out[line]=Z2.toBooleans(lines[line]);
+        }
+        return out;
+    }
+    public static boolean toBoolean(int in){return in!=0;}
+    public static boolean[] toBooleans(int[] in) {
+        boolean[] out = new boolean[in.length];
+        for(int i=0;i<in.length;i++){
+            out[i] = Z2.toBoolean(in[i]);
+        }
+        return out;
+    }
+    public static boolean[][] toBooleansArray(int[][] in) {
+        boolean[][] out = new boolean[in.length][];
+        for(int i=0;i<in.length;i++){
+            out[i] = Z2.toBooleans(in[i]);
+        }
+        return out;
+    }
     public static boolean isGreater(boolean[] a, boolean[] b){
         int aMsbIndex = msbIndex(a);
         int bMsbIndex = msbIndex(b);
@@ -498,6 +527,9 @@ public class Z2 {
         if(Z2.equal(lx,Z2.ONE)) return false;
         return true;
     }
+    static boolean[] modExp(boolean[] gx,long exp, boolean[] moduli){
+        return modExp(gx,BigInteger.valueOf(exp),moduli);
+    }
 
     /**
      * Algorithm 2.227 Repeated square and multiply for exponentiation in Fp^m
@@ -507,6 +539,7 @@ public class Z2 {
      * @return (gx^exp) mod moduli in Z2
      */
     static boolean[] modExp(boolean[] gx,BigInteger exp, boolean[] moduli){
+        assert(exp.signum()>=0);
         BigInteger k = exp;
         boolean[] fx = moduli;
         boolean[] sx = Z2.ONE.clone();
@@ -612,6 +645,9 @@ public class Z2 {
         return out.substring(0,out.length()-1);
     }
 
+    public static boolean[][] rowEchelonMatrix(boolean[][] in){
+        return Z2.rowEchelonMatrix(in,in.length);
+    }
     /**
      * also called gaussian elimination
      * pseudo code
@@ -631,7 +667,7 @@ public class Z2 {
      * @param in
      * @return
      */
-    public static boolean[][] rowEchelonMatrix(boolean[][] in){
+    public static boolean[][] rowEchelonMatrix(boolean[][] in, int maxColumn){
         boolean[][] out = new boolean[in.length][];
         int nRows = in.length;
         int nColumns = in[0].length;
@@ -642,8 +678,8 @@ public class Z2 {
             }
         }
         int row=0;
-        for(int k=0;k<nColumns;k++){
-            System.out.println(Z2.toBinaryString(out)+"\n");
+        for(int k=0;k<maxColumn;k++){
+            //System.out.println(Z2.toBinaryString(out)+"\n");
             int iMax = -1;
             for(int i = row;i<nRows;i++){
                 if(out[i][k]) {
@@ -653,13 +689,13 @@ public class Z2 {
             }
             if(iMax==-1) continue;
             //if(!out[iMax][k]) continue;//throw new RuntimeException("Singular Matrix");
-            if(iMax!=k) {//swap
+            if(iMax>k) {//swap
                 boolean[] tmp = out[iMax];
                 out[iMax] = out[k];
                 out[k] = tmp;
             }
             //nullify other rows at column k
-            for(int i=0;i<nRows;i++){
+            for(int i=row;i<nRows;i++){
                 if(i==row) continue;
                 if(out[i][k]){
                     selfAdd(out[i],out[k],0);
@@ -668,5 +704,238 @@ public class Z2 {
             row++;
         }
         return out;
+    }
+    public static boolean[][] columnEchelonMatrix(boolean[][] in) {
+        return Z2.columnEchelonMatrix(in,in[0].length);
+    }
+    public static boolean[][] columnEchelonMatrix(boolean[][] in,int maxRow) {
+        boolean[][]out = Z2.transpose(in);
+        out = Z2.rowEchelonMatrix(out,maxRow);
+        return Z2.transpose(out);
+    }
+    public static boolean isColumnEchelonMatrix(boolean[][] in){
+        boolean[][] t = Z2.transpose(in);
+        return Z2.isRowEchelonMatrix(t);
+    }
+
+    public static boolean isRowEchelonMatrix(boolean[][] in){
+        boolean[][] out = new boolean[in.length][];
+        int nRows = in.length;
+        int nColumns = in[0].length;
+        int msColumn = 0;
+        for(int i=0;i<nRows;i++){
+            if(in[i].length!=nColumns) throw new RuntimeException("Malformed matrix: row "+i+" has length "+in[i].length+", expected "+nColumns);
+            for(int j=0;j<msColumn;j++){
+                if(in[i][j]) return false;
+            }
+            while((msColumn!=nColumns) && !in[i][msColumn]) {
+                msColumn++;
+            }
+        }
+
+        return true;
+    }
+    public static boolean[][] transpose(boolean[][]in){
+        int nRows = in.length;
+        int nColumns = in[0].length;
+        boolean[][] out = new boolean[nColumns][];
+        for(int j=0;j<nColumns;j++) out[j] = new boolean[nRows];
+        for(int i=0;i<nRows;i++){
+            for(int j=0;j<nColumns;j++){
+                out[j][i] = in[i][j];
+            }
+        }
+        return out;
+    }
+    public static boolean[][] rowAugment(boolean[][] hi,boolean[][]lo){
+        int nRows = hi.length+lo.length;
+        int nColumns = hi[0].length;
+        if(lo[0].length!=nColumns) throw new RuntimeException("Can't row augment a matrix with another one of different column dimension");
+        boolean[][]out = new boolean[nRows][];
+        for(int i=0;i<nRows;i++) out[i] = new boolean[nColumns];
+        for(int i=0;i<hi.length;i++){
+            for(int j=0;j<nColumns;j++){
+                out[i][j] = hi[i][j];
+            }
+        }
+        for(int i=0;i<lo.length;i++){
+            for(int j=0;j<nColumns;j++){
+                out[i+hi.length][j] = lo[i][j];
+            }
+        }
+        return out;
+    }
+    public static boolean[][] columnAugment(boolean[][] left,boolean[][]right){
+        int nRows = left.length;
+        int nColumns = left[0].length+right[0].length;
+        int leftColumns = left[0].length;
+        if(right.length!=nRows) throw new RuntimeException("Can't column augment a matrix with another one of different row dimension");
+        boolean[][]out = new boolean[nRows][];
+        for(int i=0;i<nRows;i++){
+            out[i] = new boolean[nColumns];
+            for(int j=0;j<leftColumns;j++){
+                out[i][j] = left[i][j];
+            }
+            for(int j=leftColumns;j<nColumns;j++){
+                out[i][j] = right[i][j-leftColumns];
+            }
+        }
+        return out;
+    }
+    public static boolean[][] identityMatrix(int dim){
+        boolean[][] out = new boolean[dim][];
+        for(int i = 0;i<dim;i++){
+            out[i] = new boolean[dim];
+            out[i][i] = true;
+        }
+        return out;
+    }
+    public static boolean[][] rowAugmentIdentity(boolean[][] in){
+        int nRows = in.length;
+        int nColumns = in[0].length;
+        if(nRows!=nColumns) throw new RuntimeException("Square matrix expected");
+        boolean[][] identity = Z2.identityMatrix(nRows);
+        return Z2.rowAugment(in,identity);
+    }
+    public static boolean[][] columnAugmentIdentity(boolean[][] in){
+        int nRows = in.length;
+        int nColumns = in[0].length;
+        if(nRows!=nColumns) throw new RuntimeException("Square matrix expected");
+        boolean[][] identity = Z2.identityMatrix(nRows);
+        return Z2.columnAugment(in,identity);
+    }
+    /**
+     * kernel basis given as columns
+     * @param in
+     * @return a matrix with each kernel basis in its column
+     */
+    public static boolean[][] matrixKernelBasisAsColumns(boolean[][]in){
+        int maxRow = in.length;
+        boolean[][] tmp = Z2.rowAugmentIdentity(in);
+        tmp = Z2.columnEchelonMatrix(tmp,maxRow);
+        int colOffset=0;
+        for(int i=0;i<maxRow;i++){
+            if(firstOneIndex(in[i])==-1) {
+                colOffset = i;
+                break;
+            }
+        }
+        boolean[][]out = copySubMatrix(tmp,maxRow,colOffset);
+        System.out.println(Z2.toBinaryString(out));
+        return out;
+    }
+
+    /**
+     * kernel basis given as rows
+     * @param in
+     * @return a matrix with each kernel basis in its row
+     */
+    public static boolean[][] matrixKernelBasis(boolean[][]in){
+        int maxColumn = in[0].length;
+        boolean[][] tmp = Z2.transpose(in);
+        tmp=Z2.columnAugmentIdentity(tmp);
+        //System.out.println(Z2.toBinaryString(tmp));
+
+        tmp = Z2.rowEchelonMatrix(tmp,maxColumn);
+        //System.out.println(Z2.toBinaryString(tmp));
+
+        int rowOffset=0;
+        for(int i=0;i<maxColumn;i++){
+            if(firstOneIndexInColumn(in,i)==-1) {
+                rowOffset = i;
+                break;
+            }
+        }
+        boolean[][]out = copySubMatrix(tmp,rowOffset,maxColumn);
+        //System.out.println(Z2.toBinaryString(out));
+        return out;
+    }
+
+    /**
+     * Algorithm 3.111: Berlekamp's Q-matrix algorithm
+     * @param in a square free monic polynomial of degree n in Fq[x]
+     * @return the factorization of in into monic irreducible polynomials
+     */
+    public static boolean[][] factorPolynomial(boolean[] in){
+        final int q=2;
+        int n = in.length-1;
+        boolean[][]Q = new boolean[n][];
+        for(int i=0;i<n;i++) Q[i] = new boolean[n];
+        for(int i=0;i<n;i++){
+            boolean[] p=Z2.modExp(Z2.X,i*q,in);
+            for(int j=0;j<p.length;j++) Q[n-1-j][n-1-i] = p[j];
+        }
+        System.out.println("Q matrix");
+        System.out.println(Z2.toBinaryString(Q));
+        boolean[][]qMinusI = Z2.xor(Q,Z2.identityMatrix(n));
+        boolean[][]qMinusI_echelon = Z2.rowEchelonMatrix(qMinusI);
+        System.out.println("Q minus I matrix in row echelon form:");
+        System.out.println(Z2.toBinaryString(qMinusI_echelon));
+        boolean[][]basis = matrixKernelBasis(qMinusI_echelon);
+        System.out.println("basis");
+        System.out.println(Z2.toBinaryString(basis));
+
+        return null;//TODO
+    }
+    public static boolean[][] xor(boolean[][] a,boolean[][] b){
+        final int nRows = a.length;
+        assert(nRows==b.length);
+        if(0==nRows) return new boolean[0][];
+        final int nColumns = a[0].length;
+        boolean [][]out = new boolean[nRows][];
+        for(int i=0;i<nRows;i++){
+            out[i]=new boolean[nColumns];
+            for(int j=0;j<nColumns;j++){
+                out[i][j] = a[i][j]^b[i][j];
+            }
+        }
+        return out;
+    }
+
+    public static boolean[][] copySubMatrix(boolean[][]in,int rowOffset,int colOffset) {
+        int nRows = in.length;
+        if(0==nRows) return new boolean[0][];
+        return copySubMatrix(in,rowOffset,colOffset,nRows-rowOffset,in[0].length-colOffset);
+    }
+    public static boolean[][] copySubMatrix(boolean[][]in,int rowOffset,int colOffset,int nRows) {
+        if(0==nRows) return new boolean[0][];
+        return copySubMatrix(in,rowOffset,colOffset,nRows,in[0].length-colOffset);
+    }
+    public static boolean[][] copySubMatrix(boolean[][]in,int rowOffset,int colOffset,int nRows, int nCols){
+        boolean[][] out = new boolean[nRows][];
+        for(int i = 0;i<nRows;i++){
+            out[i]=new boolean[nCols];
+            for(int j=0;j<nCols;j++){
+                out[i][j] = in[rowOffset+i][colOffset+j];
+            }
+        }
+        return out;
+    }
+
+    /**
+     * return the index of the least significant bit set to 1
+     * @param in
+     * @return index of the least significant bit set to 1
+     */
+    public static int firstOneIndex(boolean[] in){
+        for(int i = 0;i<in.length;i++) if(in[i]) return i;
+        return -1;
+    }
+
+    /**
+     * return the index of the least significant bit set to 1 in a column
+     * @param in
+     * @return index of the least significant bit set to 1 in column
+     */
+    public static int firstOneIndexInColumn(boolean[][] in,int column){
+        for(int i = 0;i<in[column].length;i++) if(in[column][i]) return i;
+        return -1;
+    }
+    public static boolean determinant2x2(boolean[][] in){
+        int nRows = in.length;
+        int nColumns = in[0].length;
+        assert(nRows==2);
+        assert(nColumns==2);
+        return (in[0][0]&in[1][1]) ^ (in[1][0]&in[0][1]);
     }
 }

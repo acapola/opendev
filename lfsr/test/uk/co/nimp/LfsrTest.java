@@ -137,5 +137,17 @@ public class LfsrTest {
         Lfsr dut = Lfsr.fromBinaryString("11001");
         String seq = Z2.toBinaryString(dut.sequence());
         assert("100011110101100".equals(seq));
+
+        /*//only valid for galois ?
+        boolean[] fx = Z2.polynomialToBooleans("x4+x3+1");
+        boolean[] s = Z2.ONE;
+        dut.setState(s);
+        assert(Z2.equalValue(s,dut.getState()));
+        for(int i=0;i<30;i++) {
+            dut.step();
+            s = Z2.mod(Z2.mul(s, Z2.X), fx);
+            System.out.println(Z2.toBinaryString(s)+", "+Z2.toBinaryString(dut.getState()));
+            assert (Z2.equalValue(s, dut.getState()));
+        }*/
     }
 }

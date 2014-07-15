@@ -7,30 +7,190 @@ import java.util.Random;
 
 public class Z2Test {
     @Test
-    public void testrowEchellonMatrix() throws Exception {
-        boolean[][] in = new boolean[][]{
-                {false, true, true,false,false},
-                { true, true,false,false,false},
-                { true,false, true, true,false},
-                { true, true,false, true,false},
-                { true, true,false,false,false}
-        };
-        boolean[][] expected = new boolean[][]{
-                { true,false, true,false,false},
-                {false, true, true,false,false},
-                {false,false,false, true,false},
-                {false,false,false,false,false},
-                {false,false,false,false,false}
-        };
-        System.out.println(Z2.toBinaryString(in)+"\n");
+    public void testMatrixKernelBasis() throws Exception {
+
+
+        assert (Z2.equal(Z2.matrixKernelBasisAsColumns(Z2.toBooleansArray(new int[][]{
+                        {1, 0, 1, 0, 0},
+                        {0, 1, 1, 0, 0},
+                        {0, 0, 0, 1, 0},
+                        {0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0}
+                }
+        )), Z2.toBooleansArray(new int[][]{
+                        {1, 0},
+                        {1, 0},
+                        {1, 0},
+                        {0, 0},
+                        {0, 1}
+                }
+        )));
+        assert (Z2.equal(Z2.matrixKernelBasis(Z2.toBooleansArray(new int[][]{
+                        {1, 0, 1, 0, 0},
+                        {0, 1, 1, 0, 0},
+                        {0, 0, 0, 1, 0},
+                        {0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0}
+                }
+        )),Z2.toBooleansArray(new int[][]{
+                        {1, 1, 1, 0, 0},
+                        {0, 0, 0, 0, 1}
+                }
+        )));
+    }
+
+    @Test
+    public void testFactorPolynomial() throws Exception {
+        /*
+(14:14) gp > a=(x^5+x^4+1)*Mod(1,2)
+%1 = Mod(1, 2)*x^5 + Mod(1, 2)*x^4 + Mod(1, 2)
+(14:15) gp > factor(a)
+%2 =
+[Mod(1, 2)*x^2 + Mod(1, 2)*x + Mod(1, 2) 1]
+
+[Mod(1, 2)*x^3 + Mod(1, 2)*x + Mod(1, 2) 1]
+         */
+        boolean[] a = Z2.polynomialToBooleans("x5+x4+1");
+        boolean[][] factors = Z2.factorPolynomial(a);
+        assert(Z2.equal(factors[0],Z2.polynomialToBooleans("x2+x+1")));
+        assert(Z2.equal(factors[1],Z2.polynomialToBooleans("x3+x+1")));
+    }
+
+    @Test
+    public void testTranspose() throws Exception {
+        assert (Z2.equal(Z2.transpose(Z2.toBooleansArray(
+                        "01100\n" +
+                        "11000\n" +
+                        "10110\n" +
+                        "11010\n" +
+                        "11000"
+        )),Z2.toBooleansArray(
+                        "01111\n" +
+                        "11011\n" +
+                        "10100\n" +
+                        "00110\n" +
+                        "00000"
+        )));
+        assert (Z2.equal(Z2.transpose(Z2.toBooleansArray(new int[][]{
+                        {1,0,0,0},
+                        {1,1,0,0},
+                        {0,1,1,0},
+                        {1,0,0,1}
+                }
+        )),Z2.toBooleansArray(new int[][]{
+                        {1,1,0,1},
+                        {0,1,1,0},
+                        {0,0,1,0},
+                        {0,0,0,1}
+        })));
+    }
+    @Test
+    public void testIsRowEchellonMatrix() throws Exception {
+        //non row echelon form matrix
+        assert(!Z2.isRowEchelonMatrix(Z2.toBooleansArray(
+                "01100\n"+
+                "11000\n"+
+                "10110\n"+
+                "11010\n"+
+                "11000"
+        )));
+        assert(!Z2.isRowEchelonMatrix(Z2.toBooleansArray(
+                "10101\n"+
+                "11011\n"+
+                "01111\n"+
+                "01001\n"+
+                "10111"
+        )));
+
+        //row echelon form matrix
+        assert(Z2.isRowEchelonMatrix(Z2.toBooleansArray(
+                        "10100\n"+
+                        "01100\n"+
+                        "00010\n"+
+                        "00000\n"+
+                        "00000"
+        )));
+        assert(Z2.isRowEchelonMatrix(Z2.toBooleansArray(
+                "10101\n"+
+                "01110\n"+
+                "00111\n"+
+                "00010\n"+
+                "00001"
+        )));
+    }
+    @Test
+    public void testIsColumnEchellonMatrix() throws Exception {
+        //non column echelon form matrix
+        assert(!Z2.isRowEchelonMatrix(Z2.toBooleansArray(new int[][]{
+                        {1,0,0,0},
+                        {1,1,0,0},
+                        {0,1,0,0},
+                        {1,0,0,1}
+                }
+        )));
+
+        //column echelon form matrix
+        assert(Z2.isColumnEchelonMatrix(Z2.toBooleansArray(new int[][]{
+                        {1,0,0,0},
+                        {1,1,0,0},
+                        {0,1,1,0},
+                        {1,0,0,1}
+                }
+        )));
+    }
+    @Test
+    public void testRowAugmentIdentity() throws Exception {
+        assert(Z2.equal(Z2.rowAugmentIdentity(Z2.toBooleansArray(new int[][]{
+                        {1,0,0,0},
+                        {1,1,0,0},
+                        {0,1,0,0},
+                        {1,0,0,1}
+                }
+        )),Z2.toBooleansArray(new int[][]{
+                        {1,0,0,0},
+                        {1,1,0,0},
+                        {0,1,0,0},
+                        {1,0,0,1},
+                        {1,0,0,0},
+                        {0,1,0,0},
+                        {0,0,1,0},
+                        {0,0,0,1}
+                }
+        )));
+    }
+
+    @Test
+    public void testRowEchellonMatrix() throws Exception {
+        boolean [][]in = Z2.toBooleansArray(
+                "01100\n"+
+                "11000\n"+
+                "10110\n"+
+                "11010\n"+
+                "11000"
+        );
+        //System.out.println(Z2.toBinaryString(in)+"\n");
 
         boolean[][] out = Z2.rowEchelonMatrix(in);
-        System.out.println(Z2.toBinaryString(in)+"\n");
-        System.out.println(Z2.toBinaryString(expected)+"\n");
-        System.out.println(Z2.toBinaryString(out)+"\n");
-        for(int i=0;i<in.length;i++){
-            assert(Z2.equal(out[i],expected[i]));
-        }
+        //System.out.println(Z2.toBinaryString(in)+"\n");
+        //System.out.println(Z2.toBinaryString(expected)+"\n");
+        //System.out.println(Z2.toBinaryString(out)+"\n");
+        assert(Z2.isRowEchelonMatrix(out));
+
+
+        in = Z2.toBooleansArray(
+                "10101\n"+
+                "11011\n"+
+                "01111\n"+
+                "01001\n"+
+                "10111"
+        );
+
+        out = Z2.rowEchelonMatrix(in);
+        //System.out.println(Z2.toBinaryString(in)+"\n");
+        //System.out.println(Z2.toBinaryString(expected)+"\n");
+        //System.out.println(Z2.toBinaryString(out)+"\n");
+        assert(Z2.isRowEchelonMatrix(out));
+
     }
 
     @Test
