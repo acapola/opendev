@@ -14,13 +14,33 @@ public class Z2Test {
         assert(Z2.equal(Z2.derivative(Z2.polynomialToBooleans("x4+x2+x+1")),Z2.polynomialToBooleans("1")));
         assert(Z2.equal(Z2.derivative(Z2.polynomialToBooleans("x5+x4+1")),Z2.polynomialToBooleans("x4")));
         assert(Z2.equal(Z2.derivative(Z2.polynomialToBooleans("x5+x4+x2+1")),Z2.polynomialToBooleans("x4")));
+        assert(Z2.equal(Z2.derivative(Z2.polynomialToBooleans("x5+x4+x2+x+1")),Z2.polynomialToBooleans("x4+1")));
+    }
 
+    static boolean checkSquareRoot(boolean[] in){
+        boolean[] square = Z2.mul(in,in);
+        boolean[] sqrt = Z2.squareRoot(square);
+        //System.out.println("square="+Z2.toPolynomial(square)+", sqrt="+Z2.toPolynomial(sqrt));
+        return Z2.equal(sqrt,in);
+    }
+
+    @Test
+    public void testSquareRoot() throws Exception {
+        assert(checkSquareRoot(Z2.polynomialToBooleans("0")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("1")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x+1")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x2")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x2+1")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x2+x+1")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x3")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x3+1")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x3+x+1")));
+        assert(checkSquareRoot(Z2.polynomialToBooleans("x3+x2+x+1")));
     }
 
     @Test
     public void testReducedRowEchelonMatrix() throws Exception {
-
-
         assert(Z2.equal(Z2.reducedRowEchelonMatrix(Z2.toBooleansArray(new int[][]{
                         {1,0,1,0,0,0,0,0,0,0},
                         {0,1,1,0,0,1,0,0,0,0},
@@ -163,13 +183,164 @@ public class Z2Test {
         //System.out.println("dbg=\n"+Z2.toBinaryString(dbg));
     }
 
+
     @Test
     public void testFactorPolynomial() throws Exception {
         boolean[] a;
         boolean[][] factors;
 
-        a = Z2.polynomialToBooleans("x6+x5+x4+x3+1");
+        a = Z2.polynomialToBooleans("1");
         factors = Z2.factorPolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 1);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("1")));
+
+        a = Z2.polynomialToBooleans("x");
+        factors = Z2.factorPolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 1);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x")));
+
+
+        a = Z2.polynomialToBooleans("x2");
+        factors = Z2.factorPolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 2);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x")));
+
+        a = Z2.polynomialToBooleans("x2+1");
+        factors = Z2.factorPolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 2);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x+1")));
+
+        a = Z2.polynomialToBooleans("x3");
+        factors = Z2.factorPolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 3);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x")));
+        assert (Z2.equalValue(factors[2], Z2.polynomialToBooleans("x")));
+
+        a = Z2.polynomialToBooleans("x17+x8+x3+1");
+        factors = Z2.factorPolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 5);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[2], Z2.polynomialToBooleans("x2+x+1")));
+        assert (Z2.equalValue(factors[3], Z2.polynomialToBooleans("x6+x5+x3+x2+1")));
+        assert (Z2.equalValue(factors[4], Z2.polynomialToBooleans("x7+x5+x3+x+1")));
+
+    }
+
+    @Test
+    public void testFactorToSquareFreePolynomial() throws Exception {
+        boolean[] a;
+        boolean[][] factors;
+
+        /*a = Z2.polynomialToBooleans("0");
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 1);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("0")));*/
+
+        a = Z2.polynomialToBooleans("1");
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 1);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("1")));
+
+        a = Z2.polynomialToBooleans("x");
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 1);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x")));
+
+
+        a = Z2.polynomialToBooleans("x2");
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 2);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x")));
+
+        a = Z2.polynomialToBooleans("x2+1");
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 2);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x+1")));
+
+        a = Z2.polynomialToBooleans("x3");
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 3);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x")));
+        assert (Z2.equalValue(factors[2], Z2.polynomialToBooleans("x")));
+
+        a = Z2.polynomialToBooleans("x4+1");
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 4);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[2], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[3], Z2.polynomialToBooleans("x+1")));
+
+        a = Z2.polynomialToBooleans("x17+1");
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 1);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x17+1")));
+
+
+        a = Z2.square(Z2.polynomialToBooleans("x17+1"));
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 2);
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x17+1")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x17+1")));
+
+        a = Z2.square(Z2.polynomialToBooleans("x17+x8+x3+1"));
+        factors = Z2.factorToSquareFreePolynomial(a);
+        //System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
+        assert (factors.length == 6);
+        boolean[] bigF=(Z2.mul(Z2.mul(
+                        Z2.polynomialToBooleans("x2+x+1"),
+                        Z2.polynomialToBooleans("x6+x5+x3+x2+1")),
+                Z2.polynomialToBooleans("x7+x5+x3+x+1")));
+        //System.out.println(Z2.toPolynomial(bigF));
+        assert (Z2.equalValue(factors[0], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[1], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[2], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[3], Z2.polynomialToBooleans("x+1")));
+        assert (Z2.equalValue(factors[4], bigF));
+        assert (Z2.equalValue(factors[5], bigF));
+
+        a = Z2.polynomialToBooleans("x17+x5+x4+1");
+        factors = Z2.factorPolynomial(a);
+        assert(factors.length==8);
+        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x+1")));
+        assert(Z2.equalValue(factors[2],Z2.polynomialToBooleans("x+1")));
+        assert(Z2.equalValue(factors[3],Z2.polynomialToBooleans("x+1")));
+        assert(Z2.equalValue(factors[4],Z2.polynomialToBooleans("x+1")));
+        assert(Z2.equalValue(factors[5],Z2.polynomialToBooleans("x3+x2+1")));
+        assert(Z2.equalValue(factors[6],Z2.polynomialToBooleans("x4+x+1")));
+        assert(Z2.equalValue(factors[7],Z2.polynomialToBooleans("x5+x3+1")));
+    }
+
+    @Test
+    public void testFactorSquareFreePolynomial() throws Exception {
+        boolean[] a;
+        boolean[][] factors;
+
+        a = Z2.polynomialToBooleans("x6+x5+x4+x3+1");
+        factors = Z2.factorSquareFreePolynomial(a);
         assert(factors.length==2);
         assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x2+x+1")));
         assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x4+x+1")));
@@ -186,7 +357,7 @@ public class Z2Test {
 [Mod(1, 2)*x^3 + Mod(1, 2)*x + Mod(1, 2) 1]
          */
         a = Z2.polynomialToBooleans("x5+x4+1");
-        factors = Z2.factorPolynomial(a);
+        factors = Z2.factorSquareFreePolynomial(a);
         assert(factors.length==2);
         assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x2+x+1")));
         assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x3+x+1")));
@@ -199,7 +370,7 @@ public class Z2Test {
 [Mod(1, 2)*x^5 + Mod(1, 2)*x^3 + Mod(1, 2) 1]
  */
         a = Z2.polynomialToBooleans("x5+x3+1");
-        factors = Z2.factorPolynomial(a);
+        factors = Z2.factorSquareFreePolynomial(a);
         assert(factors.length==1);
         assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x5+x3+1")));
 
@@ -211,7 +382,7 @@ public class Z2Test {
 [Mod(1, 2)*x^3 + Mod(1, 2)*x^2 + Mod(1, 2) 1]
  */
         a = Z2.polynomialToBooleans("x5+x+1");
-        factors = Z2.factorPolynomial(a);
+        factors = Z2.factorSquareFreePolynomial(a);
         assert(factors.length==2);
         assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x2+x+1")));
         assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x3+x2+1")));
@@ -224,7 +395,7 @@ public class Z2Test {
 [Mod(1, 2)*x^5 + Mod(1, 2)*x^3 + Mod(1, 2)*x^2 + Mod(1, 2)*x + Mod(1, 2) 1]
 */
         a = Z2.polynomialToBooleans("x6+x5+x4+1");
-        factors = Z2.factorPolynomial(a);
+        factors = Z2.factorSquareFreePolynomial(a);
         assert(factors.length==2);
         assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x+1")));
         assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x5+x3+x2+x+1")));
@@ -256,7 +427,7 @@ public class Z2Test {
             System.out.println("x"+i+"="+Z2.toPolynomial(xi)+" mod a --> "+Z2.toPolynomial(xiModa));
         }
 */
-        factors = Z2.factorPolynomial(a);
+        factors = Z2.factorSquareFreePolynomial(a);
         assert(factors.length==3);
         assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x+1")));
         assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x3+x2+1")));
@@ -273,17 +444,7 @@ public class Z2Test {
 
 [Mod(1, 2)*x^5 + Mod(1, 2)*x^3 + Mod(1, 2) 1]
  */
-        a = Z2.polynomialToBooleans("x17+x5+x4+1");
-        factors = Z2.factorPolynomial(a);
-/*        assert(factors.length==8);
-        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x+1")));
-        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x+1")));
-        assert(Z2.equalValue(factors[2],Z2.polynomialToBooleans("x+1")));
-        assert(Z2.equalValue(factors[3],Z2.polynomialToBooleans("x+1")));
-        assert(Z2.equalValue(factors[4],Z2.polynomialToBooleans("x+1")));
-        assert(Z2.equalValue(factors[5],Z2.polynomialToBooleans("x3+x2+1")));
-        assert(Z2.equalValue(factors[6],Z2.polynomialToBooleans("x4+x+1")));
-        assert(Z2.equalValue(factors[7],Z2.polynomialToBooleans("x5+x3+1")));*/
+
     }
 
     @Test

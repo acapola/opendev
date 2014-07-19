@@ -717,7 +717,7 @@ end function
     }
     public static boolean[][] columnEchelonMatrix(boolean[][] in,int maxRow) {
         boolean[][]out = Z2.transpose(in);
-        out = Z2.reducedRowEchelonMatrix(out,maxRow);
+        out = Z2.reducedRowEchelonMatrix(out, maxRow);
         return Z2.transpose(out);
     }
     public static boolean isColumnEchelonMatrix(boolean[][] in){
@@ -828,7 +828,7 @@ end function
             }
         }
         boolean[][]out = copySubMatrix(tmp,maxRow,colOffset);
-        System.out.println(Z2.toBinaryString(out));
+        //System.out.println(Z2.toBinaryString(out));
         return out;
     }
 
@@ -875,6 +875,14 @@ end function
         }
         return out;
     }
+    public static String[] toPolynomials(boolean[][] in){
+        String[] out=new String[in.length];
+        int i=0;
+        for(boolean[] term:in){
+            out[i++] = Z2.toPolynomial(term);
+        }
+        return out;
+    }
     static boolean[] mulBi(Collection<BigInteger> in){
         boolean[] out=Z2.ONE;
         for(BigInteger term:in){
@@ -892,6 +900,7 @@ end function
     }
     static String join(String[] terms,String separator){
         String out="";
+        if(terms.length==0) return "";
         for(int i=0;i<terms.length;i++){
             out+=terms[i]+separator;
         }
@@ -909,12 +918,110 @@ end function
         return out;
     }
 
-    /**
-     * Algorithm 3.111: Berlekamp's Q-matrix algorithm
-     * @param in a square free monic polynomial of degree n in Fq[x]
-     * @return the factorization of in into monic irreducible polynomials
-     */
-    public static boolean[][] factorPolynomial(boolean[] in){
+    public static boolean[][] factorPolynomial(boolean[] in) {
+        List<boolean[]> F=factorPolynomialList(in);
+        boolean[][] out = new boolean[F.size()][];
+        F.toArray(out);
+        //System.out.println("factors");
+        //System.out.println(Z2.toBinaryString(out));
+        return out;
+    }
+    public static List<boolean[]> factorPolynomialList(boolean[] in) {
+        List<boolean[]> out = new ArrayList<boolean[]>();
+        if(Z2.isOne(in)) {
+            out.add(Z2.ONE.clone());
+            return out;
+        }
+        List<boolean[]> squareFreeFactors = factorToSquareFreePolynomialList(in);
+
+        for(boolean[] factor:squareFreeFactors){
+            List<boolean[]> factors = Z2.factorSquareFreePolynomialList(factor);
+            out.addAll(factors);
+        }
+
+        Collections.sort(out,comparator);
+        return out;
+    }
+
+    public static boolean[][] factorToSquareFreePolynomial(boolean[] in) {
+        if(Z2.isOne(in)) {
+            boolean[][]out = new boolean[1][];
+            out[0]=Z2.ONE.clone();
+            return out;
+        }
+        List<boolean[]> F=factorToSquareFreePolynomialList(in);
+        boolean[][] out = new boolean[F.size()][];
+        F.toArray(out);
+        return out;
+    }
+    public static List<boolean[]> factorToSquareFreePolynomialList(boolean[] in) {
+        ArrayList<boolean[]> F = new ArrayList<boolean[]>();
+        int i=1;
+        boolean[] f=in;
+        boolean[] fd = Z2.derivative(f);
+        if(Z2.isZero(fd)){
+            f=Z2.squareRoot(f);
+            List<boolean[]> sqrtFactors = factorToSquareFreePolynomialList(f);
+            F.addAll(sqrtFactors);
+            F.addAll(sqrtFactors);
+        } else {
+            boolean[]gx=Z2.gcd(f,fd);
+            boolean[]hx=Z2.div(f,gx);
+            while(!Z2.isOne(hx)){
+                boolean[]hb=Z2.gcd(hx,gx);
+                boolean[]lx=Z2.div(hx,hb);
+                if(!Z2.isOne(lx))
+                    for(int j=0;j<i;j++) F.add(lx);
+                i++;
+                hx=hb;
+                gx=Z2.div(gx,hb);
+            }
+            if(!Z2.isOne(gx)){
+                gx=Z2.squareRoot(gx);
+                List<boolean[]> sqrtFactors = factorToSquareFreePolynomialList(gx);
+                F.addAll(sqrtFactors);
+                F.addAll(sqrtFactors);
+            }
+        }
+        Collections.sort(F,comparator);
+        return F;
+    }
+
+    public static boolean[] square(boolean[]in) {
+        /*int len = in.length;
+
+        boolean[] out = new boolean[in.length*2];
+        for(int i=0;i<in.length;i++){
+            out[2*i] = in[i];
+        }*/
+        //TODO
+
+        return Z2.mul(in,in);
+    }
+    public static boolean[] squareRoot(boolean[]in){
+        assert(Z2.isZero(Z2.derivative(in)));
+        boolean[] out = new boolean[(in.length+1)/2];
+        for(int i=0;i<in.length;i+=2){
+            out[i/2] = in[i];
+        }
+        return out;
+    }
+
+    public static boolean[][] factorSquareFreePolynomial(boolean[] in) {
+        List<boolean[]> F=factorSquareFreePolynomialList(in);
+        boolean[][] out = new boolean[F.size()][];
+        F.toArray(out);
+        //System.out.println("factors");
+        //System.out.println(Z2.toBinaryString(out));
+        return out;
+    }
+
+        /**
+         * Algorithm 3.111: Berlekamp's Q-matrix algorithm
+         * @param in a square free monic polynomial of degree n in Fq[x]
+         * @return the factorization of in into monic irreducible polynomials
+         */
+    public static List<boolean[]> factorSquareFreePolynomialList(boolean[] in){
         final int q=2;
         int n = in.length-1;
         boolean[][]Q = new boolean[n][];
@@ -933,16 +1040,12 @@ end function
         //System.out.println("basis");
         //System.out.println(Z2.toBinaryString(basis));
         Set<BigInteger> F = Z2.factorWithBasis(in,basis);
-        boolean[][] out = new boolean[F.size()][];
         ArrayList<boolean[]> tmpList = new ArrayList<boolean[]>();
         for(BigInteger f:F){
             tmpList.add(Z2.toBooleans(f));
         }
         Collections.sort(tmpList,comparator);
-        tmpList.toArray(out);
-        //System.out.println("factors");
-        //System.out.println(Z2.toBinaryString(out));
-        return out;
+        return tmpList;
     }
     //static String dbgLevel="";
     static Set<BigInteger> factorWithBasis(boolean[] hx,boolean[][]basis){
