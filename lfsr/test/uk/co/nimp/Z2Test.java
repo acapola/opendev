@@ -6,7 +6,39 @@ import java.io.File;
 import java.util.Random;
 
 public class Z2Test {
+
     @Test
+    public void testReducedRowEchelonMatrix() throws Exception {
+
+
+        assert(Z2.equal(Z2.reducedRowEchelonMatrix(Z2.toBooleansArray(new int[][]{
+                        {1,0,1,0,0,0,0,0,0,0},
+                        {0,1,1,0,0,1,0,0,0,0},
+                        {0,0,1,1,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,1,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,1,1,0,1,1,0,1,0,0},
+                        {1,0,0,0,0,0,1,0,0,0},
+                        {1,0,0,1,0,0,0,1,1,0},
+                        {0,1,0,0,0,0,0,0,1,0},
+                        {0,1,0,0,1,0,0,0,0,0}
+                }
+        )),Z2.toBooleansArray(new int[][]{
+                        {1,0,0,0,0,0,1,0,0,0},
+                        {0,1,0,0,0,0,0,0,1,0},
+                        {0,0,1,0,0,0,1,0,0,0},
+                        {0,0,0,1,0,0,1,0,0,0},
+                        {0,0,0,0,1,0,0,0,1,0},
+                        {0,0,0,0,0,1,1,0,1,0},
+                        {0,0,0,0,0,0,0,1,1,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0}
+                }
+        )));
+    }
+
+        @Test
     public void testMatrixKernelBasis() throws Exception {
 
 
@@ -25,6 +57,22 @@ public class Z2Test {
                         {0, 1}
                 }
         )));
+
+
+        /*assert (Z2.equal(Z2.matrixKernelBasis(Z2.toBooleansArray(new int[][]{
+                        {0, 0, 1, 0, 1},
+                        {0, 0, 1, 1, 0},
+                        {0, 1, 0, 0, 0},
+                        {0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0}
+                }
+        )),Z2.toBooleansArray(new int[][]{
+                        {0, 0, 1, 1, 1},
+                        {1, 0, 0, 0, 0}
+                }
+        )));*/
+
+
         assert (Z2.equal(Z2.matrixKernelBasis(Z2.toBooleansArray(new int[][]{
                         {1, 0, 1, 0, 0},
                         {0, 1, 1, 0, 0},
@@ -33,14 +81,35 @@ public class Z2Test {
                         {0, 0, 0, 0, 0}
                 }
         )),Z2.toBooleansArray(new int[][]{
-                        {1, 1, 1, 0, 0},
-                        {0, 0, 0, 0, 1}
+                        {0, 0, 1, 1, 1},
+                        {1, 0, 0, 0, 0}
                 }
         )));
+
+        boolean[][]dbg=Z2.matrixKernelBasis(Z2.toBooleansArray(new int[][]{
+                        {1, 1, 0, 1, 1},
+                        {0, 1, 1, 1, 1},
+                        {0, 0, 1, 1, 0},
+                        {0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0}
+                }
+        ));
+        System.out.println("dbg=\n"+Z2.toBinaryString(dbg));
     }
 
     @Test
     public void testFactorPolynomial() throws Exception {
+        boolean[] a;
+        boolean[][] factors;
+
+        a = Z2.polynomialToBooleans("x6+x5+x4+x3+1");
+        factors = Z2.factorPolynomial(a);
+        assert(factors.length==2);
+        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x2+x+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x4+x+1")));
+
+
+
         /*
 (14:14) gp > a=(x^5+x^4+1)*Mod(1,2)
 %1 = Mod(1, 2)*x^5 + Mod(1, 2)*x^4 + Mod(1, 2)
@@ -50,10 +119,111 @@ public class Z2Test {
 
 [Mod(1, 2)*x^3 + Mod(1, 2)*x + Mod(1, 2) 1]
          */
-        boolean[] a = Z2.polynomialToBooleans("x5+x4+1");
-        boolean[][] factors = Z2.factorPolynomial(a);
-        assert(Z2.equal(factors[0],Z2.polynomialToBooleans("x2+x+1")));
-        assert(Z2.equal(factors[1],Z2.polynomialToBooleans("x3+x+1")));
+        a = Z2.polynomialToBooleans("x5+x4+1");
+        factors = Z2.factorPolynomial(a);
+        assert(factors.length==2);
+        /*if(Z2.isGreater(factors[0],factors[1])){
+            boolean[] tmp = factors[0];
+            factors[0] = factors[1];
+            factors[1] = tmp;
+        }*/
+        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x2+x+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x3+x+1")));
+
+/*
+(23:37) gp > a=(x^5+x^3+1)*Mod(1,2)
+%6 = Mod(1, 2)*x^5 + Mod(1, 2)*x^3 + Mod(1, 2)
+(22:32) gp > factor(a)
+%7 =
+[Mod(1, 2)*x^5 + Mod(1, 2)*x^3 + Mod(1, 2) 1]
+ */
+//        a = Z2.polynomialToBooleans("x5+x3+1");
+//        factors = Z2.factorPolynomial(a);
+//        assert(factors.length==1);
+//        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x5+x3+1")));
+
+/*
+(22:35) gp > factor((x^5+x^1+1)*Mod(1,2))
+%9 =
+[  Mod(1, 2)*x^2 + Mod(1, 2)*x + Mod(1, 2) 1]
+
+[Mod(1, 2)*x^3 + Mod(1, 2)*x^2 + Mod(1, 2) 1]
+ */
+        a = Z2.polynomialToBooleans("x5+x+1");
+        factors = Z2.factorPolynomial(a);
+        assert(factors.length==2);
+        /*if(Z2.isGreater(factors[0],factors[1])){
+            boolean[] tmp = factors[0];
+            factors[0] = factors[1];
+            factors[1] = tmp;
+        }*/
+        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x2+x+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x3+x2+1")));
+
+/*
+(22:38) gp > factor((x^6+x^5+x^4+1)*Mod(1,2))
+%15 =
+[                                                Mod(1, 2)*x + Mod(1, 2) 1]
+
+[Mod(1, 2)*x^5 + Mod(1, 2)*x^3 + Mod(1, 2)*x^2 + Mod(1, 2)*x + Mod(1, 2) 1]
+*/
+        a = Z2.polynomialToBooleans("x6+x5+x4+1");
+        factors = Z2.factorPolynomial(a);
+        assert(factors.length==2);
+        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x5+x3+x2+x+1")));
+
+
+        boolean[] hx = Z2.polynomialToBooleans("1 + x + x2 + x4 ");
+        for(int i=0;i< 1<<10;i++){
+            boolean[] vi=Z2.toBooleans(i);
+            boolean[] gcd=Z2.gcd(hx,vi);
+            if((Z2.msbIndex(gcd)>=2) && (!Z2.equalValue(gcd,hx))){
+                System.out.println(Z2.toPolynomial(hx)+" factored by "+Z2.toPolynomial(gcd)+", found with basis "+Z2.toPolynomial(vi));
+            }
+        }
+
+/*
+        (22:40) gp > factor((x^10+x^5+x^4+1)*Mod(1,2))
+%17 =
+[                                                Mod(1, 2)*x + Mod(1, 2) 1]
+
+[                              Mod(1, 2)*x^3 + Mod(1, 2)*x^2 + Mod(1, 2) 1]
+
+[Mod(1, 2)*x^6 + Mod(1, 2)*x^4 + Mod(1, 2)*x^3 + Mod(1, 2)*x + Mod(1, 2) 1]
+*/
+        a = Z2.polynomialToBooleans("x10+x5+x4+1");
+        System.out.println("a="+Z2.toPolynomial(a));
+        for(int i=0;i< 2*10;i=i+2){
+            boolean[] xi=Z2.toBooleans(1<<i);
+            boolean[] xiModa=Z2.mod(xi,a);
+            System.out.println("x"+i+"="+Z2.toPolynomial(xi)+" mod a --> "+Z2.toPolynomial(xiModa));
+        }
+
+        factors = Z2.factorPolynomial(a);
+        assert(factors.length==3);
+        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x3+x2+1")));
+        assert(Z2.equalValue(factors[2],Z2.polynomialToBooleans("x6+x4+x3+x+1")));
+
+/*
+(22:38) gp > factor((x^17+x^5+x^4+1)*Mod(1,2))
+%16 =
+[                  Mod(1, 2)*x + Mod(1, 2) 5]
+
+[Mod(1, 2)*x^3 + Mod(1, 2)*x^2 + Mod(1, 2) 1]
+
+[  Mod(1, 2)*x^4 + Mod(1, 2)*x + Mod(1, 2) 1]
+
+[Mod(1, 2)*x^5 + Mod(1, 2)*x^3 + Mod(1, 2) 1]
+ */
+        a = Z2.polynomialToBooleans("x17+x5+x4+1");
+        factors = Z2.factorPolynomial(a);
+/*        assert(factors.length==4);
+        assert(Z2.equalValue(factors[0],Z2.polynomialToBooleans("x+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x3+x2+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x4+x+1")));
+        assert(Z2.equalValue(factors[1],Z2.polynomialToBooleans("x5+x3+1")));*/
     }
 
     @Test
@@ -191,6 +361,30 @@ public class Z2Test {
         //System.out.println(Z2.toBinaryString(out)+"\n");
         assert(Z2.isRowEchelonMatrix(out));
 
+
+        in = Z2.toBooleansArray(
+                "00000\n"+
+                "01100\n"+
+                "00111\n"+
+                "11011\n"+
+                "11110"
+        );
+        out = Z2.rowEchelonMatrix(in);
+        //System.out.println(Z2.toBinaryString(in)+"\n");
+        //System.out.println(Z2.toBinaryString(out)+"\n");
+        assert(Z2.isRowEchelonMatrix(out));
+
+        in = Z2.toBooleansArray(
+                "01111\n"+
+                "11011\n"+
+                "10100\n"+
+                "00110\n"+
+                "00000"
+        );
+        out = Z2.rowEchelonMatrix(in);
+        System.out.println(Z2.toBinaryString(in)+"\n");
+        System.out.println(Z2.toBinaryString(out)+"\n");
+        assert(Z2.isRowEchelonMatrix(out));
     }
 
     @Test

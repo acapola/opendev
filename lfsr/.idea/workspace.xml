@@ -11,8 +11,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/Hypotenuse.java" afterPath="$PROJECT_DIR$/src/util/Hypotenuse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LICENSE" afterPath="$PROJECT_DIR$/../LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" />
@@ -24,8 +22,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/gradle.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lfsr.iml" afterPath="$PROJECT_DIR$/lfsr.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/lfsr.iml" afterPath="$PROJECT_DIR$/.idea/lfsr.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/mamasync.iml" afterPath="$PROJECT_DIR$/../mamasync/mamasync.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/misc.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/modules.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/sample.fxml" afterPath="$PROJECT_DIR$/../mamasync/src/sample/sample.fxml" />
@@ -58,8 +56,8 @@
       <file leaf-file-name="Z2Test.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="9027" max-vertical-offset="9816">
-              <caret line="406" column="1" selection-start-line="406" selection-start-column="1" selection-end-line="406" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2075" max-vertical-offset="14472">
+              <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -108,13 +106,18 @@
       <file leaf-file-name="Z2.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8427762" vertical-offset="19661" max-vertical-offset="22032">
-              <caret line="873" column="60" selection-start-line="873" selection-start-column="60" selection-end-line="873" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.121522695" vertical-offset="21493" max-vertical-offset="26040">
+              <caret line="923" column="21" selection-start-line="923" selection-start-column="21" selection-end-line="923" selection-end-column="21" />
               <folding>
-                <element signature="e#23356#23357#0" expanded="true" />
-                <element signature="e#23412#23413#0" expanded="true" />
-                <element signature="e#25412#25413#0" expanded="true" />
-                <element signature="e#25474#25475#0" expanded="true" />
+                <element signature="e#6216#6217#0" expanded="true" />
+                <element signature="e#6249#6250#0" expanded="true" />
+                <element signature="e#21164#21165#0" expanded="true" />
+                <element signature="e#21215#21216#0" expanded="true" />
+                <element signature="e#25441#25442#0" expanded="true" />
+                <element signature="e#25497#25498#0" expanded="true" />
+                <element signature="e#27555#27556#0" expanded="true" />
+                <element signature="e#27617#27618#0" expanded="true" />
+                <element signature="e#35811#35823#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -168,9 +171,9 @@
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Scrambler_5_64.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
         <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
+        <option value="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
       </list>
     </option>
@@ -341,7 +344,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -729,13 +732,13 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3200371" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5055659" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -769,7 +772,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="30" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java</url>
+          <line>202</line>
+          <properties />
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="34" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -822,10 +833,15 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="18432" max-vertical-offset="18744">
           <caret line="768" column="19" selection-start-line="768" selection-start-column="19" selection-end-line="768" selection-end-column="19" />
           <folding>
-            <element signature="e#23356#23357#0" expanded="true" />
-            <element signature="e#23412#23413#0" expanded="true" />
-            <element signature="e#25412#25413#0" expanded="true" />
-            <element signature="e#25474#25475#0" expanded="true" />
+            <element signature="e#6216#6217#0" expanded="true" />
+            <element signature="e#6249#6250#0" expanded="true" />
+            <element signature="e#21164#21165#0" expanded="true" />
+            <element signature="e#21215#21216#0" expanded="true" />
+            <element signature="e#25441#25442#0" expanded="true" />
+            <element signature="e#25497#25498#0" expanded="true" />
+            <element signature="e#27555#27556#0" expanded="true" />
+            <element signature="e#27617#27618#0" expanded="true" />
+            <element signature="e#35811#35823#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -875,10 +891,15 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="5112" max-vertical-offset="13320">
           <caret line="213" column="112" selection-start-line="213" selection-start-column="52" selection-end-line="213" selection-end-column="112" />
           <folding>
-            <element signature="e#23356#23357#0" expanded="true" />
-            <element signature="e#23412#23413#0" expanded="true" />
-            <element signature="e#25412#25413#0" expanded="true" />
-            <element signature="e#25474#25475#0" expanded="true" />
+            <element signature="e#6216#6217#0" expanded="true" />
+            <element signature="e#6249#6250#0" expanded="true" />
+            <element signature="e#21164#21165#0" expanded="true" />
+            <element signature="e#21215#21216#0" expanded="true" />
+            <element signature="e#25441#25442#0" expanded="true" />
+            <element signature="e#25497#25498#0" expanded="true" />
+            <element signature="e#27555#27556#0" expanded="true" />
+            <element signature="e#27617#27618#0" expanded="true" />
+            <element signature="e#35811#35823#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -988,10 +1009,15 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="2496" max-vertical-offset="7968">
           <caret line="104" column="5" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
           <folding>
-            <element signature="e#23356#23357#0" expanded="true" />
-            <element signature="e#23412#23413#0" expanded="true" />
-            <element signature="e#25412#25413#0" expanded="true" />
-            <element signature="e#25474#25475#0" expanded="true" />
+            <element signature="e#6216#6217#0" expanded="true" />
+            <element signature="e#6249#6250#0" expanded="true" />
+            <element signature="e#21164#21165#0" expanded="true" />
+            <element signature="e#21215#21216#0" expanded="true" />
+            <element signature="e#25441#25442#0" expanded="true" />
+            <element signature="e#25497#25498#0" expanded="true" />
+            <element signature="e#27555#27556#0" expanded="true" />
+            <element signature="e#27617#27618#0" expanded="true" />
+            <element signature="e#35811#35823#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1140,23 +1166,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/runners/model/FrameworkMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1272">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="9027" max-vertical-offset="9816">
-          <caret line="406" column="1" selection-start-line="406" selection-start-column="1" selection-end-line="406" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2075" max-vertical-offset="14472">
+          <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8427762" vertical-offset="19661" max-vertical-offset="22032">
-          <caret line="873" column="60" selection-start-line="873" selection-start-column="60" selection-end-line="873" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.121522695" vertical-offset="21493" max-vertical-offset="26040">
+          <caret line="923" column="21" selection-start-line="923" selection-start-column="21" selection-end-line="923" selection-end-column="21" />
           <folding>
-            <element signature="e#23356#23357#0" expanded="true" />
-            <element signature="e#23412#23413#0" expanded="true" />
-            <element signature="e#25412#25413#0" expanded="true" />
-            <element signature="e#25474#25475#0" expanded="true" />
+            <element signature="e#6216#6217#0" expanded="true" />
+            <element signature="e#6249#6250#0" expanded="true" />
+            <element signature="e#21164#21165#0" expanded="true" />
+            <element signature="e#21215#21216#0" expanded="true" />
+            <element signature="e#25441#25442#0" expanded="true" />
+            <element signature="e#25497#25498#0" expanded="true" />
+            <element signature="e#27555#27556#0" expanded="true" />
+            <element signature="e#27617#27618#0" expanded="true" />
+            <element signature="e#35811#35823#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1221,7 +1260,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
