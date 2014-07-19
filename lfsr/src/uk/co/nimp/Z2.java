@@ -712,73 +712,12 @@ end function
         in[j] = tmp;
     }
 
-    public static boolean[][] rowEchelonMatrix(boolean[][] in){
-        return Z2.rowEchelonMatrix(in,in.length);
-    }
-    /**
-     * also called gaussian elimination
-     * pseudo code
-     * for k = 1 ... m:
-         Find pivot for column k:
-         i_max  := argmax (i = k ... m, abs(A[i, k]))
-         if A[i_max, k] = 0
-            error "Matrix is singular!"
-         swap rows(k, i_max)
-         Do for all rows below pivot:
-         for i = k + 1 ... m:
-             Do for all remaining elements in current row:
-             for j = k + 1 ... n:
-                A[i, j]  := A[i, j] - A[k, j] * (A[i, k] / A[k, k])
-             Fill lower triangular matrix with zeros:
-                A[i, k]  := 0
-     * @param in
-     * @return
-     */
-    public static boolean[][] rowEchelonMatrix(boolean[][] in, int maxColumn){
-    /*    boolean[][] out = new boolean[in.length][];
-        int nRows = in.length;
-        int nColumns = in[0].length;
-        for(int i=0;i<nRows;i++){
-            out[i] = new boolean[nColumns];
-            for(int j=0;j<nColumns;j++){
-                out[i][j]=in[i][j];
-            }
-        }
-        int row=0;
-        for(int k=0;k<maxColumn;k++){
-            //System.out.println(Z2.toBinaryString(out)+"\n");
-            int iMax = -1;
-            for(int i = row;i<nRows;i++){
-                if(out[i][k]) {
-                    iMax = i;
-                    break;//stop the loop here, as 1 is the maximum in Z2...
-                }
-            }
-            if(iMax==-1) continue;
-            //if(!out[iMax][k]) continue;//throw new RuntimeException("Singular Matrix");
-            if(iMax>k) {//swap
-                boolean[] tmp = out[iMax];
-                out[iMax] = out[k];
-                out[k] = tmp;
-            }
-            //nullify other rows at column k
-            for(int i=row;i<nRows;i++){
-                if(i==row) continue;
-                if(out[i][k]){
-                    selfAdd(out[i],out[k],0);
-                }
-            }
-            row++;
-        }
-        return out;*/
-        return reducedRowEchelonMatrix(in,maxColumn);
-    }
     public static boolean[][] columnEchelonMatrix(boolean[][] in) {
         return Z2.columnEchelonMatrix(in,in[0].length);
     }
     public static boolean[][] columnEchelonMatrix(boolean[][] in,int maxRow) {
         boolean[][]out = Z2.transpose(in);
-        out = Z2.rowEchelonMatrix(out,maxRow);
+        out = Z2.reducedRowEchelonMatrix(out,maxRow);
         return Z2.transpose(out);
     }
     public static boolean isColumnEchelonMatrix(boolean[][] in){
@@ -928,7 +867,7 @@ end function
         }
         return out;
     }
-    static String[] toPolynomials(Collection<boolean[]> in){
+    public static String[] toPolynomials(Collection<boolean[]> in){
         String[] out=new String[in.size()];
         int i=0;
         for(boolean[] term:in){
@@ -943,7 +882,7 @@ end function
         }
         return out;
     }
-    static String[] bigIntegersToPolynomials(Collection<BigInteger> in){
+    public static String[] bigIntegersToPolynomials(Collection<BigInteger> in){
         String[] out=new String[in.size()];
         int i=0;
         for(BigInteger term:in){
@@ -957,6 +896,17 @@ end function
             out+=terms[i]+separator;
         }
         return out.substring(0,out.length()-separator.length());
+    }
+
+    public static boolean[] derivative(boolean[] in){
+        int len = in.length-1;
+        if(len<=0) return Z2.ZERO.clone();
+        boolean[] out = new boolean[len];
+        for(int i=0;i<len;i++){
+            out[i]=in[i+1] & toBoolean((i+1)%2);
+        }
+        out=minimumLengthCopy(out);
+        return out;
     }
 
     /**
@@ -973,60 +923,55 @@ end function
             boolean[] p=Z2.modExp(Z2.X,i*q,in);
             for(int j=0;j<p.length;j++) Q[n-1-j][n-1-i] = p[j];
         }
-        //Q=Z2.transpose(Q);
-        System.out.println("Q matrix");
-        System.out.println(Z2.toBinaryString(Q));
+        //System.out.println("Q matrix");
+        //System.out.println(Z2.toBinaryString(Q));
         boolean[][]qMinusI = Z2.xor(Q,Z2.identityMatrix(n));
-        boolean[][]qMinusI_echelon = Z2.rowEchelonMatrix(qMinusI);
-        System.out.println("Q minus I matrix in row echelon form:");
-        System.out.println(Z2.toBinaryString(qMinusI_echelon));
+        boolean[][]qMinusI_echelon = Z2.reducedRowEchelonMatrix(qMinusI);
+        //System.out.println("Q minus I matrix in row echelon form:");
+        //System.out.println(Z2.toBinaryString(qMinusI_echelon));
         boolean[][]basis = matrixKernelBasis(qMinusI_echelon);
-        System.out.println("basis");
-        System.out.println(Z2.toBinaryString(basis));
+        //System.out.println("basis");
+        //System.out.println(Z2.toBinaryString(basis));
         Set<BigInteger> F = Z2.factorWithBasis(in,basis);
         boolean[][] out = new boolean[F.size()][];
         ArrayList<boolean[]> tmpList = new ArrayList<boolean[]>();
-        //tmpList.addAll(F);
         for(BigInteger f:F){
             tmpList.add(Z2.toBooleans(f));
         }
         Collections.sort(tmpList,comparator);
         tmpList.toArray(out);
-        System.out.println("factors");
-        System.out.println(Z2.toBinaryString(out));
+        //System.out.println("factors");
+        //System.out.println(Z2.toBinaryString(out));
         return out;
     }
-    static String dbgLevel="";
+    //static String dbgLevel="";
     static Set<BigInteger> factorWithBasis(boolean[] hx,boolean[][]basis){
-        dbgLevel+="\t";
-        HashSet<BigInteger> out = new HashSet<BigInteger>();//use BigInteger instead of boolean[] because boolean[] are added to the set even if they contain the same value (hash=reference)
+        //dbgLevel+="\t";
+        //use BigInteger instead of boolean[] because boolean[] are added to the set even if they contain the same value (hash=reference)
+        HashSet<BigInteger> out = new HashSet<BigInteger>();
         boolean replaced=false;
         for(int i=0;i<basis.length;i++){
-            System.out.println(dbgLevel+"vi: "+Z2.toPolynomial(basis[i]));
+            //System.out.println(dbgLevel+"vi: "+Z2.toPolynomial(basis[i]));
             if(Z2.isOne(basis[i])) continue;
             if(Z2.msbIndex(hx)>1) { //deg hx > 1
                 for (int alpha = 0; alpha < 2; alpha++) {
                     boolean[] viMinusAlpha = Z2.sub(basis[i], Z2.toBooleans(alpha));
                     boolean[] gcd = Z2.gcd(hx, viMinusAlpha);
                     if ((Z2.msbIndex(gcd) >= 1) && !Z2.equalValue(gcd,hx)){
-                        System.out.println(dbgLevel+Z2.toPolynomial(hx)+" factored by "+Z2.toPolynomial(gcd)+" (alpha="+alpha+")");
+                        //System.out.println(dbgLevel+Z2.toPolynomial(hx)+" factored by "+Z2.toPolynomial(gcd)+" (alpha="+alpha+")");
                         replaced = true;
-                        //out.add(gcd);
                         out.addAll(factorWithBasis(gcd,basis));
-                        //break;
                     }
                 }
             }
-            //if(replaced) break;
         }
         if(!replaced) {
-            System.out.println(dbgLevel+Z2.toPolynomial(hx)+" kept");
+            //System.out.println(dbgLevel+Z2.toPolynomial(hx)+" kept");
             out.add(Z2.booleansToBigInteger(hx));
         }
         boolean[] product = Z2.mulBi(out);
-        System.out.println(dbgLevel+"product="+Z2.toPolynomial(product)+", factors: "+Z2.join(Z2.bigIntegersToPolynomials(out),","));
+        //System.out.println(dbgLevel+"product="+Z2.toPolynomial(product)+", factors: "+Z2.join(Z2.bigIntegersToPolynomials(out),","));dbgLevel=dbgLevel.substring(0,dbgLevel.length()-1);
         assert(Z2.equalValue(product,hx));
-        dbgLevel=dbgLevel.substring(0,dbgLevel.length()-1);
         return out;
     }
     static class Z2Comparator implements Comparator<boolean[]>{
