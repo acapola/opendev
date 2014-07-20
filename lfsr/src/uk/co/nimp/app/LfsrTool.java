@@ -80,7 +80,8 @@ public class LfsrTool {
         runDemo(new String[]{ARG_LFSR_POLY,"1+x+x5",ARG_DISP_SEQ_STATES},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence and associated the states",i++);
         runDemo(new String[]{ARG_LFSR_POLY,"1+x3+x12",ARG_DISP_SEQ},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence without the states",i++);
         //runDemo(new String[]{ARG_SEQ_BINSTR,"110011010010101010111000101111010010010011010101110011011111010100101010"},"debug",i++);
-        //runDemo(new String[]{ARG_LFSR_POLY,"1+x42+x167"},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,"1+x+x6+x8+x9",ARG_DISP_SEQ_STATES},"debug",i++);
+
     }
     static void describeLfsr(Lfsr lfsr){
         describeLfsr(lfsr,false,false);
@@ -89,14 +90,31 @@ public class LfsrTool {
         System.out.println(tab+"Polynomial:     "+lfsr.getPolynomial());
         System.out.println(tab+"Fibonacci taps: "+lfsr.getTapsString());
         System.out.println(tab+"Initial state:  "+lfsr.getStateString());
-        String properties = "maximum length LFSR (sequence length is ";
+        String properties = "maximum length LFSR \n"+tab+"(sequence length is ";
         //long maxLength = ((1L<<lfsr.getWidth())-1L);
+
         BigInteger maxLength = BigInteger.ONE.shiftLeft(lfsr.getWidth()).subtract(BigInteger.ONE);
-        if(!lfsr.isMaximumLength()) properties = "non "+properties + "smaller than ";
-        properties += maxLength+")";
-        if(!lfsr.isMaximumLength()){
-            if(lfsr.isPolynomialIrreducible()) properties = "irreducible but not primitive, "+properties;
-            else properties = "reducible, "+properties;
+        if(lfsr.isMaximumLength()) {
+            properties += maxLength+")";
+        }else{
+            properties = "non "+properties;
+            if(lfsr.isPolynomialIrreducible()) {
+                properties = "irreducible but not primitive, "+properties;
+                Map<BigInteger,Integer> seqlength=lfsr.sequencesLength();
+                BigInteger len=null;
+                for(BigInteger l:seqlength.keySet()){
+                    len=l;
+                }
+                properties = properties+len+", "+seqlength.get(len)+" different sequences of that length)";
+            } else {
+                properties+= "smaller than "+maxLength+")";;
+            }
+        }
+
+        if(!lfsr.isPolynomialIrreducible()) {
+            properties = "reducible, " + properties;
+            boolean[][] factors = Z2.factorPolynomial(lfsr.getTaps());
+            properties += "\n"+tab+"Factors:\n"+tab+tab + Z2.join(Z2.toPolynomials(factors), "\n"+tab+tab);
         }
 
         if(lfsr.isSingular()) properties = "a singular, "+properties;

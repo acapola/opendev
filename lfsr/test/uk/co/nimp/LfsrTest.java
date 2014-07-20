@@ -2,7 +2,9 @@ package uk.co.nimp;
 
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Random;
 
 public class LfsrTest {
@@ -103,12 +105,12 @@ public class LfsrTest {
     @Test
     public void testIsMaximumLength() throws Exception {
         //reducible polynomials (since there is an even number of non zero terms, x+1 is a divisor):
-        assert(!Lfsr.fromPolynomial("1+x").isMaximumLength());
         assert(!Lfsr.fromPolynomial("1+x2").isMaximumLength());
         assert(!Lfsr.fromPolynomial("1+x2+x3+x7").isMaximumLength());
         assert(!Lfsr.fromPolynomial("1+x2+x4+x9").isMaximumLength());
 
         //irreducible polynomials:
+        assert(Lfsr.fromPolynomial("1+x").isMaximumLength());
         assert(Lfsr.fromPolynomial("1+x+x2").isMaximumLength());
         assert(Lfsr.fromPolynomial("1+x+x3").isMaximumLength());
         assert(Lfsr.fromPolynomial("1+x+x4").isMaximumLength());
@@ -149,5 +151,45 @@ public class LfsrTest {
             System.out.println(Z2.toBinaryString(s)+", "+Z2.toBinaryString(dut.getState()));
             assert (Z2.equalValue(s, dut.getState()));
         }*/
+    }
+
+    static void checkSequencesLengthEqual(String polynomial,int[][] expected){
+        Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
+        Map<BigInteger,Integer> actual=lfsr.sequencesLength();
+        System.out.println(polynomial+" -> "+actual);
+        assert(actual.size()==expected.length);
+        for(int i=0;i<expected.length;i++){
+            BigInteger len = BigInteger.valueOf(expected[i][0]);
+            assert(actual.containsKey(len));
+            assert(actual.get(len)==expected[i][1]);
+        }
+    }
+
+    @Test
+    public void testSequencesLength() throws Exception {
+        checkSequencesLengthEqual("1+x",new int[][]{{1,1}});//primitive
+        checkSequencesLengthEqual("1+x+x4",new int[][]{{15,1}});//primitive
+        //checkSequencesLengthEqual("1+x161+x167",new int[][]{{2^167-1,1}});//primitive
+        checkSequencesLengthEqual("1+x+x2+x3+x4",new int[][]{{5,3}});//irreducible
+        checkSequencesLengthEqual("1+x3+x12",new int[][]{{45,91}});//irreducible
+
+        checkSequencesLengthEqual("1+x2",new int[][]{{1,1},{2,1}});//(1+x)^2
+        checkSequencesLengthEqual("1+x+x2+x3",new int[][]{{1,1},{2,2},{4,1}});//(1+x)^3
+        checkSequencesLengthEqual("1+x4",new int[][]{{1,1},{2,1},{4,3}});//(1+x)^4
+        checkSequencesLengthEqual("1+x+x4+x5",new int[][]{{1,1},{2,1},{4,3},{8,2}});//(1+x)^5
+        checkSequencesLengthEqual("1+x2+x4+x6",new int[][]{{1,1},{2,1},{4,3},{8,6}});//(1+x)^6
+        checkSequencesLengthEqual("1+x+x2+x3+x4+x5+x6+x7",new int[][]{{1,1},{2,1},{4,3},{8,14}});//(1+x)^7
+
+        checkSequencesLengthEqual("1+x2+x4",new int[][]{{3,1},{6,2}});//(1+x+x2)^2
+        checkSequencesLengthEqual("1+x+x3+x4",new int[][]{{1,1},{2,1},{3,2},{6,1}});//(1+x)^2 * (1+x+x2)
+        checkSequencesLengthEqual("1+x2+x3+x4",new int[][]{{1,1},{7,4}});//(1+x)(1+x+x3)^2
+
+        checkSequencesLengthEqual("1+x3",     new int[][]{{1,1},{3,2}});             //(1+x)(1+x+x2)
+        checkSequencesLengthEqual("1+x+x2+x4",new int[][]{{1,1},{7,2}});             //(1+x)(1+x+x3)
+        checkSequencesLengthEqual("1+x4+x5",  new int[][]{{3,1},{7,1},{21,1}});      //(1+x+x2)(1+x+x3)
+        checkSequencesLengthEqual("1+x+x4+x6",new int[][]{{1,1},{3,2},{7,2},{21,2}});//(1+x)(1+x+x2)(1+x+x3)
+        checkSequencesLengthEqual("1+x+x6+x8+x9",new int[][]{{3,1},{7,1},{15,4},{21,1},{105,4}});//(1+x+x2)(1+x+x3)(1+x+x4)
+
+
     }
 }

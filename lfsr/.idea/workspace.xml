@@ -11,12 +11,15 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/Hypotenuse.java" afterPath="$PROJECT_DIR$/src/util/Hypotenuse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LICENSE" afterPath="$PROJECT_DIR$/../LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" />
@@ -28,7 +31,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/sample.fxml" afterPath="$PROJECT_DIR$/../mamasync/src/sample/sample.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/workspace.xml" />
     </list>
     <ignored path="lfsr.iws" />
@@ -55,8 +57,8 @@
       <file leaf-file-name="Z2Test.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="344" max-vertical-offset="18384">
-              <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5174" max-vertical-offset="18384">
+              <caret line="236" column="0" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -75,9 +77,15 @@
       <file leaf-file-name="Lfsr.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1776" max-vertical-offset="6408">
-              <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3095" max-vertical-offset="6792">
+              <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+              <folding>
+                <element signature="e#7052#7073#0" expanded="true" />
+                <element signature="e#8453#8454#0" expanded="true" />
+                <element signature="e#8491#8492#0" expanded="true" />
+                <element signature="e#10319#10320#0" expanded="true" />
+                <element signature="e#10354#10355#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,8 +93,8 @@
       <file leaf-file-name="LfsrTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3360" max-vertical-offset="3792">
-              <caret line="140" column="35" selection-start-line="140" selection-start-column="35" selection-end-line="140" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3952" max-vertical-offset="4680">
+              <caret line="190" column="123" selection-start-line="190" selection-start-column="99" selection-end-line="190" selection-end-column="123" />
               <folding />
             </state>
           </provider>
@@ -102,21 +110,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Z2.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Z2.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.03576751" vertical-offset="18768" max-vertical-offset="27048">
-              <caret line="813" column="7" selection-start-line="813" selection-start-column="7" selection-end-line="813" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="11136" max-vertical-offset="27096">
+              <caret line="484" column="46" selection-start-line="484" selection-start-column="46" selection-end-line="484" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LfsrTool.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="LfsrTool.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1608" max-vertical-offset="5328">
-              <caret line="67" column="75" selection-start-line="67" selection-start-column="75" selection-end-line="67" selection-end-column="75" />
+            <state vertical-scroll-proportion="0.24705882" vertical-offset="1680" max-vertical-offset="5400">
+              <caret line="92" column="58" selection-start-line="92" selection-start-column="58" selection-end-line="92" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -125,8 +133,8 @@
       <file leaf-file-name="MainHelpers.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1776" max-vertical-offset="2352">
-              <caret line="74" column="75" selection-start-line="74" selection-start-column="75" selection-end-line="74" selection-end-column="75" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2232">
+              <caret line="11" column="76" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -158,12 +166,12 @@
         <option value="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/ScramblerAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Scrambler_5_64.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
         <option value="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
+        <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
       </list>
     </option>
   </component>
@@ -361,7 +369,7 @@
       <recent name="uk.co.nimp.app" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Z2Test">
+  <component name="RunManager" selected="Application.LfsrTool">
     <configuration default="false" name="LfsrTool" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.co.nimp.app.LfsrTool" />
       <option name="VM_PARAMETERS" />
@@ -601,7 +609,13 @@
       </option>
       <envs />
       <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -727,7 +741,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3153989" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3320965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -761,7 +775,27 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="41" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java</url>
+          <line>206</line>
+          <properties />
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java</url>
+          <line>216</line>
+          <properties />
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java</url>
+          <line>200</line>
+          <properties />
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="44" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -805,7 +839,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4248" max-vertical-offset="6360">
           <caret line="177" column="68" selection-start-line="177" selection-start-column="68" selection-end-line="177" selection-end-column="68" />
-          <folding />
+          <folding>
+            <element signature="e#7052#7073#0" expanded="true" />
+            <element signature="e#8453#8454#0" expanded="true" />
+            <element signature="e#8491#8492#0" expanded="true" />
+            <element signature="e#10319#10320#0" expanded="true" />
+            <element signature="e#10354#10355#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -869,7 +909,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="5448" max-vertical-offset="5616">
           <caret line="227" column="1" selection-start-line="227" selection-start-column="1" selection-end-line="227" selection-end-column="1" />
-          <folding />
+          <folding>
+            <element signature="e#7052#7073#0" expanded="true" />
+            <element signature="e#8453#8454#0" expanded="true" />
+            <element signature="e#8491#8492#0" expanded="true" />
+            <element signature="e#10319#10320#0" expanded="true" />
+            <element signature="e#10354#10355#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -977,7 +1023,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="8568" max-vertical-offset="11352">
           <caret line="357" column="23" selection-start-line="357" selection-start-column="23" selection-end-line="357" selection-end-column="23" />
-          <folding />
+          <folding>
+            <element signature="e#7052#7073#0" expanded="true" />
+            <element signature="e#8453#8454#0" expanded="true" />
+            <element signature="e#8491#8492#0" expanded="true" />
+            <element signature="e#10319#10320#0" expanded="true" />
+            <element signature="e#10354#10355#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1092,38 +1144,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1466" max-vertical-offset="2232">
-          <caret line="74" column="75" selection-start-line="74" selection-start-column="75" selection-end-line="74" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1047" max-vertical-offset="5016">
-          <caret line="67" column="75" selection-start-line="67" selection-start-column="75" selection-end-line="67" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1347" max-vertical-offset="5832">
-          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2976" max-vertical-offset="3720">
-          <caret line="140" column="35" selection-start-line="140" selection-start-column="35" selection-end-line="140" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/runners/model/FrameworkMethod.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1272">
@@ -1143,22 +1163,59 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4305" max-vertical-offset="5016">
           <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="344" max-vertical-offset="18384">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5174" max-vertical-offset="18384">
+          <caret line="236" column="0" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03576751" vertical-offset="18768" max-vertical-offset="27048">
-          <caret line="813" column="7" selection-start-line="813" selection-start-column="7" selection-end-line="813" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="11136" max-vertical-offset="27096">
+          <caret line="484" column="46" selection-start-line="484" selection-start-column="46" selection-end-line="484" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3095" max-vertical-offset="6792">
+          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <folding>
+            <element signature="e#7052#7073#0" expanded="true" />
+            <element signature="e#8453#8454#0" expanded="true" />
+            <element signature="e#8491#8492#0" expanded="true" />
+            <element signature="e#10319#10320#0" expanded="true" />
+            <element signature="e#10354#10355#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3952" max-vertical-offset="4680">
+          <caret line="190" column="123" selection-start-line="190" selection-start-column="99" selection-end-line="190" selection-end-column="123" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2232">
+          <caret line="11" column="76" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24705882" vertical-offset="1680" max-vertical-offset="5400">
+          <caret line="92" column="58" selection-start-line="92" selection-start-column="58" selection-end-line="92" selection-end-column="58" />
           <folding />
         </state>
       </provider>

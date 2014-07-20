@@ -190,6 +190,42 @@ public class Lfsr {
                 ", "+properties+
                 '}';
     }
+
+    /**
+     * Compute the length of all sequences
+     * @return a Map associating the length of sequence and the number of occurence.
+     */
+    public Map<BigInteger,Integer> sequencesLength(){
+        TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger, Integer>();
+        BigInteger maxLength = BigInteger.ONE.shiftLeft(l).subtract(BigInteger.ONE);
+        if(isMaximumLength()){
+            out.put(maxLength,1);
+            return out;
+        }
+        boolean[] poly=getTaps();
+        if(isPolynomialIrreducible()){
+            BigInteger[] factors = PollardRho.factor(maxLength);
+            int nCombination = 1<<factors.length;
+            for(int i=1;i<nCombination;i++){
+                int candidate=1;
+                boolean[] selection=Z2.toBooleans(i);
+                for(int j=0;j<selection.length;j++){
+                    if(selection[j]) candidate=candidate*factors[j].intValue();
+                }
+                BigInteger checker = BigInteger.ONE.shiftLeft(candidate);
+                checker=checker.add(BigInteger.ONE);
+                boolean[] gcd = Z2.gcd(poly,Z2.toBooleans(checker));
+                if(Z2.equal(gcd,poly)){//gcd(x^k+1,poly)==poly ?
+                    BigInteger nSeq = maxLength.divide(BigInteger.valueOf(candidate));
+                    out.put(BigInteger.valueOf(candidate),nSeq.intValue());
+                    return out;
+                }
+            }
+        }else{
+
+        }
+        return out;
+    }
     public Set<boolean[]> sequences() {
         Set<boolean[]> out = sequences(false).keySet();
         return out;

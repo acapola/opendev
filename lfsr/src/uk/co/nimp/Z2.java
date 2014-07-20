@@ -479,8 +479,10 @@ public class Z2 {
      * @param fx
      * @return true if fx is irreducible over Z2
      */
+    static final boolean[] X_1 = new boolean[]{true,true};
     static boolean isIrreducible(boolean[] fx){
         assert(fx[fx.length-1] || equal(fx,Z2.ZERO));
+        if(Z2.equalValue(X_1,fx)) return true;
         int m = fx.length-1;
         boolean[] ux = X;
         for(int i=1;i<=(m+1)/2;i++){
@@ -898,7 +900,7 @@ end function
         }
         return out;
     }
-    static String join(String[] terms,String separator){
+    public static String join(String[] terms,String separator){
         String out="";
         if(terms.length==0) return "";
         for(int i=0;i<terms.length;i++){
