@@ -191,13 +191,17 @@ public class Lfsr {
                 '}';
     }
 
+    public static BigInteger polynomialDegreeToMaximumLength(int degree){
+        BigInteger maxLength = BigInteger.ONE.shiftLeft(degree).subtract(BigInteger.ONE);
+        return maxLength;
+    }
     /**
      * Compute the length of all sequences
      * @return a Map associating the length of sequence and the number of occurence.
      */
     public Map<BigInteger,Integer> sequencesLength(){
         TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger, Integer>();
-        BigInteger maxLength = BigInteger.ONE.shiftLeft(l).subtract(BigInteger.ONE);
+        BigInteger maxLength = polynomialDegreeToMaximumLength(l);
         if(isMaximumLength()){
             out.put(maxLength,1);
             return out;
@@ -207,25 +211,90 @@ public class Lfsr {
             BigInteger[] factors = PollardRho.factor(maxLength);
             int nCombination = 1<<factors.length;
             for(int i=1;i<nCombination;i++){
-                int candidate=1;
-                boolean[] selection=Z2.toBooleans(i);
-                for(int j=0;j<selection.length;j++){
-                    if(selection[j]) candidate=candidate*factors[j].intValue();
-                }
-                BigInteger checker = BigInteger.ONE.shiftLeft(candidate);
-                checker=checker.add(BigInteger.ONE);
-                boolean[] gcd = Z2.gcd(poly,Z2.toBooleans(checker));
-                if(Z2.equal(gcd,poly)){//gcd(x^k+1,poly)==poly ?
-                    BigInteger nSeq = maxLength.divide(BigInteger.valueOf(candidate));
-                    out.put(BigInteger.valueOf(candidate),nSeq.intValue());
-                    return out;
-                }
+                    BigInteger candidate = BigInteger.ONE;
+                    boolean[] selection = Z2.toBooleans(i);
+                    for (int j = 0; j < selection.length; j++) {
+                        if (selection[j]) candidate = candidate.multiply(factors[j]);
+                    }
+                    boolean[] checker = Z2.modExp(Z2.X,candidate,poly);
+                    if(Z2.isOne(checker)){
+                        BigInteger nSeq = maxLength.divide(candidate);
+                        out.put(candidate, nSeq.intValue());
+                        return out;
+                    }
+                /*
+                    //a very inefficient approach
+                    int candidate = 1;
+                    boolean[] selection = Z2.toBooleans(i);
+                    for (int j = 0; j < selection.length; j++) {
+                        if (selection[j]) candidate = candidate * factors[j].intValue();
+                    }
+                    BigInteger checker = BigInteger.ONE.shiftLeft(candidate);
+                    checker = checker.add(BigInteger.ONE);
+                    boolean[] gcd = Z2.gcd(poly, Z2.toBooleans(checker));
+                    if (Z2.equal(gcd, poly)) {//gcd(x^k+1,poly)==poly ?
+                        BigInteger nSeq = maxLength.divide(BigInteger.valueOf(candidate));
+                        out.put(BigInteger.valueOf(candidate), nSeq.intValue());
+                        return out;
+                    }
+                */
             }
         }else{
+            boolean[][]factors = Z2.factorPolynomial(poly);
 
+
+            if(factors.length==1) {
+                boolean[] root = factors[0];
+                if(Z2.isPrimitive(root)) {
+                    //power of primitive polynomials:
+                    throw new RuntimeException("sequencesLength called for a polynomial being a power of a primitive polynomial, case not implemented yet");
+
+                }else{
+                    throw new RuntimeException("sequencesLength called for a polynomial being a power of an irreducible polynomial, case not implemented yet");
+                }
+            } else {
+                Map<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();
+                int maxPower=0;
+                for(boolean[] f: factors){
+                    BigInteger fBi = Z2.booleansToBigInteger(f);
+                    int power = 1;
+                    if(factorsMap.containsKey(fBi)) power += factorsMap.get(fBi);
+                    factorsMap.put(fBi,power);
+                    maxPower = Math.max(maxPower,power);
+                }
+                if(1==maxPower) {
+                    //square free polynomials:
+                    BigInteger[] primitiveSeqLengths = new BigInteger[factors.length];
+                    for (int i = 0; i < factors.length; i++) {
+                        primitiveSeqLengths[i] = polynomialDegreeToMaximumLength(factors[i].length - 1);
+                    }
+                    int nCombination = 1 << factors.length;
+                    for (int i = 1; i < nCombination; i++) {
+                        boolean[] selection = Z2.toBooleans(i);
+                        int lsbIndex = Z2.lsbSetIndex(selection);
+                        BigInteger len = primitiveSeqLengths[lsbIndex];
+                        BigInteger product = len;
+                        for (int j = lsbIndex + 1; j < selection.length; j++) {
+                            if (selection[j]) {
+                                len = lcm(len, primitiveSeqLengths[j]);
+                                product = product.multiply(primitiveSeqLengths[j]);
+                            }
+                        }
+                        int nSeq = product.divide(len).intValue();
+                        if (out.containsKey(len)) out.put(len, out.get(len) + nSeq);
+                        else out.put(len, nSeq);
+                    }
+                }else{//general case: mix of powers of irreducible polynomials
+                    throw new RuntimeException("sequencesLength called for a polynomial being a mix of powers of irreducible polynomials, case not implemented yet");
+                }
+            }
         }
         return out;
     }
+    static BigInteger lcm(BigInteger a, BigInteger b){
+        return b.multiply(a.divide(a.gcd(b)));
+    }
+
     public Set<boolean[]> sequences() {
         Set<boolean[]> out = sequences(false).keySet();
         return out;

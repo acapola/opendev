@@ -9,7 +9,7 @@ import java.io.IOException;
  * Created by seb on 6/22/14.
  */
 public class MainHelpers {
-    public static String credits = "Written by Sebastien Riou, 20140720-133700";
+    public static String credits = "Written by Sebastien Riou, 20140723-004000";
     static String formatArg(String arg){
         return "-"+arg.substring(0,1).toLowerCase()+arg.substring(1);
     }

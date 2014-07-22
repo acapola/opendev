@@ -107,9 +107,15 @@ public class Z2 {
         return out;
     }
 
-    static int msbIndex(boolean[] in){
+    public static int msbIndex(boolean[] in){
         int i = in.length-1;
         while(i>0 && !in[i]) i--;
+        return i;
+    }
+    public static int lsbSetIndex(boolean[] in){
+        if(Z2.isZero(in)) return -1;
+        int i = 0;
+        while(i<in.length && !in[i]) i++;
         return i;
     }
     static boolean[] substitute(boolean[] in, boolean[][] sbox){
@@ -458,6 +464,59 @@ public class Z2 {
         if(in.length==0) return false;
         for(int i=1;i<in.length;i++) if(in[i]) return false;
         return in[0];
+    }
+    public static boolean[] pow(boolean[] in, int exp){//TODO: test
+        boolean[] out = in;
+        for(int i=1;i<exp;i++) out = Z2.mul(out,in);//TODO: optimize
+        return out;
+    }
+    public static boolean[] shiftLeft(boolean[]in,int shift){
+        boolean[]out = new boolean[in.length+shift];
+        for(int i=0;i<in.length;i++) out[i+shift]=in[i];
+        return out;
+    }
+
+    /**
+     * LCM of polynomials using formulae lcm(a,b) = product(pi_max(ei,fi)) where pi^ei is factors of a and pi^fi factors of b
+     * @param a
+     * @param b
+     * @return
+     */
+    static boolean[] lcm(boolean[] a, boolean[] b){//TODO: test, consider using formulae: lcm(a,b) = (a / gcd(a,b)) * b
+        if(Z2.isZero(a)||Z2.isZero(b)) return Z2.ZERO.clone();
+        if(Z2.isOne(a)) return b.clone();
+        if(Z2.isOne(b)) return a.clone();
+        List<boolean[]> aFactors = Z2.factorPolynomialList(a);
+        List<boolean[]> bFactors = Z2.factorPolynomialList(b);
+        Map<BigInteger,Integer> aFactorsMap = new HashMap<BigInteger,Integer>();
+        for(boolean[] f: aFactors){
+            BigInteger fBi = Z2.booleansToBigInteger(f);
+            if(aFactorsMap.containsKey(fBi)) aFactorsMap.put(fBi,aFactorsMap.get(fBi));
+            else aFactorsMap.put(fBi,1);
+        }
+        Map<BigInteger,Integer> bFactorsMap = new HashMap<BigInteger,Integer>();
+        for(boolean[] f: bFactors){
+            BigInteger fBi = Z2.booleansToBigInteger(f);
+            if(bFactorsMap.containsKey(fBi)) bFactorsMap.put(fBi,bFactorsMap.get(fBi));
+            else bFactorsMap.put(fBi,1);
+        }
+        boolean[] out=Z2.ONE;
+        for(BigInteger fBi: aFactorsMap.keySet()){
+            int pow = aFactorsMap.get(fBi);
+            if(bFactorsMap.containsKey(fBi)){
+                int bPow = bFactorsMap.get(fBi);
+                bFactorsMap.remove(fBi);
+                if(bPow>pow) pow = bPow;
+            }
+            boolean[]f=Z2.toBooleans(fBi);
+            out = Z2.mul(out,Z2.pow(f,pow));
+        }
+        for(BigInteger fBi: bFactorsMap.keySet()){
+            int pow = bFactorsMap.get(fBi);
+            boolean[]f=Z2.toBooleans(fBi);
+            out = Z2.mul(out,Z2.pow(f,pow));
+        }
+        return out;
     }
     static boolean[] gcd(boolean[] a, boolean[] b){
         assert(a[a.length-1] || equal(a,Z2.ZERO));assert(b[b.length-1] || equal(b,Z2.ZERO));

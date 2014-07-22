@@ -8,10 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static uk.co.nimp.app.MainHelpers.*;
 /**
@@ -80,7 +77,9 @@ public class LfsrTool {
         runDemo(new String[]{ARG_LFSR_POLY,"1+x+x5",ARG_DISP_SEQ_STATES},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence and associated the states",i++);
         runDemo(new String[]{ARG_LFSR_POLY,"1+x3+x12",ARG_DISP_SEQ},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence without the states",i++);
         //runDemo(new String[]{ARG_SEQ_BINSTR,"110011010010101010111000101111010010010011010101110011011111010100101010"},"debug",i++);
-        //runDemo(new String[]{ARG_LFSR_POLY,"1+x+x6+x8+x9",ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x"),17)),ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x"),15)),ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x"),16)),ARG_DISP_SEQ_STATES},"debug",i++);
 
     }
     static void describeLfsr(Lfsr lfsr){
@@ -125,6 +124,18 @@ public class LfsrTool {
             else {
                 Map<boolean[],boolean[][]> sequences = lfsr.sequences(dispSeqStates);
                 System.out.println(sequences.size()+" generated sequences:");
+                TreeMap<Integer,Integer> counts = new TreeMap <Integer,Integer>();
+                for(boolean[] seq: sequences.keySet()){
+                    int len = seq.length;
+                    if(counts.containsKey(len)) counts.put(len,counts.get(len)+1);
+                    else counts.put(len,1);
+                }
+                int sum=0;
+                for(int len:counts.keySet()){
+                    sum+=len*counts.get(len);
+                    System.out.println(tab+padTo(""+len,10)+" bits sequences: "+counts.get(len)+" occurences");
+                }
+                System.out.println(sum+" states in total\n");
                 for(boolean[] seq: sequences.keySet()){
                     System.out.println(tab+padTo(""+seq.length,4)+" outputs: "+Z2.toBinaryString(seq));
                     boolean[][] states = sequences.get(seq);

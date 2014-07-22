@@ -141,15 +141,15 @@ public class LfsrTest {
         assert("100011110101100".equals(seq));
 
         /*//only valid for galois ?
-        boolean[] fx = Z2.polynomialToBooleans("x4+x3+1");
-        boolean[] s = Z2.ONE;
-        dut.setState(s);
+        boolean[] fx = Z2.polynomialToBooleans("1+x+x4");
+        boolean[] s = Z2.shiftLeft(Z2.ONE,0);
+        dut.setState(Z2.ONE);
         assert(Z2.equalValue(s,dut.getState()));
         for(int i=0;i<30;i++) {
             dut.step();
             s = Z2.mod(Z2.mul(s, Z2.X), fx);
             System.out.println(Z2.toBinaryString(s)+", "+Z2.toBinaryString(dut.getState()));
-            assert (Z2.equalValue(s, dut.getState()));
+            //assert (Z2.equalValue(s, Z2.reverse(dut.getState())));
         }*/
     }
 
@@ -173,22 +173,47 @@ public class LfsrTest {
         checkSequencesLengthEqual("1+x+x2+x3+x4",new int[][]{{5,3}});//irreducible
         checkSequencesLengthEqual("1+x3+x12",new int[][]{{45,91}});//irreducible
 
-        checkSequencesLengthEqual("1+x2",new int[][]{{1,1},{2,1}});//(1+x)^2
-        checkSequencesLengthEqual("1+x+x2+x3",new int[][]{{1,1},{2,2},{4,1}});//(1+x)^3
-        checkSequencesLengthEqual("1+x4",new int[][]{{1,1},{2,1},{4,3}});//(1+x)^4
-        checkSequencesLengthEqual("1+x+x4+x5",new int[][]{{1,1},{2,1},{4,3},{8,2}});//(1+x)^5
-        checkSequencesLengthEqual("1+x2+x4+x6",new int[][]{{1,1},{2,1},{4,3},{8,6}});//(1+x)^6
-        checkSequencesLengthEqual("1+x+x2+x3+x4+x5+x6+x7",new int[][]{{1,1},{2,1},{4,3},{8,14}});//(1+x)^7
-
-        checkSequencesLengthEqual("1+x2+x4",new int[][]{{3,1},{6,2}});//(1+x+x2)^2
-        checkSequencesLengthEqual("1+x+x3+x4",new int[][]{{1,1},{2,1},{3,2},{6,1}});//(1+x)^2 * (1+x+x2)
-        checkSequencesLengthEqual("1+x2+x3+x4",new int[][]{{1,1},{7,4}});//(1+x)(1+x+x3)^2
-
+        //square free polynomials
         checkSequencesLengthEqual("1+x3",     new int[][]{{1,1},{3,2}});             //(1+x)(1+x+x2)
         checkSequencesLengthEqual("1+x+x2+x4",new int[][]{{1,1},{7,2}});             //(1+x)(1+x+x3)
         checkSequencesLengthEqual("1+x4+x5",  new int[][]{{3,1},{7,1},{21,1}});      //(1+x+x2)(1+x+x3)
         checkSequencesLengthEqual("1+x+x4+x6",new int[][]{{1,1},{3,2},{7,2},{21,2}});//(1+x)(1+x+x2)(1+x+x3)
         checkSequencesLengthEqual("1+x+x6+x8+x9",new int[][]{{3,1},{7,1},{15,4},{21,1},{105,4}});//(1+x+x2)(1+x+x3)(1+x+x4)
+        checkSequencesLengthEqual("1+x+x2+x3+x5+x9+x10+x13+x14",new int[][]{{3,1},{7,1},{15,4},{21,1},{31,1},{93,1},{105,4},{217,1},{465,4},{651,1},{3255,4}});//(1+x+x2)(1+x+x3)(1+x+x4)(1+x2+x5)
+
+        //powers of primitive
+        checkSequencesLengthEqual("1+x+x2",                                                new int[][]{{3,1}});//primitive
+        checkSequencesLengthEqual("1+x2+x4",                                               new int[][]{{3,1},{6,2}});//(1+x+x2)^2
+        checkSequencesLengthEqual("1+x+x3+x5+x6",                                          new int[][]{{3,1},{6,2},{12,4}});//(1+x+x2)^3
+        checkSequencesLengthEqual("1+x4+x8",                                               new int[][]{{3,1},{6,2},{12,20}});//(1+x+x2)^4
+        checkSequencesLengthEqual("1 + x + x2 + x4 + x5 + x6 + x8 + x9 + x10",             new int[][]{{3,1},{6,2},{12,20},{24,32}});//(1+x+x2)^5
+        checkSequencesLengthEqual("1 + x2 + x6 + x10 + x12",                               new int[][]{{3,1},{6,2},{12,20},{24,160}});//(1+x+x2)^6
+        checkSequencesLengthEqual("1 + x + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x13 + x14",new int[][]{{3,1},{6,2},{12,20},{24,672}});//(1+x+x2)^7
+        checkSequencesLengthEqual("1 + x8 + x16",                                          new int[][]{{3,1},{6,2},{12,20},{24,2720}});//(1+x+x2)^8
+        checkSequencesLengthEqual("1 + x + x2 + x8 + x9 + x10 + x16 + x17 + x18",          new int[][]{{3,1},{6,2},{12,20},{24,2720},{48,4096}});//(1+x+x2)^9
+
+        checkSequencesLengthEqual("1+x ",                 new int[][]{{1,1}});//primitive
+        checkSequencesLengthEqual("1+x2",                 new int[][]{{1,1},{2,1}});//(1+x)^2
+        checkSequencesLengthEqual("1+x+x2+x3",            new int[][]{{1,1},{2,1},{4,1}});//(1+x)^3
+        checkSequencesLengthEqual("1+x4",                 new int[][]{{1,1},{2,1},{4,3}});//(1+x)^4
+        checkSequencesLengthEqual("1+x+x4+x5",            new int[][]{{1,1},{2,1},{4,3},{8,2}});//(1+x)^5
+        checkSequencesLengthEqual("1+x2+x4+x6",           new int[][]{{1,1},{2,1},{4,3},{8,6}});//(1+x)^6
+        checkSequencesLengthEqual("1+x+x2+x3+x4+x5+x6+x7",new int[][]{{1,1},{2,1},{4,3},{8,14}});//(1+x)^7
+        checkSequencesLengthEqual("1 + x8",               new int[][]{{1,1},{2,1},{4,3},{8,30}});//(1+x)^8
+        checkSequencesLengthEqual("1 + x + x8 + x9",      new int[][]{{1,1},{2,1},{4,3},{8,30},{16,16}});//(1+x)^9
+        checkSequencesLengthEqual("1 + x2 + x8 + x10",    new int[][]{{1,1},{2,1},{4,3},{8,30},{16,48}});//(1+x)^10
+        //checkSequencesLengthEqual("1 + x2 + x8 + x10",    new int[][]{{1,1},{2,1},{4,3},{8,30},{16,48}});//(1+x)^11
+        //checkSequencesLengthEqual("1 + x2 + x8 + x10",    new int[][]{{1,1},{2,1},{4,3},{8,30},{16,48}});//(1+x)^12
+        checkSequencesLengthEqual("1+x+x4+x5+x8+x9+x12+x13",new int[][]{{1,1},{2,1},{4,3},{8,30},{16,496}});//(1+x)^13
+        //checkSequencesLengthEqual("1 + x2 + x8 + x10",    new int[][]{{1,1},{2,1},{4,3},{8,30},{16,48}});//(1+x)^14
+        //checkSequencesLengthEqual("1 + x2 + x8 + x10",    new int[][]{{1,1},{2,1},{4,3},{8,30},{16,48}});//(1+x)^15
+        checkSequencesLengthEqual("1 + x16",              new int[][]{{1,1},{2,1},{4,3},{8,30},{16,4080}});//(1+x)^16
+        checkSequencesLengthEqual("1 + x + x16 + x17",    new int[][]{{1,1},{2,1},{4,3},{8,30},{16,4080},{32,2048}});//(1+x)^16
+
+/*
+        checkSequencesLengthEqual("1+x+x3+x4",new int[][]{{1,1},{2,1},{3,2},{6,1}});//(1+x)^2 * (1+x+x2)
+        checkSequencesLengthEqual("1+x2+x3+x4",new int[][]{{1,1},{7,4}});//(1+x)(1+x+x3)^2
+*/
 
 
     }
