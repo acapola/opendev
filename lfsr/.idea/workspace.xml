@@ -19,7 +19,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" />
@@ -78,19 +77,19 @@
       <file leaf-file-name="Lfsr.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5376" max-vertical-offset="8496">
-              <caret line="250" column="0" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="6290" max-vertical-offset="9696">
+              <caret line="293" column="84" selection-start-line="293" selection-start-column="84" selection-end-line="293" selection-end-column="84" />
               <folding>
                 <element signature="e#3872#3873#0" expanded="true" />
                 <element signature="e#3900#3901#0" expanded="true" />
-                <element signature="e#7248#7269#0" expanded="true" />
-                <element signature="e#9858#9878#0" expanded="true" />
-                <element signature="e#11921#11922#0" expanded="true" />
-                <element signature="e#11974#11975#0" expanded="true" />
-                <element signature="e#12158#12159#0" expanded="true" />
-                <element signature="e#12196#12197#0" expanded="true" />
-                <element signature="e#14024#14025#0" expanded="true" />
-                <element signature="e#14059#14060#0" expanded="true" />
+                <element signature="e#9253#9274#0" expanded="true" />
+                <element signature="e#9848#9868#0" expanded="true" />
+                <element signature="e#14508#14509#0" expanded="true" />
+                <element signature="e#14561#14562#0" expanded="true" />
+                <element signature="e#14745#14746#0" expanded="true" />
+                <element signature="e#14783#14784#0" expanded="true" />
+                <element signature="e#16611#16612#0" expanded="true" />
+                <element signature="e#16646#16647#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,8 +98,8 @@
       <file leaf-file-name="LfsrTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4514" max-vertical-offset="5280">
-              <caret line="208" column="117" selection-start-line="208" selection-start-column="117" selection-end-line="208" selection-end-column="117" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4994" max-vertical-offset="5664">
+              <caret line="228" column="0" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -109,7 +108,7 @@
       <file leaf-file-name="HammingDistance.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2160" max-vertical-offset="3144">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="3024">
               <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
               <folding />
             </state>
@@ -119,8 +118,8 @@
       <file leaf-file-name="Z2.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="11330" max-vertical-offset="28512">
-              <caret line="496" column="8" selection-start-line="490" selection-start-column="8" selection-end-line="496" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="10776" max-vertical-offset="28512">
+              <caret line="466" column="5" selection-start-line="466" selection-start-column="5" selection-end-line="466" selection-end-column="5" />
               <folding>
                 <element signature="e#17940#17960#0" expanded="true" />
                 <element signature="e#18253#18273#0" expanded="true" />
@@ -132,10 +131,10 @@
       <file leaf-file-name="LfsrTool.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3000" max-vertical-offset="5736">
-              <caret line="138" column="16" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2930" max-vertical-offset="5784">
+              <caret line="138" column="42" selection-start-line="138" selection-start-column="42" selection-end-line="138" selection-end-column="42" />
               <folding>
-                <element signature="e#7720#7737#0" expanded="true" />
+                <element signature="e#7744#7761#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -145,7 +144,7 @@
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.3910387" vertical-offset="0" max-vertical-offset="2232">
-              <caret line="11" column="76" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
+              <caret line="11" column="71" selection-start-line="11" selection-start-column="71" selection-end-line="11" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -179,8 +178,8 @@
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Scrambler_5_64.java" />
         <option value="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
+        <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
       </list>
@@ -741,7 +740,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="37" width="2560" height="1215" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -752,7 +751,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5194805" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5194805" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -786,7 +785,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="47" />
+      <option name="time" value="49" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -799,7 +798,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1608" max-vertical-offset="5328">
           <caret line="67" column="75" selection-start-line="67" selection-start-column="75" selection-end-line="67" selection-end-column="75" />
           <folding>
-            <element signature="e#7720#7737#0" expanded="true" />
+            <element signature="e#7744#7761#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -835,14 +834,14 @@
           <folding>
             <element signature="e#3872#3873#0" expanded="true" />
             <element signature="e#3900#3901#0" expanded="true" />
-            <element signature="e#7248#7269#0" expanded="true" />
-            <element signature="e#9858#9878#0" expanded="true" />
-            <element signature="e#11921#11922#0" expanded="true" />
-            <element signature="e#11974#11975#0" expanded="true" />
-            <element signature="e#12158#12159#0" expanded="true" />
-            <element signature="e#12196#12197#0" expanded="true" />
-            <element signature="e#14024#14025#0" expanded="true" />
-            <element signature="e#14059#14060#0" expanded="true" />
+            <element signature="e#9253#9274#0" expanded="true" />
+            <element signature="e#9848#9868#0" expanded="true" />
+            <element signature="e#14508#14509#0" expanded="true" />
+            <element signature="e#14561#14562#0" expanded="true" />
+            <element signature="e#14745#14746#0" expanded="true" />
+            <element signature="e#14783#14784#0" expanded="true" />
+            <element signature="e#16611#16612#0" expanded="true" />
+            <element signature="e#16646#16647#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -879,7 +878,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1608" max-vertical-offset="5328">
           <caret line="67" column="75" selection-start-line="67" selection-start-column="75" selection-end-line="67" selection-end-column="75" />
           <folding>
-            <element signature="e#7720#7737#0" expanded="true" />
+            <element signature="e#7744#7761#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -915,14 +914,14 @@
           <folding>
             <element signature="e#3872#3873#0" expanded="true" />
             <element signature="e#3900#3901#0" expanded="true" />
-            <element signature="e#7248#7269#0" expanded="true" />
-            <element signature="e#9858#9878#0" expanded="true" />
-            <element signature="e#11921#11922#0" expanded="true" />
-            <element signature="e#11974#11975#0" expanded="true" />
-            <element signature="e#12158#12159#0" expanded="true" />
-            <element signature="e#12196#12197#0" expanded="true" />
-            <element signature="e#14024#14025#0" expanded="true" />
-            <element signature="e#14059#14060#0" expanded="true" />
+            <element signature="e#9253#9274#0" expanded="true" />
+            <element signature="e#9848#9868#0" expanded="true" />
+            <element signature="e#14508#14509#0" expanded="true" />
+            <element signature="e#14561#14562#0" expanded="true" />
+            <element signature="e#14745#14746#0" expanded="true" />
+            <element signature="e#14783#14784#0" expanded="true" />
+            <element signature="e#16611#16612#0" expanded="true" />
+            <element signature="e#16646#16647#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -972,7 +971,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4464">
           <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
           <folding>
-            <element signature="e#7720#7737#0" expanded="true" />
+            <element signature="e#7744#7761#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1039,14 +1038,14 @@
           <folding>
             <element signature="e#3872#3873#0" expanded="true" />
             <element signature="e#3900#3901#0" expanded="true" />
-            <element signature="e#7248#7269#0" expanded="true" />
-            <element signature="e#9858#9878#0" expanded="true" />
-            <element signature="e#11921#11922#0" expanded="true" />
-            <element signature="e#11974#11975#0" expanded="true" />
-            <element signature="e#12158#12159#0" expanded="true" />
-            <element signature="e#12196#12197#0" expanded="true" />
-            <element signature="e#14024#14025#0" expanded="true" />
-            <element signature="e#14059#14060#0" expanded="true" />
+            <element signature="e#9253#9274#0" expanded="true" />
+            <element signature="e#9848#9868#0" expanded="true" />
+            <element signature="e#14508#14509#0" expanded="true" />
+            <element signature="e#14561#14562#0" expanded="true" />
+            <element signature="e#14745#14746#0" expanded="true" />
+            <element signature="e#14783#14784#0" expanded="true" />
+            <element signature="e#16611#16612#0" expanded="true" />
+            <element signature="e#16646#16647#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1150,14 +1149,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1863" max-vertical-offset="3024">
-          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/runners/model/FrameworkMethod.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1272">
@@ -1198,8 +1189,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="11330" max-vertical-offset="28512">
-          <caret line="496" column="8" selection-start-line="490" selection-start-column="8" selection-end-line="496" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="10776" max-vertical-offset="28512">
+          <caret line="466" column="5" selection-start-line="466" selection-start-column="5" selection-end-line="466" selection-end-column="5" />
           <folding>
             <element signature="e#17940#17960#0" expanded="true" />
             <element signature="e#18253#18273#0" expanded="true" />
@@ -1207,39 +1198,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1863" max-vertical-offset="3024">
+          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5376" max-vertical-offset="8496">
-          <caret line="250" column="0" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="6290" max-vertical-offset="9696">
+          <caret line="293" column="84" selection-start-line="293" selection-start-column="84" selection-end-line="293" selection-end-column="84" />
           <folding>
             <element signature="e#3872#3873#0" expanded="true" />
             <element signature="e#3900#3901#0" expanded="true" />
-            <element signature="e#7248#7269#0" expanded="true" />
-            <element signature="e#9858#9878#0" expanded="true" />
-            <element signature="e#11921#11922#0" expanded="true" />
-            <element signature="e#11974#11975#0" expanded="true" />
-            <element signature="e#12158#12159#0" expanded="true" />
-            <element signature="e#12196#12197#0" expanded="true" />
-            <element signature="e#14024#14025#0" expanded="true" />
-            <element signature="e#14059#14060#0" expanded="true" />
+            <element signature="e#9253#9274#0" expanded="true" />
+            <element signature="e#9848#9868#0" expanded="true" />
+            <element signature="e#14508#14509#0" expanded="true" />
+            <element signature="e#14561#14562#0" expanded="true" />
+            <element signature="e#14745#14746#0" expanded="true" />
+            <element signature="e#14783#14784#0" expanded="true" />
+            <element signature="e#16611#16612#0" expanded="true" />
+            <element signature="e#16646#16647#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4514" max-vertical-offset="5280">
-          <caret line="208" column="117" selection-start-line="208" selection-start-column="117" selection-end-line="208" selection-end-column="117" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="4994" max-vertical-offset="5664">
+          <caret line="228" column="0" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3000" max-vertical-offset="5736">
-          <caret line="138" column="16" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2930" max-vertical-offset="5784">
+          <caret line="138" column="42" selection-start-line="138" selection-start-column="42" selection-end-line="138" selection-end-column="42" />
           <folding>
-            <element signature="e#7720#7737#0" expanded="true" />
+            <element signature="e#7744#7761#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1247,7 +1246,7 @@
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3910387" vertical-offset="0" max-vertical-offset="2232">
-          <caret line="11" column="76" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
+          <caret line="11" column="71" selection-start-line="11" selection-start-column="71" selection-end-line="11" selection-end-column="71" />
           <folding />
         </state>
       </provider>

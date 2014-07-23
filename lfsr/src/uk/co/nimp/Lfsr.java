@@ -195,33 +195,24 @@ public class Lfsr {
         BigInteger maxLength = BigInteger.ONE.shiftLeft(degree).subtract(BigInteger.ONE);
         return maxLength;
     }
-    /**
-     * Compute the length of all sequences
-     * @return a Map associating the length of sequence and the number of occurence.
-     */
-    public Map<BigInteger,Integer> sequencesLength(){
-        TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger, Integer>();
-        BigInteger maxLength = polynomialDegreeToMaximumLength(l);
-        if(isMaximumLength()){
-            out.put(maxLength,1);
-            return out;
-        }
-        boolean[] poly=getTaps();
-        if(isPolynomialIrreducible()){
-            BigInteger[] factors = PollardRho.factor(maxLength);
-            int nCombination = 1<<factors.length;
-            for(int i=1;i<nCombination;i++){
-                    BigInteger candidate = BigInteger.ONE;
-                    boolean[] selection = Z2.toBooleans(i);
-                    for (int j = 0; j < selection.length; j++) {
-                        if (selection[j]) candidate = candidate.multiply(factors[j]);
-                    }
-                    boolean[] checker = Z2.modExp(Z2.X,candidate,poly);
-                    if(Z2.isOne(checker)){
-                        BigInteger nSeq = maxLength.divide(candidate);
-                        out.put(candidate, nSeq.intValue());
-                        return out;
-                    }
+    static BigInteger irreduciblePolynomialSequencesLength(boolean[] polynomial){
+        //TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger,Integer>();
+        BigInteger maxLength=Lfsr.polynomialDegreeToMaximumLength(polynomial.length-1);
+        BigInteger[] factors = PollardRho.factor(maxLength);
+        int nCombination = 1<<factors.length;
+        for(int i=1;i<nCombination;i++){
+            BigInteger candidate = BigInteger.ONE;
+            boolean[] selection = Z2.toBooleans(i);
+            for (int j = 0; j < selection.length; j++) {
+                if (selection[j]) candidate = candidate.multiply(factors[j]);
+            }
+            boolean[] checker = Z2.modExp(Z2.X,candidate,polynomial);
+            if(Z2.isOne(checker)){
+                //BigInteger nSeq = maxLength.divide(candidate);
+                //out.put(candidate, nSeq.intValue());
+                //return out;
+                return candidate;
+            }
                 /*
                     //a very inefficient approach
                     int candidate = 1;
@@ -238,30 +229,89 @@ public class Lfsr {
                         return out;
                     }
                 */
-            }
+        }
+        if(Z2.isIrreducible(polynomial)) throw new RuntimeException("fatal internal error");
+        else throw new RuntimeException("polynomial is reducible");
+    }
+    /**
+     * Compute the length of all sequences
+     * @return a Map associating the length of sequence and the number of occurence.
+     */
+    public Map<BigInteger,Integer> sequencesLength(){
+        TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger, Integer>();
+        BigInteger maxLength = polynomialDegreeToMaximumLength(l);
+        if(isMaximumLength()){
+            out.put(maxLength,1);
+            return out;
+        }
+        boolean[] poly=getTaps();
+        if(isPolynomialIrreducible()){
+            BigInteger len=Lfsr.irreduciblePolynomialSequencesLength(poly);
+            BigInteger nSeq = maxLength.divide(len);
+            out.put(len, nSeq.intValue());
+            return out;
         }else{
             boolean[][]factors = Z2.factorPolynomial(poly);
+            Map<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();
+            int maxPower=0;
+            for(boolean[] f: factors){
+                BigInteger fBi = Z2.booleansToBigInteger(f);
+                int power = 1;
+                if(factorsMap.containsKey(fBi)) power += factorsMap.get(fBi);
+                factorsMap.put(fBi,power);
+                maxPower = Math.max(maxPower,power);
+            }
 
 
-            if(factors.length==1) {
+            if(factorsMap.size()==1) {
                 boolean[] root = factors[0];
+                int power = maxPower;
                 if(Z2.isPrimitive(root)) {
                     //power of primitive polynomials:
-                    throw new RuntimeException("sequencesLength called for a polynomial being a power of a primitive polynomial, case not implemented yet");
+                    //nLength = 1+nBits(pow-1)
+                    int nLengths = 1+Z2.bitWidth(power-1);
+                    BigInteger length=Lfsr.polynomialDegreeToMaximumLength(root.length-1);
+                    BigInteger sum=BigInteger.ZERO;
+                    BigInteger two = BigInteger.valueOf(2);
+                    for(int i=0;i<nLengths-1;i++){
+                        //example for poly degree 2:
+                        //i           0   1   2   3
+                        //targetSum   1   3   15  255
+                        BigInteger targetSum=Lfsr.polynomialDegreeToMaximumLength((root.length-1)*(1<<i));
+                        BigInteger delta = targetSum.subtract(sum);
+                        int occurences = delta.divide(length).intValue();
+                        out.put(length,occurences);
+                        sum=targetSum;
+                        length=length.multiply(two);
+                    }
+                    BigInteger delta = maxLength.subtract(sum);
+                    int occurences = delta.divide(length).intValue();
 
+                    out.put(length,occurences);
                 }else{
-                    throw new RuntimeException("sequencesLength called for a polynomial being a power of an irreducible polynomial, case not implemented yet");
+                    int nLengths = 1+Z2.bitWidth(power-1);
+
+                    BigInteger length=Lfsr.irreduciblePolynomialSequencesLength(root);
+                    BigInteger sum=BigInteger.ZERO;
+                    BigInteger two = BigInteger.valueOf(2);
+                    for(int i=0;i<nLengths-1;i++){
+                        //example for poly degree 2:
+                        //i           0   1   2   3
+                        //targetSum   1   3   15  255
+                        BigInteger targetSum=Lfsr.polynomialDegreeToMaximumLength((root.length-1)*(1<<i));
+                        BigInteger delta = targetSum.subtract(sum);
+                        int occurences = delta.divide(length).intValue();
+                        out.put(length,occurences);
+                        sum=targetSum;
+                        length=length.multiply(two);
+                    }
+                    BigInteger delta = maxLength.subtract(sum);
+                    int occurences = delta.divide(length).intValue();
+
+                    out.put(length,occurences);
+                    //throw new RuntimeException("sequencesLength called for a polynomial being a power of an irreducible polynomial, case not implemented yet");
                 }
             } else {
-                Map<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();
-                int maxPower=0;
-                for(boolean[] f: factors){
-                    BigInteger fBi = Z2.booleansToBigInteger(f);
-                    int power = 1;
-                    if(factorsMap.containsKey(fBi)) power += factorsMap.get(fBi);
-                    factorsMap.put(fBi,power);
-                    maxPower = Math.max(maxPower,power);
-                }
                 if(1==maxPower) {
                     //square free polynomials:
                     BigInteger[] primitiveSeqLengths = new BigInteger[factors.length];

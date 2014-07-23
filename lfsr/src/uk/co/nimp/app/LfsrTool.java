@@ -77,9 +77,9 @@ public class LfsrTool {
         runDemo(new String[]{ARG_LFSR_POLY,"1+x+x5",ARG_DISP_SEQ_STATES},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence and associated the states",i++);
         runDemo(new String[]{ARG_LFSR_POLY,"1+x3+x12",ARG_DISP_SEQ},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence without the states",i++);
         //runDemo(new String[]{ARG_SEQ_BINSTR,"110011010010101010111000101111010010010011010101110011011111010100101010"},"debug",i++);
-        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x"),17)),ARG_DISP_SEQ_STATES},"debug",i++);
-        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x"),15)),ARG_DISP_SEQ_STATES},"debug",i++);
-        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x"),16)),ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),5)),ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),6)),ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),7)),ARG_DISP_SEQ_STATES},"debug",i++);
 
     }
     static void describeLfsr(Lfsr lfsr){
@@ -136,15 +136,17 @@ public class LfsrTool {
                     System.out.println(tab+padTo(""+len,10)+" bits sequences: "+counts.get(len)+" occurences");
                 }
                 System.out.println(sum+" states in total\n");
-                for(boolean[] seq: sequences.keySet()){
-                    System.out.println(tab+padTo(""+seq.length,4)+" outputs: "+Z2.toBinaryString(seq));
-                    boolean[][] states = sequences.get(seq);
-                    if(dispSeqStates) {
-                        for (int i = 0; i < states.length; i++)
-                            System.out.println(tab + tab + Z2.toBinaryString(states[i]));
-                        System.out.println();
+                //if(sum<200) {//for debug
+                    for (boolean[] seq : sequences.keySet()) {
+                        System.out.println(tab + padTo("" + seq.length, 4) + " outputs: " + Z2.toBinaryString(seq));
+                        boolean[][] states = sequences.get(seq);
+                        if (dispSeqStates) {
+                            for (int i = 0; i < states.length; i++)
+                                System.out.println(tab + tab + Z2.toBinaryString(states[i]));
+                            System.out.println();
+                        }
                     }
-                }
+                //}
             }
         }
     }
