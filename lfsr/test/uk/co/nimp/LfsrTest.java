@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class LfsrTest {
 
@@ -140,23 +141,32 @@ public class LfsrTest {
         String seq = Z2.toBinaryString(dut.sequence());
         assert("100011110101100".equals(seq));
 
-        /*//only valid for galois ?
-        boolean[] fx = Z2.polynomialToBooleans("1+x+x4");
+        //only valid for galois ?
+        dut = Lfsr.fromPolynomial("1+x+x2+x5+x6");
+        int degree = dut.l;
+        System.out.println(dut.getPolynomial());
+        boolean[] dutSeq = dut.sequence(2*degree);
+        Lfsr dutReversed = Lfsr.fromSequence(Z2.reverse(dutSeq));
+        System.out.println(dutReversed.getPolynomial());
+
+        boolean[] fx = Z2.polynomialToBooleans(dut.getPolynomial());
         boolean[] s = Z2.shiftLeft(Z2.ONE,0);
-        dut.setState(Z2.ONE);
-        assert(Z2.equalValue(s,dut.getState()));
+        dutReversed.setState(Z2.ONE);
+        assert(Z2.equalValue(s,dutReversed.getState()));
         for(int i=0;i<30;i++) {
-            dut.step();
+            System.out.println(String.format("%2d",i)+": "+Z2.toBinaryString(Z2.cloneAndPad(s,degree))+", "+Z2.toBinaryString(dutReversed.getState())+" --> "+String.format("%25s, %25s",Z2.toPolynomial(s),Z2.toPolynomial(dutReversed.getState())));
+            dutReversed.step();
             s = Z2.mod(Z2.mul(s, Z2.X), fx);
-            System.out.println(Z2.toBinaryString(s)+", "+Z2.toBinaryString(dut.getState()));
-            //assert (Z2.equalValue(s, Z2.reverse(dut.getState())));
-        }*/
+
+            //assert (Z2.equalValue(s, Z2.reverse(dutReversed.getState())));
+        }
+
     }
 
     static void checkSequencesLengthEqual(String polynomial,int[][] expected){
         Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
         Map<BigInteger,Integer> actual=lfsr.sequencesLength();
-        System.out.println(polynomial+" -> "+actual);
+        //System.out.println(polynomial+" -> "+actual);
         assert(actual.size()==expected.length);
         for(int i=0;i<expected.length;i++){
             BigInteger len = BigInteger.valueOf(expected[i][0]);
@@ -226,11 +236,119 @@ public class LfsrTest {
         checkSequencesLengthEqual("1 + x4 + x8 + x12 + x16",         new int[][]{{5,3},{10,24},{20,3264}});//(1+x+x2+x3+x4)^4
         checkSequencesLengthEqual("1 + x + x2 + x3 + x5 + x6 + x7 + x9 + x10 + x11 + x13 + x14 + x15 + x17 + x18 + x19 + x20",
                                                                      new int[][]{{5,3},{10,24},{20,3264},{40,24576}});//(1+x+x2+x3+x4)^5
+
+        checkSequencesLengthEqual("1+x ",                 new int[][]{{1,1}});//primitive
+        checkSequencesLengthEqual("1+x2",                 new int[][]{{1,1},{2,1}});//(1+x)^2
+        checkSequencesLengthEqual("1+x+x3",               new int[][]{{7,1}});//primitive
+        checkSequencesLengthEqual("1+x2+x6",              new int[][]{{7,1},{14,4}});//(1+x+x3)^2
+        checkSequencesLengthEqual("1+x+x2+x4",            new int[][]{{1,1},{7,2}});//(1+x)(1+x+x3)
 /*
-        checkSequencesLengthEqual("1+x+x3+x4",new int[][]{{1,1},{2,1},{3,2},{6,1}});//(1+x)^2 * (1+x+x2)
-        checkSequencesLengthEqual("1+x2+x3+x4",new int[][]{{1,1},{7,4}});//(1+x)(1+x+x3)^2
+        checkSequencesLengthEqual("1 + x + x2 + x5",          new int[][]{{1,1},{2,1},{7,2},{14,1}});//(1+x)^2*(1+x+x3)
+        checkSequencesLengthEqual("1 + x + x2 + x3 + x6 + x7",new int[][]{{1,1},{7,2},{14,8}});//(1+x)(1+x+x3)^2
+
+
+
+        checkSequencesLengthEqual("1+x3",                 new int[][]{{1,1},{3,2}});             //(1+x)(1+x+x2)
+        //to check
+        checkSequencesLengthEqual("1+x+x3+x4",new int[][]{{1,1},{2,1},{3,2},{6,1}});//(1+x)^2 * (1+x+x2)-->{1,1},{2,1} , {3,1}
 */
+    }
+    
+    void checkReversedSequenceLfsr(String polynomial){
+        Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
+        Lfsr reversed = lfsr.reversedSequenceLfsr();
+        System.out.println("\n"+polynomial);
+        Set<boolean[]> seqs=Z2.rotateToMinValue(lfsr.sequences());
+        Set<boolean[]> rseqs=Z2.rotateToMinValue(reversed.sequences());
+        System.out.println(lfsr.getPolynomial()+": "+lfsr.isPolynomialPrimitive()+", "+lfsr.isPolynomialIrreducible());
+        System.out.println(reversed.getPolynomial() + ": " + reversed.isPolynomialPrimitive() + ", " + reversed.isPolynomialIrreducible());
+        assert(seqs.size()==rseqs.size());
+
+        boolean match=false;
+        for(boolean[] seq:seqs){
+            boolean[] rs = Z2.reverse(seq);
+            match=false;
+            for(boolean[] rseq:rseqs) {
+                if (Z2.equal(rseq,rs)) {
+                    match=true;
+                    break;
+                } else {
+                    System.out.println("\t"+Z2.toBinaryString(rseq)+ " does not match");
+                }
+            }
+            if(!match) {
+                System.out.println("\t"+Z2.toBinaryString(rs)+ " cannot be found");
+            }
+        }
+        System.out.flush();
+        assert(match);
+    }
+    
+    @Test
+    public void testReversedSequenceLfsr() throws Exception {
+        checkReversedSequenceLfsr("1+x");//primitive
+        checkReversedSequenceLfsr("1+x+x3");//primitive
+        checkReversedSequenceLfsr("1+x2+x3");//primitive
+        checkReversedSequenceLfsr("1+x+x4");//primitive
+        checkReversedSequenceLfsr("1+x3+x4");//primitive
+        checkReversedSequenceLfsr("1+x+x2+x3+x4");//irreducible
+        checkReversedSequenceLfsr("1+x3+x12");//irreducible
+
+        //square free polynomials
+        checkReversedSequenceLfsr("1+x3");             //(1+x)(1+x+x2)
+        checkReversedSequenceLfsr("1+x+x2+x4");             //(1+x)(1+x+x3)
+        checkReversedSequenceLfsr("1+x4+x5");      //(1+x+x2)(1+x+x3)
+        checkReversedSequenceLfsr("1+x+x4+x6");//(1+x)(1+x+x2)(1+x+x3)
+        checkReversedSequenceLfsr("1+x+x6+x8+x9");//(1+x+x2)(1+x+x3)(1+x+x4)
+        checkReversedSequenceLfsr("1+x+x2+x3+x5+x9+x10+x13+x14");//(1+x+x2)(1+x+x3)(1+x+x4)(1+x2+x5)
+
+        //powers of primitive
+        checkReversedSequenceLfsr("1+x+x2");//primitive
+        checkReversedSequenceLfsr("1+x2+x4");//(1+x+x2)^2
+        checkReversedSequenceLfsr("1+x+x3+x5+x6");//(1+x+x2)^3
+        checkReversedSequenceLfsr("1+x4+x8");//(1+x+x2)^4
+        checkReversedSequenceLfsr("1 + x + x2 + x4 + x5 + x6 + x8 + x9 + x10");//(1+x+x2)^5
+        checkReversedSequenceLfsr("1 + x2 + x6 + x10 + x12");//(1+x+x2)^6
+        checkReversedSequenceLfsr("1 + x + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x13 + x14");//(1+x+x2)^7
+        checkReversedSequenceLfsr("1 + x8 + x16");//(1+x+x2)^8
+
+        checkReversedSequenceLfsr("1+x ");//primitive
+        checkReversedSequenceLfsr("1+x2");//(1+x)^2
+        checkReversedSequenceLfsr("1+x+x2+x3");//(1+x)^3
+        checkReversedSequenceLfsr("1+x4");//(1+x)^4
+        checkReversedSequenceLfsr("1+x+x4+x5");//(1+x)^5
+        checkReversedSequenceLfsr("1+x2+x4+x6");//(1+x)^6
+        checkReversedSequenceLfsr("1+x+x2+x3+x4+x5+x6+x7");//(1+x)^7
+        checkReversedSequenceLfsr("1 + x8");//(1+x)^8
+        checkReversedSequenceLfsr("1 + x + x8 + x9");//(1+x)^9
+        checkReversedSequenceLfsr("1 + x2 + x8 + x10");//(1+x)^10
+        checkReversedSequenceLfsr("1+x+x4+x5+x8+x9+x12+x13");//(1+x)^13
+        checkReversedSequenceLfsr("1 + x16");//(1+x)^16
+        checkReversedSequenceLfsr("1 + x + x16 + x17");//(1+x)^16
+
+        checkReversedSequenceLfsr("1+x3+x4");//primitive
+        checkReversedSequenceLfsr("1 + x6 + x8");//(1+x3+x4)^2
+        checkReversedSequenceLfsr("1 + x3 + x4 + x6 + x8 + x9 + x10 + x11 + x12");//(1+x3+x4)^3
+        checkReversedSequenceLfsr("1 + x12 + x16");//(1+x3+x4)^4
 
 
+        //powers of irreducibles
+        checkReversedSequenceLfsr("1+x+x2+x3+x4");//irreducible
+        checkReversedSequenceLfsr("1+x2+x4+x6+x8");//(1+x+x2+x3+x4)^2
+        checkReversedSequenceLfsr("1 + x + x4 + x6 + x8 + x11 + x12");//(1+x+x2+x3+x4)^3
+        checkReversedSequenceLfsr("1 + x4 + x8 + x12 + x16");//(1+x+x2+x3+x4)^4
+
+        checkReversedSequenceLfsr("1+x ");//primitive
+        checkReversedSequenceLfsr("1+x2");//(1+x)^2
+        checkReversedSequenceLfsr("1+x+x3");//primitive
+        checkReversedSequenceLfsr("1+x2+x6");//(1+x+x3)^2
+        checkReversedSequenceLfsr("1+x+x2+x4");//(1+x)(1+x+x3)
+/*
+        checkReversedSequenceLfsr("1 + x + x2 + x5");//(1+x)^2*(1+x+x3)
+        checkReversedSequenceLfsr("1 + x + x2 + x3 + x6 + x7");//(1+x)(1+x+x3)^2
+
+        checkReversedSequenceLfsr("1+x3");
+        checkReversedSequenceLfsr("1+x+x3+x4");
+*/
     }
 }

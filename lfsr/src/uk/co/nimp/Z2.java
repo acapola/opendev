@@ -98,12 +98,18 @@ public class Z2 {
         }
     }
     static void copy(boolean[] src,boolean[] dst){System.arraycopy(src,0,dst,0,src.length);}
-    static boolean[] clone(boolean[] src) {
+    /*static boolean[] clone(boolean[] src) {
         return cloneRange(src,0,src.length);
-    }
+    }*/
+
     public static boolean[] cloneRange(boolean[] src, int offset, int length){
         boolean[] out = new boolean[length];
         System.arraycopy(src,offset,out,0,length);
+        return out;
+    }
+    public static boolean[] cloneAndPad(boolean[] src, int length){
+        boolean[] out = new boolean[length];
+        System.arraycopy(src,0,out,0,src.length);
         return out;
     }
 
@@ -211,7 +217,7 @@ public class Z2 {
             out = Z2.minimumLengthCopy(out);
         return out;
     }
-    static boolean[] mul(boolean[] a, boolean[] b){
+    public static boolean[] mul(boolean[] a, boolean[] b){
         assert(a[a.length-1] || equal(a,Z2.ZERO));assert(b[b.length-1] || equal(b,Z2.ZERO));
         boolean[] out = new boolean[a.length+b.length-1];
         for(int i=0;i<a.length;i++){
@@ -475,6 +481,30 @@ public class Z2 {
         for(int i=0;i<in.length;i++) out[i+shift]=in[i];
         return out;
     }
+    public static boolean[] rotateLeft(boolean[]in,int shift){
+        boolean[]out = new boolean[in.length];
+        for(int i=0;i<in.length;i++) out[(i+shift)%in.length]=in[i];
+        return out;
+    }
+    public static boolean[] rotateToMinValue(boolean[]in){
+        boolean[] minValue = in.clone();
+        boolean[] candidate = in;
+        for(int i=0;i<in.length;i++){
+            candidate=Z2.rotateLeft(candidate,1);
+            if(Z2.isGreater(minValue,candidate)){
+                minValue=candidate;
+            }
+        }
+        return minValue;
+    }
+    public static Set<boolean[]> rotateToMinValue(Set<boolean[]>in){
+        HashSet<boolean[]> out = new HashSet<boolean[]>(in.size());
+        for(boolean[] i:in){
+            out.add(Z2.rotateToMinValue(i));
+        }
+        return out;
+    }
+
 
     /**
      * LCM of polynomials using formulae lcm(a,b) = product(pi_max(ei,fi)) where pi^ei is factors of a and pi^fi factors of b

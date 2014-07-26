@@ -719,7 +719,6 @@ public class Z2Test {
     @Test
     public void testIsIrreducible() throws Exception {
         //reducible polynomials (since there is an even number of non zero terms, x+1 is a divisor):
-        assert(!Z2.isIrreducible(Z2.polynomialToBooleans("1+x")));
         assert(!Z2.isIrreducible(Z2.polynomialToBooleans("1+x2")));
         assert(!Z2.isIrreducible(Z2.polynomialToBooleans("1+x2+x3+x7")));
         assert(!Z2.isIrreducible(Z2.polynomialToBooleans("1+x2+x4+x9")));
@@ -727,6 +726,7 @@ public class Z2Test {
         //assert(!Z2.isIrreducible(Z2.toBooleans("1001001100101011011111010110111110000")));
 
         //irreducible polynomials:
+        assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x")));
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x+x2")));
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x+x3")));
         assert(Z2.isIrreducible(Z2.polynomialToBooleans("1+x+x4")));
@@ -741,7 +741,6 @@ public class Z2Test {
     @Test
     public void testIsPrimitive() throws Exception {
         //reducible polynomials (since there is an even number of non zero terms, x+1 is a divisor):
-        assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x")));
         assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x2")));
         assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x2+x3+x7")));
         assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x2+x4+x9")));
@@ -750,6 +749,7 @@ public class Z2Test {
         assert(!Z2.isPrimitive(Z2.polynomialToBooleans("1+x3+x12")));
 
         //primitive polynomials:
+        assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x")));
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x2")));
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x3")));
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x+x4")));

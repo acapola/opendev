@@ -14,6 +14,11 @@ public class Lfsr {
     final boolean [] nullState;
     boolean[] state;//stage0, stage1, ...,stage L-1.
 
+    /**
+     * Gives the width in bits of the state of the LFSR.
+     * This is also the degree of the polynomial
+     * @return the width in bits of the state of the LFSR
+     */
     public int getWidth() {
         return l;
     }
@@ -34,8 +39,18 @@ public class Lfsr {
             state[i-1]=state[i];
         }
         state[l-1]=sj;
+        //boolean[] poly=getTaps();
+        //state = Z2.mod(Z2.shiftLeft(state, 1), poly);
         //System.out.println(getStateString());
         return out;
+    }
+
+    /**
+     * An LFSR which generate the same sequence but in reversed order
+     * @return
+     */
+    public Lfsr reversedSequenceLfsr(){
+        return new Lfsr(Z2.reverse(getTaps()),l+1);
     }
     /**
      * Build the LFSR which generate a given bit sequence. See "Berlekamp-Massey algorithm"

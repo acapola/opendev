@@ -77,9 +77,11 @@ public class LfsrTool {
         runDemo(new String[]{ARG_LFSR_POLY,"1+x+x5",ARG_DISP_SEQ_STATES},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence and associated the states",i++);
         runDemo(new String[]{ARG_LFSR_POLY,"1+x3+x12",ARG_DISP_SEQ},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence without the states",i++);
         //runDemo(new String[]{ARG_SEQ_BINSTR,"110011010010101010111000101111010010010011010101110011011111010100101010"},"debug",i++);
-        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),5)),ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x3"),2)),ARG_DISP_SEQ_STATES},"debug",i++);
         //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),6)),ARG_DISP_SEQ_STATES},"debug",i++);
         //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),7)),ARG_DISP_SEQ_STATES},"debug",i++);
+        runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.mul(Z2.pow(Z2.polynomialToBooleans("1+x+x3"),2),Z2.polynomialToBooleans("1+x"))),ARG_DISP_SEQ_STATES},"debug",i++);
+        runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.mul(Z2.pow(Z2.polynomialToBooleans("1+x"),2),Z2.polynomialToBooleans("1+x+x3"))),ARG_DISP_SEQ_STATES},"debug",i++);
 
     }
     static void describeLfsr(Lfsr lfsr){
