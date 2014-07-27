@@ -11,8 +11,37 @@ public class Lfsr {
     //follow conventions from handbook of applied crypto by menezes,oorschot and vanstone, figure 6.4
     final boolean[] taps;//cL,...,c2,c1 (1 is implicit)
     final int l;//the width of the ARG_LFSR (max period is therefore 2^l - 1)
-    final boolean [] nullState;
+    boolean [] nullState;
     boolean[] state;//stage0, stage1, ...,stage L-1.
+    boolean invertOutput;
+    enum LfsrStepMode {
+        FIBONACCI,
+        FIBONACCI_XNOR,
+        GALOIS,
+        GALOIS_XNOR,
+        MODMUL
+    }
+
+    LfsrStepMode mode;
+    public Lfsr setMode(LfsrStepMode mode){
+        this.mode=mode;
+        switch(mode){
+            case FIBONACCI_XNOR:
+            case GALOIS_XNOR:
+                Arrays.fill(nullState, true);
+                break;
+            default:
+                Arrays.fill(nullState,false);
+        }
+        if(Z2.equal(nullState,state)){
+            state=Z2.complement(state);
+        }
+        return this;
+    }
+    public Lfsr setInvertOutput(boolean invertOutput){
+        this.invertOutput=invertOutput;
+        return this;
+    }
 
     /**
      * Gives the width in bits of the state of the LFSR.
@@ -29,35 +58,94 @@ public class Lfsr {
         nullState = new boolean[l];
         state = new boolean[l];
         state[0]=true;
+        mode=LfsrStepMode.FIBONACCI;
+        invertOutput=false;
     }
     public boolean step(){
-        //System.out.print(getTapsString()+" "+getStateString()+"->");
+        boolean out = false;
+        switch(mode){
+            case FIBONACCI:out=stepXor();break;
+            case FIBONACCI_XNOR:out=stepXnor();break;
+            case MODMUL:out=stepModMul();break;
+            case GALOIS:out=stepGalois();break;
+            case GALOIS_XNOR:out=stepGaloisXnor();
+        }
+        out = out ^ invertOutput;
+        return out;
+    }
+    public boolean stepXor(){
         boolean out = state[0];
         boolean sj=taps[0] & state[0];
         for(int i=1;i<l;i++){
-            sj ^= taps[i] & state[i];
+            sj ^= (taps[i] & state[i]);
             state[i-1]=state[i];
         }
         state[l-1]=sj;
-        //boolean[] poly=getTaps();
-        //state = Z2.mod(Z2.shiftLeft(state, 1), poly);
-        //System.out.println(getStateString());
+        return out;
+    }
+    public boolean stepXnor(){
+        boolean out = state[0];
+        boolean sj=taps[0] & state[0];
+        for(int i=1;i<l;i++){
+            sj ^= !(taps[i] & state[i]);
+            state[i-1]=state[i];
+        }
+        state[l-1]=sj;
+        return out;
+    }
+    public boolean stepGalois(){
+        boolean out = state[0];
+        boolean s0= state[0];
+        for(int i=1;i<l;i++){
+            state[i-1]=state[i] ^ (taps[i] & s0);
+        }
+        state[l-1]=s0;
+        return out;
+    }
+    public boolean stepGaloisXnor(){
+        boolean out = state[0];
+        boolean s0= state[0];
+        for(int i=1;i<l;i++){
+            state[i-1]=state[i] ^ (taps[i] & !s0);
+        }
+        state[l-1]=s0;
+        return out;
+    }
+    public boolean stepModMul(){
+        boolean out = state[0];
+        boolean[] poly=getTaps();
+        state = Z2.cloneAndPad(Z2.mod(Z2.minimumLengthCopy(Z2.shiftLeft(state, 1)), poly),l);
         return out;
     }
 
     /**
      * An LFSR which generate the same sequence but in reversed order
+     * Does not work for singular LFSRs
      * @return
      */
     public Lfsr reversedSequenceLfsr(){
-        return new Lfsr(Z2.reverse(getTaps()),l+1);
+        boolean[] nonSingularTaps = Z2.minimumLengthCopy(getTaps());
+        return new Lfsr(Z2.reverse(nonSingularTaps),nonSingularTaps.length);
+    }
+
+
+    public static Lfsr fromSequence(boolean[] seq){
+        Lfsr out = fibonacciLfsrFromSequence(seq);
+        boolean[]cseq = Z2.complement(seq);
+        Lfsr fromCSeq = fibonacciLfsrFromSequence(cseq);
+        if(fromCSeq.getWidth()<out.getWidth()){
+            //fromCSeq.setMode(LfsrStepMode.FIBONACCI_XNOR);//works only for max length LSFR ?
+            fromCSeq.setInvertOutput(true);
+            out=fromCSeq;
+        }
+        return out;
     }
     /**
      * Build the LFSR which generate a given bit sequence. See "Berlekamp-Massey algorithm"
      * @param seq: a bit sequence with at least one bit set to 1
-     * @return the minimal LFSR to generate the seq
+     * @return the minimal LFSR to generate seq
      */
-    public static Lfsr fromSequence(boolean[] seq){
+    public static Lfsr fibonacciLfsrFromSequence(boolean[] seq){
         int len = seq.length;
         boolean[] c = new boolean[len+1];c[0]=true;
         boolean[] b = new boolean[len];b[0]=true;
@@ -189,7 +277,7 @@ public class Lfsr {
 
     @Override
     public String toString() {
-        String properties = "not maximum length)";
+        /*String properties = "not maximum length)";
         if(isMaximumLength()){
             BigInteger maxLength = BigInteger.ONE.shiftLeft(l).subtract(BigInteger.ONE);
             properties = "maximum length LFSR: period of "+maxLength+")";
@@ -198,12 +286,108 @@ public class Lfsr {
             else properties = "reducible --> "+properties;
         }
         if(isSingular()) properties = "(Singular, "+properties;
-        else properties = "(Non singular, "+properties;
+        else properties = "(Non singular, "+properties;*/
         return "Lfsr{" +
                 "taps=" + getTapsString() +
                 ", state=" + getStateString() +
-                ", "+properties+
+                ", mode=" +mode+
+                ", invertOutput=" + invertOutput +
+                //", "+properties+
                 '}';
+    }
+
+    public String describe(boolean outputSeq, boolean outputStates){
+        String out = "";
+        out+="Polynomial:      "+getPolynomial()+"\n";
+        out+="Inverted output: "+invertOutput+"\n";
+        out+="Stepping mode:   "+mode+"\n";
+        out+="Taps:            "+getTapsString()+"\n";
+        out+="Initial state:   "+getStateString()+"\n";
+        String properties = "maximum length LFSR \n"+"Sequence length is ";
+        BigInteger maxLength = BigInteger.ONE.shiftLeft(getWidth()).subtract(BigInteger.ONE);
+        String tab="   ";
+        if(isMaximumLength()) {
+            properties += maxLength;
+        }else{
+            properties = "non "+properties;
+            if(isPolynomialIrreducible()) {
+                properties = "irreducible but not primitive, "+properties;
+                Map<BigInteger,Integer> seqlength=sequencesLength();
+                BigInteger len=null;
+                for(BigInteger l:seqlength.keySet()){
+                    len=l;
+                }
+                properties = properties+len+", "+seqlength.get(len)+" different sequences of that length";
+            } else {
+                try{
+                    Map<BigInteger,Integer> seqlength=sequencesLength();
+                    properties+="dependant on the initial value. It can be:\n";
+                    for(BigInteger len:seqlength.keySet()){
+                        properties+=tab+len+" ("+seqlength.get(len)+" different sequences of that length)\n";
+                    }
+                    properties=properties.substring(0,properties.length()-1);//remove the last new line character
+                }catch(Throwable e) {//we don't know how to compute the length of sequences for this polynomial.
+                    properties += "smaller than " + maxLength;
+                }
+            }
+        }
+
+        if(!isPolynomialIrreducible()) {
+            properties = "reducible, " + properties;
+            boolean[][] factors = Z2.factorPolynomial(Z2.minimumLengthCopy(getTaps()));
+            properties += "\n"+"Factors:\n" +tab+ Z2.join(Z2.toPolynomials(factors), "\n"+tab);
+        }
+
+        if(isSingular()) properties = "a singular, "+properties;
+        else properties = "a non singular, "+properties;
+        out+="It is "+properties+"\n";
+        out+="Reverse sequence polynomial: "+reversedSequenceLfsr().getPolynomial()+"\n";
+
+        if(outputSeq){
+            if(isMaximumLength()){
+                Map<boolean[],boolean[][]> seqAndStates = sequencesAndStates();
+                boolean[] seq=null;
+                boolean[][]states=null;
+                for(boolean[] s:seqAndStates.keySet()){
+                    seq=s;
+                    states=seqAndStates.get(s);
+                }
+
+                out+="Generated sequence:\n"+Z2.toBinaryString(seq)+"\n";
+                if (outputStates) {
+                    for (int i = 0; i < states.length; i++)
+                        out+=tab + Z2.toBinaryString(states[i])+"\n";
+                    //out+="\n";
+                }
+            } else {
+                Map<boolean[],boolean[][]> sequences = sequences(outputStates);
+                out+=sequences.size()+" generated sequences:"+"\n";
+                TreeMap<Integer,Integer> counts = new TreeMap <Integer,Integer>();
+                for(boolean[] seq: sequences.keySet()){
+                    int len = seq.length;
+                    if(counts.containsKey(len)) counts.put(len,counts.get(len)+1);
+                    else counts.put(len,1);
+                }
+                int sum=0;
+                for(int len:counts.keySet()){
+                    sum+=len*counts.get(len);
+                    out+=String.format("%10d",len)+" bits sequences: "+counts.get(len)+" occurences"+"\n";
+                }
+                out+=sum+" states in total\n";
+                //if(sum<200) {//for debug
+                for (boolean[] seq : sequences.keySet()) {
+                    out+=String.format("%6d",seq.length) + " outputs: " + Z2.toBinaryString(seq)+"\n";
+                    if (outputStates) {
+                        boolean[][] states = sequences.get(seq);
+                        for (int i = 0; i < states.length; i++)
+                            out+=tab + Z2.toBinaryString(states[i])+"\n";
+                        //out+="\n";
+                    }
+                }
+                //}
+            }
+        }
+        return out;
     }
 
     public static BigInteger polynomialDegreeToMaximumLength(int degree){
@@ -259,7 +443,7 @@ public class Lfsr {
             out.put(maxLength,1);
             return out;
         }
-        boolean[] poly=getTaps();
+        boolean[] poly=Z2.minimumLengthCopy(getTaps());
         if(isPolynomialIrreducible()){
             BigInteger len=Lfsr.irreduciblePolynomialSequencesLength(poly);
             BigInteger nSeq = maxLength.divide(len);
@@ -372,7 +556,9 @@ public class Lfsr {
         HashMap<boolean[],boolean[][]> out = new HashMap<boolean[],boolean[][]>();
         int maxLen= (1<<l)-1;
         boolean[] seq = new boolean[maxLen];
-        for(int i=1;i<done.length;i++){
+        int startState=1;
+        if((mode==LfsrStepMode.FIBONACCI_XNOR)||(mode==LfsrStepMode.GALOIS_XNOR)) startState=0;
+        for(int i=startState;i<done.length;i++){
             if(done[i]) continue;
             boolean[] initState = Z2.toBooleans(i);
             done[i] = true;
@@ -381,7 +567,7 @@ public class Lfsr {
             int j=0;
             boolean[][] states = null;
             if(storeStates) {
-                states = new boolean[maxLen][];
+                states = new boolean[maxLen+1][];
                 states[j] = new boolean[l];
                 Z2.copy(state, states[j]);
             }
@@ -393,7 +579,7 @@ public class Lfsr {
                 }
                 int coveredState = Z2.booleansToInt(getState());
                 if(trace[coveredState]) {
-                    if(!Z2.equalValue(state,initState) && !Z2.isZero(state)) {//this sequence has a b shape: go straight and then loop
+                    if(!Z2.equalValue(state,initState) && !Z2.equal(nullState,state)) {//this sequence has a b shape: go straight and then loop
                         i=coveredState-1;//launch next computation to get the sequence with the loop only.
                         done[coveredState] = false;
                     }
@@ -401,7 +587,7 @@ public class Lfsr {
                 }
                 done[coveredState] = true;
                 trace[coveredState] = true;
-            }while((!Z2.equalValue(state, initState)) && (!Z2.isZero(state)));
+            }while((!Z2.equalValue(state, initState)) && (!Z2.equal(nullState,state)));
             if(storeStates) out.put(Arrays.copyOfRange(seq,0,j),Arrays.copyOfRange(states,0,j));
             else  out.put(Arrays.copyOfRange(seq,0,j),null);
         }

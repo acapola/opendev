@@ -27,6 +27,7 @@ public class LfsrTool {
         msg+=argDescription(ARG_SEQ_BINFILE,"file, offset, length","Load a reference sequence from a binary file");
         msg+=argDescription(ARG_SEQ_BINSTRFILE,"file","Load a reference sequence from a binary string file");
         msg+=argDescription(ARG_SEQ_BINSTR,"binaryString","Load a reference sequence from a binary string");
+        msg+=argDescription(ARG_ENDIANNESS,null,"Try various variation of endianness of the reference sequence");
 
         msg+="\n";
         msg+="Behavior:\n";
@@ -69,88 +70,30 @@ public class LfsrTool {
         tmp = File.createTempFile("LFSR_demo", ".dat");
         Z2.toBinaryStringFile(tmp,seq);
         runDemo(new String[]{ARG_SEQ_BINSTRFILE, tmp.getCanonicalPath()}, "Find the LFSR generating a sequence given in a binary string file (a text file containing 0 and 1)", i++);
-        runDemo(new String[]{ARG_SEQ_BINSTR,"100000011111110101010011"},"Display the properties of an LFSR given as a binary string",i++);
+        runDemo(new String[]{ARG_SEQ_BINSTR,"100000011111110101010011"},"Display the properties of an LFSR computed from a sequence given as a binary string",i++);
 
         runDemo(new String[]{ARG_SEQ_BINSTR,"0001101110",ARG_LFSR_POLY,"1 + x3 + x5"},"Compare a sequence with an LFSR",i++);
         runDemo(new String[]{ARG_SEQ_BINSTR,"101110",ARG_LFSR_POLY,"1 + x3 + x5",ARG_DISP_SEQ},"Compare a short sequence with an LFSR and display sequences",i++);
 
         runDemo(new String[]{ARG_LFSR_POLY,"1+x+x5",ARG_DISP_SEQ_STATES},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence and associated the states",i++);
         runDemo(new String[]{ARG_LFSR_POLY,"1+x3+x12",ARG_DISP_SEQ},"Display the properties of an LFSR given as a polynomial,\n"+tab+"display also the generated sequence without the states",i++);
+
+        runDemo(new String[]{ARG_SEQ_BINSTR,"10000011111110101010011000110111",ARG_ENDIANNESS},"Display the properties of an LFSR computed from a sequence given as a binary string,"+
+                "\n"+tab+"display also the LFSR computed from variation of the endianness of this sequence",i++);
+
         //runDemo(new String[]{ARG_SEQ_BINSTR,"110011010010101010111000101111010010010011010101110011011111010100101010"},"debug",i++);
         //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x3"),2)),ARG_DISP_SEQ_STATES},"debug",i++);
         //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),6)),ARG_DISP_SEQ_STATES},"debug",i++);
         //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),7)),ARG_DISP_SEQ_STATES},"debug",i++);
-        runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.mul(Z2.pow(Z2.polynomialToBooleans("1+x+x3"),2),Z2.polynomialToBooleans("1+x"))),ARG_DISP_SEQ_STATES},"debug",i++);
-        runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.mul(Z2.pow(Z2.polynomialToBooleans("1+x"),2),Z2.polynomialToBooleans("1+x+x3"))),ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.mul(Z2.pow(Z2.polynomialToBooleans("1+x+x3"),2),Z2.polynomialToBooleans("1+x"))),ARG_DISP_SEQ_STATES},"debug",i++);
+        //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.mul(Z2.pow(Z2.polynomialToBooleans("1+x"),2),Z2.polynomialToBooleans("1+x+x3"))),ARG_DISP_SEQ_STATES},"debug",i++);
 
     }
     static void describeLfsr(Lfsr lfsr){
         describeLfsr(lfsr,false,false);
     }
     static void describeLfsr(Lfsr lfsr,boolean dispSeq, boolean dispSeqStates){
-        System.out.println(tab+"Polynomial:     "+lfsr.getPolynomial());
-        System.out.println(tab+"Fibonacci taps: "+lfsr.getTapsString());
-        System.out.println(tab+"Initial state:  "+lfsr.getStateString());
-        String properties = "maximum length LFSR \n"+tab+"(sequence length is ";
-        //long maxLength = ((1L<<lfsr.getWidth())-1L);
-
-        BigInteger maxLength = BigInteger.ONE.shiftLeft(lfsr.getWidth()).subtract(BigInteger.ONE);
-        if(lfsr.isMaximumLength()) {
-            properties += maxLength+")";
-        }else{
-            properties = "non "+properties;
-            if(lfsr.isPolynomialIrreducible()) {
-                properties = "irreducible but not primitive, "+properties;
-                Map<BigInteger,Integer> seqlength=lfsr.sequencesLength();
-                BigInteger len=null;
-                for(BigInteger l:seqlength.keySet()){
-                    len=l;
-                }
-                properties = properties+len+", "+seqlength.get(len)+" different sequences of that length)";
-            } else {
-                properties+= "smaller than "+maxLength+")";;
-            }
-        }
-
-        if(!lfsr.isPolynomialIrreducible()) {
-            properties = "reducible, " + properties;
-            boolean[][] factors = Z2.factorPolynomial(lfsr.getTaps());
-            properties += "\n"+tab+"Factors:\n"+tab+tab + Z2.join(Z2.toPolynomials(factors), "\n"+tab+tab);
-        }
-
-        if(lfsr.isSingular()) properties = "a singular, "+properties;
-        else properties = "a non singular, "+properties;
-        System.out.println(tab+"It is "+properties);
-        if(dispSeq){
-            if(lfsr.isMaximumLength()) System.out.println("Generated sequence:\n"+Z2.toBinaryString(lfsr.sequence()));
-            else {
-                Map<boolean[],boolean[][]> sequences = lfsr.sequences(dispSeqStates);
-                System.out.println(sequences.size()+" generated sequences:");
-                TreeMap<Integer,Integer> counts = new TreeMap <Integer,Integer>();
-                for(boolean[] seq: sequences.keySet()){
-                    int len = seq.length;
-                    if(counts.containsKey(len)) counts.put(len,counts.get(len)+1);
-                    else counts.put(len,1);
-                }
-                int sum=0;
-                for(int len:counts.keySet()){
-                    sum+=len*counts.get(len);
-                    System.out.println(tab+padTo(""+len,10)+" bits sequences: "+counts.get(len)+" occurences");
-                }
-                System.out.println(sum+" states in total\n");
-                //if(sum<200) {//for debug
-                    for (boolean[] seq : sequences.keySet()) {
-                        System.out.println(tab + padTo("" + seq.length, 4) + " outputs: " + Z2.toBinaryString(seq));
-                        boolean[][] states = sequences.get(seq);
-                        if (dispSeqStates) {
-                            for (int i = 0; i < states.length; i++)
-                                System.out.println(tab + tab + Z2.toBinaryString(states[i]));
-                            System.out.println();
-                        }
-                    }
-                //}
-            }
-        }
+        System.out.println(lfsr.describe(dispSeq,dispSeqStates));
     }
     public static void main(String[] args) throws IOException {
         int len=-1;
@@ -171,6 +114,7 @@ public class LfsrTool {
         boolean[] refSequence=null;
         boolean dispSeq=false;
         boolean dispSeqStates=false;
+        boolean endianness=false;
         Lfsr refLfsr=null;
         for(int i=0;i<args.length;i++) {
             if (args[i].equals(ARG_HELP)) {
@@ -184,6 +128,10 @@ public class LfsrTool {
             if (args[i].equals(ARG_DISP_SEQ_STATES)) {
                 dispSeq=true;
                 dispSeqStates=true;
+                continue;
+            }
+            if (args[i].equals(ARG_ENDIANNESS)) {
+                endianness=true;
                 continue;
             }
             if (args[i].equals(ARG_SEQ_BINSTR)) {
@@ -239,6 +187,23 @@ public class LfsrTool {
                     System.out.println("The reference LFSR generates the reference sequence\nInitial state: "+refLfsr.getStateString());
                 }else{
                     System.out.println("The reference LFSR does not generates the reference sequence");
+                }
+            }
+            if(endianness){
+                System.out.println("\nEndianness variation of the reference sequence:");
+                int maxWordSize = Math.min(refSequence.length,256);
+                for(int wordSize=1;wordSize<=maxWordSize;wordSize=2*wordSize) {
+                    if(refSequence.length%wordSize!=0){
+                        System.out.println("Word size = "+wordSize+" skipped because it does not divides the reference sequence length ("+refSequence.length+")");
+                        continue;
+                    }
+                    for (int atomSize = 1; atomSize <= wordSize / 2; atomSize = 2 * atomSize) {
+                        System.out.println("Atom size=" + atomSize + ", Word size = " + wordSize);
+                        boolean[] seq=Z2.switchEndianness(refSequence,atomSize,wordSize);
+                        System.out.println("Sequence: "+Z2.toBinaryString(seq));
+                        Lfsr candidate = Lfsr.fromSequence(seq);
+                        System.out.println(candidate.describe(false,false));
+                    }
                 }
             }
         }else{

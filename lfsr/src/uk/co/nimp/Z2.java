@@ -441,7 +441,8 @@ public class Z2 {
     }
     static boolean[] mod(boolean[] in, boolean[] moduli){
         boolean[] divider = moduli;
-        assert(in[in.length-1] || equal(in,Z2.ZERO));assert(divider[divider.length-1]);
+        assert(in[in.length-1] || equal(in,Z2.ZERO));
+        assert(divider[divider.length-1]);
         if(in.length<moduli.length) return in.clone();
         if(Z2.isOne(moduli)) return Z2.ZERO.clone();
         boolean[] quotient = new boolean[in.length];
@@ -501,6 +502,13 @@ public class Z2 {
         HashSet<boolean[]> out = new HashSet<boolean[]>(in.size());
         for(boolean[] i:in){
             out.add(Z2.rotateToMinValue(i));
+        }
+        return out;
+    }
+    public static Set<boolean[]> reverse(Set<boolean[]>in){
+        HashSet<boolean[]> out = new HashSet<boolean[]>(in.size());
+        for(boolean[] i:in){
+            out.add(Z2.reverse(i));
         }
         return out;
     }
@@ -694,12 +702,44 @@ public class Z2 {
         }
         return i;
     }
+    public static boolean []complement(boolean []in) {
+        return complement(in, 0, in.length);
+    }
+    public static boolean []complement(boolean []in,int from, int to){
+        boolean []out = new boolean[to-from];
+        for(int i=0;i<out.length;i++) out[i] = !in[i];
+        return out;
+    }
     static boolean []reverse(boolean []in) {
         return reverse(in, 0, in.length);
     }
     static boolean []reverse(boolean []in,int from, int to){
         boolean []out = new boolean[to-from];
         for(int i=0;i<out.length;i++) out[i] = in[to-1-i];
+        return out;
+    }
+
+    /**
+     * change the order of atoms inside words
+     * @param in
+     * @param atomSize
+     * @param wordSize
+     * @return the input with the opposite endianness
+     */
+    public static boolean []switchEndianness(boolean[] in, int atomSize, int wordSize){
+        if(in.length%wordSize!=0) throw new RuntimeException("input length must be a multiple of the word size. Got "+in.length+" and "+wordSize);
+        if(wordSize%atomSize!=0) throw new RuntimeException("Word size must be a multiple of the atom size. Got "+wordSize+" and "+atomSize);
+        boolean[] out = new boolean[in.length];
+        int nWords = in.length/wordSize;
+        int nAtoms = wordSize/atomSize;
+        for(int wordIndex=0;wordIndex<nWords;wordIndex++){
+            for(int i=0;i<nAtoms;i++){
+                int outAtomIndex = nAtoms-1-i;
+                int offset = wordIndex*wordSize+i*atomSize;
+                int outOffset = wordIndex*wordSize+outAtomIndex*atomSize;
+                System.arraycopy(in,offset,out,outOffset,atomSize);
+            }
+        }
         return out;
     }
     public static String toBinaryString(boolean in){
@@ -1010,7 +1050,12 @@ end function
     }
 
     public static boolean[][] factorPolynomial(boolean[] in) {
-        List<boolean[]> F=factorPolynomialList(in);
+        List<boolean[]> F=null;
+        try {
+            F = factorPolynomialList(in);
+        }catch(Throwable e){
+            throw new RuntimeException(e.getCause()+ " happened during factorization of polynomial "+Z2.toPolynomial(in)+"\n"+e.toString());
+        }
         boolean[][] out = new boolean[F.size()][];
         F.toArray(out);
         //System.out.println("factors");

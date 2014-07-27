@@ -8,6 +8,28 @@ import java.util.Random;
 public class Z2Test {
 
     @Test
+    public void testRotateToMinValue() throws Exception {
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("0")),Z2.toBooleans("0")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("1")),Z2.toBooleans("1")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("10")),Z2.toBooleans("10")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("01")),Z2.toBooleans("10")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("100")),Z2.toBooleans("100")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("010")),Z2.toBooleans("100")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("001")),Z2.toBooleans("100")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("110")),Z2.toBooleans("110")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("011")),Z2.toBooleans("110")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("101")),Z2.toBooleans("110")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("1100")),Z2.toBooleans("1100")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("0110")),Z2.toBooleans("1100")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("0011")),Z2.toBooleans("1100")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("1001")),Z2.toBooleans("1100")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("1110101110000")),Z2.toBooleans("1110101110000")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("1101011100001")),Z2.toBooleans("1110101110000")));
+        assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("1010111000011")),Z2.toBooleans("1110101110000")));
+
+    }
+
+    @Test
     public void testDerivative() throws Exception {
         //System.out.println(Z2.toPolynomial(Z2.derivative(Z2.polynomialToBooleans("x5+x4+1"))));
         assert(Z2.equal(Z2.derivative(Z2.polynomialToBooleans("x4+x2+1")),Z2.polynomialToBooleans("0")));
@@ -233,6 +255,10 @@ public class Z2Test {
         assert (Z2.equalValue(factors[2], Z2.polynomialToBooleans("x2+x+1")));
         assert (Z2.equalValue(factors[3], Z2.polynomialToBooleans("x6+x5+x3+x2+1")));
         assert (Z2.equalValue(factors[4], Z2.polynomialToBooleans("x7+x5+x3+x+1")));
+
+        a = Z2.polynomialToBooleans("1 + x2 + x4 + x6 + x7 + x8 + x11");
+        factors = Z2.factorPolynomial(a);
+        System.out.println(Z2.toPolynomial(a)+"=("+Z2.join(Z2.toPolynomials(factors),")*(")+")");
 
     }
 

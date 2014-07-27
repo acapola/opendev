@@ -9,7 +9,7 @@ import java.io.IOException;
  * Created by seb on 6/22/14.
  */
 public class MainHelpers {
-    public static String credits = "Written by Sebastien Riou, 20140724-004000";
+    public static String credits = "Written by Sebastien Riou, 20140727-204400";
     static String formatArg(String arg){
         return "-"+arg.substring(0,1).toLowerCase()+arg.substring(1);
     }
@@ -24,6 +24,7 @@ public class MainHelpers {
     public static final String DISPLAY = "Disp";
     public static final String TCLOUT = "TclOut";
     public static final String TCLOUTFILE = "TclOutFile";
+    public static final String ENDIANNESS = "Endianness";
 
     public static final String ARG_BINSTRFILE = formatArg(BINSTRFILE);
     public static final String ARG_SEQ_BINSTR = formatArg(SEQ +BINSTR);
@@ -36,6 +37,7 @@ public class MainHelpers {
     public static final String ARG_DISP_VECTORS = formatArg(DISPLAY+VECTORS);
     public static final String ARG_TCLOUT = formatArg(TCLOUT);
     public static final String ARG_TCLOUTFILE = formatArg(TCLOUTFILE);
+    public static final String ARG_ENDIANNESS = formatArg(ENDIANNESS);
     public static final String ARG_HELP = formatArg("Help");
     static final String tab = "   ";
     static String padTo(String in,int desiredLength){
