@@ -18,16 +18,32 @@ public class Z2 {
         TWO[1]=true;
     }
     public static final boolean[] X = TWO;
-    public static boolean[] toBooleans(String in){
+    static String cleanUp(String in){
         in = in.replace(" ","");
         in = in.replace("\t","");
         in = in.replace("\n","");
         in = in.replace("_","");
+        return in;
+    }
+    public static boolean[] toBooleans(String in){
+        in=cleanUp(in);
         boolean[] out = new boolean[in.length()];
         for(int i=0;i<in.length();i++){
             if(in.charAt(i)=='1') out[i]=true;
         }
         return out;
+    }
+    public static boolean[] hexBytesToBooleans(String in){
+        in=cleanUp(in);
+        if(in.length()%2!=0) throw new RuntimeException("Can't convert an hex bytes string if it has an odd number of digits: "+in.length()+", '"+in+"'");
+        int len = in.length()*4;
+        boolean[] out = new boolean[len];
+        for(int i=0;i<in.length();i+=2){
+            int nibbles = Integer.parseInt(in.substring(i,i+2),16);
+            boolean[] bits = Z2.toBooleans(nibbles);
+            for(int j=0;j<bits.length;j++) out[i*4+j] = bits[j];
+        }
+        return Z2.minimumLengthCopy(out);
     }
     public static String toBinaryString(boolean []in){
         return toBinaryString(in,0,in.length);
@@ -259,24 +275,97 @@ public class Z2 {
         }
         return out;
     }
-    public static void toBinaryFile(File file,boolean[] in) throws IOException {
-        BigInteger inBi = Z2.booleansToBigInteger(in);
-        toBinaryFile(file,inBi);
+    public static byte[] toByteArray(boolean[]in){
+        int byteLen = (in.length+7)/8;
+        byte[] out = new byte[byteLen];
+        for(int i=0;i<in.length/8;i++){
+            for(int j=7;j>=0;j--){
+                out[i]=(byte)((out[i]<<1) | ((in[i*8+j]) ? 1 : 0));
+            }
+        }
+        int remaining = in.length %8;
+        int last = byteLen-1;
+        for(int j=remaining-1;j>=0;j--){
+            int bit  = ((in[last*8+j]) ? 1 : 0);
+            out[last]=(byte)((out[last]<<1) | bit);
+        }
+        return out;
     }
-    public static void toBinaryFile(File file,BigInteger in) throws IOException {
+    public static boolean[] toBooleans(byte[] in) {
+        return toBooleans(in,0,in.length);
+    }
+    public static boolean[] toBooleans(byte[] in, int byteOffset,int byteLength){
+        boolean[] out = new boolean[byteLength*8];
+        for(int i=0;i<byteLength;i++){
+            int b=in[byteOffset+i];
+            boolean[] bBits = Z2.toBooleans(b,8);
+            System.arraycopy(bBits,0,out,i*8,8);
+        }
+        return out;
+    }
+    public static void toBinaryFile(File file,boolean[] in) throws IOException {
+        FileOutputStream fos = new FileOutputStream(file);
+        byte[] data = Z2.toByteArray(in);
+        fos.write(data);
+        fos.flush();
+        fos.close();
+    }
+    public static byte[] binaryFileToBytes(File file, int byteOffset, int byteLength) throws IOException {
+        if(byteLength==-1) byteLength = (int) file.length();
+        byte[] data = new byte[byteLength];
+        FileInputStream fis = new FileInputStream(file);
+        int remaining = byteOffset;
+        while(remaining>0) {
+            remaining-=fis.skip(remaining);
+        }
+        fis.read(data, 0, byteLength);
+        fis.close();
+        return data;
+    }
+    public static boolean[] binaryFileToBooleans(File file, int byteOffset, int byteLength) throws IOException {
+        byte[] data = binaryFileToBytes(file,byteOffset,byteLength);
+        return Z2.toBooleans(data);
+    }
+    public static boolean[] binaryFileToBooleans(File file) throws IOException {
+        return binaryFileToBooleans(file,0,-1);
+    }
+
+
+    /*public static void toBinaryFile(File file,BigInteger in) throws IOException {
         byte []data = in.toByteArray();
         FileOutputStream fos = new FileOutputStream(file);
         fos.write(data);
         fos.flush();
         fos.close();
-    }
-    public static BigInteger binaryFileToBigInteger(File file) throws IOException {
+    }*/
+    /*public static BigInteger binaryFileToBigInteger(File file) throws IOException {
         byte[] data = new byte[(int) file.length()];
         FileInputStream fis = new FileInputStream(file);
         fis.read(data);
         fis.close();
         return new BigInteger(data);
     }
+
+    public static BigInteger binaryFileToBigInteger(File file, int offset, int length) throws IOException {
+        if(length==-1) length = (int) file.length();
+        byte[] data = new byte[length];
+        FileInputStream fis = new FileInputStream(file);
+        int remaining = offset;
+        while(remaining>0) {
+            remaining-=fis.skip(remaining);
+        }
+        fis.read(data, 0, length);
+        fis.close();
+        BigInteger seqBi = new BigInteger(data);
+        return seqBi;
+    }
+
+    public static boolean[] binaryFileToBooleans(File file, int offset, int length) throws IOException {
+        if(length==-1) length = (int) file.length();
+        BigInteger seqBi = binaryFileToBigInteger(file,offset,length);
+        return Z2.toBooleans(seqBi,length*8);
+    }*/
+
     static void toBinaryStringFile(File file, BigInteger in) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter(file));
         try {

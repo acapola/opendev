@@ -9,11 +9,12 @@ import java.io.IOException;
  * Created by seb on 6/22/14.
  */
 public class MainHelpers {
-    public static String credits = "Written by Sebastien Riou, 20140727-204400";
+    public static String credits = "Written by Sebastien Riou, 20140729-004400";
     static String formatArg(String arg){
         return "-"+arg.substring(0,1).toLowerCase()+arg.substring(1);
     }
     public static final String BINSTR = "BinStr";
+    public static final String HEXSTR = "HexStr";
     public static final String BINSTRFILE = "BinStrFile";
     public static final String BINFILE = "BinFile";
     public static final String POLY = "Poly";
@@ -28,6 +29,7 @@ public class MainHelpers {
 
     public static final String ARG_BINSTRFILE = formatArg(BINSTRFILE);
     public static final String ARG_SEQ_BINSTR = formatArg(SEQ +BINSTR);
+    public static final String ARG_SEQ_HEXSTR = formatArg(SEQ +HEXSTR);
     public static final String ARG_SEQ_BINSTRFILE = formatArg(SEQ +BINSTRFILE);
     public static final String ARG_SEQ_BINFILE = formatArg(SEQ +BINFILE);
     public static final String ARG_LFSR_BINSTR = formatArg(LFSR +BINSTR);

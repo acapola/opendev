@@ -604,6 +604,16 @@ public class Z2Test {
         for(int i=0;i<31;i++) expected[i]=true;
         assert(Z2.equal(Z2.toBooleans(0xFFFFFFFF),expected));
     }
+    @Test
+    public void testHexBytesToBooleans() throws Exception {
+        assert(Z2.equal(Z2.hexBytesToBooleans("00"),new boolean[]{false}));
+        assert(Z2.equal(Z2.hexBytesToBooleans("01"),new boolean[]{true}));
+        boolean[] expected = new boolean[32];
+        expected[31]=true;
+        assert(Z2.equal(Z2.hexBytesToBooleans("00 00 00 80"),expected));
+        for(int i=0;i<31;i++) expected[i]=true;
+        assert(Z2.equal(Z2.hexBytesToBooleans("FFFFFFFF"),expected));
+    }
 
     @Test
     public void testAdd() throws Exception {
@@ -668,6 +678,29 @@ public class Z2Test {
             assert(check.length==dat.length);
             for(int j=0;j<dat.length;j++) {
                 assert(Z2.equal(dat[j],check[j]));
+            }
+        }
+    }
+
+    @Test
+    public void testBinaryFileToBooleans() throws Exception {
+        int nTests = 100;
+        int maxLen = 50;
+        Random rng = new Random();
+        for(int i=0;i<nTests;i++){
+            int len = rng.nextInt(maxLen);
+            boolean[] dat = Z2.randomBooleans(len);
+            File tmp = File.createTempFile("Z2Test","testBinaryStringFileToBooleansArray");
+            Z2.toBinaryFile(tmp,dat);
+            boolean[] check = Z2.binaryFileToBooleans(tmp);
+            //System.out.println(Z2.toBinaryString(dat));
+            //System.out.println(Z2.toBinaryString(check));
+            //System.out.println();
+            assert(Z2.equalValue(dat,check));
+            if(len>=24) {
+                assert (Z2.equal(Z2.cloneRange(dat, 0,8),Z2.binaryFileToBooleans(tmp,0,1)));
+                assert (Z2.equal(Z2.cloneRange(dat, 8,8),Z2.binaryFileToBooleans(tmp,1,1)));
+                assert (Z2.equal(Z2.cloneRange(dat, 8,16),Z2.binaryFileToBooleans(tmp,1,2)));
             }
         }
     }

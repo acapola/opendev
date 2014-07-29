@@ -56,6 +56,9 @@ class PollardRho {
         factor(n.divide(divisor),factors);
     }
     public static BigInteger[] factor(BigInteger n) {
+        if(n.compareTo(BigInteger.ONE)<=0){
+            return new BigInteger[0];
+        }
         ArrayList<BigInteger> factors = new ArrayList<BigInteger>();
         factor(n,factors);
         Collections.sort(factors);

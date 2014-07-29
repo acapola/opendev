@@ -341,8 +341,9 @@ public class Lfsr {
         if(isSingular()) properties = "a singular, "+properties;
         else properties = "a non singular, "+properties;
         out+="It is "+properties+"\n";
-        out+="Reverse sequence polynomial: "+reversedSequenceLfsr().getPolynomial()+"\n";
-
+        if(l>1) {
+            out += "Reverse sequence polynomial: " + reversedSequenceLfsr().getPolynomial() + "\n";
+        }
         if(outputSeq){
             if(isMaximumLength()){
                 Map<boolean[],boolean[][]> seqAndStates = sequencesAndStates();
@@ -397,6 +398,7 @@ public class Lfsr {
     static BigInteger irreduciblePolynomialSequencesLength(boolean[] polynomial){
         //TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger,Integer>();
         BigInteger maxLength=Lfsr.polynomialDegreeToMaximumLength(polynomial.length-1);
+        if(maxLength.compareTo(BigInteger.ONE)<=0) return maxLength;
         BigInteger[] factors = PollardRho.factor(maxLength);
         int nCombination = 1<<factors.length;
         for(int i=1;i<nCombination;i++){
@@ -439,6 +441,10 @@ public class Lfsr {
     public Map<BigInteger,Integer> sequencesLength(){
         TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger, Integer>();
         BigInteger maxLength = polynomialDegreeToMaximumLength(l);
+        if(maxLength.compareTo(BigInteger.ONE)<=0){
+            out.put(maxLength,1);
+            return out;
+        }
         if(isMaximumLength()){
             out.put(maxLength,1);
             return out;
