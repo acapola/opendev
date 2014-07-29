@@ -507,10 +507,10 @@ public class Z2 {
         while(i>0 && a[i]==b[i]) i--;
         return a[i] & !b[i];
     }
-    static boolean isGreaterOrEqual(boolean[] a, boolean[] b){
+    public static boolean isGreaterOrEqual(boolean[] a, boolean[] b){
         return !isGreater(b,a);
     }
-    static boolean[] div(boolean[] in, boolean[] divider){
+    public static boolean[] div(boolean[] in, boolean[] divider){
         assert(in[in.length-1] || equal(in,Z2.ZERO));assert(divider[divider.length-1]);
         boolean[] quotient = new boolean[in.length];
         boolean[] reminder = in.clone();
@@ -528,7 +528,7 @@ public class Z2 {
         assert(out[out.length-1] || equal(out,Z2.ZERO));
         return out;
     }
-    static boolean[] mod(boolean[] in, boolean[] moduli){
+    public static boolean[] mod(boolean[] in, boolean[] moduli){
         boolean[] divider = moduli;
         assert(in[in.length-1] || equal(in,Z2.ZERO));
         assert(divider[divider.length-1]);
@@ -661,6 +661,52 @@ public class Z2 {
     }
 
     /**
+     * compute the least common multiple of two numbers a and b
+     * @param a
+     * @param b
+     * @return LCM(a,b)
+     */
+    public static BigInteger lcmBi(BigInteger a, BigInteger b){
+        return b.multiply(a.divide(a.gcd(b)));
+    }
+    /**
+     * Compute r, the order of x, r being the smallest integer such that x^r mod polynomial = 1
+     * @param polynomial
+     * @return r
+     */
+    public static BigInteger orderOfX(boolean[] polynomial){
+        BigInteger maxLength=BigInteger.ONE.shiftLeft(polynomial.length-1).subtract(BigInteger.ONE);
+        if(maxLength.compareTo(BigInteger.ONE)<=0) return maxLength;
+        if(!Z2.isIrreducible(polynomial)){
+            Map<BigInteger,Integer> factorsMap = Z2.factorPolynomialMap(polynomial);
+            Map<BigInteger,BigInteger> orderOfXMap = new HashMap<BigInteger, BigInteger>(factorsMap.size());
+            BigInteger out = BigInteger.ONE;
+            for(BigInteger fx:factorsMap.keySet()){
+                int pow = factorsMap.get(fx);
+                BigInteger orderOfX = Z2.orderOfX(Z2.toBooleans(fx));
+                orderOfXMap.put(fx,orderOfX);
+
+                out = Z2.lcmBi(out,orderOfX.multiply(BigInteger.valueOf(pow)));
+            }
+            return out;
+        }
+        BigInteger[] factors = PollardRho.factor(maxLength);
+        int nCombination = 1<<factors.length;
+        for(int i=1;i<nCombination;i++) {
+            BigInteger candidate = BigInteger.ONE;
+            boolean[] selection = Z2.toBooleans(i);
+            for (int j = 0; j < selection.length; j++) {
+                if (selection[j]) candidate = candidate.multiply(factors[j]);
+            }
+            boolean[] checker = Z2.modExp(Z2.X, candidate, polynomial);
+            if (Z2.isOne(checker)) {
+                return candidate;
+            }
+        }
+        throw new RuntimeException("could not find the order of X for polynomial "+Z2.toPolynomial(polynomial));
+    }
+
+    /**
      * Algorithm 4.69 Testing a polynomial for irreducibility
      * @param fx
      * @return true if fx is irreducible over Z2
@@ -714,7 +760,7 @@ public class Z2 {
         if(Z2.equal(lx,Z2.ONE)) return false;
         return true;
     }
-    static boolean[] modExp(boolean[] gx,long exp, boolean[] moduli){
+    public static boolean[] modExp(boolean[] gx,long exp, boolean[] moduli){
         return modExp(gx, BigInteger.valueOf(exp), moduli);
     }
 
@@ -725,7 +771,7 @@ public class Z2 {
      * @param moduli irreducible polynomial of degree m over Z2
      * @return (gx^exp) mod moduli in Z2
      */
-    static boolean[] modExp(boolean[] gx,BigInteger exp, boolean[] moduli){
+    public static boolean[] modExp(boolean[] gx,BigInteger exp, boolean[] moduli){
         assert(exp.signum()>=0);
         BigInteger k = exp;
         boolean[] fx = moduli;
@@ -1138,13 +1184,24 @@ end function
         return out;
     }
 
+    public static Map<BigInteger,Integer> factorPolynomialMap(boolean[] in){
+        List<boolean[]>factors = Z2.factorPolynomialList(in);
+        Map<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();
+        for(boolean[] f: factors){
+            BigInteger fBi = Z2.booleansToBigInteger(f);
+            int power = 1;
+            if(factorsMap.containsKey(fBi)) power += factorsMap.get(fBi);
+            factorsMap.put(fBi,power);
+        }
+        return factorsMap;
+    }
     public static boolean[][] factorPolynomial(boolean[] in) {
         List<boolean[]> F=null;
-        try {
+        //try {
             F = factorPolynomialList(in);
-        }catch(Throwable e){
-            throw new RuntimeException(e.getCause()+ " happened during factorization of polynomial "+Z2.toPolynomial(in)+"\n"+e.toString());
-        }
+        //}catch(Throwable e){
+        //    throw new RuntimeException(e.getCause()+ " happened during factorization of polynomial "+Z2.toPolynomial(in)+"\n"+e.toString());
+        //}
         boolean[][] out = new boolean[F.size()][];
         F.toArray(out);
         //System.out.println("factors");

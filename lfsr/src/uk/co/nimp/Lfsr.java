@@ -52,6 +52,7 @@ public class Lfsr {
         return l;
     }
     public Lfsr(boolean []taps,int len){
+        if(taps.length<2) throw new RuntimeException("Cannot construct an LFSR with less than 2 taps, got:"+Z2.toBinaryString(taps));
         if(!taps[0]) throw new RuntimeException("LSFR polynomial must always contain 1 -> this is the lsb of taps.");
         this.taps = Z2.reverse(taps,1,len);
         l=len-1;
@@ -531,7 +532,7 @@ public class Lfsr {
                         BigInteger product = len;
                         for (int j = lsbIndex + 1; j < selection.length; j++) {
                             if (selection[j]) {
-                                len = lcm(len, primitiveSeqLengths[j]);
+                                len = Z2.lcmBi(len, primitiveSeqLengths[j]);
                                 product = product.multiply(primitiveSeqLengths[j]);
                             }
                         }
@@ -546,9 +547,7 @@ public class Lfsr {
         }
         return out;
     }
-    static BigInteger lcm(BigInteger a, BigInteger b){
-        return b.multiply(a.divide(a.gcd(b)));
-    }
+
 
     public Set<boolean[]> sequences() {
         Set<boolean[]> out = sequences(false).keySet();

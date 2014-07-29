@@ -82,6 +82,7 @@ public class LfsrTool {
                 "\n"+tab+"display also the LFSR computed from variation of the endianness of this sequence",i++);
 
         runDemo(new String[]{ARG_SEQ_HEXSTR,"06 03 C1 98"},"debug",i++);
+        runDemo(new String[]{ARG_SEQ_HEXSTR,"60 C0 83 19"},"debug",i++);
         //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x3"),2)),ARG_DISP_SEQ_STATES},"debug",i++);
         //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),6)),ARG_DISP_SEQ_STATES},"debug",i++);
         //runDemo(new String[]{ARG_LFSR_POLY,Z2.toPolynomial(Z2.pow(Z2.polynomialToBooleans("1+x+x2+x3+x4"),7)),ARG_DISP_SEQ_STATES},"debug",i++);

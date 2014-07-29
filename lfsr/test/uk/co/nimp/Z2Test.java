@@ -3,6 +3,7 @@ package uk.co.nimp;
 import org.junit.Test;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.util.Random;
 
 public class Z2Test {
@@ -772,6 +773,46 @@ public class Z2Test {
         gx = Z2.polynomialToBooleans("x3+x+1");
         hx = Z2.polynomialToBooleans("x2");
         assert(Z2.equal(Z2.gcd(gx,hx),Z2.ONE));
+
+    }
+
+    @Test
+    public void testOrderOfX() throws Exception{
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("0")).equals(BigInteger.ZERO));
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1")).equals(BigInteger.ZERO));
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("x")).equals(BigInteger.ONE));
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("x+1")).equals(BigInteger.ONE));
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("x8+x4+x3+x+1")).equals(BigInteger.valueOf(51)));//irreducible
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2+x5")).equals(BigInteger.valueOf(31)));//primitive
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x6")).equals(BigInteger.valueOf(63)));//primitive
+
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x2")).equals(BigInteger.valueOf(3)));//primitive
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x3")).equals(BigInteger.valueOf(7)));//primitive
+
+        boolean[] px = Z2.polynomialToBooleans("1 + x2 + x4 + x5 + x6 + x7 + x8 + x9 + x11");
+        System.out.println("px="+Z2.toPolynomial(px));
+
+        for(int i=1;i< 1<<px.length;i++){
+            boolean[] test = Z2.modExp(Z2.X,i,px);
+            if(Z2.isOne(test))
+                System.out.println("i="+i+", x^i mod px=1");
+        }
+
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x3")).equals(BigInteger.valueOf(3)));//(1+x)(1+x+x2)
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x2+x4")).equals(BigInteger.valueOf(7)));//(1+x)(1+x+x3)
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x4+x5")).equals(BigInteger.valueOf(21)));//(1+x+x2)(1+x+x3)
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x4+x6")).equals(BigInteger.valueOf(21)));//(1+x)(1+x+x2)(1+x+x3)
+
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x2 + x4 + x5 + x6 + x7 + x8 + x9 + x11")).equals(BigInteger.valueOf(357)));//(1+x+x3)(x8+x4+x3+x+1) -->primitive * irreducible
+
+
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x5")).equals(BigInteger.valueOf(7)));//(1+x)^2*(1+x+x3)
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x3 + x6 + x7")).equals(BigInteger.valueOf(7)));//(1+x)(1+x+x3)^2
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x3 + x4 + x5 + x6 + x8 + x9 + x11")).equals(BigInteger.valueOf(3*7*31)));//(1+x)(1+x+x2)(1+x+x3)(1+x2+x5)
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x2 + x4 + x5 + x10 + x12")).equals(BigInteger.valueOf(63)));//(1+x)(1+x+x2)(1+x+x3)(1+x+x6)
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x4 + x10 + x11")).equals(BigInteger.valueOf(63)));//(1+x+x2)(1+x+x3)(1+x+x6)
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x2 + x3 + x5 + x7 + x10 + x12 + x13 + x14")).equals(BigInteger.valueOf(126)));//(1+x+x2)(1+x+x3)^2(1+x+x6)
+
 
     }
 
