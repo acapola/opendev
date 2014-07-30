@@ -140,7 +140,7 @@ public class LfsrTool {
                 continue;
             }
             if (args[i].equals(ARG_SEQ_HEXSTR)) {
-                refSequence = Z2.hexBytesToBooleans(args[++i]);
+                refSequence = Z2.hexBytesToPaddedBooleans(args[++i]);
                 continue;
             }
             if (args[i].equals(ARG_SEQ_BINFILE)) {

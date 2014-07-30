@@ -33,7 +33,7 @@ public class Z2 {
         }
         return out;
     }
-    public static boolean[] hexBytesToBooleans(String in){
+    public static boolean[] hexBytesToPaddedBooleans(String in) {
         in=cleanUp(in);
         if(in.length()%2!=0) throw new RuntimeException("Can't convert an hex bytes string if it has an odd number of digits: "+in.length()+", '"+in+"'");
         int len = in.length()*4;
@@ -43,7 +43,10 @@ public class Z2 {
             boolean[] bits = Z2.toBooleans(nibbles);
             for(int j=0;j<bits.length;j++) out[i*4+j] = bits[j];
         }
-        return Z2.minimumLengthCopy(out);
+        return out;
+    }
+    public static boolean[] hexBytesToBooleans(String in){
+        return Z2.minimumLengthCopy(hexBytesToPaddedBooleans(in));
     }
     public static String toBinaryString(boolean []in){
         return toBinaryString(in,0,in.length);
@@ -675,10 +678,12 @@ public class Z2 {
      * @return r
      */
     public static BigInteger orderOfX(boolean[] polynomial){
+        if(Z2.equal(Z2.X,polynomial)) return BigInteger.ZERO;
         BigInteger maxLength=BigInteger.ONE.shiftLeft(polynomial.length-1).subtract(BigInteger.ONE);
-        if(maxLength.compareTo(BigInteger.ONE)<=0) return maxLength;
+        if(maxLength.compareTo(BigInteger.ZERO)<=0) return maxLength;
+        if(maxLength.equals(BigInteger.ONE)) return BigInteger.valueOf(2);
         if(!Z2.isIrreducible(polynomial)){
-            Map<BigInteger,Integer> factorsMap = Z2.factorPolynomialMap(polynomial);
+            /*Map<BigInteger,Integer> factorsMap = Z2.factorPolynomialMap(polynomial);
             Map<BigInteger,BigInteger> orderOfXMap = new HashMap<BigInteger, BigInteger>(factorsMap.size());
             BigInteger out = BigInteger.ONE;
             for(BigInteger fx:factorsMap.keySet()){
@@ -688,13 +693,46 @@ public class Z2 {
 
                 out = Z2.lcmBi(out,orderOfX.multiply(BigInteger.valueOf(pow)));
             }
-            return out;
+            return out;*/
+            List<boolean[]> polyFactors = Z2.factorPolynomialList(polynomial);
+            List<BigInteger> factors = new ArrayList<BigInteger>();
+            for(boolean[] term : polyFactors){
+                BigInteger termMaxLength=BigInteger.ONE.shiftLeft(term.length-1).subtract(BigInteger.ONE);
+                if(termMaxLength.compareTo(BigInteger.ONE)>0) {
+                    PollardRho.factor(termMaxLength,factors);
+                }
+            }
+            Collections.sort(factors);//sort to get the smallest factors first (there are several solution to the congruence, we want the smallest)
+            BigInteger base = BigInteger.ONE;
+            do {
+                long nCombination = 1 << factors.size();
+                for (long i = 1; i < nCombination; i++) {
+                    BigInteger candidate = base;
+                    boolean[] selection = Z2.toBooleans(BigInteger.valueOf(i));
+                    for (int j = 0; j < selection.length; j++) {
+                        if (selection[j]) candidate = candidate.multiply(factors.get(j));
+                    }
+                    boolean[] checker = Z2.modExp(Z2.X, candidate, polynomial);
+                    if (Z2.isOne(checker)) {
+                        /*if(base.compareTo(BigInteger.valueOf(8))>=0){//debug
+                            System.out.println(" base is not 1!");
+                            System.out.println("px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
+                            System.out.println("base = "+base+" = "+Arrays.asList(PollardRho.factor(base)));
+                            System.out.println("factors = "+factors);
+                        }*/
+                        return candidate;
+                    }
+                }
+                //base=base.add(BigInteger.ONE);
+                base = base.multiply(BigInteger.valueOf(2));
+            }while(base.compareTo(BigInteger.valueOf(1000))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
+            return BigInteger.ZERO;
         }
         BigInteger[] factors = PollardRho.factor(maxLength);
-        int nCombination = 1<<factors.length;
-        for(int i=1;i<nCombination;i++) {
+        long nCombination = 1<<factors.length;
+        for(long i=1;i<nCombination;i++) {
             BigInteger candidate = BigInteger.ONE;
-            boolean[] selection = Z2.toBooleans(i);
+            boolean[] selection = Z2.toBooleans(BigInteger.valueOf(i));
             for (int j = 0; j < selection.length; j++) {
                 if (selection[j]) candidate = candidate.multiply(factors[j]);
             }
