@@ -718,7 +718,7 @@ public class Z2 {
             base = BigInteger.ONE;
             do {
                 long nCombination = 1 << factors.size();
-                for (long i = 1; i < nCombination; i++) {
+                for (long i = 1; i < nCombination; i++) {//TODO: replace long by BigInteger
                     BigInteger candidate = base;
                     boolean[] selection = Z2.toBooleans(BigInteger.valueOf(i));
                     for (int j = 0; j < selection.length; j++) {
@@ -756,6 +756,73 @@ public class Z2 {
         }
         throw new RuntimeException("could not find the order of X for polynomial "+Z2.toPolynomial(polynomial));
     }
+
+    /**
+     * Compute r, the order of x, r being the smallest integer such that x^r mod polynomial = 1
+     * @param polynomial
+     * @return r
+     */
+    public static BigInteger orderOfX_testedX16(boolean[] polynomial){
+        if(Z2.equal(Z2.X,polynomial)) return BigInteger.ZERO;
+        BigInteger maxLength=BigInteger.ONE.shiftLeft(polynomial.length-1).subtract(BigInteger.ONE);
+        if(maxLength.compareTo(BigInteger.ZERO)<=0) return maxLength;
+        if(maxLength.equals(BigInteger.ONE)) return BigInteger.valueOf(2);
+        if(!Z2.isIrreducible(polynomial)){
+            List<boolean[]> polyFactors = Z2.factorPolynomialList(polynomial);
+            List<BigInteger> factors = new ArrayList<BigInteger>();
+            for(boolean[] term : polyFactors){
+                BigInteger termMaxLength=BigInteger.ONE.shiftLeft(term.length-1).subtract(BigInteger.ONE);
+                if(termMaxLength.compareTo(BigInteger.ONE)>0) {
+                    PollardRho.factor(termMaxLength,factors);
+                }
+            }
+            if(factors.size()==0){
+                factors.add(BigInteger.ONE);//needed for cases like (1+x)^2: all termMaxLength are one
+            }
+            Collections.sort(factors);//sort to get the smallest factors first (there are several solution to the congruence, we want the smallest)
+            Map<BigInteger,Integer> polyFactorsMap = Z2.booleansListToCountMap(polyFactors);
+            int maxPow = Collections.max(polyFactorsMap.values());
+            //maxPow: 1   2   3   4   5   6   7   8   9
+            //        0   1   2   2   3   3   3   3   4
+            //base:   1   2   4   4   8   8   8   8   16
+            BigInteger base = maxPow==1 ? BigInteger.ONE : BigInteger.valueOf(2).pow(Z2.bitWidth(maxPow-1));
+            /*if(!base.equals(BigInteger.ONE)){
+                System.out.println("base="+base+", maxPow="+maxPow+", px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
+            }*/
+            base = BigInteger.ONE;
+            do {
+                long nCombination = 1 << factors.size();
+                for (long i = 1; i < nCombination; i++) {//TODO: replace long by BigInteger
+                    BigInteger candidate = base;
+                    boolean[] selection = Z2.toBooleans(BigInteger.valueOf(i));
+                    for (int j = 0; j < selection.length; j++) {
+                        if (selection[j]) candidate = candidate.multiply(factors.get(j));
+                    }
+                    boolean[] checker = Z2.modExp(Z2.X, candidate, polynomial);
+                    if (Z2.isOne(checker)) {
+                        return candidate;
+                    }
+                }
+                base = base.multiply(BigInteger.valueOf(2));
+            }while(base.compareTo(BigInteger.valueOf(2).pow(1000))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
+            throw new RuntimeException(Z2.toPolynomial(polynomial));
+        }
+        BigInteger[] factors = PollardRho.factor(maxLength);
+        long nCombination = 1<<factors.length;
+        for(long i=1;i<nCombination;i++) {
+            BigInteger candidate = BigInteger.ONE;
+            boolean[] selection = Z2.toBooleans(BigInteger.valueOf(i));
+            for (int j = 0; j < selection.length; j++) {
+                if (selection[j]) candidate = candidate.multiply(factors[j]);
+            }
+            boolean[] checker = Z2.modExp(Z2.X, candidate, polynomial);
+            if (Z2.isOne(checker)) {
+                return candidate;
+            }
+        }
+        throw new RuntimeException("could not find the order of X for polynomial "+Z2.toPolynomial(polynomial));
+    }
+
 
     /**
      * Algorithm 4.69 Testing a polynomial for irreducibility

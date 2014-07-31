@@ -350,7 +350,7 @@ public class Lfsr {
         if(isSingular()) properties = "a singular, "+properties;
         else properties = "a non singular, "+properties;
         out+="It is "+properties+"\n";
-        if(l>1) {
+        if(l>1 && isPolynomialIrreducible()) {
             out += "Reverse sequence polynomial: " + reversedSequenceLfsr().getPolynomial() + "\n";
         }
         if(outputSeq){
