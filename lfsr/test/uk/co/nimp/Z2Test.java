@@ -779,6 +779,9 @@ public class Z2Test {
     @Test
     public void testOrderOfX() throws Exception{
 
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2")).equals(BigInteger.valueOf(2)));//(1+x)^2
+
+
         assert(Z2.orderOfX(Z2.polynomialToBooleans("0")).equals(BigInteger.ZERO));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1")).equals(BigInteger.ZERO));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("x")).equals(BigInteger.ZERO));
@@ -790,8 +793,7 @@ public class Z2Test {
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x2")).equals(BigInteger.valueOf(3)));//primitive
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x3")).equals(BigInteger.valueOf(7)));//primitive
 
-        /*boolean[] px = Z2.polynomialToBooleans("1 + x + x2 + x3 + x4 + x7 + x11 + x12 + x13 + x16 + x17");
-        System.out.println("px="+Z2.toPolynomial(px)+", computed order of X: "+Z2.orderOfX(px));
+        boolean[] px = Z2.polynomialToBooleans("1 + x2");
 
         for(int i=1;i< 1<<px.length;i++){
             boolean[] test = Z2.modExp(Z2.X,i,px);
@@ -799,8 +801,11 @@ public class Z2Test {
                 System.out.println("i="+i+", x^i mod px=1");
                 break;
             }
-        }*/
+        }
+        System.out.println("px="+Z2.toPolynomial(px)+", computed order of X: "+Z2.orderOfX(px));
 
+
+        //square free products
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x3")).equals(BigInteger.valueOf(3)));//(1+x)(1+x+x2)
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x2+x4")).equals(BigInteger.valueOf(7)));//(1+x)(1+x+x3)
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x4+x5")).equals(BigInteger.valueOf(21)));//(1+x+x2)(1+x+x3)
@@ -808,6 +813,12 @@ public class Z2Test {
 
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x2 + x4 + x5 + x6 + x7 + x8 + x9 + x11")).equals(BigInteger.valueOf(357)));//(1+x+x3)(x8+x4+x3+x+1) -->primitive * irreducible
 
+        //pure power of primitives --> seems a special case
+        checkOrderOfX("1 + x2");
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2+x6")).equals(BigInteger.valueOf(14)));//(1+x+x3)^2
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2")).equals(BigInteger.valueOf(2)));//(1+x)^2
+
+        //general case
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x5")).equals(BigInteger.valueOf(2*7)));//(1+x)^2*(1+x+x3)
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x3 + x6 + x7")).equals(BigInteger.valueOf(2*7)));//(1+x)(1+x+x3)^2
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x3 + x4 + x5 + x6 + x8 + x9 + x11")).equals(BigInteger.valueOf(3*7*31)));//(1+x)(1+x+x2)(1+x+x3)(1+x2+x5)
@@ -834,14 +845,22 @@ public class Z2Test {
 
 
 
+        for(int i=0;i<2<<16;i++){
+            boolean[] poly = Z2.toBooleans(i);
+            poly[0]=true;
+            checkOrderOfX(poly);
+        }
+
         Random rng = new Random(0);
-        for(int i=0;i<1000;i++){
-            int len = rng.nextInt(10)+2;
+        for(int i=0;i<100;i++){
+            int len = rng.nextInt(30)+2;
             boolean[] poly = Z2.randomBooleans(len);
             poly[0]=true;
             poly[poly.length-1]=true;
             checkOrderOfX(poly);
         }
+
+
     }
     static void checkOrderOfX(String polynomial){
         boolean[] px = Z2.polynomialToBooleans(polynomial);
@@ -849,11 +868,12 @@ public class Z2Test {
     }
     static void checkOrderOfX(boolean[] px){
         px = Z2.minimumLengthCopy(px);
-        //System.out.print(Z2.toPolynomial(px)+" -> orderOfX: ");System.out.flush();
+        System.out.print(Z2.toPolynomial(px)+" -> orderOfX: ");System.out.flush();
         BigInteger actual = Z2.orderOfX(px);
-        //System.out.println(actual);System.out.flush();
-        for(int i=actual.intValue()-1;i>=px.length;i--){
+        System.out.println(actual);System.out.flush();
+        for(int i=px.length;i<actual.intValue();i++){
             boolean[] check = Z2.modExp(Z2.X,BigInteger.valueOf(i),px);
+            if(Z2.isOne(check)) System.out.println(" --> fail for: "+i);
             assert(!Z2.isOne(check));
         }
         assert(Z2.isOne(Z2.modExp(Z2.X,actual,px)));

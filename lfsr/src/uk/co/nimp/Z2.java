@@ -702,8 +702,20 @@ public class Z2 {
                     PollardRho.factor(termMaxLength,factors);
                 }
             }
+            if(factors.size()==0){
+                factors.add(BigInteger.ONE);//needed for cases like (1+x)^2: all termMaxLength are one
+            }
             Collections.sort(factors);//sort to get the smallest factors first (there are several solution to the congruence, we want the smallest)
-            BigInteger base = BigInteger.ONE;
+            Map<BigInteger,Integer> polyFactorsMap = Z2.booleansListToCountMap(polyFactors);
+            int maxPow = Collections.max(polyFactorsMap.values());
+            //maxPow: 1   2   3   4   5   6   7   8   9
+            //        0   1   2   2   3   3   3   3   4
+            //base:   1   2   4   4   8   8   8   8   16
+            BigInteger base = maxPow==1 ? BigInteger.ONE : BigInteger.valueOf(2).pow(Z2.bitWidth(maxPow-1));
+            /*if(!base.equals(BigInteger.ONE)){
+                System.out.println("base="+base+", maxPow="+maxPow+", px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
+            }*/
+            base = BigInteger.ONE;
             do {
                 long nCombination = 1 << factors.size();
                 for (long i = 1; i < nCombination; i++) {
@@ -725,8 +737,9 @@ public class Z2 {
                 }
                 //base=base.add(BigInteger.ONE);
                 base = base.multiply(BigInteger.valueOf(2));
-            }while(base.compareTo(BigInteger.valueOf(1000))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
-            return BigInteger.ZERO;
+                //throw new RuntimeException(Z2.toPolynomial(polynomial));
+            }while(base.compareTo(BigInteger.valueOf(2).pow(1000))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
+            throw new RuntimeException(Z2.toPolynomial(polynomial));
         }
         BigInteger[] factors = PollardRho.factor(maxLength);
         long nCombination = 1<<factors.length;
@@ -1221,7 +1234,23 @@ end function
         out=minimumLengthCopy(out);
         return out;
     }
-
+    public static Map<BigInteger,Integer> booleansListToCountMap(List<boolean[]> in) {
+        List<BigInteger> bi = new ArrayList<BigInteger>();
+        for (boolean[] f : in) {
+            BigInteger fBi = Z2.booleansToBigInteger(f);
+            bi.add(fBi);
+        }
+        return listToCountMap(bi);
+    }
+    public static Map<BigInteger,Integer> listToCountMap(List<BigInteger> in){
+        Map<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();
+        for(BigInteger fBi: in){
+            int power = 1;
+            if(factorsMap.containsKey(fBi)) power += factorsMap.get(fBi);
+            factorsMap.put(fBi,power);
+        }
+        return factorsMap;
+    }
     public static Map<BigInteger,Integer> factorPolynomialMap(boolean[] in){
         List<boolean[]>factors = Z2.factorPolynomialList(in);
         Map<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();

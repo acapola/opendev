@@ -259,16 +259,16 @@ public class LfsrTest {
         checkSequencesLengthEqual("1+x+x3",               new int[][]{{7,1}});//primitive
         checkSequencesLengthEqual("1+x2+x6",              new int[][]{{7,1},{14,4}});//(1+x+x3)^2
         checkSequencesLengthEqual("1+x+x2+x4",            new int[][]{{1,1},{7,2}});//(1+x)(1+x+x3)
-/*
-        checkSequencesLengthEqual("1 + x + x2 + x5",          new int[][]{{1,1},{2,1},{7,2},{14,1}});//(1+x)^2*(1+x+x3)
-        checkSequencesLengthEqual("1 + x + x2 + x3 + x6 + x7",new int[][]{{1,1},{7,2},{14,8}});//(1+x)(1+x+x3)^2
+
+        checkSequencesLengthEqual("1 + x + x2 + x5",          new int[][]{{1,1},{2,1},{7,2},{14,1}});//(1+x)^2*(1+x+x3) orderOfX: 2, 2, 7 maxLength: 1, 1, 7
+        checkSequencesLengthEqual("1 + x + x2 + x3 + x6 + x7",new int[][]{{1,1},{7,2},{14,8}});//(1+x)(1+x+x3)^2 orderOfX: 2, 7, 7  maxLength: 1, 7, 7
+        checkSequencesLengthEqual("1+x2+x3+x7",new int[][]{{1,1},{2,1},{31,2},{62,1}});//(1+x)^2*(1+x3+x5) orderOfX: 2, 2, 31
 
 
-
-        checkSequencesLengthEqual("1+x3",                 new int[][]{{1,1},{3,2}});             //(1+x)(1+x+x2)
+        checkSequencesLengthEqual("1+x3",                 new int[][]{{1,1},{3,2}});//(1+x)(1+x+x2). orderOfX: 2, 3  maxLength: 1, 3
         //to check
-        checkSequencesLengthEqual("1+x+x3+x4",new int[][]{{1,1},{2,1},{3,2},{6,1}});//(1+x)^2 * (1+x+x2)-->{1,1},{2,1} , {3,1}
-*/
+        //checkSequencesLengthEqual("1+x+x3+x4",new int[][]{{1,1},{2,1},{3,2},{6,1}});//(1+x)^2 * (1+x+x2) orderOfX: 2, 2, 3
+
     }
     
     void checkReversedSequenceLfsr(String polynomial){

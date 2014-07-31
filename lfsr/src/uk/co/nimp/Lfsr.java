@@ -298,8 +298,10 @@ public class Lfsr {
     }
 
     public String describe(boolean outputSeq, boolean outputStates){
+        BigInteger orderOfX = Z2.orderOfX(getTaps());
         String out = "";
         out+="Polynomial:      "+getPolynomial()+"\n";
+        out+="Order of x:      "+orderOfX+"\n";
         out+="Inverted output: "+invertOutput+"\n";
         out+="Stepping mode:   "+mode+"\n";
         out+="Taps:            "+getTapsString()+"\n";
@@ -328,7 +330,8 @@ public class Lfsr {
                     }
                     properties=properties.substring(0,properties.length()-1);//remove the last new line character
                 }catch(Throwable e) {//we don't know how to compute the length of sequences for this polynomial.
-                    properties += "smaller than " + maxLength;
+                    //properties += "smaller than " + maxLength;
+                    properties += "at most "+orderOfX+" (depends on initial state)";
                 }
             }
         }
@@ -336,7 +339,12 @@ public class Lfsr {
         if(!isPolynomialIrreducible()) {
             properties = "reducible, " + properties;
             boolean[][] factors = Z2.factorPolynomial(Z2.minimumLengthCopy(getTaps()));
-            properties += "\n"+"Factors:\n" +tab+ Z2.join(Z2.toPolynomials(factors), "\n"+tab);
+            //properties += "\n"+"Factors:\n" +tab+ Z2.join(Z2.toPolynomials(factors), "\n"+tab);
+            properties += "\n"+"Factors:\n";
+            for(boolean[] f:factors) {
+                properties += tab+ Z2.toPolynomial(f)+ " (order of x: " + Z2.orderOfX(f)+")\n";
+            }
+            properties=properties.substring(0,properties.length()-1);//remove the last new line character
         }
 
         if(isSingular()) properties = "a singular, "+properties;
@@ -377,8 +385,11 @@ public class Lfsr {
                 }
                 out+=sum+" states in total\n";
                 //if(sum<200) {//for debug
-                for (boolean[] seq : sequences.keySet()) {
-                    out+=String.format("%6d",seq.length) + " outputs: " + Z2.toBinaryString(seq)+"\n";
+                List<boolean[]> sequencesLength=new ArrayList<boolean[]>();
+                sequencesLength.addAll(sequences.keySet());
+                Collections.sort(sequencesLength,Z2.comparator);
+                for (boolean[] seq : sequencesLength) {
+                    out+=String.format("%10d",seq.length) + " bits sequence: " + Z2.toBinaryString(seq)+"\n";
                     if (outputStates) {
                         boolean[][] states = sequences.get(seq);
                         for (int i = 0; i < states.length; i++)
@@ -541,7 +552,16 @@ public class Lfsr {
                         else out.put(len, nSeq);
                     }
                 }else{//general case: mix of powers of irreducible polynomials
+                    Map<BigInteger,BigInteger> orderOfXMap = new HashMap<BigInteger, BigInteger>();
+                    Map<BigInteger,BigInteger> maxLengthMap = new HashMap<BigInteger, BigInteger>();
+                    for(BigInteger factor:factorsMap.keySet()){
+                        boolean[] f = Z2.toBooleans(factor);
+                        BigInteger orderOfX = Z2.orderOfX(f);
+                        orderOfXMap.put(factor,orderOfX);
+                        maxLengthMap.put(factor,Lfsr.polynomialDegreeToMaximumLength(factor.bitLength()-1));
+                    }
                     throw new RuntimeException("sequencesLength called for a polynomial being a mix of powers of irreducible polynomials, case not implemented yet");
+
                 }
             }
         }
