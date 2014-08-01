@@ -426,22 +426,6 @@ public class Lfsr {
                 //return out;
                 return candidate;
             }
-                /*
-                    //a very inefficient approach
-                    int candidate = 1;
-                    boolean[] selection = Z2.toBooleans(i);
-                    for (int j = 0; j < selection.length; j++) {
-                        if (selection[j]) candidate = candidate * factors[j].intValue();
-                    }
-                    BigInteger checker = BigInteger.ONE.shiftLeft(candidate);
-                    checker = checker.add(BigInteger.ONE);
-                    boolean[] gcd = Z2.gcd(poly, Z2.toBooleans(checker));
-                    if (Z2.equal(gcd, poly)) {//gcd(x^k+1,poly)==poly ?
-                        BigInteger nSeq = maxLength.divide(BigInteger.valueOf(candidate));
-                        out.put(BigInteger.valueOf(candidate), nSeq.intValue());
-                        return out;
-                    }
-                */
         }
         if(Z2.isIrreducible(polynomial)) throw new RuntimeException("fatal internal error");
         else throw new RuntimeException("polynomial is reducible");
@@ -461,17 +445,17 @@ public class Lfsr {
             out.put(maxLength,1);
             return out;
         }
-        boolean[] poly=Z2.minimumLengthCopy(getTaps());
+        final boolean[] poly=Z2.minimumLengthCopy(getTaps());
         if(isPolynomialIrreducible()){
             BigInteger len=Lfsr.irreduciblePolynomialSequencesLength(poly);
             BigInteger nSeq = maxLength.divide(len);
             out.put(len, nSeq.intValue());
             return out;
         }else{
-            boolean[][]factors = Z2.factorPolynomial(poly);
+            boolean[][]factorsAsBooleans = Z2.factorPolynomial(poly);
             Map<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();
             int maxPower=0;
-            for(boolean[] f: factors){
+            for(boolean[] f: factorsAsBooleans){
                 BigInteger fBi = Z2.booleansToBigInteger(f);
                 int power = 1;
                 if(factorsMap.containsKey(fBi)) power += factorsMap.get(fBi);
@@ -481,7 +465,7 @@ public class Lfsr {
 
 
             if(factorsMap.size()==1) {
-                boolean[] root = factors[0];
+                boolean[] root = factorsAsBooleans[0];
                 int power = maxPower;
                 if(Z2.isPrimitive(root)) {
                     //power of primitive polynomials:
@@ -531,11 +515,11 @@ public class Lfsr {
             } else {
                 if(1==maxPower) {
                     //square free polynomials:
-                    BigInteger[] primitiveSeqLengths = new BigInteger[factors.length];
-                    for (int i = 0; i < factors.length; i++) {
-                        primitiveSeqLengths[i] = polynomialDegreeToMaximumLength(factors[i].length - 1);
+                    BigInteger[] primitiveSeqLengths = new BigInteger[factorsAsBooleans.length];
+                    for (int i = 0; i < factorsAsBooleans.length; i++) {
+                        primitiveSeqLengths[i] = polynomialDegreeToMaximumLength(factorsAsBooleans[i].length - 1);
                     }
-                    int nCombination = 1 << factors.length;
+                    int nCombination = 1 << factorsAsBooleans.length;
                     for (int i = 1; i < nCombination; i++) {
                         boolean[] selection = Z2.toBooleans(i);
                         int lsbIndex = Z2.lsbSetIndex(selection);
@@ -552,14 +536,15 @@ public class Lfsr {
                         else out.put(len, nSeq);
                     }
                 }else{//general case: mix of powers of irreducible polynomials
-                    Map<BigInteger,BigInteger> orderOfXMap = new HashMap<BigInteger, BigInteger>();
+                    /*Map<BigInteger,BigInteger> orderOfXMap = new HashMap<BigInteger, BigInteger>();
                     Map<BigInteger,BigInteger> maxLengthMap = new HashMap<BigInteger, BigInteger>();
                     for(BigInteger factor:factorsMap.keySet()){
                         boolean[] f = Z2.toBooleans(factor);
                         BigInteger orderOfX = Z2.orderOfX(f);
                         orderOfXMap.put(factor,orderOfX);
                         maxLengthMap.put(factor,Lfsr.polynomialDegreeToMaximumLength(factor.bitLength()-1));
-                    }
+                    }*/
+                    buildNodes();
                     throw new RuntimeException("sequencesLength called for a polynomial being a mix of powers of irreducible polynomials, case not implemented yet");
 
                 }
@@ -567,6 +552,140 @@ public class Lfsr {
         }
         return out;
     }
+    List<DecompNode> nodes = null;//constructed lazily new HashSet<DecompNode>();
+    List<Factor> factors = null;//constructed lazily new ArrayList<Factor>();
+    void buildNodes(){
+        if(nodes==null){
+            nodes = new ArrayList<DecompNode>();
+            buildFactors();
+            new DecompNode(factors);
+        }
+    }
+    void buildFactors(){
+        if(null==factors) {
+            factors = new ArrayList<Factor>();
+            boolean[][] factors = Z2.factorPolynomial(getTaps());
+            for (boolean[] f : factors) {
+                Factor.create(f);
+            }
+        }
+    }
+
+    static Map<BigInteger,Factor> factorsCache=new HashMap<BigInteger,Factor>();
+    static class Factor implements Comparable{
+        final boolean[] polynomial;
+        final BigInteger polyBi;
+        final BigInteger orderOfX;
+        final BigInteger maxLength;
+        final int degree;
+        final String polyStr;
+        private Factor(boolean[] polynomial, BigInteger bi){
+            this.polynomial=polynomial;
+            polyBi = bi;
+            orderOfX=Z2.orderOfX(polynomial);
+            degree = polynomial.length-1;
+            maxLength=Lfsr.polynomialDegreeToMaximumLength(degree);
+            polyStr = Z2.toPolynomial(polynomial);
+        }
+        public static Factor create(boolean[] polynomial){
+            BigInteger bi = Z2.booleansToBigInteger(polynomial);
+            if(factorsCache.containsKey(bi)) return factorsCache.get(bi);
+            Factor out = new Factor(polynomial,bi);
+            factorsCache.put(bi,out);
+            return out;
+        }
+
+        public boolean[] getPolynomial() {
+            return polynomial;
+        }
+
+        public BigInteger getPolyBi() {
+            return polyBi;
+        }
+
+        public BigInteger getOrderOfX() {
+            return orderOfX;
+        }
+
+        public BigInteger getMaxLength() {
+            return maxLength;
+        }
+
+        public int getDegree() {
+            return degree;
+        }
+
+        public String getPolyStr() {
+            return polyStr;
+        }
+
+        @Override
+        public int compareTo(Object o) {
+            return polyBi.compareTo(((Factor)o).polyBi);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Factor factor = (Factor) o;
+
+            if (!polyBi.equals(factor.polyBi)) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return polyBi.hashCode();
+        }
+    }
+
+    class DecompNode{
+        final List<Factor> factors;
+        final Map<DecompNode,Factor> parents = new HashMap<DecompNode,Factor>();
+        final Map<DecompNode,Factor> children = new HashMap<DecompNode,Factor>();
+        public void addParent(DecompNode parent, Factor excludedFactor){
+            parents.put(parent,excludedFactor);
+        }
+        public DecompNode(List<Factor> factors){
+            this.factors=factors;
+            Collections.sort(this.factors);
+            for(Factor excluded:factors){
+                List<Factor> remainingFactors = new ArrayList<Factor>();
+                remainingFactors.addAll(factors);
+                remainingFactors.remove(excluded);
+                DecompNode child = new DecompNode(remainingFactors);
+                int idx = nodes.indexOf(child);
+                if(idx!=-1){//take the already existing node
+                    child = nodes.get(idx);
+                } else {
+                    nodes.add(child);
+                }
+                child.addParent(this,excluded);
+                children.put(child, excluded);
+            }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DecompNode that = (DecompNode) o;
+
+            if (!factors.equals(that.factors)) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return factors.hashCode();
+        }
+    }
+
 
 
     public Set<boolean[]> sequences() {

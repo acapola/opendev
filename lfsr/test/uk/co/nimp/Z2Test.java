@@ -845,7 +845,7 @@ public class Z2Test {
 
 
 
-        for(int i=0;i<2<<16;i++){
+        for(int i=0;i<2<<10;i++){
             boolean[] poly = Z2.toBooleans(i);
             poly[0]=true;
             checkOrderOfX(poly);
@@ -853,7 +853,7 @@ public class Z2Test {
 
         Random rng = new Random(0);
         for(int i=0;i<100;i++){
-            int len = rng.nextInt(30)+2;
+            int len = rng.nextInt(20)+2;
             boolean[] poly = Z2.randomBooleans(len);
             poly[0]=true;
             poly[poly.length-1]=true;
