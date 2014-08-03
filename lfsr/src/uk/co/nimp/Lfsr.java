@@ -545,7 +545,13 @@ public class Lfsr {
                         maxLengthMap.put(factor,Lfsr.polynomialDegreeToMaximumLength(factor.bitLength()-1));
                     }*/
                     buildNodes();
-                    throw new RuntimeException("sequencesLength called for a polynomial being a mix of powers of irreducible polynomials, case not implemented yet");
+                    for(DecompNode node:nodes){
+                        BigInteger len = node.getSequencesLength();
+                        int count = node.getnSequences().intValue();
+                        if(out.containsKey(len)) count+=out.get(len);
+                        out.put(len,count);
+                    }
+                    //throw new RuntimeException("sequencesLength called for a polynomial being a mix of powers of irreducible polynomials, case not implemented yet");
 
                 }
             }
@@ -559,14 +565,20 @@ public class Lfsr {
             nodes = new ArrayList<DecompNode>();
             buildFactors();
             new DecompNode(factors);
+            /*for(int i=0;i<nodes.size();i++){
+                DecompNode node= nodes.get(i);
+                System.out.println(node);
+                System.out.println("\t"+node.parents);
+                System.out.println("\t"+node.getAncestors());
+            }*/
         }
     }
     void buildFactors(){
         if(null==factors) {
             factors = new ArrayList<Factor>();
-            boolean[][] factors = Z2.factorPolynomial(getTaps());
-            for (boolean[] f : factors) {
-                Factor.create(f);
+            boolean[][] factorsAsBooleans = Z2.factorPolynomial(getTaps());
+            for (boolean[] f : factorsAsBooleans) {
+                factors.add(Factor.create(f));
             }
         }
     }
@@ -620,6 +632,11 @@ public class Lfsr {
         }
 
         @Override
+        public String toString() {
+            return polyStr;
+        }
+
+        @Override
         public int compareTo(Object o) {
             return polyBi.compareTo(((Factor)o).polyBi);
         }
@@ -646,21 +663,102 @@ public class Lfsr {
         final List<Factor> factors;
         final Map<DecompNode,Factor> parents = new HashMap<DecompNode,Factor>();
         final Map<DecompNode,Factor> children = new HashMap<DecompNode,Factor>();
+        Set<DecompNode> ancestors = null;
+        BigInteger nStates=null;
+        BigInteger nSequences = null;
+        BigInteger sequencesLength = null;
+        void computeSequences(){
+            BigInteger statesSum = BigInteger.ZERO;
+            int degree=0;
+            List<Factor> excludedFactors = new ArrayList<Factor>();
+            excludedFactors.addAll(Lfsr.this.factors);
+            for(Factor f:factors){
+                excludedFactors.remove(f);
+            }
+            //sequencesLength = BigInteger.ONE;
+            boolean[] product = Z2.ONE;
+            for(Factor f:excludedFactors) {
+                degree+=f.getDegree();
+                //sequencesLength = Z2.lcmBi(sequencesLength,f.getOrderOfX());
+                product = Z2.mul(product,f.polynomial);
+            }
+            Factor prod = Factor.create(product);
+            sequencesLength = prod.getOrderOfX().max(BigInteger.ONE);
+            getAncestors();//make sure ancestors are up to date.
+            for(DecompNode ancestor:ancestors){
+                statesSum = statesSum.add(ancestor.getnStates());
+            }
+            BigInteger maxStates = BigInteger.ONE.shiftLeft(degree);
+            nStates = maxStates.subtract(statesSum);
+            nSequences = nStates.divide(sequencesLength);
+            if(!nStates.equals(nSequences.multiply(sequencesLength))) {
+                System.out.println("parents: "+parents);
+                System.out.println("ancestors: "+ancestors);
+                System.out.println("maxStates: "+maxStates);
+                System.out.println("factors: "+factors);
+                System.out.println("excluded factors: "+excludedFactors);
+
+                throw new RuntimeException("Internal error, nStates ("+nStates+
+                        "), nSequences ("+nSequences+") and sequencesLength ("+sequencesLength+")are inconsistent.");
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "DecompNode{" +
+                     factors +
+                    '}';
+        }
+
+        public Set<DecompNode> getAncestors(){
+            if(null==ancestors){
+                ancestors = new HashSet<DecompNode>();
+                for(DecompNode parent:parents.keySet()){
+                    ancestors.add(parent);
+                    ancestors.addAll(parent.getAncestors());
+                }
+            }
+            return ancestors;
+        }
+
+        public BigInteger getnStates() {
+            if(null==nStates) computeSequences();
+            return nStates;
+        }
+
+        public BigInteger getnSequences() {
+            if(null==nStates) computeSequences();
+            return nSequences;
+        }
+
+        public BigInteger getSequencesLength() {
+            if(null==nStates) computeSequences();
+            return sequencesLength;
+        }
         public void addParent(DecompNode parent, Factor excludedFactor){
             parents.put(parent,excludedFactor);
+            nStates=null;//invalidate nStates
+            nSequences=null;
+            sequencesLength=null;
+            ancestors = null;
         }
         public DecompNode(List<Factor> factors){
             this.factors=factors;
+            //if(factors.size()==1) return;
             Collections.sort(this.factors);
             for(Factor excluded:factors){
                 List<Factor> remainingFactors = new ArrayList<Factor>();
                 remainingFactors.addAll(factors);
                 remainingFactors.remove(excluded);
-                DecompNode child = new DecompNode(remainingFactors);
-                int idx = nodes.indexOf(child);
-                if(idx!=-1){//take the already existing node
-                    child = nodes.get(idx);
-                } else {
+                DecompNode child = null;
+                for(DecompNode node:nodes){
+                    if(node.factors.equals(remainingFactors)) {
+                        child = node;
+                        break;
+                    }
+                }
+                if(null==child){
+                    child = new DecompNode(remainingFactors);
                     nodes.add(child);
                 }
                 child.addParent(this,excluded);

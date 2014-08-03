@@ -732,6 +732,29 @@ public class Z2Test {
         boolean[] pa = Z2.add(a,product);
         assert(Z2.equal(a,Z2.div(pa,b)));
     }
+    void checkModExp(String ax, int exp, String mx){
+        checkModExp(Z2.polynomialToBooleans(ax),exp,Z2.polynomialToBooleans(mx));
+    }
+    void checkModExp(boolean[] ax, int exp, boolean[]mx){
+        boolean[] expected = Z2.ONE;
+        for(int i=0;i<exp;i++){
+            expected = Z2.mul(expected,ax);
+            //System.out.println("expected="+Z2.toPolynomial(expected));
+        }
+        expected = Z2.mod(expected,mx);
+        boolean[] actual = Z2.modExp(ax,exp,mx);
+        System.out.println("expected="+Z2.toPolynomial(expected));
+        System.out.println("actual  ="+Z2.toPolynomial(actual));
+        assert(Z2.equal(actual,expected));
+    }
+    @Test
+    public void testModExp() throws Exception{
+        checkModExp("x",1,"1+x");
+        checkModExp("x",2,"1+x+x2");
+        checkModExp("x",10,"1+x+x4");
+        checkModExp("x",13,"1+x+x6");
+
+    }
     @Test
     public void testMod() throws Exception {
         boolean[] a = Z2.polynomialToBooleans("x2+x");
@@ -778,14 +801,15 @@ public class Z2Test {
 
     @Test
     public void testOrderOfX() throws Exception{
-
+        System.out.println(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x3 + x4 + x10 + x11 + x12 + x15")));
+        //assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x3 + x4 + x10 + x11 + x12 + x15")).equals(null));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2")).equals(BigInteger.valueOf(2)));//(1+x)^2
 
 
         assert(Z2.orderOfX(Z2.polynomialToBooleans("0")).equals(BigInteger.ZERO));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1")).equals(BigInteger.ZERO));
-        assert(Z2.orderOfX(Z2.polynomialToBooleans("x")).equals(BigInteger.ZERO));
-        assert(Z2.orderOfX(Z2.polynomialToBooleans("x+1")).equals(BigInteger.valueOf(2)));
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("x")).equals(BigInteger.ONE));
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("x+1")).equals(BigInteger.valueOf(1)));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("x8+x4+x3+x+1")).equals(BigInteger.valueOf(51)));//irreducible
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2+x5")).equals(BigInteger.valueOf(31)));//primitive
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x6")).equals(BigInteger.valueOf(63)));//primitive
@@ -843,8 +867,9 @@ public class Z2Test {
         //  1 + x3 + x4 + x6 + x10 + x12 + x13 + x14 + x15 + x16 + x17 ----------------------------------------------> 131071
         //  1 + x + x2 + x4 + x6 + x7 + x9 + x12 + x14 + x17 + x19 + x20 + x21 + x24 + x25 + x26 + x27 + x28 + x30 --> 357913941 = 3 7 11 31 151 331
 
-
-
+/*
+        System.out.println("Z2.modExp(Z2.X,1,Z2.polynomialToBooleans(\"1+x\"))="+Z2.toPolynomial(Z2.modExp(Z2.X,1,Z2.polynomialToBooleans("1+x"))));
+        System.out.println("Z2.modExp(Z2.X,2,Z2.polynomialToBooleans(\"1+x\"))="+Z2.toPolynomial(Z2.modExp(Z2.X,2,Z2.polynomialToBooleans("1+x"))));
         for(int i=0;i<2<<10;i++){
             boolean[] poly = Z2.toBooleans(i);
             poly[0]=true;
@@ -858,7 +883,7 @@ public class Z2Test {
             poly[0]=true;
             poly[poly.length-1]=true;
             checkOrderOfX(poly);
-        }
+        }*/
 
 
     }

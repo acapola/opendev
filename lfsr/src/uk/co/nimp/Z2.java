@@ -112,6 +112,7 @@ public class Z2 {
      * @param bShift
      */
     static void selfAdd(boolean[] a, boolean[] b, int bShift){
+        assert(bShift>=0);
         for(int i=0;i<b.length;i++){
             a[i+bShift] ^= b[i];
         }
@@ -678,10 +679,11 @@ public class Z2 {
      * @return r
      */
     public static BigInteger orderOfX(boolean[] polynomial){
-        if(Z2.equal(Z2.X,polynomial)) return BigInteger.ZERO;
+        if(polynomial[polynomial.length-1]==false) polynomial=Z2.minimumLengthCopy(polynomial);
+        if(Z2.equal(Z2.X,polynomial)) return BigInteger.ONE;
         BigInteger maxLength=BigInteger.ONE.shiftLeft(polynomial.length-1).subtract(BigInteger.ONE);
         if(maxLength.compareTo(BigInteger.ZERO)<=0) return maxLength;
-        if(maxLength.equals(BigInteger.ONE)) return BigInteger.valueOf(2);
+        if(maxLength.equals(BigInteger.ONE)) return BigInteger.ONE;
         if(!Z2.isIrreducible(polynomial)){
             /*Map<BigInteger,Integer> factorsMap = Z2.factorPolynomialMap(polynomial);
             Map<BigInteger,BigInteger> orderOfXMap = new HashMap<BigInteger, BigInteger>(factorsMap.size());
@@ -766,7 +768,7 @@ public class Z2 {
         if(Z2.equal(Z2.X,polynomial)) return BigInteger.ZERO;
         BigInteger maxLength=BigInteger.ONE.shiftLeft(polynomial.length-1).subtract(BigInteger.ONE);
         if(maxLength.compareTo(BigInteger.ZERO)<=0) return maxLength;
-        if(maxLength.equals(BigInteger.ONE)) return BigInteger.valueOf(2);
+        if(maxLength.equals(BigInteger.ONE)) return BigInteger.ONE;
         if(!Z2.isIrreducible(polynomial)){
             List<boolean[]> polyFactors = Z2.factorPolynomialList(polynomial);
             List<BigInteger> factors = new ArrayList<BigInteger>();
@@ -896,7 +898,12 @@ public class Z2 {
         boolean[] sx = Z2.ONE.clone();
         if(k==BigInteger.ZERO) return sx;
         boolean [] Gx = gx;
-        if(k.testBit(0)) sx = gx.clone();
+        if(k.testBit(0)) {
+            sx = gx.clone();
+            if(k.bitLength()==1){
+                return Z2.mod(sx,fx);
+            }
+        }
         for(int i=1;i<k.bitLength();i++){
             Gx = Z2.mul(Gx,Gx);
             Gx = Z2.mod(Gx,fx);

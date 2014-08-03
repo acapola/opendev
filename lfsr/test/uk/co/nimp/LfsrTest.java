@@ -183,7 +183,7 @@ public class LfsrTest {
     static void checkSequencesLengthEqual(String polynomial,int[][] expected){
         Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
         Map<BigInteger,Integer> actual=lfsr.sequencesLength();
-        //System.out.println(polynomial+" -> "+actual);
+        System.out.println(polynomial+" -> "+actual);
         assert(actual.size()==expected.length);
         for(int i=0;i<expected.length;i++){
             BigInteger len = BigInteger.valueOf(expected[i][0]);
@@ -259,6 +259,8 @@ public class LfsrTest {
         checkSequencesLengthEqual("1+x+x3",               new int[][]{{7,1}});//primitive
         checkSequencesLengthEqual("1+x2+x6",              new int[][]{{7,1},{14,4}});//(1+x+x3)^2
         checkSequencesLengthEqual("1+x+x2+x4",            new int[][]{{1,1},{7,2}});//(1+x)(1+x+x3)
+
+        checkSequencesLengthEqual("1 + x + x2 + x3+x5+x7+x8+x9+x13",new int[][]{{3,1},{7,1},{15,4},{21,1},{30,32},{105,4},{210,32}});
 
         checkSequencesLengthEqual("1 + x + x2 + x5",          new int[][]{{1,1},{2,1},{7,2},{14,1}});//(1+x)^2*(1+x+x3) orderOfX: 2, 2, 7 maxLength: 1, 1, 7
         checkSequencesLengthEqual("1 + x + x2 + x3 + x6 + x7",new int[][]{{1,1},{7,2},{14,8}});//(1+x)(1+x+x3)^2 orderOfX: 2, 7, 7  maxLength: 1, 7, 7
