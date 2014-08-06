@@ -513,7 +513,7 @@ public class Lfsr {
                     //throw new RuntimeException("sequencesLength called for a polynomial being a power of an irreducible polynomial, case not implemented yet");
                 }
             } else {
-                if(1==maxPower) {
+                /*if(1==maxPower) {
                     //square free polynomials:
                     BigInteger[] primitiveSeqLengths = new BigInteger[factorsAsBooleans.length];
                     for (int i = 0; i < factorsAsBooleans.length; i++) {
@@ -535,7 +535,7 @@ public class Lfsr {
                         if (out.containsKey(len)) out.put(len, out.get(len) + nSeq);
                         else out.put(len, nSeq);
                     }
-                }else{//general case: mix of powers of irreducible polynomials
+                }else*/{//general case: mix of powers of irreducible polynomials
                     return lahtonen();
                     /*
                     //following works but is more complex. TODO: benchmark against lahtonen

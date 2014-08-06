@@ -867,15 +867,15 @@ public class Z2Test {
         //  1 + x3 + x4 + x6 + x10 + x12 + x13 + x14 + x15 + x16 + x17 ----------------------------------------------> 131071
         //  1 + x + x2 + x4 + x6 + x7 + x9 + x12 + x14 + x17 + x19 + x20 + x21 + x24 + x25 + x26 + x27 + x28 + x30 --> 357913941 = 3 7 11 31 151 331
 
-/*
+
         System.out.println("Z2.modExp(Z2.X,1,Z2.polynomialToBooleans(\"1+x\"))="+Z2.toPolynomial(Z2.modExp(Z2.X,1,Z2.polynomialToBooleans("1+x"))));
         System.out.println("Z2.modExp(Z2.X,2,Z2.polynomialToBooleans(\"1+x\"))="+Z2.toPolynomial(Z2.modExp(Z2.X,2,Z2.polynomialToBooleans("1+x"))));
-        for(int i=0;i<2<<10;i++){
+        for(int i=0;i<1<<11;i++){
             boolean[] poly = Z2.toBooleans(i);
             poly[0]=true;
             checkOrderOfX(poly);
         }
-
+/*
         Random rng = new Random(0);
         for(int i=0;i<100;i++){
             int len = rng.nextInt(20)+2;
@@ -883,8 +883,8 @@ public class Z2Test {
             poly[0]=true;
             poly[poly.length-1]=true;
             checkOrderOfX(poly);
-        }*/
-
+        }
+*/
 
     }
     static void checkOrderOfX(String polynomial){

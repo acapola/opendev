@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Created by seb on 6/22/14.
  */
 public class MainHelpers {
-    public static String credits = "Written by Sebastien Riou, 20140806-232400";
+    public static String credits = "Written by Sebastien Riou, 20140807-003400";
     static String formatArg(String arg){
         return "-"+arg.substring(0,1).toLowerCase()+arg.substring(1);
     }

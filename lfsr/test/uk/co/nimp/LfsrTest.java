@@ -3,10 +3,7 @@ package uk.co.nimp;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class LfsrTest {
 
@@ -183,7 +180,7 @@ public class LfsrTest {
     static void checkSequencesLengthEqual(String polynomial,int[][] expected){
         Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
         Map<BigInteger,Integer> actual=lfsr.sequencesLength();
-//        System.out.println(polynomial+" -> "+actual);
+        System.out.println(polynomial+" -> "+actual);
         assert(actual.size()==expected.length);
         for(int i=0;i<expected.length;i++){
             BigInteger len = BigInteger.valueOf(expected[i][0]);
@@ -192,8 +189,50 @@ public class LfsrTest {
         }
     }
 
+    static void checkSequencesLength(boolean[] polynomial) {
+        checkSequencesLength(Z2.toPolynomial(polynomial));
+    }
+    static void checkSequencesLength(String polynomial){
+        Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
+        Set<boolean[]> sequences=lfsr.sequences();
+        Map<BigInteger,Integer> expected=new HashMap<BigInteger, Integer>();
+        for(boolean[] s:sequences){
+            BigInteger len = BigInteger.valueOf(s.length);
+            if(expected.containsKey(len)) expected.put(len,expected.get(len)+1);
+            else expected.put(len,1);
+        }
+        Map<BigInteger,Integer> actual=lfsr.sequencesLength();
+        if(actual.size()!=expected.size()){
+            System.out.println(polynomial+" -> expected:"+expected);
+            System.out.println(polynomial+" -> actual:  "+actual);
+            System.out.flush();
+
+            throw new RuntimeException();
+        }
+        for(BigInteger len:expected.keySet()){
+            if(!actual.containsKey(len)){
+                System.out.println(polynomial+" -> expected:"+expected);
+                System.out.println(polynomial+" -> actual:  "+actual);
+                System.out.flush();
+            }
+            int actualNSeq = actual.get(len);
+            int expectednSeq = expected.get(len);
+            if(actualNSeq!=expectednSeq){
+                System.out.println(polynomial+" -> expected:"+expected);
+                System.out.println(polynomial+" -> actual:  "+actual);
+                System.out.println(len+" -> "+actualNSeq+" != "+expectednSeq);
+                System.out.flush();
+
+                throw new RuntimeException();
+            }
+        }
+    }
+
     @Test
     public void testSequencesLength() throws Exception {
+        checkSequencesLengthEqual("1+x5",new int[][]{{1,1},{5,6}});
+        checkSequencesLengthEqual("1+x11",new int[][]{{1,1},{11,186}});
+
         checkSequencesLengthEqual("1+x",new int[][]{{1,1}});//primitive
         checkSequencesLengthEqual("1+x+x3",new int[][]{{7,1}});//primitive
         checkSequencesLengthEqual("1+x2+x3",new int[][]{{7,1}});//primitive
@@ -269,6 +308,14 @@ public class LfsrTest {
 
 
         checkSequencesLengthEqual("1+x+x3+x4",new int[][]{{1,1},{2,1},{3,2},{6,1}});//(1+x)^2 * (1+x+x2) orderOfX: 2, 2, 3
+
+        checkSequencesLength("1+x+x2+x3+x5+x7+x8+x9+x13");
+        for(int i=2;i<1<<12;i++){
+            boolean[] poly = Z2.toBooleans(i);
+            poly[0]=true;
+            checkSequencesLength(poly);
+            if(i%1000==0) System.out.println(i);
+        }
 
     }
     

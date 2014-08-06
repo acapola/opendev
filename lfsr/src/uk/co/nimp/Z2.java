@@ -692,6 +692,21 @@ public class Z2 {
     }
 
     public static int orderOfX_callCnt=0;
+
+    public static BigInteger orderOfX(boolean[] irreduciblePolynomial, int power) {
+        BigInteger candidate = Z2.orderOfX(irreduciblePolynomial);
+        boolean[] px = Z2.pow(irreduciblePolynomial,power);
+        do{
+            boolean[] checker = Z2.modExp(Z2.X, candidate, px);
+            if (Z2.isOne(checker)) {
+                //System.out.println("BINGO!!! --> base="+base+", orderOfX="+candidate);
+                return candidate;
+            }
+            candidate = candidate.multiply(BigInteger.valueOf(2));
+        }while(candidate.compareTo(BigInteger.valueOf(2).pow(10))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
+        throw new RuntimeException("could not find the order of X for polynomial "+Z2.toPolynomial(px));
+    }
+
     /**
      * Compute r, the order of x, r being the smallest integer such that x^r mod polynomial = 1
      * @param polynomial
@@ -705,17 +720,18 @@ public class Z2 {
         if(maxLength.compareTo(BigInteger.ZERO)<=0) return maxLength;
         if(maxLength.equals(BigInteger.ONE)) return BigInteger.ONE;
         if(!Z2.isIrreducible(polynomial)){
-            /*Map<BigInteger,Integer> factorsMap = Z2.factorPolynomialMap(polynomial);
-            Map<BigInteger,BigInteger> orderOfXMap = new HashMap<BigInteger, BigInteger>(factorsMap.size());
+            Map<BigInteger,Integer> factorsMap = Z2.factorPolynomialMap(polynomial);
             BigInteger out = BigInteger.ONE;
+
             for(BigInteger fx:factorsMap.keySet()){
                 int pow = factorsMap.get(fx);
-                BigInteger orderOfX = Z2.orderOfX(Z2.toBooleans(fx));
-                orderOfXMap.put(fx,orderOfX);
-
-                out = Z2.lcmBi(out,orderOfX.multiply(BigInteger.valueOf(pow)));
+                //boolean[] term=Z2.pow(Z2.toBooleans(fx),pow);
+                //BigInteger orderOfX = Z2.orderOfX(term);
+                BigInteger orderOfX = Z2.orderOfX(Z2.toBooleans(fx),pow);
+                out = Z2.lcmBi(out,orderOfX);
             }
-            return out;*/
+            if(!out.equals(BigInteger.ONE))return out;
+
             List<boolean[]> polyFactors = Z2.factorPolynomialList(polynomial);
             List<BigInteger> factors = new ArrayList<BigInteger>();
             for(boolean[] term : polyFactors){
@@ -740,8 +756,8 @@ public class Z2 {
             }*/
             base = BigInteger.ONE;
             long loopCnt=0;
-            System.out.println("px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
-            System.out.println("factors = "+factors);
+            //System.out.println("px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
+            //System.out.println("factors = "+factors);
 
 /*
             //speed up? --> does not always work :-S
@@ -773,11 +789,11 @@ public class Z2 {
                             //System.out.println(" base is not 1!");
                             //System.out.println("px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
                             //System.out.println("factors = "+factors);
-                            System.out.println("base = "+base+" = "+Arrays.asList(PollardRho.factor(base)));
+                            //System.out.println("base = "+base+" = "+Arrays.asList(PollardRho.factor(base)));
 
                         //}
                         loopCnt+=i;
-                        System.out.println("loopCnt:"+loopCnt);
+                        //System.out.println("loopCnt:"+loopCnt);
                         return candidate;
                     }
                 }
