@@ -536,27 +536,112 @@ public class Lfsr {
                         else out.put(len, nSeq);
                     }
                 }else{//general case: mix of powers of irreducible polynomials
-                    /*Map<BigInteger,BigInteger> orderOfXMap = new HashMap<BigInteger, BigInteger>();
-                    Map<BigInteger,BigInteger> maxLengthMap = new HashMap<BigInteger, BigInteger>();
-                    for(BigInteger factor:factorsMap.keySet()){
-                        boolean[] f = Z2.toBooleans(factor);
-                        BigInteger orderOfX = Z2.orderOfX(f);
-                        orderOfXMap.put(factor,orderOfX);
-                        maxLengthMap.put(factor,Lfsr.polynomialDegreeToMaximumLength(factor.bitLength()-1));
-                    }*/
+                    return lahtonen();
+                    /*
+                    //following works but is more complex. TODO: benchmark against lahtonen
                     buildNodes();
                     for(DecompNode node:nodes){
                         BigInteger len = node.getSequencesLength();
                         int count = node.getnSequences().intValue();
                         if(out.containsKey(len)) count+=out.get(len);
                         out.put(len,count);
-                    }
+                    }*/
                     //throw new RuntimeException("sequencesLength called for a polynomial being a mix of powers of irreducible polynomials, case not implemented yet");
 
                 }
             }
         }
         return out;
+    }
+
+    /**
+     * Algorithm suggested by Jyrki Lahtonen on Stack Exchange Math.
+     * @return
+     */
+    Map<BigInteger,Integer> lahtonen(){
+        buildFactors();
+        //System.out.println("Factors:"+factors);
+        TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger, Integer>();
+        TreeMap<Factor,Integer> factorsMap = new TreeMap<Factor, Integer>();
+        for(Factor f: factors){
+            int power = 1;
+            if(factorsMap.containsKey(f)) power += factorsMap.get(f);
+            factorsMap.put(f,power);
+        }
+        //System.out.println("FactorsMap:"+factorsMap);
+        List<List<BigInteger>> sequencesLength = new ArrayList<List<BigInteger>>();
+        List<List<BigInteger>> numberOfResidueClasses = new ArrayList<List<BigInteger>>();
+        List<Integer> numberOfOrbits = new ArrayList<Integer>();
+        for(Factor f:factorsMap.keySet()){
+            boolean[] px = Z2.pow(f.getPolynomial(),factorsMap.get(f));
+            Map<BigInteger,Integer> seqLengths = Lfsr.fromTaps(px).sequencesLength();
+            //System.out.println("\tpx="+Z2.toPolynomial(px)+" -> "+seqLengths);
+            List<BigInteger> lengths = new ArrayList<BigInteger>();
+            lengths.addAll(seqLengths.keySet());
+            sequencesLength.add(lengths);
+            List<BigInteger> nSequences = new ArrayList<BigInteger>();
+            for(BigInteger seqLen:seqLengths.keySet()) {
+                BigInteger nOrbit = BigInteger.valueOf(seqLengths.get(seqLen));
+                BigInteger nSeq = seqLen.multiply(nOrbit);
+                nSequences.add(nSeq);
+            }
+            numberOfResidueClasses.add(nSequences);
+            numberOfOrbits.add(seqLengths.size() + 1);//+1 to add the null sequence (1 orbit of length 1)
+        }
+        //System.out.println("sequenceLength:"+sequencesLength);
+        //System.out.println("numberOfResidueClasses:"+numberOfResidueClasses);
+        GenericCounter combinations = new GenericCounter(numberOfOrbits);
+        while(combinations.next()) {//start at 1 rather than 0, 0 would mean the null state, we know about that one and don't count it...
+            BigInteger seqLen = BigInteger.ONE;
+            BigInteger nSeq = BigInteger.ONE;//TODO: work on integer or convert everything to BigInteger
+            final List<Integer> indexes = combinations.getCount();
+            for (int i = 0; i < indexes.size(); i++) {
+                int seqIndex = indexes.get(i);
+                if(seqIndex>0) {
+                    BigInteger factorSeqLen = sequencesLength.get(i).get(seqIndex-1);
+                    seqLen = Z2.lcmBi(seqLen, factorSeqLen);
+                    BigInteger factorNSeq = numberOfResidueClasses.get(i).get(seqIndex-1);
+                    nSeq = nSeq.multiply(factorNSeq);
+                }
+            }
+            int nSeqInt = nSeq.divide(seqLen).intValue();
+            if (out.containsKey(seqLen)) out.put(seqLen, out.get(seqLen)+ nSeqInt);
+            else out.put(seqLen, nSeqInt);
+        }
+        return out;
+    }
+    static class GenericCounter {
+        final List<Integer> upperBounds = new ArrayList<Integer>();
+        final List<Integer> count = new ArrayList<Integer>();
+        final int length;
+        public GenericCounter(List<Integer> upperBounds){
+            length = upperBounds.size();
+            this.upperBounds.addAll(upperBounds);
+            reset();
+        }
+        public List<Integer> reset(){
+            for(int i=0;i<length;i++) count.add(0);
+            return count;
+        }
+        public boolean next(){
+            for(int i=0;i<length;i++){
+                int nextVal = count.get(i)+1;
+                if(nextVal<upperBounds.get(i)){
+                    count.set(i,nextVal);
+                    return true;
+                }
+                count.set(i,0);
+            }
+            return false;
+        }
+
+        public List<Integer> getCount() {
+            return count;
+        }
+
+        public int getLength() {
+            return length;
+        }
     }
     List<DecompNode> nodes = null;//constructed lazily new HashSet<DecompNode>();
     List<Factor> factors = null;//constructed lazily new ArrayList<Factor>();

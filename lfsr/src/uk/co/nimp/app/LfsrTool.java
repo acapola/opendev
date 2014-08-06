@@ -25,6 +25,7 @@ public class LfsrTool {
         msg+=argDescription(ARG_ENDIANNESS,null,"Try various variation of endianness of the reference sequence");
         msg+=argDescription(ARG_LFSR_BINSTR,"binaryString","Load a reference LFSR from its binary string representation");
         msg+=argDescription(ARG_LFSR_POLY,"polynomial","Load a reference LFSR from its polynomial representation");
+        msg+=argDescription(ARG_PROFILING,null,"Ask for user interaction before and after the processing.");
         msg+=argDescription(ARG_SEQ_BINFILE,"file, offset, length","Load a reference sequence from a binary file. Offset and length in bytes.");
         msg+=argDescription(ARG_SEQ_BINSTRFILE,"file","Load a reference sequence from a binary string file");
         msg+=argDescription(ARG_SEQ_BINSTR,"binaryString","Load a reference sequence from a binary string");
@@ -117,11 +118,16 @@ public class LfsrTool {
         boolean dispSeq=false;
         boolean dispSeqStates=false;
         boolean endianness=false;
+        boolean profiling=false;
         Lfsr refLfsr=null;
         for(int i=0;i<args.length;i++) {
             if (args[i].equals(ARG_HELP)) {
                 System.out.println(helpMessage());
                 System.exit(0);
+            }
+            if(args[i].equals(ARG_PROFILING)){
+                profiling = true;
+                continue;
             }
             if (args[i].equals(ARG_DISP_SEQ)) {
                 dispSeq=true;
@@ -169,6 +175,9 @@ public class LfsrTool {
             System.out.println(helpMessage());
             System.exit(1);
         }
+        if(profiling){
+            pauseProg("Profiling: hit enter to start the processing");
+        }
         if(null!=refSequence){
 
             if(null!=refLfsr) {
@@ -211,6 +220,10 @@ public class LfsrTool {
         }else{
             //Display the properties of the LFSR
             describeLfsr(refLfsr,dispSeq,dispSeqStates);
+        }
+        if(profiling){
+            System.out.println(Z2.orderOfX_callCnt);
+            pauseProg("Profiling: hit enter to exit");
         }
     }
 }

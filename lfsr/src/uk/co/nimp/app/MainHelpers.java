@@ -4,12 +4,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Created by seb on 6/22/14.
  */
 public class MainHelpers {
-    public static String credits = "Written by Sebastien Riou, 20140804-005300";
+    public static String credits = "Written by Sebastien Riou, 20140806-232400";
     static String formatArg(String arg){
         return "-"+arg.substring(0,1).toLowerCase()+arg.substring(1);
     }
@@ -40,6 +41,7 @@ public class MainHelpers {
     public static final String ARG_TCLOUT = formatArg(TCLOUT);
     public static final String ARG_TCLOUTFILE = formatArg(TCLOUTFILE);
     public static final String ARG_ENDIANNESS = formatArg(ENDIANNESS);
+    public static final String ARG_PROFILING = formatArg("Profiling");
     public static final String ARG_HELP = formatArg("Help");
     static final String tab = "   ";
     static String padTo(String in,int desiredLength){
@@ -92,5 +94,13 @@ public class MainHelpers {
             writer.flush();
             writer.close();
         }
+    }
+    public static void pauseProg(){
+        pauseProg("Press enter to continue...");
+    }
+    public static void pauseProg(String msg){
+        System.out.println(msg);
+        Scanner keyboard = new Scanner(System.in);
+        keyboard.nextLine();
     }
 }

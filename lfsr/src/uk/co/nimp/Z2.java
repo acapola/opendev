@@ -111,7 +111,7 @@ public class Z2 {
      * @param b
      * @param bShift
      */
-    static void selfAdd(boolean[] a, boolean[] b, int bShift){
+    static void selfAdd(boolean[] a, final boolean[] b, final int bShift){
         assert(bShift>=0);
         for(int i=0;i<b.length;i++){
             a[i+bShift] ^= b[i];
@@ -533,6 +533,24 @@ public class Z2 {
         return out;
     }
     public static boolean[] mod(boolean[] in, boolean[] moduli){
+        final boolean[] divider = moduli;
+        final int dividerMsbPos = divider.length-1;
+        assert(in[in.length-1] || equal(in,Z2.ZERO));
+        assert(divider[dividerMsbPos]);
+        if(in.length<moduli.length) return in.clone();
+        if(Z2.isOne(moduli)) return Z2.ZERO.clone();
+        boolean[] reminder = in.clone();
+        int reminderMsbIndex = reminder.length-1;
+        while(reminderMsbIndex>=dividerMsbPos){
+            int shift = reminderMsbIndex-dividerMsbPos;
+            selfAdd(reminder, divider, shift);
+            while(reminderMsbIndex>=dividerMsbPos && !reminder[--reminderMsbIndex]);
+        }
+        boolean[] out = minimumLengthCopy(reminder);
+        assert(out[out.length-1] || equal(out,Z2.ZERO));
+        return out;
+    }
+    static boolean[] modSlow(boolean[] in, boolean[] moduli){
         boolean[] divider = moduli;
         assert(in[in.length-1] || equal(in,Z2.ZERO));
         assert(divider[divider.length-1]);
@@ -542,7 +560,6 @@ public class Z2 {
         boolean[] reminder = in.clone();
         int reminderMsbIndex = reminder.length-1;
         int i=0;
-        //while(isGreaterOrEqual(reminder, divider)){
         while(reminder.length>=divider.length){
             quotient[i++]=true;
             int shift = reminderMsbIndex-(divider.length-1);
@@ -673,12 +690,15 @@ public class Z2 {
     public static BigInteger lcmBi(BigInteger a, BigInteger b){
         return b.multiply(a.divide(a.gcd(b)));
     }
+
+    public static int orderOfX_callCnt=0;
     /**
      * Compute r, the order of x, r being the smallest integer such that x^r mod polynomial = 1
      * @param polynomial
      * @return r
      */
     public static BigInteger orderOfX(boolean[] polynomial){
+        orderOfX_callCnt++;
         if(polynomial[polynomial.length-1]==false) polynomial=Z2.minimumLengthCopy(polynomial);
         if(Z2.equal(Z2.X,polynomial)) return BigInteger.ONE;
         BigInteger maxLength=BigInteger.ONE.shiftLeft(polynomial.length-1).subtract(BigInteger.ONE);
@@ -708,6 +728,7 @@ public class Z2 {
                 factors.add(BigInteger.ONE);//needed for cases like (1+x)^2: all termMaxLength are one
             }
             Collections.sort(factors);//sort to get the smallest factors first (there are several solution to the congruence, we want the smallest)
+
             Map<BigInteger,Integer> polyFactorsMap = Z2.booleansListToCountMap(polyFactors);
             int maxPow = Collections.max(polyFactorsMap.values());
             //maxPow: 1   2   3   4   5   6   7   8   9
@@ -718,6 +739,26 @@ public class Z2 {
                 System.out.println("base="+base+", maxPow="+maxPow+", px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
             }*/
             base = BigInteger.ONE;
+            long loopCnt=0;
+            System.out.println("px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
+            System.out.println("factors = "+factors);
+
+/*
+            //speed up? --> does not always work :-S
+            do{
+                BigInteger candidate = base;
+                for (BigInteger term : factors) {
+                    candidate = Z2.lcmBi(candidate, term);
+                }
+                boolean[] checker = Z2.modExp(Z2.X, candidate, polynomial);
+                if (Z2.isOne(checker)) {
+                    System.out.println("BINGO!!! --> base="+base+", orderOfX="+candidate);
+                    return candidate;
+                }
+                base = base.multiply(BigInteger.valueOf(2));
+            }while(base.compareTo(BigInteger.valueOf(2).pow(10))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
+            //speed up?
+*/
             do {
                 long nCombination = 1 << factors.size();
                 for (long i = 1; i < nCombination; i++) {//TODO: replace long by BigInteger
@@ -728,17 +769,21 @@ public class Z2 {
                     }
                     boolean[] checker = Z2.modExp(Z2.X, candidate, polynomial);
                     if (Z2.isOne(checker)) {
-                        /*if(base.compareTo(BigInteger.valueOf(8))>=0){//debug
-                            System.out.println(" base is not 1!");
-                            System.out.println("px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
+                        //if(base.compareTo(BigInteger.valueOf(8))>=0){//debug
+                            //System.out.println(" base is not 1!");
+                            //System.out.println("px=("+Z2.join(Z2.toPolynomials(polyFactors),")*(")+")");
+                            //System.out.println("factors = "+factors);
                             System.out.println("base = "+base+" = "+Arrays.asList(PollardRho.factor(base)));
-                            System.out.println("factors = "+factors);
-                        }*/
+
+                        //}
+                        loopCnt+=i;
+                        System.out.println("loopCnt:"+loopCnt);
                         return candidate;
                     }
                 }
                 //base=base.add(BigInteger.ONE);
                 base = base.multiply(BigInteger.valueOf(2));
+                loopCnt+=nCombination;
                 //throw new RuntimeException(Z2.toPolynomial(polynomial));
             }while(base.compareTo(BigInteger.valueOf(2).pow(1000))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
             throw new RuntimeException(Z2.toPolynomial(polynomial));
@@ -905,6 +950,7 @@ public class Z2 {
             }
         }
         for(int i=1;i<k.bitLength();i++){
+            //Gx = Z2.mod(Gx,fx);//was added for speed (reduce the width of the square and therefore speedup the next mod operation) --> does not speed up :-S
             Gx = Z2.mul(Gx,Gx);
             Gx = Z2.mod(Gx,fx);
             if(k.testBit(i)){

@@ -835,7 +835,7 @@ public class Z2Test {
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x4+x5")).equals(BigInteger.valueOf(21)));//(1+x+x2)(1+x+x3)
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x4+x6")).equals(BigInteger.valueOf(21)));//(1+x)(1+x+x2)(1+x+x3)
 
-        assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x2 + x4 + x5 + x6 + x7 + x8 + x9 + x11")).equals(BigInteger.valueOf(357)));//(1+x+x3)(x8+x4+x3+x+1) -->primitive * irreducible
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2+x4+x5+x6+x7+x8+x9+x11")).equals(BigInteger.valueOf(357)));//(1+x+x3)(x8+x4+x3+x+1) -->primitive * irreducible
 
         //pure power of primitives --> seems a special case
         checkOrderOfX("1 + x2");
