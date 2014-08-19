@@ -876,15 +876,39 @@ public class Lfsr {
         return out;
     }
     public Map<boolean[],boolean[][]> sequencesAndStates() {
-        return sequences(true);
+        try {
+            return sequences(true,null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public Map<boolean[],boolean[][]> sequences(boolean storeStates) {
+        try {
+            return sequences(storeStates,null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public int sequencesToBinStrFile(File baseName) throws IOException { return sequences(false,baseName).size();}
+
+    private Map<boolean[],boolean[][]> sequences(boolean storeStates,File binStrFile) throws IOException {
         boolean[] done = new boolean[1<<l];
         HashMap<boolean[],boolean[][]> out = new HashMap<boolean[],boolean[][]>();
+        boolean storeSeq=true;
+        String binStrFileBaseName=null;
+        if(null!=binStrFileBaseName){
+            binStrFileBaseName=binStrFile.getCanonicalPath();
+            storeSeq = false;
+            throw new RuntimeException("not implemented yet");
+        }
+        storeStates &= storeSeq;//can't store the state if we don't store the seq.
         int maxLen= (1<<l)-1;
         boolean[] seq = new boolean[maxLen];
         int startState=1;
         if((mode==LfsrStepMode.FIBONACCI_XNOR)||(mode==LfsrStepMode.GALOIS_XNOR)) startState=0;
+        int seqIndex=0;
         for(int i=startState;i<done.length;i++){
             if(done[i]) continue;
             boolean[] initState = Z2.toBooleans(i);
@@ -899,7 +923,8 @@ public class Lfsr {
                 Z2.copy(state, states[j]);
             }
             do{
-                seq[j++]=step();
+                boolean newBit = step();
+                seq[j++]=newBit;
                 if(storeStates) {
                     states[j] = new boolean[l];
                     Z2.copy(state,states[j]);
@@ -915,8 +940,13 @@ public class Lfsr {
                 done[coveredState] = true;
                 trace[coveredState] = true;
             }while((!Z2.equalValue(state, initState)) && (!Z2.equal(nullState,state)));
-            if(storeStates) out.put(Arrays.copyOfRange(seq,0,j),Arrays.copyOfRange(states,0,j));
-            else  out.put(Arrays.copyOfRange(seq,0,j),null);
+            if(storeSeq) {
+                if (storeStates) out.put(Arrays.copyOfRange(seq, 0, j), Arrays.copyOfRange(states, 0, j));
+                else out.put(Arrays.copyOfRange(seq, 0, j), null);
+            } else {//file output mode
+                out.put(Z2.toBooleans(seqIndex),null);//we use the size of the map to return the number of created files.
+            }
+            seqIndex++;
         }
         return out;
     }

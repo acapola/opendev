@@ -28,6 +28,7 @@ public class MainHelpers {
     public static final String TCLOUTFILE = "TclOutFile";
     public static final String ENDIANNESS = "Endianness";
 
+    public static final String ARG_TO_BINSTRFILE = formatArg("to"+BINSTRFILE);
     public static final String ARG_BINSTRFILE = formatArg(BINSTRFILE);
     public static final String ARG_SEQ_BINSTR = formatArg(SEQ +BINSTR);
     public static final String ARG_SEQ_HEXSTR = formatArg(SEQ +HEXSTR);

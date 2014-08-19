@@ -495,6 +495,13 @@ public class Z2 {
         }
         return out;
     }
+    /*public static boolean[] toBooleans(int in) {
+        boolean[] out = new boolean[Integer.bitCount(in)];
+        for(int i=0;i<32;i++){
+            out[i] = Z2.toBoolean(in & (1<<i));
+        }
+        return out;
+    }*/
     public static boolean[][] toBooleansArray(int[][] in) {
         boolean[][] out = new boolean[in.length][];
         for(int i=0;i<in.length;i++){
@@ -692,10 +699,40 @@ public class Z2 {
     }
 
     public static int orderOfX_callCnt=0;
-
     public static BigInteger orderOfX(boolean[] irreduciblePolynomial, int power) {
+        BigInteger fast = orderOfX_fast(irreduciblePolynomial,power);
+        BigInteger trusted = orderOfX_trusted(irreduciblePolynomial,power);
+        if(!fast.equals(trusted)){
+            throw new RuntimeException("trusted="+trusted+", fast="+fast+" ("+Z2.toPolynomial(irreduciblePolynomial)+", power="+power+")");
+        }
+        return fast;
+    }
+
+    public static BigInteger orderOfX_fast(boolean[] irreduciblePolynomial, int power) {
         BigInteger candidate = Z2.orderOfX(irreduciblePolynomial);
         boolean[] px = Z2.pow(irreduciblePolynomial,power);
+
+        int maxPow = power;
+        //maxPow: 1   2   3   4   5   6   7   8   9
+        //        0   1   2   2   3   3   3   3   4
+        //base:   1   2   4   4   8   8   8   8   16
+        BigInteger base = maxPow==1 ? BigInteger.ONE : BigInteger.valueOf(2).pow(Z2.bitWidth(maxPow-1));
+        candidate = candidate.multiply(base);
+
+        //do{
+            boolean[] checker = Z2.modExp(Z2.X, candidate, px);
+            if (Z2.isOne(checker)) {
+                //System.out.println("BINGO!!! --> base="+base+", orderOfX="+candidate);
+                return candidate;
+            }
+          //  candidate = candidate.multiply(BigInteger.valueOf(2));
+        //}while(candidate.compareTo(BigInteger.valueOf(2).pow(10))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
+        throw new RuntimeException("could not find the order of X for polynomial "+Z2.toPolynomial(px));
+    }
+    public static BigInteger orderOfX_trusted(boolean[] irreduciblePolynomial, int power) {
+        BigInteger candidate = Z2.orderOfX(irreduciblePolynomial);
+        boolean[] px = Z2.pow(irreduciblePolynomial,power);
+
         do{
             boolean[] checker = Z2.modExp(Z2.X, candidate, px);
             if (Z2.isOne(checker)) {
