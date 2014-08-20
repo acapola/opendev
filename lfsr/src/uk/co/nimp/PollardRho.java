@@ -57,6 +57,8 @@ class PollardRho {
     }
     public static BigInteger[] factor(BigInteger n) {
         if(n.compareTo(BigInteger.ONE)<=0){
+            //BigInteger []out = new BigInteger[1];
+            //out[0] = BigInteger.ZERO;
             return new BigInteger[0];
         }
         ArrayList<BigInteger> factors = new ArrayList<BigInteger>();
@@ -64,6 +66,22 @@ class PollardRho {
         Collections.sort(factors);
         return factors.toArray(new BigInteger[factors.size()]);
     }
+    public static Map<BigInteger,Integer> factorMap(BigInteger n){
+        Map<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();
+        if(n.compareTo(BigInteger.ONE)<=0){
+            //factorsMap.put(BigInteger.ZERO,0);
+            return factorsMap;
+        }
+        ArrayList<BigInteger> factors = new ArrayList<BigInteger>();
+        factor(n,factors);
+        for(BigInteger f: factors){
+            int power = 1;
+            if(factorsMap.containsKey(f)) power += factorsMap.get(f);
+            factorsMap.put(f,power);
+        }
+        return factorsMap;
+    }
+
 
     public static void main(String[] args) {
         BigInteger n;

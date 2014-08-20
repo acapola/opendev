@@ -802,15 +802,17 @@ public class Z2Test {
     @Test
     public void testOrderOfX() throws Exception{
         System.out.println(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x3 + x4 + x10 + x11 + x12 + x15")));
+        System.out.println(Z2.orderOfX(Z2.polynomialToBooleans("x + x2 + x3 + x4 + x10 + x11 + x12 + x15")));
         //assert(Z2.orderOfX(Z2.polynomialToBooleans("1 + x + x2 + x3 + x4 + x10 + x11 + x12 + x15")).equals(null));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2")).equals(BigInteger.valueOf(2)));//(1+x)^2
 
 
         assert(Z2.orderOfX(Z2.polynomialToBooleans("0")).equals(BigInteger.ZERO));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1")).equals(BigInteger.ZERO));
-        assert(Z2.orderOfX(Z2.polynomialToBooleans("x")).equals(BigInteger.ONE));//or should be 0 ??
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("x")).equals(BigInteger.ZERO));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("x+1")).equals(BigInteger.valueOf(1)));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("x8+x4+x3+x+1")).equals(BigInteger.valueOf(51)));//irreducible
+        assert(Z2.orderOfX(Z2.polynomialToBooleans("x8+x4+x3+x")).equals(BigInteger.ZERO));
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x2+x5")).equals(BigInteger.valueOf(31)));//primitive
         assert(Z2.orderOfX(Z2.polynomialToBooleans("1+x+x6")).equals(BigInteger.valueOf(63)));//primitive
 
