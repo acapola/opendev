@@ -735,7 +735,7 @@ public class Z2 {
             for(BigInteger pj:factorsMap.keySet()){
                 int r = factorsMap.get(pj);
                 BigInteger divider = pj;
-                while(r>0) {
+                while(r>0) {//TODO: binary search ?
                     BigInteger exp = qmMinus1.divide(divider);
                     if (!Z2.isOne(Z2.modExp(Z2.X, exp, polynomial))) {//order of x is a multiple of pj^rj
                         factorsOfOrderOfX.add(pj.pow(r));

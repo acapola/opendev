@@ -886,8 +886,6 @@ public class Z2Test {
             poly[poly.length-1]=true;
             checkOrderOfX(poly);
         }
-
-
     }
     static void checkOrderOfX(String polynomial){
         boolean[] px = Z2.polynomialToBooleans(polynomial);

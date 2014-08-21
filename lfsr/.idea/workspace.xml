@@ -14,7 +14,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
@@ -56,28 +58,8 @@
       <file leaf-file-name="Z2Test.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="22185" max-vertical-offset="22920">
-              <caret line="941" column="0" selection-start-line="941" selection-start-column="0" selection-end-line="941" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Lfsr.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7200" max-vertical-offset="23520">
-              <caret line="300" column="8" selection-start-line="300" selection-start-column="8" selection-end-line="401" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LfsrTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="13032" max-vertical-offset="13200">
-              <caret line="543" column="5" selection-start-line="543" selection-start-column="5" selection-end-line="543" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="20553" max-vertical-offset="22872">
+              <caret line="887" column="9" selection-start-line="887" selection-start-column="9" selection-end-line="887" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -130,32 +112,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Z2.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Z2.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44489795" vertical-offset="16737" max-vertical-offset="40536">
-              <caret line="731" column="65" selection-start-line="731" selection-start-column="65" selection-end-line="731" selection-end-column="65" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="16776" max-vertical-offset="40536">
+              <caret line="733" column="80" selection-start-line="733" selection-start-column="80" selection-end-line="733" selection-end-column="80" />
               <folding>
                 <element signature="e#8762#8763#0" expanded="true" />
                 <element signature="e#8804#8805#0" expanded="true" />
                 <element signature="e#27095#27107#0" expanded="true" />
                 <element signature="e#27935#27947#0" expanded="true" />
-                <element signature="e#43050#43051#0" expanded="true" />
-                <element signature="e#43102#43103#0" expanded="true" />
-                <element signature="e#43449#43450#0" expanded="true" />
-                <element signature="e#43500#43501#0" expanded="true" />
-                <element signature="e#44088#44089#0" expanded="true" />
-                <element signature="e#44139#44140#0" expanded="true" />
-                <element signature="e#44382#44383#0" expanded="true" />
-                <element signature="e#44430#44431#0" expanded="true" />
-                <element signature="e#45758#45759#0" expanded="true" />
-                <element signature="e#45795#45796#0" expanded="true" />
-                <element signature="e#45911#45912#0" expanded="true" />
-                <element signature="e#45980#45981#0" expanded="true" />
-                <element signature="e#46283#46284#0" expanded="true" />
-                <element signature="e#46342#46343#0" expanded="true" />
-                <element signature="e#49117#49118#0" expanded="true" />
-                <element signature="e#49179#49180#0" expanded="true" />
+                <element signature="e#43073#43074#0" expanded="true" />
+                <element signature="e#43125#43126#0" expanded="true" />
+                <element signature="e#43472#43473#0" expanded="true" />
+                <element signature="e#43523#43524#0" expanded="true" />
+                <element signature="e#44111#44112#0" expanded="true" />
+                <element signature="e#44162#44163#0" expanded="true" />
+                <element signature="e#44405#44406#0" expanded="true" />
+                <element signature="e#44453#44454#0" expanded="true" />
+                <element signature="e#45781#45782#0" expanded="true" />
+                <element signature="e#45818#45819#0" expanded="true" />
+                <element signature="e#45934#45935#0" expanded="true" />
+                <element signature="e#46003#46004#0" expanded="true" />
+                <element signature="e#46306#46307#0" expanded="true" />
+                <element signature="e#46365#46366#0" expanded="true" />
+                <element signature="e#49140#49141#0" expanded="true" />
+                <element signature="e#49202#49203#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PollardRhoTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="1680">
+              <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -164,13 +158,28 @@
       <file leaf-file-name="PollardRho.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1268" max-vertical-offset="2520">
-              <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="14324" max-vertical-offset="15192">
+              <caret line="626" column="5" selection-start-line="626" selection-start-column="5" selection-end-line="626" selection-end-column="5" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="e#2105#2117#0" expanded="true" />
                 <element signature="e#2376#2396#0" expanded="true" />
                 <element signature="e#2587#2599#0" expanded="true" />
+                <element signature="e#3707#3737#0" expanded="true" />
+                <element signature="e#3809#3826#0" expanded="true" />
+                <element signature="e#9260#9284#0" expanded="true" />
+                <element signature="e#9353#9367#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainHelpers.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.03448276" vertical-offset="168" max-vertical-offset="2520">
+              <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -207,10 +216,8 @@
         <option value="$PROJECT_DIR$/src/uk/co/nimp/ATimeUtilities.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java" />
         <option value="$PROJECT_DIR$/src/sieve/SieveDiagnostic.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/ScramblerAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Scrambler_5_64.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
         <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
@@ -218,9 +225,11 @@
         <option value="$PROJECT_DIR$/src/uk/co/nimp/BooleanFunction.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Sbox.java" />
         <option value="$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
+        <option value="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java" />
+        <option value="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
       </list>
     </option>
   </component>
@@ -325,6 +334,28 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lfsr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lfsr" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nimp" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -336,7 +367,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -726,10 +757,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Sbox4" />
-        <item index="1" class="java.lang.String" itemvalue="Application.LfsrTool" />
-        <item index="2" class="java.lang.String" itemvalue="Application.ScramblerAnalyzer" />
-        <item index="3" class="java.lang.String" itemvalue="Application.PollardRho" />
+        <item index="0" class="java.lang.String" itemvalue="Application.PollardRho" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Sbox4" />
+        <item index="2" class="java.lang.String" itemvalue="Application.LfsrTool" />
+        <item index="3" class="java.lang.String" itemvalue="Application.ScramblerAnalyzer" />
         <item index="4" class="java.lang.String" itemvalue="Application.ConsoleInterface" />
       </list>
     </recent_temporary>
@@ -777,18 +808,18 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18460111" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28107607" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28107607" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14348172" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14348172" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42486086" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -857,22 +888,22 @@
             <element signature="e#8804#8805#0" expanded="true" />
             <element signature="e#27095#27107#0" expanded="true" />
             <element signature="e#27935#27947#0" expanded="true" />
-            <element signature="e#43050#43051#0" expanded="true" />
-            <element signature="e#43102#43103#0" expanded="true" />
-            <element signature="e#43449#43450#0" expanded="true" />
-            <element signature="e#43500#43501#0" expanded="true" />
-            <element signature="e#44088#44089#0" expanded="true" />
-            <element signature="e#44139#44140#0" expanded="true" />
-            <element signature="e#44382#44383#0" expanded="true" />
-            <element signature="e#44430#44431#0" expanded="true" />
-            <element signature="e#45758#45759#0" expanded="true" />
-            <element signature="e#45795#45796#0" expanded="true" />
-            <element signature="e#45911#45912#0" expanded="true" />
-            <element signature="e#45980#45981#0" expanded="true" />
-            <element signature="e#46283#46284#0" expanded="true" />
-            <element signature="e#46342#46343#0" expanded="true" />
-            <element signature="e#49117#49118#0" expanded="true" />
-            <element signature="e#49179#49180#0" expanded="true" />
+            <element signature="e#43073#43074#0" expanded="true" />
+            <element signature="e#43125#43126#0" expanded="true" />
+            <element signature="e#43472#43473#0" expanded="true" />
+            <element signature="e#43523#43524#0" expanded="true" />
+            <element signature="e#44111#44112#0" expanded="true" />
+            <element signature="e#44162#44163#0" expanded="true" />
+            <element signature="e#44405#44406#0" expanded="true" />
+            <element signature="e#44453#44454#0" expanded="true" />
+            <element signature="e#45781#45782#0" expanded="true" />
+            <element signature="e#45818#45819#0" expanded="true" />
+            <element signature="e#45934#45935#0" expanded="true" />
+            <element signature="e#46003#46004#0" expanded="true" />
+            <element signature="e#46306#46307#0" expanded="true" />
+            <element signature="e#46365#46366#0" expanded="true" />
+            <element signature="e#49140#49141#0" expanded="true" />
+            <element signature="e#49202#49203#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -925,22 +956,22 @@
             <element signature="e#8804#8805#0" expanded="true" />
             <element signature="e#27095#27107#0" expanded="true" />
             <element signature="e#27935#27947#0" expanded="true" />
-            <element signature="e#43050#43051#0" expanded="true" />
-            <element signature="e#43102#43103#0" expanded="true" />
-            <element signature="e#43449#43450#0" expanded="true" />
-            <element signature="e#43500#43501#0" expanded="true" />
-            <element signature="e#44088#44089#0" expanded="true" />
-            <element signature="e#44139#44140#0" expanded="true" />
-            <element signature="e#44382#44383#0" expanded="true" />
-            <element signature="e#44430#44431#0" expanded="true" />
-            <element signature="e#45758#45759#0" expanded="true" />
-            <element signature="e#45795#45796#0" expanded="true" />
-            <element signature="e#45911#45912#0" expanded="true" />
-            <element signature="e#45980#45981#0" expanded="true" />
-            <element signature="e#46283#46284#0" expanded="true" />
-            <element signature="e#46342#46343#0" expanded="true" />
-            <element signature="e#49117#49118#0" expanded="true" />
-            <element signature="e#49179#49180#0" expanded="true" />
+            <element signature="e#43073#43074#0" expanded="true" />
+            <element signature="e#43125#43126#0" expanded="true" />
+            <element signature="e#43472#43473#0" expanded="true" />
+            <element signature="e#43523#43524#0" expanded="true" />
+            <element signature="e#44111#44112#0" expanded="true" />
+            <element signature="e#44162#44163#0" expanded="true" />
+            <element signature="e#44405#44406#0" expanded="true" />
+            <element signature="e#44453#44454#0" expanded="true" />
+            <element signature="e#45781#45782#0" expanded="true" />
+            <element signature="e#45818#45819#0" expanded="true" />
+            <element signature="e#45934#45935#0" expanded="true" />
+            <element signature="e#46003#46004#0" expanded="true" />
+            <element signature="e#46306#46307#0" expanded="true" />
+            <element signature="e#46365#46366#0" expanded="true" />
+            <element signature="e#49140#49141#0" expanded="true" />
+            <element signature="e#49202#49203#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1049,22 +1080,22 @@
             <element signature="e#8804#8805#0" expanded="true" />
             <element signature="e#27095#27107#0" expanded="true" />
             <element signature="e#27935#27947#0" expanded="true" />
-            <element signature="e#43050#43051#0" expanded="true" />
-            <element signature="e#43102#43103#0" expanded="true" />
-            <element signature="e#43449#43450#0" expanded="true" />
-            <element signature="e#43500#43501#0" expanded="true" />
-            <element signature="e#44088#44089#0" expanded="true" />
-            <element signature="e#44139#44140#0" expanded="true" />
-            <element signature="e#44382#44383#0" expanded="true" />
-            <element signature="e#44430#44431#0" expanded="true" />
-            <element signature="e#45758#45759#0" expanded="true" />
-            <element signature="e#45795#45796#0" expanded="true" />
-            <element signature="e#45911#45912#0" expanded="true" />
-            <element signature="e#45980#45981#0" expanded="true" />
-            <element signature="e#46283#46284#0" expanded="true" />
-            <element signature="e#46342#46343#0" expanded="true" />
-            <element signature="e#49117#49118#0" expanded="true" />
-            <element signature="e#49179#49180#0" expanded="true" />
+            <element signature="e#43073#43074#0" expanded="true" />
+            <element signature="e#43125#43126#0" expanded="true" />
+            <element signature="e#43472#43473#0" expanded="true" />
+            <element signature="e#43523#43524#0" expanded="true" />
+            <element signature="e#44111#44112#0" expanded="true" />
+            <element signature="e#44162#44163#0" expanded="true" />
+            <element signature="e#44405#44406#0" expanded="true" />
+            <element signature="e#44453#44454#0" expanded="true" />
+            <element signature="e#45781#45782#0" expanded="true" />
+            <element signature="e#45818#45819#0" expanded="true" />
+            <element signature="e#45934#45935#0" expanded="true" />
+            <element signature="e#46003#46004#0" expanded="true" />
+            <element signature="e#46306#46307#0" expanded="true" />
+            <element signature="e#46365#46366#0" expanded="true" />
+            <element signature="e#49140#49141#0" expanded="true" />
+            <element signature="e#49202#49203#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1108,13 +1139,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="792">
           <caret line="26" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
-          <caret line="16" column="148" selection-start-line="16" selection-start-column="148" selection-end-line="16" selection-end-column="148" />
         </state>
       </provider>
     </entry>
@@ -1178,14 +1202,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.022835394" vertical-offset="0" max-vertical-offset="2880">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="192" max-vertical-offset="2520">
-          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1260,52 +1276,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
+    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="22185" max-vertical-offset="22920">
-          <caret line="941" column="0" selection-start-line="941" selection-start-column="0" selection-end-line="941" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="1680">
+          <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1268" max-vertical-offset="2520">
-          <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="14324" max-vertical-offset="15192">
+          <caret line="626" column="5" selection-start-line="626" selection-start-column="5" selection-end-line="626" selection-end-column="5" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#2105#2117#0" expanded="true" />
             <element signature="e#2376#2396#0" expanded="true" />
             <element signature="e#2587#2599#0" expanded="true" />
+            <element signature="e#3707#3737#0" expanded="true" />
+            <element signature="e#3809#3826#0" expanded="true" />
+            <element signature="e#9260#9284#0" expanded="true" />
+            <element signature="e#9353#9367#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44489795" vertical-offset="16737" max-vertical-offset="40536">
-          <caret line="731" column="65" selection-start-line="731" selection-start-column="65" selection-end-line="731" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="16776" max-vertical-offset="40536">
+          <caret line="733" column="80" selection-start-line="733" selection-start-column="80" selection-end-line="733" selection-end-column="80" />
           <folding>
             <element signature="e#8762#8763#0" expanded="true" />
             <element signature="e#8804#8805#0" expanded="true" />
             <element signature="e#27095#27107#0" expanded="true" />
             <element signature="e#27935#27947#0" expanded="true" />
-            <element signature="e#43050#43051#0" expanded="true" />
-            <element signature="e#43102#43103#0" expanded="true" />
-            <element signature="e#43449#43450#0" expanded="true" />
-            <element signature="e#43500#43501#0" expanded="true" />
-            <element signature="e#44088#44089#0" expanded="true" />
-            <element signature="e#44139#44140#0" expanded="true" />
-            <element signature="e#44382#44383#0" expanded="true" />
-            <element signature="e#44430#44431#0" expanded="true" />
-            <element signature="e#45758#45759#0" expanded="true" />
-            <element signature="e#45795#45796#0" expanded="true" />
-            <element signature="e#45911#45912#0" expanded="true" />
-            <element signature="e#45980#45981#0" expanded="true" />
-            <element signature="e#46283#46284#0" expanded="true" />
-            <element signature="e#46342#46343#0" expanded="true" />
-            <element signature="e#49117#49118#0" expanded="true" />
-            <element signature="e#49179#49180#0" expanded="true" />
+            <element signature="e#43073#43074#0" expanded="true" />
+            <element signature="e#43125#43126#0" expanded="true" />
+            <element signature="e#43472#43473#0" expanded="true" />
+            <element signature="e#43523#43524#0" expanded="true" />
+            <element signature="e#44111#44112#0" expanded="true" />
+            <element signature="e#44162#44163#0" expanded="true" />
+            <element signature="e#44405#44406#0" expanded="true" />
+            <element signature="e#44453#44454#0" expanded="true" />
+            <element signature="e#45781#45782#0" expanded="true" />
+            <element signature="e#45818#45819#0" expanded="true" />
+            <element signature="e#45934#45935#0" expanded="true" />
+            <element signature="e#46003#46004#0" expanded="true" />
+            <element signature="e#46306#46307#0" expanded="true" />
+            <element signature="e#46365#46366#0" expanded="true" />
+            <element signature="e#49140#49141#0" expanded="true" />
+            <element signature="e#49202#49203#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="20553" max-vertical-offset="22872">
+          <caret line="887" column="9" selection-start-line="887" selection-start-column="9" selection-end-line="887" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03448276" vertical-offset="168" max-vertical-offset="2520">
+          <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
+          <folding />
         </state>
       </provider>
     </entry>

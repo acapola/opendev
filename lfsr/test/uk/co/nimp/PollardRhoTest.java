@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 import static uk.co.nimp.PollardRho.*;
@@ -24,6 +25,41 @@ public class PollardRhoTest {
             for(int i=0;i<factors.length;i++) expected[i] = new BigInteger(factors[i]);
             System.out.println(nStr);
             assertArrayEquals(factor(new BigInteger(nStr)), expected);
+        }
+    }
+    @Test
+    public void testIntsTable() throws Exception{
+        {
+            System.out.println("static Map<Integer,Map<Integer,Integer>> intFactorsPowersOfTwoMinusOne = new HashMap<Integer,Map<Integer,Integer>>(31);");
+            System.out.println("static {\nMap<Integer,Integer> factorsMap = new HashMap<Integer,Integer>();");
+            int n = 1;
+            for (int i = 0; i < 31; i++) {
+                Map<BigInteger, Integer> factors = PollardRho.factorMap(BigInteger.valueOf(n));
+                if (i > 0) System.out.println("factorsMap.clear();");
+                if (i == 0) factors.put(BigInteger.ONE, 1);
+                for (BigInteger f : factors.keySet()) {
+                    System.out.println("factorsMap.put(" + f + "," + factors.get(f) + ");");
+                }
+                System.out.println("intFactorsPowersOfTwoMinusOne.put(0x" + Integer.toHexString(n) + ",factorsMap);");
+                n = (n << 1) + 1;
+            }
+            System.out.println("}");
+        }
+        {
+            System.out.println("static Map<Long,Map<Long,Integer>> longFactorsPowersOfTwoMinusOne = new HashMap<Long,Map<Long,Integer>>(31);");
+            System.out.println("static {\nMap<Long,Integer> factorsMap = new HashMap<Long,Integer>();");
+            long n = 1L;
+            for (int i = 0; i < 63; i++) {
+                Map<BigInteger, Integer> factors = PollardRho.factorMap(BigInteger.valueOf(n));
+                if (i > 0) System.out.println("factorsMap.clear();");
+                if (i == 0) factors.put(BigInteger.ONE, 1);
+                for (BigInteger f : factors.keySet()) {
+                    System.out.println("factorsMap.put(" + f + "L," + factors.get(f) + ");");
+                }
+                System.out.println("longFactorsPowersOfTwoMinusOne.put(0x" + Long.toHexString(n) + "L,factorsMap);");
+                n = (n << 1) + 1;
+            }
+            System.out.println("}");
         }
     }
 }
