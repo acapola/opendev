@@ -11,11 +11,13 @@ import java.util.Scanner;
  */
 public class MainHelpers {
     public static String credits = "Written by Sebastien Riou, 20140821-230000";
+    public static int lineLengthLimit = 78;
     static String formatArg(String arg){
         return "-"+arg.substring(0,1).toLowerCase()+arg.substring(1);
     }
     public static final String BINSTR = "BinStr";
     public static final String HEXSTR = "HexStr";
+    public static final String HEXSTRFILE = "HexStrFile";
     public static final String BINSTRFILE = "BinStrFile";
     public static final String BINFILE = "BinFile";
     public static final String POLY = "Poly";
@@ -29,6 +31,8 @@ public class MainHelpers {
     public static final String ENDIANNESS = "Endianness";
 
     public static final String ARG_TO_BINSTRFILE = formatArg("to"+BINSTRFILE);
+    public static final String ARG_HEXSTRFILE = formatArg(HEXSTRFILE);
+    public static final String ARG_HEXSTR = formatArg(HEXSTR);
     public static final String ARG_BINSTRFILE = formatArg(BINSTRFILE);
     public static final String ARG_SEQ_BINSTR = formatArg(SEQ +BINSTR);
     public static final String ARG_SEQ_HEXSTR = formatArg(SEQ +HEXSTR);
@@ -104,4 +108,14 @@ public class MainHelpers {
         Scanner keyboard = new Scanner(System.in);
         keyboard.nextLine();
     }
+    static public String bytesToString(byte[] dat){
+        String out = "";
+        if(0==dat.length) return out;
+        for(int i=0;i<dat.length;i++){
+            int b = 0x0FF & dat[i];
+            out+=String.format("%02X ",b);
+        }
+        return out.substring(0,out.length()-1);
+    }
+
 }

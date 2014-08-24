@@ -45,6 +45,18 @@ public class Z2 {
         }
         return out;
     }
+    public static byte[] hexBytesToBytes(String in) {
+        in=cleanUp(in);
+        if(in.length()%2!=0) throw new RuntimeException("Can't convert an hex bytes string if it has an odd number of digits: "+in.length()+", '"+in+"'");
+        int len = in.length()/2;
+        byte[] out = new byte[len];
+        for(int i=0;i<in.length();i+=2){
+            int nibbles = Integer.parseInt(in.substring(i,i+2),16);
+            byte bits = (byte)(nibbles);
+            out[i/2] = bits;
+        }
+        return out;
+    }
     public static boolean[] hexBytesToBooleans(String in){
         return Z2.minimumLengthCopy(hexBytesToPaddedBooleans(in));
     }
@@ -307,6 +319,18 @@ public class Z2 {
         }
         return out;
     }
+    public static byte[] booleansToBytes(boolean[] in){
+        int outLength = (in.length+7)/8;
+        byte[] out = new byte[outLength];
+        for(int i=0;i<outLength;i++){
+            for(int j=0;j<8;j++){
+                int bitIndex = 8*i+j;
+                if(bitIndex>in.length) break;
+                if(in[bitIndex]) out[i]|=(byte)(1<<j);
+            }
+        }
+        return out;
+    }
     public static void toBinaryFile(File file,boolean[] in) throws IOException {
         FileOutputStream fos = new FileOutputStream(file);
         byte[] data = Z2.toByteArray(in);
@@ -454,6 +478,11 @@ public class Z2 {
         for(int i=0;i<list.size();i++) out[i] = list.get(i);
         return out;
     }
+    static byte[] toBytes(ArrayList<Byte> list){
+        byte[] out = new byte[list.size()];
+        for(int i=0;i<list.size();i++) out[i] = list.get(i);
+        return out;
+    }
     public static boolean[][] binaryStringFileToBooleansArray(File file) throws IOException {
         ArrayList<boolean[]> tmp = new ArrayList<boolean[]>();
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -478,6 +507,20 @@ public class Z2 {
         boolean [][]out = new boolean[tmp.size()][];
         for(int i=0;i<tmp.size();i++) out[i]=tmp.get(i);
         return out;
+    }
+    public static List<byte[]> hexStringFileToBytesList(File file) throws IOException {
+        ArrayList<byte[]> tmp = new ArrayList<byte[]>();
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        try {
+            String line = br.readLine();
+            while (line != null) {
+                tmp.add(hexBytesToBytes(line));
+                line = br.readLine();
+            }
+        } finally {
+            br.close();
+        }
+        return tmp;
     }
     public static boolean[][] toBooleansArray(String in) {
         String []lines = in.split("\n");
@@ -1059,6 +1102,17 @@ public class Z2 {
         }
         return out;
     }
+    public static byte booleansToByte(boolean[] in){
+        int out = 0;
+        if(in.length>8) throw new RuntimeException("boolean array to big to fit in 8 bits integer");
+        for(int i = 0;i<in.length;i++){
+            if(in[i]) out |= 1<<i;
+        }
+        return (byte)out;
+    }
+    public static byte binaryStringToByte(String binaryString) {
+        return booleansToByte(toBooleans(binaryString));
+    }
     public static boolean[] toBooleans(BigInteger in) {
         return toBooleans(in,in.bitLength());
     }
@@ -1129,6 +1183,12 @@ public class Z2 {
                 System.arraycopy(in,offset,out,outOffset,atomSize);
             }
         }
+        return out;
+    }
+    public static byte []switchEndianness(byte[] in, int atomSize, int wordSize) {
+        boolean[] bits = toBooleans(in);
+        bits = switchEndianness(bits,atomSize,wordSize);
+        byte[] out = booleansToBytes(bits);
         return out;
     }
     public static String toBinaryString(boolean in){

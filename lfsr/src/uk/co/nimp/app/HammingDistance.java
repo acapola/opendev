@@ -24,7 +24,7 @@ public class HammingDistance {
         msg+=argDescription(ARG_TCLOUT,null,"Display only TCL output, overrides other display options");
         msg+="\n"+credits;
         //msg+="\n0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghijtt";
-        msg = limitLineLength(msg,78);
+        msg = limitLineLength(msg,lineLengthLimit);
         return msg;
     }
     static void runDemo(String []args,String description,int index) {
