@@ -143,9 +143,12 @@ public class WbAesEp {
                 diffs.put(diffOut,diffIn);
             }
         }*/
+        /*
         diffs.put(Z2.binaryStringToByte("01111010"),(byte)0x30);
         diffs.put(Z2.binaryStringToByte("11001010"),(byte)0x31);
         diffs.put(Z2.binaryStringToByte("10100100"),(byte)0x32);
+        */
+
         for(int i = 0;i<256;i++){
             byte zeroIn = (byte)i;
             byte zeroOut = sboxRef(zeroIn);

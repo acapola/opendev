@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.Set;
 
 public class BooleanFunctionTest {
+    static Random rng=new Random();
+
     static final boolean slowTests=false;
     static void assertTrue(String message, boolean predicate){
         assertEquals(message,true,predicate);
@@ -41,6 +43,27 @@ public class BooleanFunctionTest {
                 if(r<0) r=~r;
                 assertEquals("mismatch for " + r + ": ", powersOf2.contains(r), BooleanFunction.isPowerOf2(r));
             }
+        }
+    }
+
+    static boolean[] ti2VarToBooleans(int ti2Var){
+        boolean[] out = new boolean[2];
+        out[0]=1==(ti2Var&1);
+        out[1]=1==((ti2Var>>1)&1);
+        return out;
+    }
+    static int ti2VarToInt(boolean[] ti2Var){
+        int out=0;
+        if(ti2Var[0]) out=1;
+        if(ti2Var[1]) out|=2;
+        return out;
+    }
+
+    static boolean ti2VarToBoolean(int ti2Var){
+        switch(ti2Var){
+            case 0:
+            case 3:return false;
+            default:return true;
         }
     }
 
@@ -100,27 +123,52 @@ public class BooleanFunctionTest {
         }
     }
 
+    static int ti2And(int aTi2, int bTi2){
+        boolean remask=false;
+        return ti2And(aTi2,bTi2,remask);
+    }
+    static int ti2And(int aTi2, int bTi2, boolean remask){
+        boolean[] a=ti2VarToBooleans(aTi2);
+        boolean[] b=ti2VarToBooleans(bTi2);
+        boolean[] out=new boolean[2];
+        boolean a0b0=!(a[0]&b[0]);
+        boolean a0b1=!(a[0]&b[1]);
+        boolean a1b0=!(a[1]&b[0]);
+        boolean a1b1=!(a[1]&b[1]);
+        if(remask){
+            boolean r1=rng.nextBoolean();
+            boolean r2=rng.nextBoolean();
+            a0b0^=r1;
+            a1b1^=r2;
+            a1b0^=r1;
+            a0b1^=r2;
+        }
+        out[0] = a1b1 ^ a0b0;
+        out[1] = a1b0 ^ a0b1;
+
+        return ti2VarToInt(out);
+    }
+
     static int ti3And(int aTi3, int bTi3){
         boolean remask=false;
         return ti3And(aTi3,bTi3,remask);
     }
-    static Random rng=new Random();
     static int ti3And(int aTi3, int bTi3, boolean remask){
         boolean[] a=ti3VarToBooleans(aTi3);
         boolean[] b=ti3VarToBooleans(bTi3);
         boolean[] out=new boolean[3];
-        boolean a0b0=a[0]&b[0];
-        boolean a0b1=a[0]&b[1];
-        boolean a0b2=a[0]&b[2];
-        boolean a1b0=a[1]&b[0];
-        boolean a1b1=a[1]&b[1];
-        boolean a1b2=a[1]&b[2];
-        boolean a2b0=a[2]&b[0];
-        boolean a2b1=a[2]&b[1];
-        boolean a2b2=a[2]&b[2];
-        out[0] = a1b1 ^ a1b2 ^ a2b1;
-        out[1] = a2b2 ^ a0b2 ^ a2b0;
-        out[2] = a0b0 ^ a0b1 ^ a1b0;
+        boolean a0b0=!(a[0]&b[0]);
+        boolean a0b1=!(a[0]&b[1]);
+        boolean a0b2=!(a[0]&b[2]);
+        boolean a1b0=!(a[1]&b[0]);
+        boolean a1b1=!(a[1]&b[1]);
+        boolean a1b2=!(a[1]&b[2]);
+        boolean a2b0=!(a[2]&b[0]);
+        boolean a2b1=!(a[2]&b[1]);
+        boolean a2b2=!(a[2]&b[2]);
+        out[0] = a1b1 ^ a1b2 ^ a2b1 ^ true;
+        out[1] = a2b2 ^ a0b2 ^ a2b0 ^ true;
+        out[2] = a0b0 ^ a0b1 ^ a1b0 ^ true;
         if(remask){
             boolean r1=rng.nextBoolean();
             boolean r2=rng.nextBoolean();
@@ -157,6 +205,21 @@ public class BooleanFunctionTest {
     }
 
     @Test
+    public void testTi2And() throws Exception {
+        for(int a=0;a<4;a++) {
+            for (int b = 0; b < 4; b++) {
+                int actualInt = ti2And(a, b);
+                int actualInt2 = ti2And(a, b, true);
+                boolean actual = ti2VarToBoolean(actualInt);
+                boolean actual2 = ti2VarToBoolean(actualInt2);
+                boolean expected = ti2VarToBoolean(a)&ti2VarToBoolean(b);
+                assert(actual==expected);
+                assert(actual2==expected);
+            }
+        }
+    }
+
+    @Test
     public void testTi3And() throws Exception {
         for(int a=0;a<8;a++) {
             for (int b = 0; b < 8; b++) {
@@ -166,6 +229,76 @@ public class BooleanFunctionTest {
                 assert(actual==expected);
             }
         }
+    }
+
+    void testTi2AndUniform(boolean testSecondInput, boolean remask) {
+        String inputLabel = testSecondInput ? "b" : "a";
+        int[][] outputValuesCountForA = new int[4][4];
+        for (int k = 0; k < 10000; k++) {
+            for (int a = 0; a < 4; a++) {
+                for (int b = 0; b < 4; b++) {
+                    int actualInt = testSecondInput ? ti2And(b, a,remask) : ti2And(a, b,remask);
+                    outputValuesCountForA[a][actualInt]++;
+                }
+            }
+        }
+
+        System.out.print("      ");
+        for (int a = 0; a < 4; a++) {
+            System.out.print(String.format("%7d ", a));
+        }
+        System.out.println();
+        for (int a = 0; a < 4; a++) {
+            int sum = 0;
+            System.out.print(String.format("%s=%2d: ",inputLabel, a));
+            for (int b = 0; b < 4; b++) {
+                System.out.print(String.format("%7d ", outputValuesCountForA[a][b]));
+                sum += outputValuesCountForA[a][b];
+            }
+            System.out.println(" = " + sum);
+        }
+        System.out.print("      ");
+        int minOnes = Integer.MAX_VALUE;
+        int maxOnes = 0;
+        int minZeroes = Integer.MAX_VALUE;
+        int maxZeroes = 0;
+        for (int a = 0; a < 4; a++) {
+            int sum = 0;
+            for (int b = 0; b < 4; b++) {
+                sum += outputValuesCountForA[b][a];
+            }
+            if (ti2VarToBoolean(a)) {
+                minOnes = Math.min(minOnes, sum);
+                maxOnes = Math.max(maxOnes, sum);
+            } else {
+                minZeroes = Math.min(minZeroes, sum);
+                maxZeroes = Math.max(maxZeroes, sum);
+            }
+            System.out.print(String.format("%7d ", sum));
+        }
+        System.out.print("\n -> ones = [" + minOnes + "," + maxOnes + "], zeroes = [" + minZeroes + "," + maxZeroes + "]");
+        if ((minOnes == maxOnes) && (minZeroes == maxZeroes)) System.out.println(" -> Uniform :-)");
+        else {
+            double tolerance = 0.03;
+            double onesRatio = (maxOnes * 1.0) / minOnes;
+            double zeroesRatio = (maxZeroes * 1.0) / minZeroes;
+            boolean onesPass = (onesRatio >= 1.0 - tolerance) && (onesRatio <= 1.0 + tolerance);
+            boolean zeroesPass = (zeroesRatio >= 1.0 - tolerance) && (zeroesRatio <= 1.0 + tolerance);
+            if (onesPass && zeroesPass) System.out.println(" -> quasi uniform!");
+            else System.out.println(" -> NOT uniform :-(");
+            System.out.println(" -> onesRatio=" + onesRatio);
+            System.out.println(" -> zeroesRatio=" + zeroesRatio);
+        }
+        System.out.println();
+    }
+
+
+    @Test
+    public void testTi2AndUniform() throws Exception {
+        testTi2AndUniform(false,false);
+        testTi2AndUniform(false,true);
+        testTi2AndUniform(true,true);
+
     }
 
     void testTi3AndUniform(boolean testSecondInput, boolean remask) {
@@ -221,7 +354,7 @@ public class BooleanFunctionTest {
             double zeroesRatio = (maxZeroes * 1.0) / minZeroes;
             boolean onesPass = (onesRatio >= 1.0 - tolerance) && (onesRatio <= 1.0 + tolerance);
             boolean zeroesPass = (zeroesRatio >= 1.0 - tolerance) && (zeroesRatio <= 1.0 + tolerance);
-            if (onesPass && zeroesPass) System.out.println(" -> probably uniform!");
+            if (onesPass && zeroesPass) System.out.println(" -> quasi uniform!");
             else System.out.println(" -> NOT uniform :-(");
             System.out.println(" -> onesRatio=" + onesRatio);
             System.out.println(" -> zeroesRatio=" + zeroesRatio);

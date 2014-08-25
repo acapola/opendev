@@ -7,20 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2dabf7c-fc5d-4270-b7fd-cc71fe693d9b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/AesKeySearch.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/Hypotenuse.java" afterPath="$PROJECT_DIR$/src/util/Hypotenuse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LICENSE" afterPath="$PROJECT_DIR$/../LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" />
@@ -56,8 +52,8 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AesKeySearch.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/AesKeySearch.java">
+      <file leaf-file-name="SymKeySearch.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/SymKeySearch.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="2936" max-vertical-offset="4176">
               <caret line="140" column="35" selection-start-line="140" selection-start-column="35" selection-end-line="140" selection-end-column="35" />
@@ -121,16 +117,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WbAesEp.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="WbAesEp.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4456522" vertical-offset="2864" max-vertical-offset="3864">
-              <caret line="147" column="62" selection-start-line="147" selection-start-column="62" selection-end-line="147" selection-end-column="62" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2088" max-vertical-offset="3936">
+              <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
               <folding>
                 <element signature="e#4408#4409#0" expanded="true" />
                 <element signature="e#4442#4443#0" expanded="true" />
                 <element signature="e#6889#6900#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BooleanFunctionTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.54285717" vertical-offset="3378" max-vertical-offset="10368">
+              <caret line="166" column="43" selection-start-line="166" selection-start-column="43" selection-end-line="166" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -195,7 +201,6 @@
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Sbox4.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/BooleanFunction.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Sbox.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java" />
         <option value="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java" />
         <option value="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
@@ -205,6 +210,7 @@
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/AesKeySearch.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java" />
+        <option value="$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java" />
       </list>
     </option>
   </component>
@@ -392,7 +398,7 @@
       <recent name="uk.co.nimp.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.WbAesEp">
+  <component name="RunManager" selected="JUnit.BooleanFunctionTest">
     <configuration default="false" name="LfsrTool" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.co.nimp.app.LfsrTool" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -475,8 +481,8 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="AesKeySearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="uk.co.nimp.app.AesKeySearch" />
+    <configuration default="false" name="SymKeySearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uk.co.nimp.app.SymKeySearch" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -744,7 +750,13 @@
       </option>
       <envs />
       <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -753,7 +765,7 @@
       <item index="1" class="java.lang.String" itemvalue="Application.PollardRho" />
       <item index="2" class="java.lang.String" itemvalue="Application.Sbox4" />
       <item index="3" class="java.lang.String" itemvalue="Application.WbAesEp" />
-      <item index="4" class="java.lang.String" itemvalue="Application.AesKeySearch" />
+      <item index="4" class="java.lang.String" itemvalue="Application.SymKeySearch" />
       <item index="5" class="java.lang.String" itemvalue="JUnit.LfsrTest" />
       <item index="6" class="java.lang.String" itemvalue="JUnit.ScramblerTest" />
       <item index="7" class="java.lang.String" itemvalue="JUnit.Z2Test" />
@@ -763,7 +775,7 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.WbAesEp" />
-        <item index="1" class="java.lang.String" itemvalue="Application.AesKeySearch" />
+        <item index="1" class="java.lang.String" itemvalue="Application.SymKeySearch" />
         <item index="2" class="java.lang.String" itemvalue="Application.PollardRho" />
         <item index="3" class="java.lang.String" itemvalue="Application.Sbox4" />
         <item index="4" class="java.lang.String" itemvalue="Application.LfsrTool" />
@@ -819,7 +831,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28014842" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39053804" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -866,8 +878,14 @@
           <properties />
           <option name="timeStamp" value="74" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java</url>
+          <line>210</line>
+          <properties />
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="75" />
+      <option name="time" value="76" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1186,14 +1204,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6107" max-vertical-offset="7440">
-          <caret line="267" column="65" selection-start-line="267" selection-start-column="65" selection-end-line="267" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4225352" vertical-offset="0" max-vertical-offset="568">
@@ -1258,7 +1268,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/AesKeySearch.java">
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/SymKeySearch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2936" max-vertical-offset="4176">
           <caret line="140" column="35" selection-start-line="140" selection-start-column="35" selection-end-line="140" selection-end-column="35" />
@@ -1306,13 +1316,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4456522" vertical-offset="2864" max-vertical-offset="3864">
-          <caret line="147" column="62" selection-start-line="147" selection-start-column="62" selection-end-line="147" selection-end-column="62" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2088" max-vertical-offset="3936">
+          <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
           <folding>
             <element signature="e#4408#4409#0" expanded="true" />
             <element signature="e#4442#4443#0" expanded="true" />
             <element signature="e#6889#6900#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.54285717" vertical-offset="3378" max-vertical-offset="10368">
+          <caret line="166" column="43" selection-start-line="166" selection-start-column="43" selection-end-line="166" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
