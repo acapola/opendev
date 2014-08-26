@@ -229,6 +229,7 @@ proc dictToVars { varDefs {levelOut 1} } {
 # Main procs #
 ##############
 
+#compute various parameters used by other procs from the user friendly parameters
 proc hammingCodeFunctionParams { inputWidth {extended 0} {userOutputWidth 0} } {
     # Computation of EDC parameters #
     #theory: 
@@ -279,6 +280,7 @@ proc hammingCodeFunctionName { inputWidth {extended 0} {userOutputWidth 0} } {
     return [dict get $parameters funcName]
 }
 
+#compute the EDC code
 proc hammingCode { inputWidth {extended 0} {userOutputWidth 0} } {
     set parameters [hammingCodeFunctionParams $inputWidth $extended $userOutputWidth]
     dictToVars $parameters
@@ -290,7 +292,9 @@ proc hammingCode { inputWidth {extended 0} {userOutputWidth 0} } {
     set code 0
     while {[set code [nextWithHammingWeight $code $targetHammingWeight $r]]} {lappend vcodes $code}
 
+	#bits: map syndrom bit number to the list of input bits to compute it
     set bits [dict create]
+	#bitsInputs: map syndrom bit number to the number of inputs it has
     set bitsInputs [dict create]
     for {set i 0} {$i<$r} {incr i} {
         dict set bits $i [list]
@@ -301,7 +305,7 @@ proc hammingCode { inputWidth {extended 0} {userOutputWidth 0} } {
             #we ran out of codes, get the next batch
             incr targetHammingWeight
            	if {$extended} {
-           		#keep the hamming weight odd
+           		#keep the hamming weight odd, we cannot get a min distance of 3 if we use even hamming weights here.
            		incr targetHammingWeight
            	}
             set code 0
@@ -388,6 +392,25 @@ proc hammingCode { inputWidth {extended 0} {userOutputWidth 0} } {
 	return $out
 }
 
+
+proc hammingCodeCorrectionPattern { hammingCodeDictName } {
+	upvar hammingCodeDict $hammingCodeDictName
+	dictToVars $hammingCodeDict
+	
+	set tclModelProc [hammingCodeTclProcNumbers $hammingCodeDict]
+	eval $tclModelProc
+	
+	set eccPatterns [dict create]
+	for {set i 0} {$i<$k} {incr i} {
+		set syndromBits [$funcName [expr 1<<$i]]
+        dict set eccPatterns $i [string map {" " ""} [valToBits $syndromBits $r]]
+    }
+	
+	dict set hammingCodeDict eccUncorrectableError 0
+	dict set hammingCodeDict eccCorrectableError 0
+	dict set hammingCodeDict eccPatterns $eccPatterns
+}
+
 proc hammingCodeCommentsC { hammingCodeDict } {
 	dictToVars $hammingCodeDict
 ``
@@ -410,6 +433,8 @@ proc hammingCodeCommentsC { hammingCodeDict } {
 } 
 #end of hammingCodeFunction
 
+#check by comoputing the minimum hamming distance over all code words: does not scale well...
+#todo: check by verifying that the sum of every triplet of syndrom is not 0 (true for extended, what about normal case ?)
 proc checkHammingCode { hammingCodeDict } {
 	dictToVars $hammingCodeDict
 	set actualOutputWidth $r
@@ -465,19 +490,32 @@ if {[info ex argv0] && [file tail [info script]] == [file tail $argv0]} {
         puts "ERROR: $argc argument provided, need 1 or up to 6."
         puts "argc=$argc, argv=$argv"
         puts "arguments: input_width \[extended\] \[output_width\] \[output_type\]"
-		puts "supported value for output_type: verilog, tcl, vectors
+		puts "supported value for extended: 0, 1, extended, ecc
+        puts "supported value for output_type: verilog, tcl, vectors
         exit -1
     }
     set inputWidth [lindex $argv 0]
     #default values for optional parameters
     set extended 0
+	set ecc 0
     set userOutputWidth 0
     set verilogOutput 0
 	set tclOutput 0
 	set vectorsOutput 0
 	if { [llength $argv] >= 2 } {
-        if {[lindex $argv 1]} {
-            set extended 1
+		set extendedArg [string tolower [lindex $argv 1]]
+        switch $extendedArg {
+			0 { set extended 0 }
+			1 -
+			"extended" { set extended 1 }
+			"ecc" {
+				set extended 1
+				set ecc 1
+			}
+			default {
+				puts "unsupported value for extended parameter: $extendedArg"
+				exit -1
+			}
         }
     }
     if { [llength $argv] >= 3 } {
@@ -513,17 +551,22 @@ if {[info ex argv0] && [file tail [info script]] == [file tail $argv0]} {
 	dbgPutsVar extended
 	dbgPutsVar userOutputWidth
 	
-    #the actual output to file take place in the following lines
+    #compute the code
 	set hammingCodeDict [hammingCode $inputWidth $extended $userOutputWidth]
+	if {$ecc} {
+		#compute the corrector part
+		hammingCodeCorrectionPattern hammingCodeDict
+	}
 	#do a bit of self checking
 	checkHammingCode $hammingCodeDict
 	
+	#the actual output to file take place in the following lines
 	if {$verilogOutput} {
 	#::tgpp::renameOutput hamming_code.v
 		::tgpp::off all
 		::tgpp::on hamming_code.v
 ``
-`hammingCodeVerilogFunction2 $hammingCodeDict`
+`hammingCodeVerilogFunction2 $hammingCodeDict $ecc`
 ``  
 	}
 	if {$tclOutput} {
