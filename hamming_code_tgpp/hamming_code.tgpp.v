@@ -49,7 +49,7 @@ function [`$r`-1:0] `$funcName`;
     end
 endfunction
 ``if {$ecc} {
-	set eccFuncName "${funcName}_correction_pattern"
+	#set eccFuncName "${funcName}_correction_pattern"
 ``
 function [2+`$k`-1:0] `$eccFuncName`;
     input [`$r`-1:0] syndrom;
@@ -60,17 +60,12 @@ function [2+`$k`-1:0] `$eccFuncName`;
 		correction_pattern = {`$k`{1'bx}};
 		correctable_error = 1'b1;
         uncorrectable_error = 1'b0;
-		case(syndrom) begin
+		case(syndrom)
 			`$r`'b`string map {" " ""} [valToBits 0 $r]`: begin
 				correction_pattern = {`$k`{1'b0}};
 				correctable_error = 1'b0;
 			end	
-``for {set inputBit 0} {$inputBit<[llength [dict keys $eccPatterns]]} {incr inputBit} {
-    #set synBits [list]
-    #foreach b [dict get $eccBits $inputBit] {
-    #    lappend synBits syndrom\[[format %${syndromIndexesWidth}s $b]\]
-    #}
-``
+``for {set inputBit 0} {$inputBit<[llength [dict keys $eccPatterns]]} {incr inputBit} {``
 			`$r`'b`dict get $eccPatterns $inputBit`: correction_pattern[`format %${indexesWidth}s $inputBit`]=1'b1;
 ``}``   
 			default: begin

@@ -26,6 +26,20 @@ proc putsVar { varName {relLevel 0} } {
     puts [dbgStr $varName 2]
 }
 
+
+#return 1 if the list contain at least one duplicated value
+proc lHasDuplicates { inputList } {
+	if {[llength $inputList]<2} {return 0}
+	set sortedList [lsort $inputList]
+	set last [lindex $sortedList 0]
+	for {set i 1} {$i<[llength $sortedList]} {incr i} {
+		set tmp [lindex $sortedList $i]
+		if {$last == $tmp} {return 1}
+		set last $tmp
+	}
+	return 0
+}
+
 proc log2 {a} {expr log($a)/log(2)}
 proc log10 {a} {expr log($a)/log(10)}
 
@@ -136,6 +150,28 @@ proc valToBits { val width} {
     }
     return $out
 }
+#return the integer value which is coded by the input bit list
+proc bitsToVal { bitsList } {
+    set out 0
+    for {set i 0} {$i<[llength $bitsList]} {incr i} {
+		set bit [lindex $bitsList $i]
+		if {$bit} {
+			set out [expr $out + (1<<$i)]
+		}
+    }
+    return $out
+}
+#return the integer value which is coded by the input bit list
+proc bitsStrToVal { bitsStr } {
+    set out 0
+    for {set i 0} {$i<[string length $bitsStr]} {incr i} {
+		set bit [string index $bitsStr $i]
+		if {$bit} {
+			set out [expr $out + (1<<$i)]
+		}
+    }
+    return $out
+}
 #return a list of bit index set to 1 in the binary representation of val
 proc valToOnes { val } {
     set out [list]
@@ -183,7 +219,7 @@ proc nextWithHammingWeight { startVal targetHammingWeight {targetWidth 0} } {
             #move the bit by one position left
             lset ones $bitIndex $nextBitPos
             if {$bitIndex>0} {
-	            #re initialize all bits of lower significiance
+	            #re initialize all bits of lower significance
 	            set lsbs [valToOnes [firstWithHammingWeight $bitIndex $bitPos]]
 	            set ones [lreplace $ones 0 [expr $bitIndex-1] {*}$lsbs]
 	          }
@@ -342,7 +378,7 @@ proc hammingCode { inputWidth {extended 0} {userOutputWidth 0} } {
 	
 	set loads [dict create]
     set dots [dict create]
-    # results formating to generate output #
+    # results formatting to generate output #
     for {set syndromBit 0} {$syndromBit<$r} {incr syndromBit} {
         #loads is used later on in the input usage report.
         foreach b [dict get $bits $syndromBit] {
@@ -409,6 +445,9 @@ proc hammingCodeCorrectionPattern { hammingCodeDictName } {
 	dict set hammingCodeDict eccUncorrectableError 0
 	dict set hammingCodeDict eccCorrectableError 0
 	dict set hammingCodeDict eccPatterns $eccPatterns
+	set eccFuncName "${funcName}_correction_pattern"
+	dict set hammingCodeDict eccFuncName $eccFuncName
+	dict set hammingCodeDict ecc 1
 }
 
 proc hammingCodeCommentsC { hammingCodeDict } {
@@ -433,9 +472,82 @@ proc hammingCodeCommentsC { hammingCodeDict } {
 } 
 #end of hammingCodeFunction
 
-#check by comoputing the minimum hamming distance over all code words: does not scale well...
-#todo: check by verifying that the sum of every triplet of syndrom is not 0 (true for extended, what about normal case ?)
+#check by verifying that no syndrom is identical
+#if the code is an extended code, call the dedicated proc checkExtendedHammingCode
 proc checkHammingCode { hammingCodeDict } {
+	dictToVars $hammingCodeDict
+	if { $extended } { 
+		checkExtendedHammingCode $hammingCodeDict 
+		return
+	}
+	set actualOutputWidth $r
+	set tclModelProc [hammingCodeTclProcNumbers $hammingCodeDict]
+	eval $tclModelProc
+	set syndroms [list]
+	for {set inputBit 0} {$inputBit<$inputWidth} {incr inputBit} {
+		lappend syndroms [$funcName (1<<$inputBit)]
+	} 
+	if {[lHasDuplicates $syndroms]} {
+		error "INTERNAL ERROR: duplicated syndroms found:\n${syndroms}\nPlease report this error."
+	}
+}
+
+#extended case: check by verifying that the sum of every triplet of syndrom is not 0
+proc checkExtendedHammingCode { hammingCodeDict } {
+	dictToVars $hammingCodeDict
+	set actualOutputWidth $r
+	set tclModelProc [hammingCodeTclProcNumbers $hammingCodeDict]
+	eval $tclModelProc
+	set syndroms [list]
+	for {set inputBit 0} {$inputBit<$inputWidth} {incr inputBit} {
+		lappend syndroms [$funcName (1<<$inputBit)]
+	}	
+	#basic test to check that we have at least a normal hamming code
+	if {[lHasDuplicates $syndroms]} {
+		error "INTERNAL ERROR: duplicated syndroms found:\n${syndroms}\nPlease report this error."
+	}
+	#test triplets
+	set syndromsLen [llength $syndroms]
+	for {set i 0} {$i<$syndromsLen} {incr i} {
+		set syndromI [lindex $syndroms $i]
+		for {set j [expr $i+1]} {$j<$syndromsLen} {incr j} {
+			set syndromIJ [expr $syndromI ^ [lindex $syndroms $j]]
+			for {set k [expr $j+1]} {$k<$syndromsLen} {incr k} {
+				set syndromIJK [expr $syndromIJ ^ [lindex $syndroms $k]]
+				if { !$syndromIJK } {
+					set msg "INTERNAL ERROR: a triplet of syndroms is null: $i $j $k\n"
+					append msg "[valToBits $syndromI $r] ([lindex $syndroms $i])\n"
+					append msg "[valToBits [lindex $syndroms $j] $r] ([lindex $syndroms $j])\n"
+					append msg "[valToBits [lindex $syndroms $k] $r] ([lindex $syndroms $k])\n"
+					append msg "${syndroms}\n"
+					append msg "Please report this error."
+					error $msg
+				}
+			}
+		}
+	}
+	
+	if {0 & $ecc} {
+		#test few faults for each bit position
+		for {set i 0} {$i<$inputWidth} {incr i} {
+			set fault [expr 1<<$i]
+			set data [random $inputWidth]
+			set expectedSyndrom [bitsToVal [$funcName $data]]
+			set faultyData [expr $data ^ $fault]
+			set syndrom [bitsToVal [$funcName $faultyData]]
+			set deltaSyndrom [expr $expectedSyndrom ^ deltaSyndrom]
+			set deltaSyndromBits [valToBits $deltaSyndrom $r]
+			set analysis [$eccFuncName $deltaSyndromBits]
+			if {[dict get $analysis correctable_error]} {
+				
+			}
+		}	
+		
+	}
+}
+
+#check by computing the minimum hamming distance over all code words: does not scale well...
+proc checkHammingCodeByMinDistance { hammingCodeDict } {
 	dictToVars $hammingCodeDict
 	set actualOutputWidth $r
 	set tclModelProc [hammingCodeTclProcNumbers $hammingCodeDict]
