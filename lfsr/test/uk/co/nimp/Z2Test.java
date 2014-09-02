@@ -872,7 +872,7 @@ public class Z2Test {
 
         System.out.println("Z2.modExp(Z2.X,1,Z2.polynomialToBooleans(\"1+x\"))="+Z2.toPolynomial(Z2.modExp(Z2.X,1,Z2.polynomialToBooleans("1+x"))));
         System.out.println("Z2.modExp(Z2.X,2,Z2.polynomialToBooleans(\"1+x\"))="+Z2.toPolynomial(Z2.modExp(Z2.X,2,Z2.polynomialToBooleans("1+x"))));
-        for(int i=0;i<1<<10;i++){
+        for(int i=0;i<1<<15;i++){
             boolean[] poly = Z2.toBooleans(i);
             poly[0]=true;
             checkOrderOfX(poly);

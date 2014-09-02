@@ -27,7 +27,7 @@ proc putsVar { varName {relLevel 0} } {
 }
 
 
-#return 1 if the list contain at least one duplicated value
+#return 1 if the list contains at least one duplicated value
 proc lHasDuplicates { inputList } {
 	if {[llength $inputList]<2} {return 0}
 	set sortedList [lsort $inputList]
@@ -39,6 +39,23 @@ proc lHasDuplicates { inputList } {
 	}
 	return 0
 }
+
+#return 1 if the dict contains at least one duplicated value
+proc dictHasDuplicates { inputDict } {
+	set dictSize [dict size $inputDict]
+	if { $dictSize <2 } { return 0 }
+	set sorted [ sortDictByValue $inputDict ]
+	set last [lindex $sorted 0]
+	set keys [dict keys $sorted]
+	for {set i 1} {$i<[llength $keys]} {incr i} {
+		set key [lindex $keys $i]
+		set tmp [dict get $sorted $key]
+		if {$last == $tmp} {return 1}
+		set last $tmp
+	}
+	return 0
+}
+
 
 proc log2 {a} {expr log($a)/log(2)}
 proc log10 {a} {expr log($a)/log(10)}
@@ -253,6 +270,33 @@ proc lremove {listVariable value} {
     set var [lreplace $var $idx $idx]
 }
 
+proc lcontains {listValue value} {
+	return [expr [lsearch -exact $listValue $value]!=-1]
+}
+
+proc dictMinMax { inDict } {
+	set size [dict size $inDict]
+	set minLoad [dict get $inDict 0]
+	set maxLoad $minLoad
+	set minLoadBits [list 0]
+	set maxLoadBits [list 0]
+	for {set syndromBit 1} {$syndromBit<$size} {incr syndromBit} {
+		set load [dict get $inDict $syndromBit]
+		if {$load<$minLoad} {
+			set minLoad $load
+			set minLoadBits [list $syndromBit]
+		} elseif {$load>$maxLoad} {
+			set maxLoad $load
+			set maxLoadBits [list $syndromBit]
+		} else {
+			if {$load==$minLoad} {lappend minLoadBits $syndromBit}
+			if {$load==$maxLoad} {lappend maxLoadBits $syndromBit}
+		}
+	}
+	set out [dict create minValue $minLoad minIndexes $minLoadBits maxValue $maxLoad maxIndexes $maxLoadBits]
+	return $out
+}
+
 proc dictToVars { varDefs {levelOut 1} } {
     dict for {varName value} $varDefs {
         #create a tcl variable in the caller for each key-value pair
@@ -274,6 +318,23 @@ proc hammingCodeFunctionParams { inputWidth {extended 0} {userOutputWidth 0} } {
     #block length n: total max number of bits (max data + code)
     #   k = 2^r - r - 1
     #   n = 2^r - 1
+    
+    set extendedArg [string tolower $extended]
+    set ecc 0
+    switch $extendedArg {
+        0 { set extended 0 }
+        1 -
+        "extended" { set extended 1 }
+        "ecc" {
+            set extended 1
+            set ecc 1
+        }
+        default {
+            puts "unsupported value for extended parameter: $extendedArg"
+            exit -1
+        }
+    }
+    
     #we need to get r from k, we start from a lower bound and increment until we get a match 
     set k $inputWidth
     set r [binWidth [expr $k+1+2]]
@@ -308,7 +369,8 @@ proc hammingCodeFunctionParams { inputWidth {extended 0} {userOutputWidth 0} } {
     if {$extended} {
         set funcName extended_$funcName
     }
-    return [dict create r $r k $k n $n totalWidth $totalWidth nTotalWords $nTotalWords nValidWords $nValidWords funcName $funcName]
+    set eccFuncName "${funcName}_correction_pattern"
+    return [dict create r $r k $k n $n totalWidth $totalWidth nTotalWords $nTotalWords nValidWords $nValidWords funcName $funcName eccFuncName $eccFuncName]
 }
 
 proc hammingCodeFunctionName { inputWidth {extended 0} {userOutputWidth 0} } {
@@ -376,6 +438,165 @@ proc hammingCode { inputWidth {extended 0} {userOutputWidth 0} } {
     #set totalWidth [expr $r+$k]
     #set nTotalWords [expr 1<<$totalWidth]
 	
+	set codeDescription "a hamming code capable of detecting any 1 and 2 bits errors"
+
+    if {$extended} {
+        set funcName extended_$funcName
+        set codeDescription "an extended hamming code capable of detecting any 1,2 and 3 bits errors"
+    }
+
+    set indexesWidth [decWidth $k]
+    set syndromIndexesWidth [decWidth $r]
+    assertEqual $r [llength [dict keys $bits]]
+	
+	set out [dict create]
+	dict set out inputWidth $inputWidth
+	dict set out extended $extended
+	dict set out ecc 0
+	dict set out userOutputWidth $userOutputWidth
+	
+	dict set out parameters $parameters
+	
+	dict set out funcName [dict get $parameters funcName]
+	dict set out eccFuncName [dict get $parameters eccFuncName]
+	dict set out r [dict get $parameters r]
+	dict set out k [dict get $parameters k]
+	dict set out nValidWords [dict get $parameters nValidWords]
+	dict set out nTotalWords [dict get $parameters nTotalWords]
+	
+	dict set out codeDescription $codeDescription
+	dict set out syndromIndexesWidth $syndromIndexesWidth
+	dict set out indexesWidth $indexesWidth
+	dict set out bitsInputs $bitsInputs
+	dict set out bits $bits
+
+	hammingCodeBalanceLogicDepth out	
+	hammingCodeDotsAndLoads out
+	
+	return $out
+}
+
+proc dictTransposeIndexes { inDict } {
+	set out [dict create]
+	foreach key [dict keys $inDict] {
+		foreach val [dict get $inDict $key] {
+			dict lappend out $val $key
+		}
+	}
+	return $out
+}
+proc printIntDict { inDict } {
+	set out ""
+	set inDict [sortDictByValue $inDict]
+	dict for {k v} $inDict {
+		append out [format "%2d ->" $k]
+		foreach e $v {
+			append out " [format "%2d" $e]"
+		}
+		append out "\n"
+	}
+	puts [string range $out 0 end-1]
+}
+
+proc hammingCodeBalanceLogicDepth { hammingCodeDictName } {
+	upvar $hammingCodeDictName hammingCodeDict 
+	dictToVars $hammingCodeDict
+	
+	set syndroms [dictTransposeIndexes $bits]
+	assertEqual 0 [dictHasDuplicates $syndroms]
+	#printIntDict $syndroms
+	
+	set stats [dictMinMax $bitsInputs]
+	set minLogicDepth [dict get $stats minValue]
+	set maxLogicDepth [dict get $stats maxValue]
+	if {$minLogicDepth+1<$maxLogicDepth} { #if unbalanced mapping
+		set minLogicDepthBits [dict get $stats minIndexes]
+		#mark the bits already occupied in the syndrom bits with min inputs
+		set minOccupied [dict create] 
+		foreach syndromBit $minLogicDepthBits {
+			dict lappend minOccupied $syndromBit {*}[dict get $bits $syndromBit]
+		}
+		set maxLogicDepthBits [dict get $stats maxIndexes]
+		#mark the bits in the syndrom bits with max input, any of them is a candidate for move.
+		set maxCandidates [dict create] 
+		foreach syndromBit $maxLogicDepthBits {
+			dict lappend maxCandidates $syndromBit {*}[dict get $bits $syndromBit]
+		}
+		#enumerate the possible moves
+		set possibleMoves [dict create]
+		foreach longPath [dict key $maxCandidates] {
+			set longPathBits [dict get $maxCandidates $longPath]
+			foreach candidate $longPathBits {
+				#what the long path would look like without this candidate:
+				#set newLongPath [lsearch -not -all -exact -inline $longPathBits $candidate]
+				#set newLongPath $longPathBits
+				#lremove newLongPath $candidate
+				foreach shortPath [dict key $minOccupied] {
+					set shortPathBits [dict get $minOccupied $shortPath]
+					if {![lcontains $shortPathBits $candidate]} { #if shortPath does not contain the candidate, take a closer look
+						#set newShortPath [lsort [lappend $shortPath $candidate]]
+						set newSyndroms $syndroms
+						#set oldCandidateInputSyndrom [dict get $syndroms $candidate]
+						#set newCandidateInputSyndrom [lsearch -not -all -exact -inline $oldCandidateInputSyndrom $longPath] 
+						set newCandidateInputSyndrom [dict get $syndroms $candidate]
+						lremove newCandidateInputSyndrom $candidate
+						
+						lappend newCandidateInputSyndrom {*}$shortPath
+						set newCandidateInputSyndrom [lsort -integer $newCandidateInputSyndrom]
+						dict set newSyndroms $candidate $newCandidateInputSyndrom
+						#printIntDict $newSyndroms
+						if {![dictHasDuplicates $newSyndroms]} {
+							#puts "can move $candidate from $longPath to $shortPath"
+							dict lappend possibleMoves $longPath [dict create $shortPath $candidate]
+						}
+					}
+				}
+			}
+		}
+		#move the bits on a first arrived first served basis (clearly not perfect, but good enough for current use cases)
+		set shortPathsIncreased [list]
+		dict for {longPath movs} $possibleMoves {
+			set nMovs [llength $movs]
+			set done 0
+			set i 0
+			while {($i<$nMovs) && !$done} {
+				set mov [lindex $movs 0]
+				set shortPath [dict keys $mov]
+				set candidate [dict values $mov]
+				if {![lcontains $shortPathsIncreased $shortPath]} { #if we did not already increase this short path
+					#puts "moving $candidate from $longPath to $shortPath"
+					lappend shortPathsIncreased shortPath
+					set newBits $bits
+					set syndromBits [dict get $bits $longPath]
+					lremove syndromBits $candidate
+					dict set newBits $longPath $syndromBits
+					set syndromBits [dict get $bits $shortPath]
+					set syndromBits [lsort -integer [lappend syndromBits $candidate]]
+					dict set newBits $shortPath $syndromBits
+					set bits $newBits
+					dict incr bitsInputs $longPath -1
+					dict incr bitsInputs $shortPath 
+					set done 1
+				} else {
+					incr i
+				}
+			}
+		}
+	}
+	set stats [dictMinMax $bitsInputs]
+	set minLogicDepth [dict get $stats minValue]
+	set maxLogicDepth [dict get $stats maxValue]
+	if {$minLogicDepth+1<$maxLogicDepth} { #if unbalanced mapping
+		puts "WARNING: could not balance logic depth on all syndrom bits in function $funcName"
+	}
+	dict set hammingCodeDict bits $bits
+	dict set hammingCodeDict bitsInputs $bitsInputs
+}
+
+proc hammingCodeDotsAndLoads { hammingCodeDictName } {
+	upvar $hammingCodeDictName hammingCodeDict 
+	dictToVars $hammingCodeDict
+	
 	set loads [dict create]
     set dots [dict create]
     # results formatting to generate output #
@@ -393,44 +614,12 @@ proc hammingCode { inputWidth {extended 0} {userOutputWidth 0} } {
              }
         }
     }
-	
-	set codeDescription "a hamming code capable of detecting any 1 and 2 bits errors"
-
-    if {$extended} {
-        set funcName extended_$funcName
-        set codeDescription "an extended hamming code capable of detecting any 1,2 and 3 bits errors"
-    }
-
-    set indexesWidth [decWidth $k]
-    set syndromIndexesWidth [decWidth $r]
-    assertEqual $r [llength [dict keys $bits]]
-	
-	set out [dict create]
-	dict set out inputWidth $inputWidth
-	dict set out extended $extended
-	dict set out userOutputWidth $userOutputWidth
-	
-	dict set out parameters $parameters
-	
-	dict set out funcName [dict get $parameters funcName]
-	dict set out r [dict get $parameters r]
-	dict set out k [dict get $parameters k]
-	dict set out nValidWords [dict get $parameters nValidWords]
-	dict set out nTotalWords [dict get $parameters nTotalWords]
-	
-	dict set out codeDescription $codeDescription
-	dict set out syndromIndexesWidth $syndromIndexesWidth
-	dict set out indexesWidth $indexesWidth
-	dict set out dots $dots
-	dict set out loads $loads
-	dict set out bitsInputs $bitsInputs
-	dict set out bits $bits
-	return $out
+	dict set hammingCodeDict dots $dots
+	dict set hammingCodeDict loads $loads
 }
 
-
 proc hammingCodeCorrectionPattern { hammingCodeDictName } {
-	upvar hammingCodeDict $hammingCodeDictName
+	upvar $hammingCodeDictName hammingCodeDict 
 	dictToVars $hammingCodeDict
 	
 	set tclModelProc [hammingCodeTclProcNumbers $hammingCodeDict]
@@ -445,8 +634,6 @@ proc hammingCodeCorrectionPattern { hammingCodeDictName } {
 	dict set hammingCodeDict eccUncorrectableError 0
 	dict set hammingCodeDict eccCorrectableError 0
 	dict set hammingCodeDict eccPatterns $eccPatterns
-	set eccFuncName "${funcName}_correction_pattern"
-	dict set hammingCodeDict eccFuncName $eccFuncName
 	dict set hammingCodeDict ecc 1
 }
 

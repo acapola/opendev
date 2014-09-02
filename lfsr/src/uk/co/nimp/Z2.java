@@ -759,7 +759,7 @@ public class Z2 {
             If p(x) is irreducible of degree n, then the order is always a factor of 2n−1, i.e. a factor of what you would get with a primitive p(x).
             Furthermore, in that case the order will not be a factor of 2ℓ−1 for any ℓ∣n (ℓ which divides n), which allows you to eliminate some cases.
              */
-            boolean lahtonenOpt=false;//seems to slow down more than speed up :-S
+            boolean lahtonenOpt=true;
             Set<BigInteger> blackList = new HashSet<BigInteger>();
             if(lahtonenOpt){
                 BigInteger two = BigInteger.valueOf(2);
@@ -772,7 +772,7 @@ public class Z2 {
                 }
             }
 
-            //LIDL: seems slower than the combination approach !!
+            //LIDL
             Set<BigInteger> factorsOfOrderOfX = new HashSet<BigInteger>();
             Map<BigInteger,Integer> factorsMap = PollardRho.factorMap(qmMinus1);
             for(BigInteger pj:factorsMap.keySet()){
@@ -791,8 +791,8 @@ public class Z2 {
             BigInteger out = BigInteger.ONE;
             for(BigInteger f:factorsOfOrderOfX) out = out.multiply(f);
             return out;
+/*
 
-            /*
             BigInteger[] factors = PollardRho.factor(qmMinus1);
             long nCombination = 1<<factors.length;
             for(long i=1;i<nCombination;i++) {
@@ -1468,6 +1468,10 @@ end function
         for(BigInteger term:in){
             out = Z2.mul(out,Z2.toBooleans(term));
         }
+        return out;
+    }
+    public static String bigIntegerToPolynomial(BigInteger in){
+        String out = Z2.toPolynomial(Z2.toBooleans(in));
         return out;
     }
     public static String[] bigIntegersToPolynomials(Collection<BigInteger> in){
