@@ -1,0 +1,71 @@
+``
+#find out the directory of this script
+#that allow us to find the input files no matter what is the current directory
+set scriptDir [file dirname [info script]]
+
+#################
+# utility procs #
+#################
+source [file join $scriptDir misc_utils.tcl]
+
+
+
+##############
+# main procs #
+##############
+
+#return a mapping of input bits which maximize detection capabilities in input's units
+proc edcLeverage { inputWidth inputUnit edcInputWidth edcOutputWidth edcMaxDet } {
+	set out [dict create]
+	set logicalGroups [edcLogicalLeverage $inputWidth $inputUnit $edcInputWidth ]
+	set physicalGroups [edcPhysicalLeverage $logicalGroups $edcOutputWidth $edcMaxDet]
+	dict set out logicalGroups $logicalGroups
+	dict set out physicalGroups $physicalGroups
+	return $out
+}
+
+proc edcPhysicalLeverage { logicalGroups edcOutputWidth edcMaxDet } {
+	
+}
+
+proc edcLogicalLeverage { inputWidth inputUnit edcInputWidth } {
+	set nEdcGroups [divideRoundUp $inputWidth $edcInputWidth]
+	set actualEdcInputWidth [divideRoundUp $inputWidth $nEdcGroups]
+	set nUnitBitsPerEdcGroup [divideRoundUp $inputUnit $nEdcGroups]
+	set nUnits [expr $inputWidth / $inputUnit]
+	assertEqual [expr $nUnits*$inputUnit] $inputWidth
+	set groups [dict create]
+	set group 0
+	for {set bit 0} {$bit<$inputUnit} {incr bit} {
+		for {set unit 0} {$unit<$nUnits} {incr unit} {
+			dict lappend groups $group [expr $unit*$inputUnit+$bit]
+			if { [llength [dict get $groups $group]] >= $actualEdcInputWidth - 1 } {
+				set group [expr ($group+1)%$nEdcGroups]
+			}
+		}
+	}
+	return $groups
+}
+
+#verilog output
+#tgpp::source [file join $scriptDir hamming_code.tgpp.v]
+
+##################################
+# command line arguments parsing #
+##################################
+#parse command line only if this file is executed as a stand alone generator (ie. not included in another file)
+dbgPuts "[info ex argv0] && [file tail [info script]] == [file tail $argv0]"
+if {[info ex argv0] && [file tail [info script]] == [file tail $argv0]} {
+
+    set inputWidth [lindex $argv 0]
+	set inputUnit [lindex $argv 1]
+	set edcInputWidth [lindex $argv 2]
+	set edcOutputWidth [lindex $argv 3]
+	set edcMaxDet [lindex $argv 4]
+
+	
+	set groups [dict_sort [edcLogicalLeverage $inputWidth $inputUnit $edcInputWidth] -integer]
+	printIntDict $groups %3d
+	set phyGroups [dict_sort [edcPhysicalLeverage $groups $edcOutputWidth $edcMaxDet] -integer]
+	printIntDict $phyGroups %3d
+}
