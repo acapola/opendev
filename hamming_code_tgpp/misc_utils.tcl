@@ -22,10 +22,11 @@ proc dbgPutsVar { varName {relLevel 0} } {
 proc putsVar { varName {relLevel 0} } {
     puts [dbgStr $varName 2]
 }
-proc printIntDict { inDict {formatting "%2d"} } {
+proc printIntDict { inDict {formatting "%2d"} args } {
 	set out ""
 	#set inDict [sortDictByValue $inDict]
 	dict for {k v} $inDict {
+		if {[llength $args]} {set v [dict get $v {*}$args]}
 		append out [format "$formatting ->" $k]
 		foreach e $v {
 			append out " [format $formatting $e]"
@@ -169,6 +170,11 @@ proc log10 {a} {expr log($a)/log(10)}
 
 proc divideRoundUp { in divider } {
 	set out [expr int(($in + $divider -1)/$divider)]
+	return $out
+}
+
+proc divideRoundDown { in divider } {
+	set out [expr int($in/$divider)]
 	return $out
 }
 

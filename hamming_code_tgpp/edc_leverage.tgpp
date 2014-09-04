@@ -18,14 +18,71 @@ source [file join $scriptDir misc_utils.tcl]
 proc edcLeverage { inputWidth inputUnit edcInputWidth edcOutputWidth edcMaxDet } {
 	set out [dict create]
 	set logicalGroups [edcLogicalLeverage $inputWidth $inputUnit $edcInputWidth ]
-	set physicalGroups [edcPhysicalLeverage $logicalGroups $edcOutputWidth $edcMaxDet]
+	set physicalGroups [edcPhysicalLeverage $logicalGroups $inputUnit $edcOutputWidth $edcMaxDet]
 	dict set out logicalGroups $logicalGroups
 	dict set out physicalGroups $physicalGroups
 	return $out
 }
 
-proc edcPhysicalLeverage { logicalGroups edcOutputWidth edcMaxDet } {
-	
+proc edcPhysicalLeverageCheckGroup { unit logicalGroup edcMaxDet phyGroupDict } {
+	set phyGroupLogicalGroupsCnt [dict get $phyGroupDict logicalGroupsCnt]
+	set phyGroupUnitsCnt [dict get $phyGroupDict unitsCnt]
+	if {[dict get $phyGroupLogicalGroupsCnt $logicalGroup] >= $edcMaxDet } {
+		#puts "logicalGroup: [dict get $phyGroupLogicalGroupsCnt $logicalGroup] > $edcMaxDet"
+		return 0
+	}
+	if {[dict get $phyGroupUnitsCnt $unit] >= $edcMaxDet } {
+		#puts "unit: [dict get $phyGroupUnitsCnt $unit] > $edcMaxDet"
+		return 0
+	}
+	#puts "accepted with [dict get $phyGroupLogicalGroupsCnt $logicalGroup] and [dict get $phyGroupUnitsCnt $unit]"
+	return 1
+}
+proc edcPhysicalLeverageAddToGroup { bit unit logicalGroup phyGroupsName phyGroup } {
+	upvar $phyGroupsName phyGroups
+	dict with phyGroups $phyGroup {
+		lappend dataBits $bit
+		dict with unitsCnt {
+			incr $unit
+		}
+		dict with logicalGroupsCnt {
+			incr $logicalGroup
+		}
+	}
+}
+proc edcPhysicalLeverage { logicalGroups inputWidth inputUnit edcOutputWidth edcMaxDet } {
+	set nUnits [expr $inputWidth / $inputUnit]
+	assertEqual [expr $nUnits*$inputUnit] $inputWidth
+	set phyGroups [dict create ]
+	set phyGroupsCnt 0
+	#spread the databits
+	dict for {logicalGroup bits} $logicalGroups {
+		foreach bit $bits {
+			set unit [divideRoundDown $bit $inputUnit]
+			set done 0
+			for {set i 0} {$i<$phyGroupsCnt} {incr i} {
+				set phyGroupDict [dict get $phyGroups $i]
+				#puts $phyGroupDict
+				if {[edcPhysicalLeverageCheckGroup $unit $logicalGroup $edcMaxDet $phyGroupDict]} {
+					edcPhysicalLeverageAddToGroup $bit $unit $logicalGroup phyGroups $i
+					set done 1
+					#exit the loop
+					set i $phyGroupsCnt
+				}
+			}
+			if {0==$done} { #need to create a new group
+				set newPhyGroup [dict create dataBits [list] edcBits [list] logicalGroupsCnt [dict create] unitsCnt [dict create]]
+				foreach i [dict keys $logicalGroups] { dict set newPhyGroup logicalGroupsCnt $i 0}
+				for {set i 0} {$i<$nUnits} {incr i} { dict set newPhyGroup unitsCnt $i 0}
+				dict set phyGroups $phyGroupsCnt $newPhyGroup
+				edcPhysicalLeverageAddToGroup $bit $unit $logicalGroup phyGroups $phyGroupsCnt
+				incr phyGroupsCnt	
+			}
+		}
+	}
+	#spread the edc bits
+	#TODO
+	return $phyGroups
 }
 
 proc edcLogicalLeverage { inputWidth inputUnit edcInputWidth } {
@@ -57,6 +114,9 @@ proc edcLogicalLeverage { inputWidth inputUnit edcInputWidth } {
 dbgPuts "[info ex argv0] && [file tail [info script]] == [file tail $argv0]"
 if {[info ex argv0] && [file tail [info script]] == [file tail $argv0]} {
 
+	if {[llength $argv] < 5} {
+		error "need 5 arguments, got [llength $argv]"
+	}
     set inputWidth [lindex $argv 0]
 	set inputUnit [lindex $argv 1]
 	set edcInputWidth [lindex $argv 2]
@@ -65,7 +125,11 @@ if {[info ex argv0] && [file tail [info script]] == [file tail $argv0]} {
 
 	
 	set groups [dict_sort [edcLogicalLeverage $inputWidth $inputUnit $edcInputWidth] -integer]
+	puts "logical groups:"
 	printIntDict $groups %3d
-	set phyGroups [dict_sort [edcPhysicalLeverage $groups $edcOutputWidth $edcMaxDet] -integer]
-	printIntDict $phyGroups %3d
+	set phyGroups [dict_sort [edcPhysicalLeverage $groups $inputWidth $inputUnit $edcOutputWidth $edcMaxDet] -integer]
+	puts "physical groups:"
+	printIntDict $phyGroups %3d dataBits
+	#printIntDict $phyGroups %3d logicalGroupsCnt
+	#printIntDict $phyGroups %3d unitsCnt
 }
