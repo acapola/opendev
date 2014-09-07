@@ -15,14 +15,107 @@ source [file join $scriptDir misc_utils.tcl]
 ##############
 
 #return a mapping of input bits which maximize detection capabilities in input's units
-proc edcLeverage { inputWidth inputUnit edcInputWidth edcOutputWidth edcMaxDet } {
-	set out [dict create]
-	set logicalGroups [edcLogicalLeverage $inputWidth $inputUnit $edcInputWidth ]
-	set physicalGroups [edcPhysicalLeverage $logicalGroups $inputUnit $edcOutputWidth $edcMaxDet]
-	dict set out logicalGroups $logicalGroups
-	dict set out physicalGroups $physicalGroups
-	return $out
+proc edcLeverage { inputWidth inputUnit edcInputWidth edcOutputWidth edcMaxDet rngVariable } {
+	upvar 1 $rngVariable rng
+    puts [$rng getBits 32]
+	if {[isEdcPerfectLogicalLeveragePossible $inputWidth $inputUnit $edcInputWidth $edcMaxDet] } {
+		puts "INFO: Perfect logical leverage possible."
+	} else {
+		set autoParams [edcPerfectLogicalLeverage $inputWidth $inputUnit $edcMaxDet]
+		puts "WARNING: Perfect logical leverage NOT possible."
+		puts "Parameters for perfect logical leverage: ${autoParams}."
+	}
+	set logicalGroups [edcLogicalLeverage $inputWidth $inputUnit $edcInputWidth rng]
+	if {0} {
+		set physicalGroups [edcPhysicalLeverage $logicalGroups $inputWidth $inputUnit $edcOutputWidth $edcMaxDet]
+		set physicalGroupsSummary [dict create]
+		foreach phyGroup [dict keys $physicalGroups] {
+			set dataBits [dict get $physicalGroups $phyGroup dataBits]
+			set edcBits  [dict get $physicalGroups $phyGroup edcBits]
+			foreach bit $dataBits {
+				dict lappend physicalGroupsSummary $phyGroup d$bit
+			}
+			foreach bit $edcBits {
+				dict lappend physicalGroupsSummary $phyGroup e$bit
+			}
+		}
+	}
+	set physicalGroups [edcPhysicalLeverage2 $logicalGroups $inputWidth $inputUnit $edcOutputWidth $edcMaxDet rng]
+	set physicalGroupsSummary [dict create]
+	foreach phyGroup [dict keys $physicalGroups] {
+		foreach bit [dict get $physicalGroups $phyGroup bits] {
+			dict lappend physicalGroupsSummary $phyGroup $bit
+		}
+	}
+	return [varsToDict logicalGroups physicalGroups physicalGroupsSummary]
 }
+
+#assign data bits and EDC bits to physical groups such that:
+# - A physical group contain not more than edcMaxDet bits from a logical group (including the EDC bits for that group)
+# - each physical group contain a mix of data and EDC bits. This is desirable since EDC bits add noise to the local EM emissions 
+proc edcPhysicalLeverage2 { logicalGroups inputWidth inputUnit edcOutputWidth edcMaxDet rngVariable } {
+	upvar 1 $rngVariable rng
+    
+	set nUnits [expr $inputWidth / $inputUnit]
+	assertEqual [expr $nUnits*$inputUnit] $inputWidth
+	#create logical group including EDC bits
+	#data bits start by d and EDC bits by e
+	set fullLogicalGroups [dict create]
+	foreach group [dict keys $logicalGroups] {
+		set dataBits [dict get $logicalGroups $group]
+		foreach bit $dataBits {
+			dict lappend fullLogicalGroups $group d$bit
+		}
+		for {set edcBit 0} {$edcBit<$edcOutputWidth} {incr edcBit} {
+			set bit [expr $group*$edcOutputWidth+$edcBit]
+			dict lappend fullLogicalGroups $group e$bit
+		}
+	}
+	#randomize the order of bits within the groups
+	dict for {logicalGroup bits} $fullLogicalGroups {
+		lshuffle bits rng
+		dict set fullLogicalGroups $logicalGroup $bits
+	}
+	#printIntDict $fullLogicalGroups %4s 
+	#spread the bits
+	set phyGroups [dict create ]
+	set phyGroupsCnt 0
+	dict for {logicalGroup bits} $fullLogicalGroups {
+		foreach bit $bits {
+			set done 0
+			for {set i 0} {$i<$phyGroupsCnt} {incr i} {
+				set phyGroupDict [dict get $phyGroups $i]
+				if {[dict get $phyGroupDict logicalGroupsCnt $logicalGroup] < $edcMaxDet} {
+					#AddToGroup
+					dict with phyGroups $i {
+						lappend bits $bit
+						dict with logicalGroupsCnt {
+							incr $logicalGroup
+						}
+					}
+					set done 1
+					#exit the loop
+					set i $phyGroupsCnt
+				}
+			}
+			if {0==$done} { #need to create a new group
+				set newPhyGroup [dict create bits [list] logicalGroupsCnt [dict create] ]
+				foreach i [dict keys $logicalGroups] { dict set newPhyGroup logicalGroupsCnt $i 0}
+				dict set phyGroups $phyGroupsCnt $newPhyGroup
+				#AddToGroup
+				dict with phyGroups $phyGroupsCnt {
+					lappend bits $bit
+					dict with logicalGroupsCnt {
+						incr $logicalGroup
+					}
+				}
+				incr phyGroupsCnt	
+			}
+		}
+	}
+	return [dict_sort $phyGroups -integer]
+}
+
 
 proc edcPhysicalLeverageCheckGroup { unit logicalGroup edcMaxDet phyGroupDict } {
 	set phyGroupLogicalGroupsCnt [dict get $phyGroupDict logicalGroupsCnt]
@@ -38,18 +131,29 @@ proc edcPhysicalLeverageCheckGroup { unit logicalGroup edcMaxDet phyGroupDict } 
 	#puts "accepted with [dict get $phyGroupLogicalGroupsCnt $logicalGroup] and [dict get $phyGroupUnitsCnt $unit]"
 	return 1
 }
-proc edcPhysicalLeverageAddToGroup { bit unit logicalGroup phyGroupsName phyGroup } {
+proc edcPhysicalLeverageAddToGroup { bit unit logicalGroup phyGroupsName phyGroup {isEdcBit 0} } {
 	upvar $phyGroupsName phyGroups
 	dict with phyGroups $phyGroup {
-		lappend dataBits $bit
-		dict with unitsCnt {
-			incr $unit
+		if {$isEdcBit} {
+			lappend edcBits $bit
+		} else {
+			lappend dataBits $bit
+			dict with unitsCnt {
+				incr $unit
+			}
 		}
 		dict with logicalGroupsCnt {
 			incr $logicalGroup
 		}
 	}
 }
+#assign data bits and EDC bits to physical groups such that:
+# - A physical group contain not more than edcMaxDet bits from a logical group (including the EDC bits for that group)
+#TODO: 
+# - this implementation concentrate all data bits in some physical groups and all EDC bits in some other groups
+#   mixing them would be beneficial since EDC bits add noise to the local EM emissions 
+#a nice to have would be:
+# - No subset of logical groups is fully contained in a subset of physical groups -> all physical groups contain a maximum of different logical groups  
 proc edcPhysicalLeverage { logicalGroups inputWidth inputUnit edcOutputWidth edcMaxDet } {
 	set nUnits [expr $inputWidth / $inputUnit]
 	assertEqual [expr $nUnits*$inputUnit] $inputWidth
@@ -80,12 +184,65 @@ proc edcPhysicalLeverage { logicalGroups inputWidth inputUnit edcOutputWidth edc
 			}
 		}
 	}
+	set nLogicalGroups [llength [dict keys $logicalGroups]]
+		
 	#spread the edc bits
 	#TODO
-	return $phyGroups
+	for {set logicalGroup 0} {$logicalGroup<$nLogicalGroups} {incr logicalGroup} {
+		for {set edcBit 0} {$edcBit<$edcOutputWidth} {incr edcBit} {
+			set bit [expr $logicalGroup*$edcOutputWidth+$edcBit]
+			#ignore the units associated with the EDC bits
+			set unit 0
+			set done 0
+			for {set i 0} {$i<$phyGroupsCnt} {incr i} {
+				set phyGroupDict [dict get $phyGroups $i]
+				#puts $phyGroupDict
+				if {[edcPhysicalLeverageCheckGroup $unit $logicalGroup $edcMaxDet $phyGroupDict]} {
+					edcPhysicalLeverageAddToGroup $bit $unit $logicalGroup phyGroups $i 1
+					set done 1
+					#exit the loop
+					set i $phyGroupsCnt
+				}
+			}
+			if {0==$done} { #need to create a new group
+				set newPhyGroup [dict create dataBits [list] edcBits [list] logicalGroupsCnt [dict create] unitsCnt [dict create]]
+				foreach i [dict keys $logicalGroups] { dict set newPhyGroup logicalGroupsCnt $i 0}
+				for {set i 0} {$i<$nUnits} {incr i} { dict set newPhyGroup unitsCnt $i 0}
+				dict set phyGroups $phyGroupsCnt $newPhyGroup
+				edcPhysicalLeverageAddToGroup $bit $unit $logicalGroup phyGroups $phyGroupsCnt 1
+				incr phyGroupsCnt	
+			}
+		}
+	}
+	return [dict_sort $phyGroups -integer]
+}
+ 
+#return the minimum number of EDC circuits required to achieve perfect logical leverage as well as their maximum input width 
+proc edcPerfectLogicalLeverage { inputWidth inputUnit edcMaxDet } {
+	#set nEdcGroups [divideRoundUp $inputWidth $edcInputWidth]
+	set minEdcGroups [divideRoundUp $inputUnit $edcMaxDet]
+	set maxEdcInputWidth [divideRoundDown $inputWidth $minEdcGroups]
+	assertEqual 1 [isEdcPerfectLogicalLeveragePossible $inputWidth $inputUnit $maxEdcInputWidth $edcMaxDet]
+	return [varsToDict minEdcGroups maxEdcInputWidth]
 }
 
-proc edcLogicalLeverage { inputWidth inputUnit edcInputWidth } {
+#return 1 if the circuit guarantees that any fault impacting a single unit is detected
+#(assuming optimal spread of input bits to EDC circuits)
+proc isEdcPerfectLogicalLeveragePossible { inputWidth inputUnit edcInputWidth edcMaxDet } {
+	set nEdcGroups [divideRoundUp $inputWidth $edcInputWidth]
+	set nUnitBitsPerGroup [divideRoundUp $inputUnit $nEdcGroups]
+	set minUnitSplit [divideRoundUp $inputUnit $edcMaxDet]
+	set check1 [expr $nEdcGroups >= $minUnitSplit]
+	set check2 [expr $edcMaxDet >= $nUnitBitsPerGroup]
+	return $check1 && $check2
+}
+
+#Assume an EDC protected register (ECC not considered so far)
+#the data total width is $inputWidth
+#the data is protected by identical EDC circuits having an input width $edcInputWidth
+#the data is divided in an integer number of units, a unit consist of $inputUnit contiguous bits.
+#the goal is to minimize the number of bits of any given units assigned to the same EDC circuits.
+proc edcLogicalLeverage { inputWidth inputUnit edcInputWidth {rngVariable ""} } {
 	set nEdcGroups [divideRoundUp $inputWidth $edcInputWidth]
 	set actualEdcInputWidth [divideRoundUp $inputWidth $nEdcGroups]
 	set nUnitBitsPerEdcGroup [divideRoundUp $inputUnit $nEdcGroups]
@@ -93,19 +250,44 @@ proc edcLogicalLeverage { inputWidth inputUnit edcInputWidth } {
 	assertEqual [expr $nUnits*$inputUnit] $inputWidth
 	set groups [dict create]
 	set group 0
-	for {set bit 0} {$bit<$inputUnit} {incr bit} {
+	if {[string length $rngVariable]==0} {
+		for {set bit 0} {$bit<$inputUnit} {incr bit} {
+			for {set unit 0} {$unit<$nUnits} {incr unit} {
+				dict lappend groups $group [expr $unit*$inputUnit+$bit]
+				if { [llength [dict get $groups $group]] >= $actualEdcInputWidth - 1 } {
+					set group [expr ($group+1)%$nEdcGroups]
+				}
+			}
+		}
+	} else {
+		upvar 1 $rngVariable rng
+		set units [list]
 		for {set unit 0} {$unit<$nUnits} {incr unit} {
-			dict lappend groups $group [expr $unit*$inputUnit+$bit]
-			if { [llength [dict get $groups $group]] >= $actualEdcInputWidth - 1 } {
-				set group [expr ($group+1)%$nEdcGroups]
+			set bits [list]
+			for {set bit 0} {$bit<$inputUnit} {incr bit} {
+				lappend bits [expr $unit*$inputUnit+$bit]
+			}
+			lshuffle bits rng
+			lappend units $bits
+		}
+		#puts $units
+		lshuffle units rng
+		#puts $units
+		for {set bit 0} {$bit<$inputUnit} {incr bit} {
+			for {set unit 0} {$unit<$nUnits} {incr unit} {
+				set unitList [lindex $units $unit] 
+				dict lappend groups $group [lindex $unitList $bit]
+				if { [llength [dict get $groups $group]] >= $actualEdcInputWidth - 1 } {
+					set group [expr ($group+1)%$nEdcGroups]
+				}
 			}
 		}
 	}
-	return $groups
+	return [dict_sort $groups -integer]
 }
 
 #verilog output
-#tgpp::source [file join $scriptDir hamming_code.tgpp.v]
+tgpp::source [file join $scriptDir edc_logical_leverage.tgpp.v]
 
 ##################################
 # command line arguments parsing #
@@ -123,13 +305,22 @@ if {[info ex argv0] && [file tail [info script]] == [file tail $argv0]} {
 	set edcOutputWidth [lindex $argv 3]
 	set edcMaxDet [lindex $argv 4]
 
+	set rng [::nimp::random create]
 	
-	set groups [dict_sort [edcLogicalLeverage $inputWidth $inputUnit $edcInputWidth] -integer]
+	#set groups [dict_sort [edcLogicalLeverage $inputWidth $inputUnit $edcInputWidth] -integer]
+	dictToVars [edcLeverage $inputWidth $inputUnit $edcInputWidth $edcOutputWidth $edcMaxDet rng]
+	
 	puts "logical groups:"
-	printIntDict $groups %3d
-	set phyGroups [dict_sort [edcPhysicalLeverage $groups $inputWidth $inputUnit $edcOutputWidth $edcMaxDet] -integer]
-	puts "physical groups:"
-	printIntDict $phyGroups %3d dataBits
-	#printIntDict $phyGroups %3d logicalGroupsCnt
-	#printIntDict $phyGroups %3d unitsCnt
+	printIntDict $logicalGroups %3d
+	printIntDict $physicalGroupsSummary %4s 
+	
+	::tgpp::off all
+	::tgpp::on edc_logical_leverage.v
+``
+`edcLogicalLeverageVerilogFunction test $logicalGroups`
+``  
+	#delete default output
+	::tgpp::renameOutput tmp
+	::tgpp::renameOutput tmp ""
 }
+``

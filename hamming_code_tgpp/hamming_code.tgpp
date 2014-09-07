@@ -375,15 +375,24 @@ proc hammingCodeCorrectionPattern { hammingCodeDictName } {
 	set tclModelProc [hammingCodeTclProcNumbers $hammingCodeDict]
 	eval $tclModelProc
 	
+	#bit patterns that exactly match a single bit error on the data bits
 	set eccPatterns [dict create]
 	for {set i 0} {$i<$k} {incr i} {
 		set syndromBits [$funcName [expr 1<<$i]]
         dict set eccPatterns $i [string map {" " ""} [valToBits $syndromBits $r]]
     }
 	
+	#bit patterns that match a single bit error on the EDC bits
+	set eccEdcSingleBitErrorPatterns [dict create]
+	for {set i 0} {$i<$r} {incr i} {
+		set syndromBits [expr 1<<$i] 
+		dict set eccEdcSingleBitErrorPatterns $i [string map {" " ""} [valToBits $syndromBits $r]]
+	}
+	
 	dict set hammingCodeDict eccUncorrectableError 0
 	dict set hammingCodeDict eccCorrectableError 0
 	dict set hammingCodeDict eccPatterns $eccPatterns
+	dict set hammingCodeDict eccEdcSingleBitErrorPatterns $eccEdcSingleBitErrorPatterns
 	dict set hammingCodeDict ecc 1
 }
 

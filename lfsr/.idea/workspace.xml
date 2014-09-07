@@ -7,20 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2dabf7c-fc5d-4270-b7fd-cc71fe693d9b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/Z2PolyAnalysis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/edc_leverage.tgpp" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/edc_leverage.tgpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/hamming_code.tgpp.v" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/hamming_code.tgpp.v" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/hamming_code.tgpp" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/hamming_code.tgpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/misc_utils.tcl" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/misc_utils.tcl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/Hypotenuse.java" afterPath="$PROJECT_DIR$/src/util/Hypotenuse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LICENSE" afterPath="$PROJECT_DIR$/../LICENSE" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" />
@@ -32,7 +30,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/sample.fxml" afterPath="$PROJECT_DIR$/../mamasync/src/sample/sample.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/workspace.xml" />
     </list>
     <ignored path="lfsr.iws" />
@@ -61,9 +58,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="2936" max-vertical-offset="4176">
               <caret line="140" column="35" selection-start-line="140" selection-start-column="35" selection-end-line="140" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -71,18 +66,18 @@
       <file leaf-file-name="LfsrTool.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="5568">
+            <state vertical-scroll-proportion="0.0" vertical-offset="672" max-vertical-offset="5808">
               <caret line="28" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Lfsr.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Lfsr.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4623" max-vertical-offset="22416">
-              <caret line="313" column="14" selection-start-line="313" selection-start-column="14" selection-end-line="313" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.7807692" vertical-offset="1444" max-vertical-offset="22416">
+              <caret line="98" column="29" selection-start-line="98" selection-start-column="29" selection-end-line="98" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -91,12 +86,9 @@
       <file leaf-file-name="MainHelpers.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2904">
+            <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="3048">
               <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
-              <folding>
-                <element signature="e#4516#4517#0" expanded="true" />
-                <element signature="e#4571#4572#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -104,13 +96,9 @@
       <file leaf-file-name="WbAesEp.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2088" max-vertical-offset="3936">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2352" max-vertical-offset="4272">
               <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
-              <folding>
-                <element signature="e#4408#4409#0" expanded="true" />
-                <element signature="e#4442#4443#0" expanded="true" />
-                <element signature="e#6889#6900#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -118,8 +106,8 @@
       <file leaf-file-name="BooleanFunctionTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3378" max-vertical-offset="10368">
-              <caret line="166" column="43" selection-start-line="166" selection-start-column="43" selection-end-line="166" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3984" max-vertical-offset="10632">
+              <caret line="166" column="34" selection-start-line="166" selection-start-column="34" selection-end-line="166" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -128,7 +116,7 @@
       <file leaf-file-name="HammingDistance.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1344" max-vertical-offset="3024">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2160" max-vertical-offset="3144">
               <caret line="90" column="39" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
               <folding />
             </state>
@@ -138,22 +126,9 @@
       <file leaf-file-name="Z2.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="34346" max-vertical-offset="41832">
+            <state vertical-scroll-proportion="0.0" vertical-offset="35256" max-vertical-offset="42552">
               <caret line="1469" column="9" selection-start-line="1469" selection-start-column="9" selection-end-line="1469" selection-end-column="9" />
-              <folding>
-                <element signature="e#10782#10783#0" expanded="true" />
-                <element signature="e#10831#10832#0" expanded="true" />
-                <element signature="e#17793#17802#0" expanded="true" />
-                <element signature="e#29426#29438#0" expanded="true" />
-                <element signature="e#44853#44854#0" expanded="true" />
-                <element signature="e#44916#44917#0" expanded="true" />
-                <element signature="e#44972#44973#0" expanded="true" />
-                <element signature="e#45024#45025#0" expanded="true" />
-                <element signature="e#45371#45372#0" expanded="true" />
-                <element signature="e#45422#45423#0" expanded="true" />
-                <element signature="e#47931#47932#0" expanded="true" />
-                <element signature="e#47968#47969#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -163,17 +138,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="384" max-vertical-offset="2976">
               <caret line="26" column="95" selection-start-line="26" selection-start-column="95" selection-end-line="26" selection-end-column="95" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Z2Test.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Z2Test.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0671328" vertical-offset="20573" max-vertical-offset="22872">
+            <state vertical-scroll-proportion="0.0" vertical-offset="20573" max-vertical-offset="22872">
               <caret line="893" column="16" selection-start-line="893" selection-start-column="16" selection-end-line="893" selection-end-column="16" />
               <folding />
             </state>
@@ -254,7 +227,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -365,6 +337,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -763,15 +736,15 @@
       <method />
     </configuration>
     <list size="10">
-      <item index="0" class="java.lang.String" itemvalue="Application.PollardRho" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Sbox4" />
-      <item index="2" class="java.lang.String" itemvalue="Application.WbAesEp" />
-      <item index="3" class="java.lang.String" itemvalue="Application.SymKeySearch" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.LfsrTest" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.ScramblerTest" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.Z2Test" />
-      <item index="7" class="java.lang.String" itemvalue="JUnit.PollardRhoTest" />
-      <item index="8" class="java.lang.String" itemvalue="JUnit.BooleanFunctionTest" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.LfsrTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.ScramblerTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.Z2Test" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.PollardRhoTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.BooleanFunctionTest" />
+      <item index="5" class="java.lang.String" itemvalue="Application.PollardRho" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Sbox4" />
+      <item index="7" class="java.lang.String" itemvalue="Application.WbAesEp" />
+      <item index="8" class="java.lang.String" itemvalue="Application.SymKeySearch" />
       <item index="9" class="java.lang.String" itemvalue="Application.Z2PolyAnalysis" />
     </list>
     <recent_temporary>
@@ -822,12 +795,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="37" width="2560" height="1215" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18460111" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -843,6 +815,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42486086" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -907,10 +880,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1776" max-vertical-offset="2352">
           <caret line="74" column="75" selection-start-line="74" selection-start-column="75" selection-end-line="74" selection-end-column="75" />
-          <folding>
-            <element signature="e#4516#4517#0" expanded="true" />
-            <element signature="e#4571#4572#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -940,20 +910,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="5112" max-vertical-offset="13320">
           <caret line="213" column="112" selection-start-line="213" selection-start-column="52" selection-end-line="213" selection-end-column="112" />
-          <folding>
-            <element signature="e#10782#10783#0" expanded="true" />
-            <element signature="e#10831#10832#0" expanded="true" />
-            <element signature="e#17793#17802#0" expanded="true" />
-            <element signature="e#29426#29438#0" expanded="true" />
-            <element signature="e#44853#44854#0" expanded="true" />
-            <element signature="e#44916#44917#0" expanded="true" />
-            <element signature="e#44972#44973#0" expanded="true" />
-            <element signature="e#45024#45025#0" expanded="true" />
-            <element signature="e#45371#45372#0" expanded="true" />
-            <element signature="e#45422#45423#0" expanded="true" />
-            <element signature="e#47931#47932#0" expanded="true" />
-            <element signature="e#47968#47969#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -997,10 +954,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="2256">
           <caret line="11" column="76" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
-          <folding>
-            <element signature="e#4516#4517#0" expanded="true" />
-            <element signature="e#4571#4572#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1058,20 +1012,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2496" max-vertical-offset="7968">
           <caret line="104" column="5" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
-          <folding>
-            <element signature="e#10782#10783#0" expanded="true" />
-            <element signature="e#10831#10832#0" expanded="true" />
-            <element signature="e#17793#17802#0" expanded="true" />
-            <element signature="e#29426#29438#0" expanded="true" />
-            <element signature="e#44853#44854#0" expanded="true" />
-            <element signature="e#44916#44917#0" expanded="true" />
-            <element signature="e#44972#44973#0" expanded="true" />
-            <element signature="e#45024#45025#0" expanded="true" />
-            <element signature="e#45371#45372#0" expanded="true" />
-            <element signature="e#45422#45423#0" expanded="true" />
-            <element signature="e#47931#47932#0" expanded="true" />
-            <element signature="e#47968#47969#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1213,7 +1154,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3" max-vertical-offset="1056">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1221,7 +1161,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1872">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1237,9 +1176,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2936" max-vertical-offset="4176">
           <caret line="140" column="35" selection-start-line="140" selection-start-column="35" selection-end-line="140" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1247,26 +1184,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2088" max-vertical-offset="3936">
           <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
-          <folding>
-            <element signature="e#4408#4409#0" expanded="true" />
-            <element signature="e#4442#4443#0" expanded="true" />
-            <element signature="e#6889#6900#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3378" max-vertical-offset="10368">
-          <caret line="166" column="43" selection-start-line="166" selection-start-column="43" selection-end-line="166" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4623" max-vertical-offset="22416">
-          <caret line="313" column="14" selection-start-line="313" selection-start-column="14" selection-end-line="313" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3984" max-vertical-offset="10632">
+          <caret line="166" column="34" selection-start-line="166" selection-start-column="34" selection-end-line="166" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -1283,20 +1208,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="34346" max-vertical-offset="41832">
           <caret line="1469" column="9" selection-start-line="1469" selection-start-column="9" selection-end-line="1469" selection-end-column="9" />
-          <folding>
-            <element signature="e#10782#10783#0" expanded="true" />
-            <element signature="e#10831#10832#0" expanded="true" />
-            <element signature="e#17793#17802#0" expanded="true" />
-            <element signature="e#29426#29438#0" expanded="true" />
-            <element signature="e#44853#44854#0" expanded="true" />
-            <element signature="e#44916#44917#0" expanded="true" />
-            <element signature="e#44972#44973#0" expanded="true" />
-            <element signature="e#45024#45025#0" expanded="true" />
-            <element signature="e#45371#45372#0" expanded="true" />
-            <element signature="e#45422#45423#0" expanded="true" />
-            <element signature="e#47931#47932#0" expanded="true" />
-            <element signature="e#47968#47969#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1304,9 +1216,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="384" max-vertical-offset="2976">
           <caret line="26" column="95" selection-start-line="26" selection-start-column="95" selection-end-line="26" selection-end-column="95" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1314,17 +1224,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2904">
           <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
-          <folding>
-            <element signature="e#4516#4517#0" expanded="true" />
-            <element signature="e#4571#4572#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0671328" vertical-offset="20573" max-vertical-offset="22872">
+        <state vertical-scroll-proportion="0.0" vertical-offset="20573" max-vertical-offset="22872">
           <caret line="893" column="16" selection-start-line="893" selection-start-column="16" selection-end-line="893" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7807692" vertical-offset="1444" max-vertical-offset="22416">
+          <caret line="98" column="29" selection-start-line="98" selection-start-column="29" selection-end-line="98" selection-end-column="29" />
           <folding />
         </state>
       </provider>

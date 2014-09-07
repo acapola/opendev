@@ -1,4 +1,6 @@
 
+source [file join [file dirname [info script]] random.tcl]
+package require nimpRandom
 ##############################################################
 # D E B U G
 ##############################################################
@@ -22,6 +24,7 @@ proc dbgPutsVar { varName {relLevel 0} } {
 proc putsVar { varName {relLevel 0} } {
     puts [dbgStr $varName 2]
 }
+#assume keys are integer
 proc printIntDict { inDict {formatting "%2d"} args } {
 	set out ""
 	#set inDict [sortDictByValue $inDict]
@@ -62,7 +65,19 @@ proc lremove {listVariable value} {
 proc lcontains {listValue value} {
 	return [expr [lsearch -exact $listValue $value]!=-1]
 }
-
+proc lshuffle {listVariable rngVariable} {
+	upvar 1 $listVariable list
+    upvar 1 $rngVariable rng
+    set len [llength $list]
+	#::nimp::random create rng
+	#rng setSeed $seed
+    while {$len} {
+        set n [expr [$rng getBits [binWidth $len]] % $len]
+        set tmp [lindex $list $n]
+        lset list $n [lindex $list [incr len -1]]
+        lset list $len $tmp
+    }
+}
 #return 1 if the list contains at least one duplicated value
 proc lHasDuplicates { inputList } {
 	if {[llength $inputList]<2} {return 0}
@@ -149,6 +164,15 @@ proc dictToVars { varDefs {levelOut 1} } {
         upvar $levelOut $varName var
         set var $value
     }
+}
+
+proc varsToDict { args } {
+	set out [dict create]
+	foreach arg $args {
+		upvar $arg argVal
+		dict set out $arg $argVal
+	}
+	return $out
 }
 
 proc dictTransposeIndexes { inDict } {

@@ -51,19 +51,31 @@ endfunction
 ``if {$ecc} {``
 function [2+`$k`-1:0] `$eccFuncName`;
     input [`$r`-1:0] syndrom;
+	input correctEdcSingleBitErrors;
 	reg uncorrectable_error;
 	reg correctable_error;
 	reg [`$k`-1:0] correction_pattern;
+	reg edcSingleBitErrorFillValue;
     begin
-		correction_pattern = {`$k`{1'b0}};
+		edcSingleBitErrorFillValue = correctEdcSingleBitErrors ? 1'b0 : 1'bx
+		correction_pattern = {`$k`{1'bx}};
 		correctable_error = 1'b1;
         uncorrectable_error = 1'b0;
 		case(syndrom)
 			`$r`'b`string map {" " ""} [valToBits 0 $r]`: begin
 				correctable_error = 1'b0;
+				correction_pattern = {`$k`{1'b0}};
 			end	
 ``for {set inputBit 0} {$inputBit<[llength [dict keys $eccPatterns]]} {incr inputBit} {``
-			`$r`'b`string reverse [dict get $eccPatterns $inputBit]`: correction_pattern[`format %${indexesWidth}s $inputBit`]=1'b1;
+			`$r`'b`string reverse [dict get $eccPatterns $inputBit]`: begin
+				correction_pattern = {`$k`{1'b0}};correction_pattern[`format %${indexesWidth}s $inputBit`]=1'b1;
+			end
+``}``
+``for {set inputBit 0} {$inputBit<[llength [dict keys $eccEdcSingleBitErrorPatterns]]} {incr inputBit} {``
+			`$r`'b`string reverse [dict get $eccEdcSingleBitErrorPatterns $inputBit]`: begin
+				uncorrectable_error = ~correctEdcSingleBitErrors;//if we don't correct it, count it as a detected error
+				correction_pattern = {`$k`{edcSingleBitErrorFillValue}};//single bit error on EDC bits -> nothing to correct!
+			end
 ``}``   
 			default: begin
 				uncorrectable_error = 1'b1;
