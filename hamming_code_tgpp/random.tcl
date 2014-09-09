@@ -35,9 +35,9 @@ namespace eval ::nimp::random {
     proc reset_cmd {name} {
         upvar 1 $name context
 		set seed [dict get $context seed]
-		dict set context stateR1 [expr $seed+0xB8A213CD7]
-		dict set context stateR2 [expr $seed+0xDA1234567]
-		dict set context stateR3 [expr $seed+0xECE6B8962]
+		dict set context stateR1 [expr $seed+0xB8A213CD]
+		dict set context stateR2 [expr $seed+0xDA123456]
+		dict set context stateR3 [expr $seed+0xECE6B896]
 		return $seed
     }
     proc step_cmd {name} {
@@ -45,11 +45,11 @@ namespace eval ::nimp::random {
         dictToVars [dict get $context]
 	set stateR1 [lfsrStep $stateR1 $::nimp::random::tapsMask1]
 	if {$stateR1 & 1} {
-	    set stateR2 [lfsrStep $stateR2 $::nimp::random::tapsMask1]
+	    set stateR2 [lfsrStep $stateR2 $::nimp::random::tapsMask2]
 	    set out [expr $stateR2 & 1]
 	    dict set context stateR2 $stateR2
 	} else {
-	    set stateR3 [lfsrStep $stateR3 $::nimp::random::tapsMask1]
+	    set stateR3 [lfsrStep $stateR3 $::nimp::random::tapsMask3]
 	    set out [expr $stateR3 & 1]
 	    dict set context stateR3 $stateR3
 	}
@@ -111,10 +111,15 @@ namespace eval ::nimp::random {
 		puts $out
     }
     proc testRng {} {
-	set rng [::nimp::random create]
-	for {set i 0} {$i<100} {incr i} {
-		puts [format "%08X%08X" [$rng getBits 32] [$rng getBits 32]]
-	}
+		set rng [::nimp::random create]
+		set out ""
+		for {set i 0} {$i<600} {incr i} {
+			append out [format "%01X" [$rng step]]
+		}
+		puts $out
+		for {set i 0} {$i<100} {incr i} {
+			puts [format "%08X%08X" [$rng getBits 32] [$rng getBits 32]]
+		}
     }
     #static variables (common to all ::nimp::random objects)
     variable instanceCnt 0
@@ -125,4 +130,10 @@ namespace eval ::nimp::random {
 }
 
 
+
+puts [format "%08X" $::nimp::random::tapsMask1]
+puts [format "%08X" $::nimp::random::tapsMask2]
+puts [format "%08X" $::nimp::random::tapsMask3]
+
+::nimp::random::testRng
 
