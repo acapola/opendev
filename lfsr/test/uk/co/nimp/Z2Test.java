@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.Random;
 
 public class Z2Test {
-
+    static final boolean slowTests=false;
     @Test
     public void testRotateToMinValue() throws Exception {
         assert(Z2.equal(Z2.rotateToMinValue(Z2.toBooleans("0")),Z2.toBooleans("0")));
@@ -872,19 +872,21 @@ public class Z2Test {
 
         System.out.println("Z2.modExp(Z2.X,1,Z2.polynomialToBooleans(\"1+x\"))="+Z2.toPolynomial(Z2.modExp(Z2.X,1,Z2.polynomialToBooleans("1+x"))));
         System.out.println("Z2.modExp(Z2.X,2,Z2.polynomialToBooleans(\"1+x\"))="+Z2.toPolynomial(Z2.modExp(Z2.X,2,Z2.polynomialToBooleans("1+x"))));
-        for(int i=0;i<1<<15;i++){
-            boolean[] poly = Z2.toBooleans(i);
-            poly[0]=true;
-            checkOrderOfX(poly);
-        }
+        if(slowTests) {
+            for (int i = 0; i < 1 << 15; i++) {
+                boolean[] poly = Z2.toBooleans(i);
+                poly[0] = true;
+                checkOrderOfX(poly);
+            }
 
-        Random rng = new Random(0);
-        for(int i=0;i<100;i++){
-            int len = rng.nextInt(20)+2;
-            boolean[] poly = Z2.randomBooleans(len);
-            poly[0]=true;
-            poly[poly.length-1]=true;
-            checkOrderOfX(poly);
+            Random rng = new Random(0);
+            for (int i = 0; i < 100; i++) {
+                int len = rng.nextInt(20) + 2;
+                boolean[] poly = Z2.randomBooleans(len);
+                poly[0] = true;
+                poly[poly.length - 1] = true;
+                checkOrderOfX(poly);
+            }
         }
     }
     static void checkOrderOfX(String polynomial){
@@ -948,5 +950,12 @@ public class Z2Test {
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x4+x9")));
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x3+x4+x7+x12")));
         assert(Z2.isPrimitive(Z2.polynomialToBooleans("1+x42+x47")));
+
+        if(slowTests) {
+            assert (Z2.isPrimitive(Z2.polynomialToBooleans("x225+x32+1")));
+            assert (Z2.isPrimitive(Z2.polynomialToBooleans("x521+x32+1")));
+            assert (Z2.isPrimitive(Z2.polynomialToBooleans("x1279+x216+1")));
+            assert (Z2.isPrimitive(Z2.polynomialToBooleans("x2281+x715+1")));
+        }
     }
 }

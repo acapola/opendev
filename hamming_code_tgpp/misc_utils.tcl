@@ -61,10 +61,6 @@ proc lremove {listVariable value} {
     set idx [lsearch -exact $var $value]
     set var [lreplace $var $idx $idx]
 }
-
-proc lcontains {listValue value} {
-	return [expr [lsearch -exact $listValue $value]!=-1]
-}
 proc lshuffle {listVariable rngVariable} {
 	upvar 1 $listVariable list
     upvar 1 $rngVariable rng
@@ -78,6 +74,21 @@ proc lshuffle {listVariable rngVariable} {
         lset list $len $tmp
     }
 }
+proc lcontains {listValue value} {
+	return [expr [lsearch -exact $listValue $value]!=-1]
+}
+proc lreplaceValues {listValue mapDict} {
+	set out [list]
+	foreach item $listValue {
+		if {[dict exists $mapDict $item]} {
+			lappend out [dict get $mapDict $item]
+		} else {
+			lappend out $item
+		}
+	}
+	return $out
+}
+
 #return 1 if the list contains at least one duplicated value
 proc lHasDuplicates { inputList } {
 	if {[llength $inputList]<2} {return 0}
@@ -121,6 +132,13 @@ proc dictHasDuplicates { inputDict } {
 	return 0
 }
 
+proc dictReplaceValues {dict mapDict} {
+    set out [dict create]
+    dict for {k v} $dict {
+		dict set out $k [lreplaceValues $v $mapDict]
+	}
+    return $out
+}
 
 proc sortDictByValue {dict args} {
     set lst {}

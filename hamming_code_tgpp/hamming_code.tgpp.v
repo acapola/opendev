@@ -57,7 +57,7 @@ function [2+`$k`-1:0] `$eccFuncName`;
 	reg [`$k`-1:0] correction_pattern;
 	reg edcSingleBitErrorFillValue;
     begin
-		edcSingleBitErrorFillValue = correctEdcSingleBitErrors ? 1'b0 : 1'bx
+		edcSingleBitErrorFillValue = correctEdcSingleBitErrors ? 1'b0 : 1'bx;
 		correction_pattern = {`$k`{1'bx}};
 		correctable_error = 1'b1;
         uncorrectable_error = 1'b0;
