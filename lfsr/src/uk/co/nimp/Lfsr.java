@@ -158,12 +158,10 @@ public class Lfsr {
             boolean d=sn;
             assert(c.length>l);
             for(int i=1;i<l+1;i++) d^=c[i]&seq[n-i];
-            //boolean[] t = Arrays.copyOf(c,len);
             if(d){
                 boolean[] t = Arrays.copyOf(c,len);
                 int shift=n-m;
                 assert(shift>=0);
-                //assert(l+shift<len);
                 for(int i=shift;i<len;i++) c[i]^=b[i-shift];
                 if(l<=n/2){
                     l=n+1-l;
@@ -176,18 +174,7 @@ public class Lfsr {
         }
         if(l==0) l=seq.length;//corner cases: we simply store the whole sequence
         c = Z2.cloneRange(c,0,l+1);
-        //c = Z2.reverse(c);
         Lfsr out = fromTaps(c);
-        //System.out.println(out);
-        //set the state so that the LFSR start to generate the desired sequence
-        /*for(int i=0;i<l-1;i++){
-            out.state[i+1]=seq[i];
-        }
-        boolean sj=false;
-        for(int i=1;i<l;i++){
-            sj ^= out.taps[i] & out.state[i];
-        }
-        out.state[0]=sj^seq[l-1];*/
         out.setState(seq,l);
         return out;
     }
@@ -315,7 +302,7 @@ public class Lfsr {
             properties = "non "+properties;
             if(isPolynomialIrreducible()) {
                 properties = "irreducible but not primitive, "+properties;
-                Map<BigInteger,Integer> seqlength=sequencesLength();
+                Map<BigInteger,BigInteger> seqlength=sequencesLength();
                 BigInteger len=null;
                 for(BigInteger l:seqlength.keySet()){
                     len=l;
@@ -323,7 +310,7 @@ public class Lfsr {
                 properties = properties+len+", "+seqlength.get(len)+" different sequences of that length";
             } else {
                 try{
-                    Map<BigInteger,Integer> seqlength=sequencesLength();
+                    Map<BigInteger,BigInteger> seqlength=sequencesLength();
                     properties+="dependant on the initial value. It can be:\n";
                     for(BigInteger len:seqlength.keySet()){
                         properties+=tab+len+" ("+seqlength.get(len)+" different sequences of that length)\n";
@@ -411,7 +398,7 @@ public class Lfsr {
         //TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger,Integer>();
         BigInteger maxLength=Lfsr.polynomialDegreeToMaximumLength(polynomial.length-1);
         if(maxLength.compareTo(BigInteger.ONE)<=0) return maxLength;
-        BigInteger[] factors = PollardRho.factor(maxLength);
+        BigInteger[] factors = PollardRho.factorPowerOfTwoMinusOne_Array(maxLength);//PollardRho.factor(maxLength);
         int nCombination = 1<<factors.length;
         for(int i=1;i<nCombination;i++){
             BigInteger candidate = BigInteger.ONE;
@@ -434,22 +421,22 @@ public class Lfsr {
      * Compute the length of all sequences
      * @return a Map associating the length of sequence and the number of occurence.
      */
-    public Map<BigInteger,Integer> sequencesLength(){
-        TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger, Integer>();
+    public Map<BigInteger,BigInteger> sequencesLength(){
+        TreeMap<BigInteger,BigInteger> out = new TreeMap<BigInteger, BigInteger>();
         BigInteger maxLength = polynomialDegreeToMaximumLength(l);
         if(maxLength.compareTo(BigInteger.ONE)<=0){
-            out.put(maxLength,1);
+            out.put(maxLength,BigInteger.ONE);
             return out;
         }
         if(isMaximumLength()){
-            out.put(maxLength,1);
+            out.put(maxLength,BigInteger.ONE);
             return out;
         }
         final boolean[] poly=Z2.minimumLengthCopy(getTaps());
         if(isPolynomialIrreducible()){
             BigInteger len=Lfsr.irreduciblePolynomialSequencesLength(poly);
             BigInteger nSeq = maxLength.divide(len);
-            out.put(len, nSeq.intValue());
+            out.put(len, nSeq);
             return out;
         }else{
             boolean[][]factorsAsBooleans = Z2.factorPolynomial(poly);
@@ -480,13 +467,13 @@ public class Lfsr {
                         //targetSum   1   3   15  255
                         BigInteger targetSum=Lfsr.polynomialDegreeToMaximumLength((root.length-1)*(1<<i));
                         BigInteger delta = targetSum.subtract(sum);
-                        int occurences = delta.divide(length).intValue();
+                        BigInteger occurences = delta.divide(length);
                         out.put(length,occurences);
                         sum=targetSum;
                         length=length.multiply(two);
                     }
                     BigInteger delta = maxLength.subtract(sum);
-                    int occurences = delta.divide(length).intValue();
+                    BigInteger occurences = delta.divide(length);
 
                     out.put(length,occurences);
                 }else{
@@ -501,13 +488,13 @@ public class Lfsr {
                         //targetSum   1   3   15  255
                         BigInteger targetSum=Lfsr.polynomialDegreeToMaximumLength((root.length-1)*(1<<i));
                         BigInteger delta = targetSum.subtract(sum);
-                        int occurences = delta.divide(length).intValue();
+                        BigInteger occurences = delta.divide(length);
                         out.put(length,occurences);
                         sum=targetSum;
                         length=length.multiply(two);
                     }
                     BigInteger delta = maxLength.subtract(sum);
-                    int occurences = delta.divide(length).intValue();
+                    BigInteger occurences = delta.divide(length);
 
                     out.put(length,occurences);
                     //throw new RuntimeException("sequencesLength called for a polynomial being a power of an irreducible polynomial, case not implemented yet");
@@ -558,10 +545,10 @@ public class Lfsr {
      * Algorithm suggested by Jyrki Lahtonen on Stack Exchange Math.
      * @return
      */
-    Map<BigInteger,Integer> lahtonen(){
+    Map<BigInteger,BigInteger> lahtonen(){
         buildFactors();
         //System.out.println("Factors:"+factors);
-        TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger, Integer>();
+        TreeMap<BigInteger,BigInteger> out = new TreeMap<BigInteger, BigInteger>();
         TreeMap<Factor,Integer> factorsMap = new TreeMap<Factor, Integer>();
         for(Factor f: factors){
             int power = 1;
@@ -574,14 +561,14 @@ public class Lfsr {
         List<Integer> numberOfOrbits = new ArrayList<Integer>();
         for(Factor f:factorsMap.keySet()){
             boolean[] px = Z2.pow(f.getPolynomial(),factorsMap.get(f));
-            Map<BigInteger,Integer> seqLengths = Lfsr.fromTaps(px).sequencesLength();
+            Map<BigInteger,BigInteger> seqLengths = Lfsr.fromTaps(px).sequencesLength();
             //System.out.println("\tpx="+Z2.toPolynomial(px)+" -> "+seqLengths);
             List<BigInteger> lengths = new ArrayList<BigInteger>();
             lengths.addAll(seqLengths.keySet());
             sequencesLength.add(lengths);
             List<BigInteger> nSequences = new ArrayList<BigInteger>();
             for(BigInteger seqLen:seqLengths.keySet()) {
-                BigInteger nOrbit = BigInteger.valueOf(seqLengths.get(seqLen));
+                BigInteger nOrbit = seqLengths.get(seqLen);
                 BigInteger nSeq = seqLen.multiply(nOrbit);
                 nSequences.add(nSeq);
             }
@@ -604,9 +591,9 @@ public class Lfsr {
                     nSeq = nSeq.multiply(factorNSeq);
                 }
             }
-            int nSeqInt = nSeq.divide(seqLen).intValue();
-            if (out.containsKey(seqLen)) out.put(seqLen, out.get(seqLen)+ nSeqInt);
-            else out.put(seqLen, nSeqInt);
+            BigInteger nUniqueSeq = nSeq.divide(seqLen);
+            if (out.containsKey(seqLen)) out.put(seqLen, out.get(seqLen).add(nUniqueSeq));
+            else out.put(seqLen, nUniqueSeq);
         }
         return out;
     }

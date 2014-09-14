@@ -326,4 +326,23 @@ proc hammingDistance { a b } {
 	set delta [expr $a ^ $b]
 	return [hammingWeight $delta]
 }
+proc reverseBits { bits } {
+	set out 0
+	set width [binWidth $bits]
+	for {set i 0} {$i<$width} {incr i} {
+		set out [expr ($out<<1) | (($bits>>$i) & 1)]
+	}
+	return $out
+}
 
+proc toHexStr { val } {
+	if {!$val} {return "0"}
+	set out ""
+	set width [binWidth $val]
+	set nDigits [divideRoundUp $width 4]
+	for {set i 0} {$i<$nDigits} {incr i} {
+		append out [format "%X" [expr 0xF & $val]]
+		set val [expr $val >>4]
+	}
+	return [string reverse $out]
+}

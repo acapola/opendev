@@ -11,12 +11,12 @@ int main(int argc, char **argv) {
 	setSeed(&prng,0L);
 	reset(&prng);
 	
-	for(i=0;i<200;i++){
+	for(i=0;i<0;i++){
 		printf("%01X",step(&prng));
 	}
 	printf("\n");
 	for(i=0;i<10;i++){
-		print64(getBits64(&prng,64));
+		print64(getBits64(&prng));
 	}
 	return 0;
 }

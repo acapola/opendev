@@ -181,13 +181,13 @@ public class LfsrTest {
 
     static void checkSequencesLengthEqual(String polynomial, int[][] expected) {
         Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
-        Map<BigInteger, Integer> actual = lfsr.sequencesLength();
+        Map<BigInteger, BigInteger> actual = lfsr.sequencesLength();
         System.out.println(polynomial + " -> " + actual);
         assert (actual.size() == expected.length);
         for (int i = 0; i < expected.length; i++) {
             BigInteger len = BigInteger.valueOf(expected[i][0]);
             assert (actual.containsKey(len));
-            assert (actual.get(len) == expected[i][1]);
+            assert (actual.get(len).intValue() == expected[i][1]);
         }
     }
 
@@ -204,7 +204,7 @@ public class LfsrTest {
             if (expected.containsKey(len)) expected.put(len, expected.get(len) + 1);
             else expected.put(len, 1);
         }
-        Map<BigInteger, Integer> actual = lfsr.sequencesLength();
+        Map<BigInteger, BigInteger> actual = lfsr.sequencesLength();
         if (actual.size() != expected.size()) {
             System.out.println(polynomial + " -> expected:" + expected);
             System.out.println(polynomial + " -> actual:  " + actual);
@@ -218,7 +218,7 @@ public class LfsrTest {
                 System.out.println(polynomial + " -> actual:  " + actual);
                 System.out.flush();
             }
-            int actualNSeq = actual.get(len);
+            int actualNSeq = actual.get(len).intValue();
             int expectednSeq = expected.get(len);
             if (actualNSeq != expectednSeq) {
                 System.out.println(polynomial + " -> expected:" + expected);
@@ -464,7 +464,7 @@ public class LfsrTest {
                 properties = "non "+properties;
                 if(isPolynomialIrreducible()) {
                     properties = "irreducible but not primitive, "+properties;
-                    Map<BigInteger,Integer> seqlength=sequencesLength();
+                    Map<BigInteger,BigInteger> seqlength=sequencesLength();
                     BigInteger len=null;
                     for(BigInteger l:seqlength.keySet()){
                         len=l;
@@ -472,7 +472,7 @@ public class LfsrTest {
                     properties = properties+len+", "+seqlength.get(len)+" different sequences of that length";
                 } else {
                     try{
-                        Map<BigInteger,Integer> seqlength=sequencesLength();
+                        Map<BigInteger,BigInteger> seqlength=sequencesLength();
                         properties+="dependant on the initial value. It can be:\n";
                         for(BigInteger len:seqlength.keySet()){
                             properties+=tab+len+" ("+seqlength.get(len)+" different sequences of that length)\n";

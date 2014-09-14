@@ -73,7 +73,7 @@ public class Z2 {
     }
     public static String toPolynomial(boolean []in){
         String out="";
-        String separator = " + ";
+        String separator = "+";
         if(in.length>0 && in[0]) out +="1"+separator;
         if(in.length>1 && in[1]) out +="x"+separator;
         for(int i=2;i<in.length;i++){
@@ -764,17 +764,17 @@ public class Z2 {
             if(lahtonenOpt){
                 BigInteger two = BigInteger.valueOf(2);
                 int n=polynomial.length-1;//the degree of our polynomial
-                BigInteger[] factorsOfN = PollardRho.factor(BigInteger.valueOf(n));//TODO: use int routine or even lookup since we have special numbers here
+                BigInteger[] factorsOfN = PollardRho.factor(BigInteger.valueOf(n));//TODO: use int routine
                 for(BigInteger l:factorsOfN){
                     BigInteger twoLMinusOne = l.multiply(two).subtract(BigInteger.ONE);
-                    BigInteger[] toExclude = PollardRho.factor(twoLMinusOne);//TODO: use int routine or even lookup since we have special numbers here
-                    for(BigInteger f:toExclude) blackList.add(f);
+                    Map<BigInteger,Integer> toExclude = PollardRho.factorPowerOfTwoMinusOne(twoLMinusOne);
+                    for(BigInteger f:toExclude.keySet()) blackList.add(f);
                 }
             }
 
             //LIDL
             Set<BigInteger> factorsOfOrderOfX = new HashSet<BigInteger>();
-            Map<BigInteger,Integer> factorsMap = PollardRho.factorMap(qmMinus1);
+            Map<BigInteger,Integer> factorsMap = PollardRho.factorPowerOfTwoMinusOne(qmMinus1);//PollardRho.factorMap(qmMinus1);
             for(BigInteger pj:factorsMap.keySet()){
                 int r = factorsMap.get(pj);
                 BigInteger divider = pj;
@@ -914,7 +914,7 @@ public class Z2 {
             }while(base.compareTo(BigInteger.valueOf(2).pow(1000))<0);//TODO: remove, this is a workaround, not the real solution, we need to find the right base with a direct method.
             throw new RuntimeException(Z2.toPolynomial(polynomial));*/
         }
-        BigInteger[] factors = PollardRho.factor(maxLength);
+        BigInteger[] factors = PollardRho.factorPowerOfTwoMinusOne_Array(maxLength);
         long nCombination = 1<<factors.length;
         for(long i=1;i<nCombination;i++) {
             BigInteger candidate = BigInteger.ONE;
@@ -1030,9 +1030,8 @@ public class Z2 {
         BigInteger p = BigInteger.valueOf(2);//computing in Z2
         int m = fx.length-1;
         BigInteger product = p.pow(m).subtract(BigInteger.ONE);
-        BigInteger[] factors = PollardRho.factor(product);
-        for(int i=0;i<factors.length;i++){
-            BigInteger ri = factors[i];
+        Map<BigInteger,Integer> factors = PollardRho.factorPowerOfTwoMinusOne(product);
+        for(BigInteger ri:factors.keySet()){
             BigInteger exp = product.divide(ri);
             if(!isPrimitiveCore(exp,fx)) return false;
         }

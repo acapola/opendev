@@ -63,7 +63,7 @@ public class PollardRhoTest {
         }*/
         {
             int nBitsStart = 63;
-            int nBits = 200;
+            int nBits = 64;
             System.out.println("static Map<BigInteger,Map<BigInteger,Integer>> bigIntegersFactorsPowersOfTwoMinusOne = new HashMap<BigInteger,Map<BigInteger,Integer>>("+nBits+");");
             System.out.println("static {\nMap<BigInteger,Integer> factorsMap = new HashMap<BigInteger,Integer>();");
             BigInteger n = BigInteger.ONE.shiftLeft(nBitsStart).subtract(BigInteger.ONE);
@@ -75,6 +75,7 @@ public class PollardRhoTest {
                     System.out.println("factorsMap.put(new BigInteger(\"" + f.toString(16) + "\",16)," + factors.get(f) + ");");
                 }
                 System.out.println("bigIntegerFactorsPowersOfTwoMinusOne.put(new BigInteger(\"" + n.toString(16) + "\",16),factorsMap);");
+                System.out.flush();
                 n = n.shiftLeft(1).add(BigInteger.ONE);
             }
             System.out.println("}");

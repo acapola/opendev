@@ -1,0 +1,320 @@
+``
+source [file join [file dirname [info script]] .. hamming_code_tgpp misc_utils.tcl]
+proc randomHex { size } {
+# generates a hex random number with $size bits    
+    set rnd ""
+# result is generated as concatination of independently calculated 4-bit values
+    set nLoops [expr $size / 4]
+    for {set i 0} {$i < $nLoops} {incr i} {
+        set rnd4 [format %1X [expr int( rand() * 16)]]
+        append rnd $rnd4
+    }
+    if { $size % 4 } {
+        set max [expr (1<<($size%4))-1]
+        set rnd "[format %1X [expr int( rand() * $max)]]$rnd"
+    }
+    return $rnd
+}
+
+proc fibonacciLfsrFunc { taps bitsPerCycle {name ""} } {
+#generate a non singular fibonacci LFSR
+    set taps [lsort -integer -decreasing $taps]
+    set width [lindex $taps 0]
+    set msb [expr $width - 1]
+    if { $name == "" } {
+        set name "lfsr[lindex $taps 0]"
+        for {set i 1} {$i<[llength $taps]} {incr i} {
+            set tap [lindex $taps $i]
+            append name "_$tap"
+        }
+    }``
+function [`$msb`:0] `$name`;
+    input [`$msb`:0] in;
+    integer i;
+    reg [`$msb`:0] out;
+    reg [`$msb`:0] tmp;
+    begin
+        tmp = in;
+        for(i=0;i<`$bitsPerCycle`;i=i+1) begin
+``if {0} {``        
+            out[0] = tmp[`lindex $taps 0`-1]``for {set i 1} {$i<[llength $taps]} {incr i} {set tap [lindex $taps $i]`` ^ tmp[`$tap`-1]``}``;
+            out[`$msb`:1] = tmp[`$msb`-1:0];
+``}``            
+            out[`$msb`] = tmp[`expr $width - [lindex $taps 0]`]``for {set i 1} {$i<[llength $taps]} {incr i} {set tap [lindex $taps $i]`` ^ tmp[`expr $width - $tap`]``}``;
+            out[`$msb`-1:0] = tmp[`$msb`:1];
+            tmp = out;
+        end
+        `$name` = out;
+    end
+endfunction
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc lfsrGaloisStepFunc { name tapsMask } {
+	set width [binWidth $tapsMask]
+``
+function [`$width`-1:0] `$name`;
+    input [`$width`-1:0] in;
+    integer i;
+    reg [`$width`-1:0] out;
+    begin
+        out = {1'b0,in[`expr $width`-1:1]};
+		if(in[0]) out = out ^ `$width`'h`toHexStr $tapsMask`;
+        `$name` = out;
+    end
+endfunction
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+#Pseudo Random Number Generator using the "alternative step generator" structure
+#See Algorithm 6.57 of Handbook of applied Crypto by Menezes, Oorschot and Vandstone
+proc prngFunc { name bitsPerCycle tapsMask1 tapsMask2 tapsMask3 {seed 0} } {
+	set widthR1 [binWidth $tapsMask1]
+	set widthR2 [binWidth $tapsMask2]
+	set widthR3 [binWidth $tapsMask3]
+``
+wire [31:0] `$name`Seed = `$seed`;
+`lfsrGaloisStepFunc lfsrGaloisStep$tapsMask1 $tapsMask1`
+`lfsrGaloisStepFunc lfsrGaloisStep$tapsMask2 $tapsMask2`
+`lfsrGaloisStepFunc lfsrGaloisStep$tapsMask3 $tapsMask3`
+reg [`$widthR1`-1:0] `$name`R1;
+reg [`$widthR2`-1:0] `$name`R2;
+reg [`$widthR3`-1:0] `$name`R3;
+task `$name`Reset;
+	begin
+		`$name`R1 = `$name`Seed^32'hB8A213CD;`$name`R1 = `$name`R1 ? `$name`R1 : {{`$widthR1`-1{1'b0}},1'b1};
+		`$name`R2 = `$name`Seed^32'hDA123456;`$name`R2 = `$name`R2 ? `$name`R2 : {{`$widthR2`-1{1'b0}},1'b1};
+		`$name`R3 = `$name`Seed^32'hECE6B896;`$name`R3 = `$name`R3 ? `$name`R3 : {{`$widthR3`-1{1'b0}},1'b1};
+	end
+endtask
+function [`$bitsPerCycle`-1:0] `$name`;
+	input dummy;
+    integer i;
+    reg [`$bitsPerCycle`-1:0] out;
+    begin
+        for(i=0;i<`$bitsPerCycle`;i=i+1) begin
+			`$name`R1 = lfsrGaloisStep`$tapsMask1`(`$name`R1);
+			if(`$name`R1[0]) begin
+				`$name`R2 = lfsrGaloisStep`$tapsMask2`(`$name`R2);
+			end else begin
+				`$name`R3 = lfsrGaloisStep`$tapsMask3`(`$name`R3);
+			end
+			out[i] = `$name`R2[0] ^ `$name`R3[0];
+        end
+        `$name` = out;
+    end
+endfunction
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc prng64Func { name } {``
+`prngFunc $name 64 0x800000000000000D 0x100000000000C001 0x4000000000000001 0`
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc prng32Func { name } {``
+`prngFunc $name 32 0x800000000000000D 0x100000000000C001 0x4000000000000001 0`
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc prngFunc2 { name bitsPerCycle tapsMask1 tapsMask2 {seed 0} } {
+	set widthR1 [binWidth $tapsMask1]
+	set widthR2 [binWidth $tapsMask2]
+``
+wire [31:0] `$name`Seed = `$seed`;
+`lfsrGaloisStepFunc lfsrGaloisStep$tapsMask1 $tapsMask1`
+`lfsrGaloisStepFunc lfsrGaloisStep$tapsMask2 $tapsMask2`
+reg [`$widthR1`-1:0] `$name`R1;
+reg [`$widthR2`-1:0] `$name`R2;
+task `$name`Reset;
+	begin
+		`$name`R1 = `$name`Seed^64'hEC6754ABB8A213CD;`$name`R1 = `$name`R1 ? `$name`R1 : {{`$widthR1`-1{1'b0}},1'b1};
+		`$name`R2 = `$name`Seed^64'h2A1234568304FC34;`$name`R2 = `$name`R2 ? `$name`R2 : {{`$widthR2`-1{1'b0}},1'b1};
+	end
+endtask
+function [`$bitsPerCycle`-1:0] `$name`;
+	input dummy;
+    integer i;
+    reg [`$bitsPerCycle`-1:0] invR2;
+	reg step1;
+	reg step2;
+    begin
+		step1 = `$name`R2[`$widthR2`-1] ^ `$name`R2[`$widthR2`-2];
+        step2 = `$name`R1[`$widthR1`-1] ^ `$name`R1[`$widthR1`-2];        
+		if(!(step1|step2)) begin
+			step1 = 1'b1;
+			step2 = 1'b1;
+		end
+		for(i=0;i<`$bitsPerCycle`;i=i+1) begin
+			if(step1) `$name`R1 = lfsrGaloisStep`$tapsMask1`(`$name`R1);
+			if(step2) `$name`R2 = lfsrGaloisStep`$tapsMask2`(`$name`R2);
+        end
+		for(i=0;i<`$bitsPerCycle`;i=i+1) begin
+			invR2[`$bitsPerCycle`-1-i] = `$name`R2[i];
+		end
+        `$name` = `$name`R1[0+:`$bitsPerCycle`] ^ invR2;
+    end
+endfunction
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc prng32Func2 { name } {``
+`prngFunc2 $name 32 0x800000000000000D 0x2180000000000001 0`
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc reverseModule { name } {``
+module `$name` #(parameter WIDTH=2)(
+    input wire [WIDTH-1:0] i_in,
+    output reg [WIDTH-1:0] o_out
+);
+    integer i;
+    always @* begin
+        for (i=0; i < WIDTH; i=i+1) begin
+            o_out[WIDTH-1-i] = i_in[i];
+        end
+    end
+endmodule
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc genericRegFileModule { name } {``
+module `$name` #(
+    parameter UNIT=1,       //basic data unit, set 8 to see data organized in bytes rather than bits
+    parameter WIDTH=2,      //width in UNIT of each register and I/O ports
+    parameter DEPTH=3,     //number of registers and I/O ports
+    parameter RESET = 1'b0,
+    parameter RESET_VAL = {UNIT*WIDTH*DEPTH{1'b0}}
+)(
+    input wire i_clk,
+    input wire i_reset,
+    input wire [DEPTH-1:0][WIDTH-1:0] i_wren,
+    input wire [DEPTH-1:0][WIDTH-1:0][UNIT-1:0] i_dat,
+    output logic [DEPTH-1:0][WIDTH-1:0][UNIT-1:0] o_dat
+);
+integer reg_idx,unit_idx;
+always_ff @(posedge i_clk, posedge i_reset) begin : REG_WRITE
+    if (i_reset) begin
+        if(RESET) o_dat <= RESET_VAL;
+    end else begin
+        for(reg_idx=0;reg_idx<DEPTH;reg_idx++) begin
+            for(unit_idx=0;unit_idx<WIDTH;unit_idx++) begin
+                if(i_wren[reg_idx][unit_idx]) o_dat[reg_idx][unit_idx] <= i_dat[reg_idx][unit_idx];
+            end
+        end
+    end
+end
+endmodule
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc lfsrExtregModule { name taps {loadInput 0} } {
+set width [lindex $taps 0]``
+module `$name` #(
+    parameter SEED = `$width`'h`randomHex $width`,
+    parameter BITS_PER_CYCLE = 1//min is 1, max is `expr [lindex $taps end]-1`
+)(
+    input wire i_en,
+``if {$loadInput} {``    
+    input wire i_load,
+    input wire [`$width`-1:0] i_seed,
+``}``    
+    output wire [`$width`-1:0] o_rnd,
+    input wire [`$width`-1:0] i_reg_file_rd,
+    output logic [`$width`-1:0] o_reg_file_wren,
+    output logic [`$width`-1:0] o_reg_file_wr
+);
+`fibonacciLfsrFunc $taps BITS_PER_CYCLE lfsrFunc`
+wire deadlock = ~ (|o_rnd);
+assign o_rnd = i_reg_file_rd;
+always_comb begin: `$name`_BLOCK
+    integer i;
+    o_reg_file_wren = '0;
+    o_reg_file_wr = 'x;
+    ``if {$loadInput} {``    
+    if(i_load) begin
+        o_reg_file_wren = '1;
+        o_reg_file_wr = i_seed;
+    end else ``}``if(i_en) begin
+        o_reg_file_wren = '1;
+        o_reg_file_wr = deadlock ? SEED : lfsrFunc(i_reg_file_rd);
+    end
+end
+endmodule
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
+proc lfsrModule { name taps {loadInput 0} } {
+set width [lindex $taps 0]``
+module `$name` #(
+    parameter INIT_DONTCARE_REGS = 1'b0,
+    parameter SEED = `$width`'h`randomHex $width`,
+    parameter BITS_PER_CYCLE = 1//min is 1, max is `expr [lindex $taps end]-1`
+)(
+    input wire i_reset,
+    input wire i_clk,
+    input wire i_en,
+``if {$loadInput} {``
+    input wire i_load,
+    input wire [`$width`-1:0] i_seed,
+``}``
+    output wire [`$width`-1:0] o_rnd
+);
+wire [`$width`-1:0] i_reg_file_rd;
+wire [`$width`-1:0] o_reg_file_wren;
+wire [`$width`-1:0] o_reg_file_wr;
+`$name`_extreg #(
+    .BITS_PER_CYCLE(BITS_PER_CYCLE),
+    .SEED(SEED)
+    ) impl (
+    .i_en,
+``if {$loadInput} {``
+    .i_load,
+    .i_seed,
+``}``
+    .o_rnd,
+    .i_reg_file_rd,.o_reg_file_wren,.o_reg_file_wr
+);
+
+`$name`_reg_file #(
+    .UNIT(1),
+    .WIDTH(`$width`),
+    .DEPTH(1),
+    .RESET(INIT_DONTCARE_REGS),
+    .RESET_VAL(SEED)
+    ) reg_file (
+    .i_clk,.i_reset,
+    .i_wren(o_reg_file_wren), .i_dat(o_reg_file_wr), .o_dat(i_reg_file_rd)
+    );
+
+endmodule
+
+`lfsrExtregModule ${name}_extreg $taps $loadInput`
+
+`genericRegFileModule ${name}_reg_file`
+
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+}
+
