@@ -336,7 +336,7 @@ proc reverseBits { bits } {
 }
 
 proc toHexStr { val } {
-	if {!$val} {return "0"}
+	if {0==[string length $val] || 0==$val} {return "0"}
 	set out ""
 	set width [binWidth $val]
 	set nDigits [divideRoundUp $width 4]

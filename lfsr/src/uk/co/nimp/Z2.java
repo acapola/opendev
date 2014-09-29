@@ -60,17 +60,34 @@ public class Z2 {
     public static boolean[] hexBytesToBooleans(String in){
         return Z2.minimumLengthCopy(hexBytesToPaddedBooleans(in));
     }
+    public static boolean[] hexBytesToBooleans(String in, int length){
+        boolean[] fullLength = hexBytesToPaddedBooleans(in);
+        boolean[] out = new boolean[length];
+        System.arraycopy(fullLength,0,out,0,length);
+        return out;
+    }
     public static String toBinaryString(boolean []in){
         return toBinaryString(in,0,in.length);
     }
     public static String toBinaryString(boolean []in, int offset, int length){
         String out="";
-        for(int i=offset;i<length;i++){
+        for(int i=offset;i<offset+length;i++){
             if(in[i]) out +="1";
             else out += "0";
         }
         return out;
     }
+    public static String toHexByteString(boolean[] in){ return toHexByteString(in, 0, in.length);}
+
+    public static String toHexByteString(boolean[] in, int offset, int length){
+        String out="";
+        for(int i=0;i<length;i+=8){
+            int digit = Z2.booleansToInt(in,offset+i,8);
+            out+=String.format("%02X",digit);
+        }
+        return out;
+    }
+
     public static String toPolynomial(boolean []in){
         String out="";
         String separator = "+";
@@ -1094,10 +1111,14 @@ public class Z2 {
         return out;
     }
     public static int booleansToInt(boolean[] in){
+        return booleansToInt(in,0,in.length);
+    }
+    public static int booleansToInt(boolean[] in, int offset, int length){
         int out = 0;
-        if(in.length>32) throw new RuntimeException("boolean array to big to fit in 32 bits integer");
-        for(int i = 0;i<in.length;i++){
-            if(in[i]) out |= 1<<i;
+        if(length>32) throw new RuntimeException("boolean array to big to fit in 32 bits integer");
+        for(int i = 0;i<length;i++){
+            if(i+offset==in.length) break;
+            if(in[i+offset]) out |= 1<<i;
         }
         return out;
     }
@@ -1134,6 +1155,26 @@ public class Z2 {
             if((in & (1<<i)) != 0) out[i] = true;
         }
         return out;
+    }
+    public static boolean[] toBooleans(long in) {
+        return toBooleans(in, bitWidth(in));
+    }
+    public static boolean[] toBooleans(long in, int outputLength) {
+        boolean[] out = new boolean[outputLength];
+        int iMax = Math.min(bitWidth(in),outputLength);
+        for(int i=0;i<iMax;i++){
+            if((in & (1L<<i)) != 0) out[i] = true;
+        }
+        return out;
+    }
+
+    public static int bitWidth(long in){
+        int i;
+        if(in<0) return 64;
+        for(i=1;i<63;i++){
+            if(in<(1L<<i)) return i;
+        }
+        return i;
     }
     public static int bitWidth(int in){
         //return (int) Math.ceil(Math.log(in)/Math.log(2));
@@ -1194,9 +1235,9 @@ public class Z2 {
         return in ? "1" : "0";
     }
     public static int toInt(boolean in) {return in ? 1 : 0;}
-
+    static Random rng = new Random(System.nanoTime());
     public static boolean[] randomBooleans(int len) {
-        return randomBooleans(len,System.currentTimeMillis());
+        return randomBooleans(len,rng.nextLong());
     }
     public static boolean[] randomBooleans(int len,long seed) {
         boolean[] out = new boolean[len];

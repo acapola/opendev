@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="keyed_permutation_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="keyed_permutation_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="17" />
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/i_dat">
+      <obj_property name="ElementShortName">i_dat[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_dat[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/i_key">
+      <obj_property name="ElementShortName">i_key[159:0]</obj_property>
+      <obj_property name="ObjectShortName">i_key[159:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/o_dat">
+      <obj_property name="ElementShortName">o_dat[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_dat[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/i_dat_d1">
+      <obj_property name="ElementShortName">i_dat_d1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_dat_d1[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/i_dat_d2">
+      <obj_property name="ElementShortName">i_dat_d2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_dat_d2[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/unpermuted">
+      <obj_property name="ElementShortName">unpermuted[31:0]</obj_property>
+      <obj_property name="ObjectShortName">unpermuted[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/keyed_permutation_tb/error">
+      <obj_property name="ElementShortName">error</obj_property>
+      <obj_property name="ObjectShortName">error</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/i">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/j">
+      <obj_property name="ElementShortName">j[31:0]</obj_property>
+      <obj_property name="ObjectShortName">j[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/UNIT_WIDTH">
+      <obj_property name="ElementShortName">UNIT_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">UNIT_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/NUNITS">
+      <obj_property name="ElementShortName">NUNITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NUNITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/INDEX_WIDTH">
+      <obj_property name="ElementShortName">INDEX_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">INDEX_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/dut/map">
+      <obj_property name="ElementShortName">map[159:0]</obj_property>
+      <obj_property name="ObjectShortName">map[159:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/checker/map">
+      <obj_property name="ElementShortName">map[159:0]</obj_property>
+      <obj_property name="ObjectShortName">map[159:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/dut/outPos">
+      <obj_property name="ElementShortName">outPos[4:0]</obj_property>
+      <obj_property name="ObjectShortName">outPos[4:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/keyed_permutation_tb/dut/outDone">
+      <obj_property name="ElementShortName">outDone[31:0]</obj_property>
+      <obj_property name="ObjectShortName">outDone[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/keyed_permutation_tb/i_clk">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+</wave_config>

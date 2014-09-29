@@ -11,5 +11,18 @@ proc test_dictReplaceValues {} {
     puts "dictReplaceValues PASS"
 }
 
+proc test_toHexStr {} {
+	assertEqual 0 [toHexStr 0]
+	assertEqual 1 [toHexStr 1]
+	assertEqual 2 [toHexStr 2]
+	assertEqual A [toHexStr 10]
+	assertEqual F [toHexStr 15]
+	assertEqual 10 [toHexStr 16]
+	assertEqual 100 [toHexStr 256]
+	assertEqual 100000000 [toHexStr [expr 1<<32] ]
+	puts "toHexStr PASS"
+}
+
 test_lreplaceValues
 test_dictReplaceValues
+test_toHexStr

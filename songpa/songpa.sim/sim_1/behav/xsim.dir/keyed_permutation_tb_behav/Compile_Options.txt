@@ -1,0 +1,1 @@
+--debug "typical" --relax -L "xil_defaultlib" -L "unisims_ver" -L "unimacro_ver" -L "secureip" --snapshot "keyed_permutation_tb_behav" --prj "/media/sf_dev/opendev/songpa/songpa.sim/sim_1/behav/keyed_permutation_tb.prj" "xil_defaultlib.keyed_permutation_tb" "xil_defaultlib.glbl" 

@@ -44,7 +44,7 @@ namespace eval ::nimp::random {
 		dict set context cnt 0
 		return $seed
     }
-	proc getBits32 {name} {
+	proc fillBuf {name} {
 		upvar 1 $name context
         dictToVars [dict get $context]
 		
@@ -71,7 +71,7 @@ namespace eval ::nimp::random {
         dictToVars [dict get $context]
 		if {!$cnt} {
 			dict set context cnt [expr $::nimp::random::stepSize - 1]
-			set buf [getBits32 context]
+			set buf [fillBuf context]
 		} else {
 			dict incr context cnt -1
 			set buf [dict get $context buf]
@@ -180,11 +180,11 @@ namespace eval ::nimp::random {
 	variable stepSize 32
 	
 	#toy size parameters
-	variable taps1 [list 5 4 3 1 0]
-	variable taps2 [list 7 1 0]
-	variable seedMask1 0x7
-	variable seedMask2 0xE
-	variable stepSize 1
+	#variable taps1 [list 5 4 3 1 0]
+	#variable taps2 [list 7 1 0]
+	#variable seedMask1 0x7
+	#variable seedMask2 0xE
+	#variable stepSize 1
 	
     variable tapsMask1 [lfsrExponentsToMask {*}$taps1]
     variable tapsMask2 [lfsrExponentsToMask {*}$taps2]

@@ -40,7 +40,7 @@ public class PollardRhoTest {
                 for (BigInteger f : factors.keySet()) {
                     System.out.println("factorsMap.put(" + f + "," + factors.get(f) + ");");
                 }
-                System.out.println("intFactorsPowersOfTwoMinusOne.put(0x" + Integer.toHexString(n) + ",factorsMap);");
+                System.out.println("intFactorsPowersOfTwoMinusOne.put(0x" + Integer.toHexByteString(n) + ",factorsMap);");
                 n = (n << 1) + 1;
             }
             System.out.println("}");
@@ -56,7 +56,7 @@ public class PollardRhoTest {
                 for (BigInteger f : factors.keySet()) {
                     System.out.println("factorsMap.put(" + f + "L," + factors.get(f) + ");");
                 }
-                System.out.println("longFactorsPowersOfTwoMinusOne.put(0x" + Long.toHexString(n) + "L,factorsMap);");
+                System.out.println("longFactorsPowersOfTwoMinusOne.put(0x" + Long.toHexByteString(n) + "L,factorsMap);");
                 n = (n << 1) + 1;
             }
             System.out.println("}");
