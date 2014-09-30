@@ -5,7 +5,7 @@ namespace eval ::nimp::random {
     # Define a set of commands that will be used to create an
     # ensemble for random.
     variable randomDef {
-        # variables maintained in each counter are grouped inside a single dict to ease maintainance
+        # variables maintained in each counter are grouped inside a single dict to ease maintenance
         variable context [dict create seed 0] 
 	::nimp::random::reset_cmd context
         # Commands are taken from counter namespace

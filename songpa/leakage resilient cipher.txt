@@ -1,0 +1,23 @@
+Ideas for leakage/Fault resilient cipher
+
+CPRNG as key schedule: 
+Cryptographically strong pseudo random number generators, CPRNG, are constructions which have the following properties:
+ - knowledge of one output does not give information on previous or future outputs
+ - it does not give information on the internal state either.
+Advantage:
+By using a CPRNG to generate  the round key stream, a cipher becomes significantly stronger against DPA and fault attacks: attacking one round is not enough, the attacker has to successfully break each round key. This is more than a linear factor: with a single round to break, a small remaining key space is trivial to handle, but when it exist on each rounds, the remaining search space grows exponentially.
+Disadvantage:
+CPRNG constructions are typically not invertible, this is a small disadvantage for a key schedule because it force the implementation to store the whole key schedule or to compute it over and over to perform decryption.
+A trade-off can be to generate only the first and the last round with a CPRNG and do the inner rounds with an invertible key schedule.
+
+Purely linear diffusion in outer rounds:
+DPA is a divide and conquer approach, the attacker typically works on byte level and, as in the 1st round of AES, is able to sort the traces according to the input/output value of 1 sbox at a time.
+The idea is to add outer rounds around a cipher to prevent this divide and conquer, by forcing the attacker to work on the full width of the cipher. That means that the attacker must not be able to predict what value (xored with the key) will enter into an sbox of the core cipher. In order to achieve that we have to somehow encrypt the input data so this seems to be a recursive problem however the the encryption needed here does not have to be secure against the full range of cryptanalysis attacks as it is merely a prolog and an epilog around a cryptographically strong core. As a result, we can build our rounds without any non linear operators, which are notoriously hard to implement securely. 
+In short, a purely linear round is easy to protect against DPA and can prevent DPA on the inner rounds if it has a good enough diffusion.
+For example, few AES rounds without sbox could be a valid implementation. Another one could use GCM multiplier as it is easy to mask.
+The key does not need to be stored in masked form, we can simply consider that it is generated already in masked form, one share at time, by the CPRNG. 
+
+Research goals:
+ - What CPRNG is suitable, what parameters ? Is there such thing as an invertible CPRNG ?
+ - Which structure is optimal for outer rounds for the typical block width 64/128 bits ? Need to look at CIPURSE's NLM...
+ - Propose an implementation based on AES but more efficient than the typical secure AES, check its actual security on simulated traces.

@@ -7,24 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2dabf7c-fc5d-4270-b7fd-cc71fe693d9b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/uk/co/nimp/songpa/AesMixColumnTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/AesMixColumns.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/AesSubBytes.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/AlternatingPrng.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/Cipher.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/FullWidthXor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/K.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/KeyedPermutation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/uk/co/nimp/songpa/KeyedPermutationTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/M.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/P.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/S.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/Toy32.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/uk/co/nimp/songpa/Toy32Test.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/songpa/X.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.codelite/random.tags" afterPath="$PROJECT_DIR$/../random_c/.codelite/random.tags" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/xil_defaultlib/glbl.sdb" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/xil_defaultlib/glbl.sdb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/xil_defaultlib/keyed_permutation.sdb" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/xil_defaultlib/keyed_permutation.sdb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/xil_defaultlib/keyed_permutation_tb.sdb" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/xil_defaultlib/keyed_permutation_tb.sdb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/keyed_permutation_tb_behav.wdb" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/keyed_permutation_tb_behav.wdb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/Debug/random" afterPath="$PROJECT_DIR$/../random_c/Debug/random" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.codelite/refactoring.db" afterPath="$PROJECT_DIR$/../random_c/.codelite/refactoring.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xelab.pb" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xelab.pb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.dbg" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.dbg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.mem" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.mem" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.reloc" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.reloc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.rtti" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.rtti" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.xdbg" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsim.xdbg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsimk" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsimk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/Hypotenuse.java" afterPath="$PROJECT_DIR$/src/util/Hypotenuse.java" />
@@ -32,17 +27,15 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" afterPath="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/ScramblerAnalyzer.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/ScramblerAnalyzer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/edc_leverage.tgpp" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/edc_leverage.tgpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/edc_logical_leverage.tgpp.v" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/edc_logical_leverage.tgpp.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.srcs/sources_1/new/keyed_permutation.v" afterPath="$PROJECT_DIR$/../songpa/songpa.srcs/sources_1/new/keyed_permutation.v" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v" afterPath="$PROJECT_DIR$/../songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lfsr.iml" afterPath="$PROJECT_DIR$/lfsr.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/mamasync.iml" afterPath="$PROJECT_DIR$/../mamasync/mamasync.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/misc.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/misc.xml" />
@@ -55,8 +48,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/test_misc_utils.tcl" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/test_misc_utils.tcl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xelab.log" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xelab.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsimkernel.log" afterPath="$PROJECT_DIR$/../songpa/songpa.sim/sim_1/behav/xsim.dir/keyed_permutation_tb_behav/xsimkernel.log" />
     </list>
     <ignored path="lfsr.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,8 +76,8 @@
       <file leaf-file-name="KeyedPermutation.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/KeyedPermutation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9127273" vertical-offset="746" max-vertical-offset="2856">
-              <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.2735043" vertical-offset="96" max-vertical-offset="2856">
+              <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -132,7 +126,7 @@
       <file leaf-file-name="Toy32Test.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/songpa/Toy32Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="483" max-vertical-offset="1728">
+            <state vertical-scroll-proportion="0.0" vertical-offset="792" max-vertical-offset="2112">
               <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
               <folding />
             </state>
@@ -162,7 +156,7 @@
       <file leaf-file-name="FullWidthXor.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/FullWidthXor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
+            <state vertical-scroll-proportion="0.0" vertical-offset="504" max-vertical-offset="720">
               <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
               <folding />
             </state>
@@ -264,7 +258,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -357,6 +350,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -888,12 +882,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="37" width="2560" height="1215" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18460111" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -909,6 +902,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42486086" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1226,7 +1220,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="591" max-vertical-offset="1440">
           <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1332,8 +1325,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/KeyedPermutation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9127273" vertical-offset="746" max-vertical-offset="2856">
-          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.2735043" vertical-offset="96" max-vertical-offset="2856">
+          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
           <folding />
         </state>
       </provider>

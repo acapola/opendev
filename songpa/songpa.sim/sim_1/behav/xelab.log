@@ -4,13 +4,20 @@ Running: /opt/Xilinx/Vivado/2014.2/bin/unwrapped/lnx64.o/xelab --debug typical -
 Determining compilation order of HDL files.
 INFO: [VRFC 10-165] Analyzing Verilog file "/media/sf_dev/opendev/songpa/songpa.srcs/sources_1/new/keyed_permutation.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module keyed_permutation
+WARNING: [VRFC 10-756] identifier INDEX_WIDTH is used before its declaration [/media/sf_dev/opendev/songpa/songpa.srcs/sources_1/new/keyed_permutation.v:7]
 INFO: [VRFC 10-165] Analyzing Verilog file "/media/sf_dev/opendev/songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module keyed_permutation_tb
 INFO: [VRFC 10-165] Analyzing Verilog file "/opt/Xilinx/Vivado/2014.2/data/verilog/src/glbl.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module glbl
 Starting static elaboration
+WARNING: [VRFC 10-278] actual bit length 49 differs from formal bit length 64 for port i_key [/media/sf_dev/opendev/songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v:21]
+WARNING: [VRFC 10-278] actual bit length 49 differs from formal bit length 64 for port i_key [/media/sf_dev/opendev/songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v:29]
 Completed static elaboration
 Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/media/sf_dev/opendev/songpa/songpa.srcs/sources_1/new/keyed_permutation.v" Line 2. Module keyed_permutation doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/sf_dev/opendev/songpa/songpa.srcs/sources_1/new/keyed_permutation.v" Line 2. Module keyed_permutation doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/sf_dev/opendev/songpa/songpa.srcs/sources_1/new/keyed_permutation.v" Line 2. Module keyed_permutation doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/sf_dev/opendev/songpa/songpa.srcs/sources_1/new/keyed_permutation.v" Line 2. Module keyed_permutation doesn't have a timescale but at least one module in design has a timescale.
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
 Compiling module xil_defaultlib.keyed_permutation

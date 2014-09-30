@@ -1,10 +1,11 @@
-`timescale 1ns / 1ps
+`backtick`timescale 1ns / 1ps
+``set UNIT_WIDTH_MAX 16``
 module keyed_permutation_tb();
 
-localparam UNIT_WIDTH = 1;//MAX is 16
-localparam NUNITS = 16;
-localparam INDEX_WIDTH = 4;
-localparam KEY_WIDTH = 49;
+localparam UNIT_WIDTH = 1;//MAX is `$UNIT_WIDTH_MAX`
+localparam NUNITS = `$NUNITS`;
+localparam INDEX_WIDTH = `$INDEX_WIDTH`;
+localparam KEY_WIDTH = `$KEY_WIDTH`;
 
 reg i_clk;
 reg [NUNITS*UNIT_WIDTH-1:0] i_dat;
@@ -37,9 +38,9 @@ wire error = cnt>3 ? unpermuted !== i_dat_d2 : 0;
 initial begin
     cnt=0;
     for(i=0;i<10;i=i+1) begin
-        i_key = {$random,$random};
+        i_key = {`string repeat "\$random," [expr $KEY_WIDTH/32]`$random};
         for(j=0;j<10;j=j+1) begin
-            i_dat = {$random,$random,$random,$random,$random,$random,$random,$random,$random};
+            i_dat = {`string repeat "\$random," [expr ($NUNITS*$UNIT_WIDTH_MAX)/32]`$random};
             @(negedge i_clk);
             cnt=cnt+1;
         end

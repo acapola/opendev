@@ -1,0 +1,16 @@
+``
+source "../../hamming_code_tgpp/misc_utils.tcl"
+source factor.tcl
+for {set i 1} {$i < 20} {incr i} {
+    set n [expr [pow 2 $i] -1]
+    set factors [factor $n]
+    set line "[toHexStr $n]"
+    dict for {k v} $factors {
+        append line " [toHexStr $k] $v"
+    }
+``
+`$line`
+``
+}
+``
+

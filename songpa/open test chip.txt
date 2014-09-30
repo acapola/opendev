@@ -1,0 +1,48 @@
+Strategy to be the top dog in security (for peanuts)
+
+Key goals:
+ - Have full understanding of new papers before they even get published
+ - Identify outstanding students before they complete their studies
+ - Be able to benchmark research implementation/attacks against each other and against our current know how.
+ - Boost NXP's image as "the place to be" to do crypto
+ 
+Proposal:
+Offer researchers/start-ups to implement their experiments on an NXP testchip, using the same technology as we plan for the next products.
+Researchers would have to provide to NXP:
+ - User level documentation
+ - All the source code and details of the implementation
+ - Hard-macro for blocks not using standard cells
+ - Results of the measurement
+ 
+NXP would have to provide:
+ - User documentation of the basic system
+ - Specification for the interface with research modules and a validation environment
+ - Schedule information
+ - N tested samples
+
+NXP would have to do:
+ - Integration into the system
+ - layout
+
+Advantage over MOSIS: 
+ - free
+ - state of the art process
+ - results directly comparable with other research 
+ 
+Questions:
+ - Shall we make the selection process open (harness the scrutiny of the research community) or NXP only based on industrial relevance (may not be very popular), a mix of both ?
+ - What would be the default number of samples given away ?
+ - Current system is based on ARM Cortex M0:
+	- Is it an issue to provide it in a netlist form in the validation environment ?
+	- shall we switch to another CPU:
+		- OpenRisc -> open source
+		- MK3 -> would increase the pool of people able to program this CPU and its market acceptance
+
+Misc:
+ - access to each block would be protected by a password so that researchers can control who can use the block if they which to.
+ 
+Candidates identified in CHES:
+ - P. Schaumont's secure flip-flop
+ - Michigan's University RAM bit line PUF
+ - V. Fischer's TRNG
+ 
