@@ -2,29 +2,7 @@
 <Session Name="/home/seb/dev/opendev/random_c/random.workspace">
   <int Value="0" Name="m_selectedTab"/>
   <wxString Value="/home/seb/dev/opendev/random_c/random.workspace" Name="m_workspaceName"/>
-  <TabInfoArray Name="TabInfoArray">
-    <TabInfo>
-      <wxString Value="/home/seb/dev/opendev/random_c/random.c" Name="FileName"/>
-      <int Value="2" Name="FirstVisibleLine"/>
-      <int Value="11" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="/home/seb/dev/opendev/random_c/random.h" Name="FileName"/>
-      <int Value="2" Name="FirstVisibleLine"/>
-      <int Value="3" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="/home/seb/dev/opendev/random_c/main.c" Name="FileName"/>
-      <int Value="4" Name="FirstVisibleLine"/>
-      <int Value="13" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-  </TabInfoArray>
+  <TabInfoArray Name="TabInfoArray"/>
   <SerializedObject Name="m_breakpoints">
     <long Value="2" Name="Count"/>
     <SerializedObject Name="Breakpoint0">

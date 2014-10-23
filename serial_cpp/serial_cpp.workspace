@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="serial_cpp" Database="">
+  <Project Name="serial_cpp" Path="serial_cpp.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Project Name="serial_cpp" ConfigName="windowsDebug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="no">
+      <Project Name="serial_cpp" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="windows" Selected="yes">
+      <Project Name="serial_cpp" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

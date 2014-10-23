@@ -18,9 +18,7 @@ proc computeKeyWidth { nUnits } {
 	return $ksize
 }
 
-proc setVars {} {
-	set NUNITS 16
-	set COMPACT_KEY 1
+proc setVars { {NUNITS 16} {COMPACT_KEY 1} } {
 	set INDEX_WIDTH [binWidth [expr $NUNITS-1]]
 	pp set NUNITS $NUNITS
 	pp set INDEX_WIDTH $INDEX_WIDTH
@@ -43,7 +41,12 @@ pp file [file join $testBenchDir keyed_permutation_tb.tgpp.v] ""
 pp setBaseDir $srcDir
 pp str "``source [file join $scriptDir .. hamming_code_tgpp misc_utils.tcl]``"
 pp file [file join $srcDir keyed_permutation.tgpp.v] ""
+#5 bit permutation  for DES sbox
+setVars 32
+pp setBaseDir [file join $scriptDir .. .. des Xilinx des des.srcs sources_1 new]
+pp file [file join $srcDir keyed_permutation.tgpp.v] ""
 
+	
 
 
 

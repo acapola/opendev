@@ -8,6 +8,7 @@ Key goals:
  
 Proposal:
 Offer researchers/start-ups to implement their experiments on an NXP testchip, using the same technology as we plan for the next products.
+-> present this as a way to have a fair comparison between different proposal, on a state of the art technology.
 Researchers would have to provide to NXP:
  - User level documentation
  - All the source code and details of the implementation

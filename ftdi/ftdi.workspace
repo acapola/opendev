@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="ftdi" Database="">
+  <Project Name="ftdi" Path="ftdi.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="no">
+      <Project Name="ftdi" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="no">
+      <Project Name="ftdi" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugLinux" Selected="yes">
+      <Project Name="ftdi" ConfigName="DebugLinux"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
