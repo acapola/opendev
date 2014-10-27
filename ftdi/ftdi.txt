@@ -1,1 +1,1 @@
-./Debug/check.cpp.o
+./Debug/check.cpp.o ./Debug/safe_stream.cpp.o ./Debug/ftdi_raw_data_source.cpp.o ./Debug/crc32.cpp.o   

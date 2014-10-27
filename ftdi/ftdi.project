@@ -39,9 +39,16 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="check.cpp"/>
+    <File Name="safe_stream.cpp" ExcludeProjConfig=""/>
+    <File Name="ftdi_raw_data_source.cpp" ExcludeProjConfig=""/>
+    <File Name="crc32.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="ftd2xx.h"/>
+    <File Name="safe_stream.h"/>
+    <File Name="raw_data_source.h"/>
+    <File Name="ftdi_raw_data_source.h"/>
+    <File Name="crc32.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
@@ -52,10 +59,10 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="Debug" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+      <Compiler Options="-g;-O0;-std=c++11;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="."/>
       </Compiler>
-      <Linker Options="" Required="yes">
+      <Linker Options="--enable-stdcall-fixup" Required="yes">
         <LibraryPath Value="c:/ftdi"/>
         <Library Value="ftd2xx"/>
       </Linker>
