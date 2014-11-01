@@ -39,7 +39,7 @@ bool FtdiRawDataSource::open(uint8_t *deviceId, unsigned int deviceIdLength){
 		printf("FT_Open failed, device id=%d: 0x%08X\n",id,ftStatus);
 		return false;
 	}
-	FT_SetTimeouts(ftHandle,5000,0);//5000ms timeout
+	FT_SetTimeouts(ftHandle,10000,0);//10s timeout
 	ftStatus = FT_SetBaudRate(ftHandle, FTDI_BAUDRATE); // Set baud rate
 	//ftStatus = FT_SetBaudRate(ftHandle, 800000); // Set baud rate
 	if (ftStatus == FT_OK) { 

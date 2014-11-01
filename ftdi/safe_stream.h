@@ -3,7 +3,7 @@
 #include "raw_data_source.h"
 #include "crc32.h"
 
-#define WRITE_LOG 0
+#define WRITE_LOG 1
 
 #include <random>
 #include <algorithm>
