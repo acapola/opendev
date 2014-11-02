@@ -309,7 +309,7 @@ int main(int argc, char *argv[]){
 	//listenToDevice(1);printf("press any key to continue\n");getchar();
 	unsigned int dataSize = 4;
 	if(argc>=2) dataSize = atoi(argv[1]);
-	else autocorrelationAnalysis();
+	//else autocorrelationAnalysis();
 	
 	gatherTestData(dataSize);
 	//checkCom();
