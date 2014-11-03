@@ -1,68 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Session Name="C:\Users\sebastien\Documents\dev\opendev\ftdi\ftdi.workspace">
-  <int Value="1" Name="m_selectedTab"/>
-  <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\ftdi.workspace" Name="m_workspaceName"/>
+<Session Name="F:\work\opendev\ftdi\ftdi.workspace">
+  <int Value="0" Name="m_selectedTab"/>
+  <wxString Value="F:\work\opendev\ftdi\ftdi.workspace" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\ftd2xx.h" Name="FileName"/>
-      <int Value="30" Name="FirstVisibleLine"/>
-      <int Value="40" Name="CurrentLine"/>
+      <wxString Value="F:\work\opendev\ftdi\check.cpp" Name="FileName"/>
+      <int Value="155" Name="FirstVisibleLine"/>
+      <int Value="309" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
+      <IntVector Name="CollapsedFolds">
+        <IntVectorItem Value="10"/>
+        <IntVectorItem Value="16"/>
+        <IntVectorItem Value="23"/>
+        <IntVectorItem Value="26"/>
+        <IntVectorItem Value="29"/>
+        <IntVectorItem Value="48"/>
+        <IntVectorItem Value="63"/>
+        <IntVectorItem Value="87"/>
+        <IntVectorItem Value="158"/>
+        <IntVectorItem Value="167"/>
+        <IntVectorItem Value="183"/>
+      </IntVector>
     </TabInfo>
     <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\check.cpp" Name="FileName"/>
-      <int Value="214" Name="FirstVisibleLine"/>
-      <int Value="224" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\safe_stream.h" Name="FileName"/>
-      <int Value="1" Name="FirstVisibleLine"/>
-      <int Value="13" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\safe_stream.cpp" Name="FileName"/>
-      <int Value="4" Name="FirstVisibleLine"/>
-      <int Value="16" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\raw_data_source.h" Name="FileName"/>
-      <int Value="16" Name="FirstVisibleLine"/>
-      <int Value="43" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\ftdi_raw_data_source.cpp" Name="FileName"/>
+      <wxString Value="F:\work\opendev\ftdi\safe_stream.cpp" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="5" Name="CurrentLine"/>
+      <int Value="0" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\ftdi_raw_data_source.h" Name="FileName"/>
+      <wxString Value="F:\work\opendev\ftdi\safe_stream.h" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
       <int Value="8" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\crc32.h" Name="FileName"/>
-      <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="8" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="C:\Users\sebastien\Documents\dev\opendev\ftdi\crc32.cpp" Name="FileName"/>
-      <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="22" Name="CurrentLine"/>
+      <wxString Value="F:\work\opendev\ftdi\ftdi_raw_data_source.cpp" Name="FileName"/>
+      <int Value="18" Name="FirstVisibleLine"/>
+      <int Value="41" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>

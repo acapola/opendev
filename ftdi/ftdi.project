@@ -63,7 +63,7 @@
         <IncludePath Value="."/>
       </Compiler>
       <Linker Options="--enable-stdcall-fixup" Required="yes">
-        <LibraryPath Value="c:/ftdi"/>
+        <LibraryPath Value="./"/>
         <Library Value="ftd2xx"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>

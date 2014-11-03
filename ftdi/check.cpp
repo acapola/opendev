@@ -4,24 +4,29 @@
 #include <iostream>
 #include <fstream> 
 #define LOG_FILE "ftdi.log"
-std::string datFileName = "icestick.dat";
+std::string baseFileName = "icestick";
+std::string datFileName = baseFileName+".dat";
+std::string autocoFileName = baseFileName+"_autoco.csv";
+
 void clearFile(std::string fileName){
 	using namespace std;  
     ofstream myfile;  
     myfile.open (fileName);  
     myfile.close(); 
 }
+void appendToTextFile(std::string ss, std::string fileName){  
+    using namespace std;  
+    ofstream myfile;  
+    myfile.open (fileName.c_str(), ios_base::app);  
+    myfile << ss;  
+    myfile.close();  
+}
 void clearLogFile(void){
 	clearFile("ftdi.log"); 
 }
 void writeToLogFile(std::string ss){  
-    using namespace std;  
-    ofstream myfile;  
-    myfile.open (LOG_FILE, ios_base::app);  
-    myfile << ss;  
-    myfile.close();  
+    appendToTextFile(ss,LOG_FILE);  
 }
-
 void writeToLogFile(std::stringstream& ss){  
     using namespace std;  
     string myString = ss.str();  
@@ -195,7 +200,6 @@ void checkCom(void){
 	}
 	close();
 }
-
 void gatherTestData(unsigned int megaBytes){
 	if(!open()){
 		printf("open fail\n");
@@ -215,14 +219,97 @@ void gatherTestData(unsigned int megaBytes){
 	close();
 	printf("press any key to continue\n");getchar();
 }
-
+void autocorrelationAnalysis(void){
+	using namespace std;
+	if(!open()){
+		printf("open fail\n");
+	}
+	clearFile(autocoFileName);
+	unsigned int expectedTotal = 255;
+	unsigned int maxDelta = 1<<6;
+	std::stringstream txt;
+	txt<<"autocorrelation over ";
+	txt<<expectedTotal;
+	txt<<" samples\n";
+	txt<<"Min delta = 1, max delta = ";
+	txt<<maxDelta;
+	txt<<endl;
+	
+	for(unsigned int i=0;i<maxDelta;i++){
+		txt<<i;
+		txt<<";";
+	}
+	txt<<endl;
+	appendToTextFile(txt.str(),autocoFileName);
+	
+	while(true) {
+		uint8_t rxBuf[128];
+		uint8_t *pDelta = rxBuf;
+		uint8_t *pMatches = rxBuf+1;
+		uint8_t *pTotal = rxBuf+2;
+		uint8_t *pMask = rxBuf+3;
+		char error[200];
+		error[0]=0;
+		uint8_t mask;
+		for(unsigned int i=0;i<maxDelta;i++){
+			unsigned int bytesReceived = read(rxBuf,sizeof(rxBuf));
+			if(bytesReceived!=sizeof(rxBuf)){
+				snprintf(error,sizeof(error),"ERROR: bytesReceived = %d\n", bytesReceived);
+				break;
+			} else {
+				printf("SUCCESS: bytesReceived = %d\n", bytesReceived);
+			}
+			if(*pDelta!=i){
+				snprintf(error,sizeof(error),"ERROR: delta = %d, expected %d\n",*pDelta,i);
+				//error=true;
+				break;
+			}
+			if(*pTotal!=expectedTotal){
+				snprintf(error,sizeof(error),"ERROR: total = %d, expected %d\n",*pTotal,expectedTotal);
+				//error=true;
+				break;
+			}
+			if(i==0) mask = *pMask;
+			else if(mask!=*pMask){
+				snprintf(error,sizeof(error),"ERROR: mask = %d, expected %d\n",*pMask,mask);
+				//error=true;
+				break;
+			}
+			txt.str("");txt.clear();
+			//txt<<(unsigned int)*pDelta;
+			//txt<<";";
+			txt<<(unsigned int)*pMatches;
+			txt<<";";
+			//txt<<(unsigned int)*pTotal;
+			if(*pDelta==maxDelta-1) {
+				txt<<(unsigned int)mask;
+				txt<<endl;
+			}
+			appendToTextFile(txt.str(),autocoFileName);
+		}
+		if(strlen(error)){
+			appendToTextFile(error,autocoFileName);
+			do{
+				unsigned int bytesReceived = read(rxBuf,sizeof(rxBuf));
+				if(bytesReceived!=sizeof(rxBuf)){
+					printf("--ERROR: bytesReceived = %d\n", bytesReceived);
+				} else {
+					printf("--SUCCESS: bytesReceived = %d\n", bytesReceived);
+				}
+			}while(*pDelta!=maxDelta-1);
+		}
+	}
+	close();
+	printf("press any key to continue\n");getchar();
+}
 int main(int argc, char *argv[]){
 	if(WRITE_LOG) clearLogFile();
     //test();
 	//listenToDevice(0);
 	//listenToDevice(1);printf("press any key to continue\n");getchar();
-	unsigned int dataSize = 100;
+	unsigned int dataSize = 4;
 	if(argc>=2) dataSize = atoi(argv[1]);
+	//else autocorrelationAnalysis();
 	
 	gatherTestData(dataSize);
 	//checkCom();
