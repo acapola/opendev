@@ -9,7 +9,18 @@
 bool FtdiRawDataSource::open(uint8_t *deviceId, unsigned int deviceIdLength){
 	readPos=-1;
 	unsigned int numDevs;
-	FT_STATUS ftStatus = FT_ListDevices(&numDevs,NULL,FT_LIST_NUMBER_ONLY); 
+	FT_STATUS ftStatus;
+	/*//Not available on windows!
+	uint32_t dwVID = 0x0403;//FTDI's VID
+	uint32_t dwPID = 0x2357;
+	ftStatus = FT_SetVIDPID(dwVID, dwPID);
+	if (ftStatus == FT_OK) { 
+		printf("FT_SetVIDPID OK\n"); 
+	} else {
+		printf("FT_SetVIDPID failed\n");
+		return false;
+	}*/
+	ftStatus = FT_ListDevices(&numDevs,NULL,FT_LIST_NUMBER_ONLY); 
 	if (ftStatus == FT_OK) { 
 		printf("FT_ListDevices OK, number of devices connected is in numDevs=%d\n",numDevs); 
 	} else {
