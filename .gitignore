@@ -15,3 +15,10 @@ hs_err_pid*
 *.deb
 mamasync/out/*
 Debug/*
+random_c/.random.ko.cmd
+random_c/.random.mod.o.cmd
+random_c/.random.o.cmd
+random_c/random.ko
+random_c/random.mod.c
+random_c/random.mod.o
+random_c/random.o
