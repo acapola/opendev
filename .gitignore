@@ -22,3 +22,7 @@ random_c/random.ko
 random_c/random.mod.c
 random_c/random.mod.o
 random_c/random.o
+*.o
+*.d
+ftdi/Debug/icestick.dat
+ftdi/Debug/ftdi.exe
