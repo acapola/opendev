@@ -1,6 +1,8 @@
 #ifndef __RANDOM_H__
 #define __RANDOM_H__
 
+//#include <linux/types.h>
+
 #ifndef __U64_DEFINED__
 #define __U64_DEFINED__
 typedef long unsigned int u64;
@@ -10,7 +12,12 @@ typedef long unsigned int u64;
 #define __U32_DEFINED__
 typedef unsigned int u32;
 #endif
-
+/*
+#ifndef __U8_DEFINED__
+#define __U8_DEFINED__
+typedef unsigned char u8;
+#endif
+*/
 
 typedef struct random_struct_t {
 	u64 seed;
