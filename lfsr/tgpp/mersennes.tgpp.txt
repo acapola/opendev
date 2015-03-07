@@ -3,7 +3,7 @@ source "../../hamming_code_tgpp/misc_utils.tcl"
 source factor.tcl
 set fileId [open "mersennes.log" "w"]
 fconfigure $fileId -buffering none
-for {set i 442} {$i < 500} {incr i} {
+for {set i 482} {$i < 500} {incr i} {
     set n [expr [pow 2 $i] -1]
 	puts "i=${i}, n=${n}" 
     set factors [factor $n]
