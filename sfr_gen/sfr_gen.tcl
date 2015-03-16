@@ -164,6 +164,6 @@ add_bitfields trng_sfrs \
 	[create_bitfield RNDDAT 32 $::typical_sensitive_read_only] \
 	[create_bitfield PPCONF 32] \
 	[create_bitfield SRCCONF 32] \
-	[create_bitfield SRCINIT 128] \
+	[create_bitfield SRCINIT 160] \
 	[create_bitfield SPYSEL 32]
 puts [bitfield_to_string $trng_sfrs]
