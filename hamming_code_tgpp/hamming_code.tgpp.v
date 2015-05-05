@@ -5,7 +5,7 @@ proc hammingCodeVerilogFunction { inputWidth {code_extention 0} {userOutputWidth
 	set parameters [hammingCodeFunctionParams $inputWidth $code_extention $userOutputWidth]
     dictToVars $parameters
 
-    set hammingCodeDict [hammingCode $inputWidth $extended $userOutputWidth]
+	set hammingCodeDict [hammingCode $inputWidth $extended $userOutputWidth]
 	if {$ecc} {
 		#compute the corrector part
 		hammingCodeCorrectionPattern hammingCodeDict
@@ -20,24 +20,28 @@ proc hammingCodeVerilogModule { name inputWidth {code_extention 0} {userOutputWi
 	set parameters [hammingCodeFunctionParams $inputWidth $code_extention $userOutputWidth]
     dictToVars $parameters
 
-	set hammingCodeDict [hammingCode $inputWidth $code_extention $userOutputWidth]
+	puts "compute hamming code"
+    set hammingCodeDict [hammingCode $inputWidth $code_extention $userOutputWidth]
 	if {$ecc} {
 		#compute the corrector part
+		puts "compute ecc corrector part"
 		hammingCodeCorrectionPattern hammingCodeDict
 	}
 	
 	#do a bit of self checking
-	checkHammingCode $hammingCodeDict	
+	puts "self check"
+	checkHammingCode $hammingCodeDict
+	puts "generating verilog code"	
 ``
-module `$name` (``
+module `$name` (
 	input wire [`$inputWidth`-1:0] i_write_data, // Data to write to storage
 	output reg [`$r`-1:0] o_write_edc, // EDC bits to write to storage
 	input wire [`$inputWidth`-1:0] i_stored_data, // Data read from storage, may contain error(s)
 	input wire [`$r`-1:0] i_stored_edc, // EDC bits read from storage, may conatin error(s)
-if {$ecc} {``
+``if {$ecc} {``
 	output reg [`$inputWidth`-1:0] o_read_data, // Error free read data (as long as error was correctable)
 	output reg o_correction, //indication that an error is corrected
-``
+``}``
 	output reg o_detection //indication that an error is detected``if {$ecc} {``, this happens only if the error is not correctable``}``
 );
 `hammingCodeVerilogFunction2 $hammingCodeDict $ecc`

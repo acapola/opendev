@@ -81,6 +81,21 @@ proc nextWithHammingWeight { startVal targetHammingWeight {targetWidth 0} } {
 # Main procs #
 ##############
 
+proc hammingCodeMinWidth { inputWidth {extended 0} } {
+    #we need to get r from k, we start from a lower bound and increment until we get a match 
+    set k $inputWidth
+    set r [binWidth [expr $k+1+2]]
+    while {(1<<$r) - $r - 1 < $k} {
+        incr r
+    }
+    if {$extended} {
+    	#make sure extended equals either 0 or 1
+    	set extended 1
+    	incr r
+    }
+	return $r
+}
+
 #compute various parameters used by other procs from the user friendly parameters
 proc hammingCodeFunctionParams { inputWidth {code_extention 0} {userOutputWidth 0} } {
     # Computation of EDC parameters #
@@ -107,18 +122,11 @@ proc hammingCodeFunctionParams { inputWidth {code_extention 0} {userOutputWidth 
             exit -1
         }
     }
-    
-    #we need to get r from k, we start from a lower bound and increment until we get a match 
+
+	
     set k $inputWidth
-    set r [binWidth [expr $k+1+2]]
-    while {(1<<$r) - $r - 1 < $k} {
-        incr r
-    }
-    if {$extended} {
-    	#make sure extended equals either 0 or 1
-    	set extended 1
-    	incr r
-    }
+    set r [hammingCodeMinWidth $k $extended]
+	
     if {$userOutputWidth} {
         if {$r>$userOutputWidth} {
             #the user request a width inferior to the lower bound, reject it (we can't garantee the advertized detection capabilities in this condition)
@@ -143,7 +151,7 @@ proc hammingCodeFunctionParams { inputWidth {code_extention 0} {userOutputWidth 
         set funcName extended_$funcName
     }
     set eccFuncName "${funcName}_correction_pattern_f"
-    return [dict create r $r k $k n $n totalWidth $totalWidth nTotalWords $nTotalWords nValidWords $nValidWords funcName $funcName eccFuncName $eccFuncName]
+    return [dict create r $r k $k n $n totalWidth $totalWidth nTotalWords $nTotalWords nValidWords $nValidWords funcName $funcName eccFuncName $eccFuncName extended $extended ecc $ecc]
 }
 
 proc hammingCodeFunctionName { inputWidth {extended 0} {userOutputWidth 0} } {
@@ -399,10 +407,12 @@ proc hammingCodeCommentsC { hammingCodeDict } {
 //`$funcName`
 //Compute `$r` bits Error Detection Code from a `$k` bits input.
 //The EDC is `$codeDescription` in the input data or the EDC.
+``if {$k<=64} {``
 //There are `$nValidWords` valid code words out of `$nTotalWords` therefore `expr round(($nTotalWords-$nValidWords)*100/$nTotalWords)`% of errors are detected. 
 //Dot graphic view: in[0]...in[`expr $k-1`]
-``for {set syndromBit 0} {$syndromBit<$r} {incr syndromBit} {``
+``	for {set syndromBit 0} {$syndromBit<$r} {incr syndromBit} {``
 //  syndrom[`format %${syndromIndexesWidth}s $syndromBit`]: `dict get $dots $syndromBit` (`dict get $bitsInputs $syndromBit` inputs)
+``	}``
 ``}``
 //Input usage report:
 ``for {set inBit 0} {$inBit<$k} {incr inBit} {
