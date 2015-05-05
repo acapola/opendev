@@ -1,6 +1,13 @@
+if {$tcl_version!="8.4"} {
+  set tcl84 0
+} else {
+  set tcl84 1
+}
 
-source [file join [file dirname [info script]] random.tcl]
-package require nimpRandom
+if {!$tcl84} {
+  source [file join [file dirname [info script]] random.tcl]
+  package require nimpRandom
+}
 ##############################################################
 # D E B U G
 ##############################################################
@@ -65,9 +72,7 @@ proc lshuffle {listVariable rngVariable} {
 	upvar 1 $listVariable list
     upvar 1 $rngVariable rng
     set len [llength $list]
-	#::nimp::random create rng
-	#rng setSeed $seed
-    while {$len} {
+	while {$len} {
         set n [expr [$rng getBits [binWidth $len]] % $len]
         set tmp [lindex $list $n]
         lset list $n [lindex $list [incr len -1]]
@@ -101,6 +106,21 @@ proc lHasDuplicates { inputList } {
 	}
 	return 0
 }
+proc lRemoveDuplicates { inputList } {
+	set out [list]
+	if {[llength $inputList]<2} {return $inputList}
+	set sortedList [lsort $inputList]
+	set last [lindex $sortedList 0]
+	for {set i 1} {$i<[llength $sortedList]} {incr i} {
+		set tmp [lindex $sortedList $i]
+		if {$last != $tmp} {
+		  lappend out $last
+		}
+		set last $tmp
+	}
+	lappend out $last
+	return $out
+}
 proc listToString {aList {separator ""} } {
     set out ""
     if {[llength $aList]} {
@@ -121,8 +141,9 @@ proc dictHasDuplicates { inputDict } {
 	set dictSize [dict size $inputDict]
 	if { $dictSize <2 } { return 0 }
 	set sorted [ sortDictByValue $inputDict ]
-	set last [lindex $sorted 0]
+	#set last [lindex $sorted 0]
 	set keys [dict keys $sorted]
+	set last [dict get $sorted [lindex $keys 0]]
 	for {set i 1} {$i<[llength $keys]} {incr i} {
 		set key [lindex $keys $i]
 		set tmp [dict get $sorted $key]

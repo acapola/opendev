@@ -6,8 +6,8 @@ proc edcLogicalLeverageVerilogFunction { name logicalGroups } {
 	dict for {k v} $logicalGroups {
 		set inputWidth [expr $inputWidth + [llength $v]]
 	}
-	set funcName "${name}_to_leveraged_edc_groups"
-	set invFuncName "${name}_from_leveraged_edc_groups"
+	set funcName "${name}_to_leveraged_edc_groups_f"
+	set invFuncName "${name}_from_leveraged_edc_groups_f"
 	
 	set indexesWidth [decWidth $inputWidth]
 ``

@@ -1,22 +1,10 @@
 ``
 #this file is not meant to be used directly, the entry point is hamming_code.tgpp
 
-proc hammingCodeVerilogFunction { inputWidth {extended 0} {userOutputWidth 0} } {
-	set ecc 0
-	set extendedArg [string tolower $extended]
-	switch $extendedArg {
-		0 { set extended 0 }
-		1 -
-		"extended" { set extended 1 }
-		"ecc" {
-			set extended 1
-			set ecc 1
-		}
-		default {
-			puts "unsupported value for extended parameter: $extendedArg"
-			exit -1
-		}
-	}
+proc hammingCodeVerilogFunction { inputWidth {code_extention 0} {userOutputWidth 0} } {
+	set parameters [hammingCodeFunctionParams $inputWidth $code_extention $userOutputWidth]
+    dictToVars $parameters
+
     set hammingCodeDict [hammingCode $inputWidth $extended $userOutputWidth]
 	if {$ecc} {
 		#compute the corrector part
@@ -26,6 +14,49 @@ proc hammingCodeVerilogFunction { inputWidth {extended 0} {userOutputWidth 0} } 
 	#do a bit of self checking
 	checkHammingCode $hammingCodeDict
 	return [hammingCodeVerilogFunction2 $hammingCodeDict $ecc]
+}
+
+proc hammingCodeVerilogModule { name inputWidth {code_extention 0} {userOutputWidth 0} } {
+	set parameters [hammingCodeFunctionParams $inputWidth $code_extention $userOutputWidth]
+    dictToVars $parameters
+
+	set hammingCodeDict [hammingCode $inputWidth $code_extention $userOutputWidth]
+	if {$ecc} {
+		#compute the corrector part
+		hammingCodeCorrectionPattern hammingCodeDict
+	}
+	
+	#do a bit of self checking
+	checkHammingCode $hammingCodeDict	
+``
+module `$name` (``
+	input wire [`$inputWidth`-1:0] i_write_data, // Data to write to storage
+	output reg [`$r`-1:0] o_write_edc, // EDC bits to write to storage
+	input wire [`$inputWidth`-1:0] i_stored_data, // Data read from storage, may contain error(s)
+	input wire [`$r`-1:0] i_stored_edc, // EDC bits read from storage, may conatin error(s)
+if {$ecc} {``
+	output reg [`$inputWidth`-1:0] o_read_data, // Error free read data (as long as error was correctable)
+	output reg o_correction, //indication that an error is corrected
+``
+	output reg o_detection //indication that an error is detected``if {$ecc} {``, this happens only if the error is not correctable``}``
+);
+`hammingCodeVerilogFunction2 $hammingCodeDict $ecc`
+wire [`$r`-1:0] stored_data_edc = `$funcName`(i_stored_data);
+wire [`$r`-1:0] syndroms = i_stored_edc ^ stored_data_edc;
+``if {$ecc} {``
+reg uncorrectable_error;
+reg [`$inputWidth`-1:0] correction_pattern;
+always @* begin
+	{o_detection,o_correction,correction_pattern} = `$eccFuncName`(syndroms,CORRECT_EDC_SINGLE_BIT_ERRORS);     
+	o_read_data = i_stored_data ^ correction_pattern;
+end
+``} else {``
+always @* o_detection = |syndroms;
+``}``
+endmodule
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
 }
 
 proc hammingCodeVerilogFunction2 { hammingCodeDict {ecc 0} } {

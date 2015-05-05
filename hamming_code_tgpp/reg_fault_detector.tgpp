@@ -1,0 +1,153 @@
+``
+tgpp::source [file join [file dirname [info script]] hamming_code.tgpp]
+tgpp::source [file join [file dirname [info script]] edc_leverage.tgpp]
+tgpp::source [file join [file dirname [info script]] .. tgpp_common common_verilog.tgpp]
+#tgpp::source [file join [file dirname [info script]] .. nimp ]
+set scriptDir [file dirname [info script]]
+puts $scriptDir
+lappend ::auto_path [file normalize [file join $scriptDir .. .. .. tcllibs]]
+package require nimp
+
+#extended can be 0, 1, extended or ecc
+#if it is ecc, error correction is also supported
+proc regFaultDetectorModule { moduleName inputWidth edcInputWidth {extended 0} {edcOutputWidth 0} {inputUnit 1} {dftPorts 0} {rngVariable ""} } {
+    if {$inputWidth<$edcInputWidth} {
+        set edcInputWidth $inputWidth
+        if {$edcInputWidth<$edcOutputWidth} {
+            set edcOutputWidth $edcInputWidth
+        }   
+    }
+    set parameters [hammingCodeFunctionParams $edcInputWidth $extended $edcOutputWidth]
+    dictToVars $parameters
+    set extendedArg [string tolower $extended]
+    set ECC 0
+	switch $extendedArg {
+		0 { set extended 0 }
+		1 -
+		"extended" { set extended 1 }
+		"ecc" {
+			set extended 1
+			set ECC 1
+		}
+		default {
+			puts "unsupported value for extended parameter: $extendedArg"
+			exit -1
+		}
+	}
+    
+    set leverageFuncs ""
+    set LEVERAGE 0
+    if {$inputUnit > 1} {
+        set LEVERAGE 1
+        set edcMaxDet [expr 2+$extended]
+	if { $rngVariable!="" } {
+	  upvar 1 $rngVariable rng
+	} else {
+	  set rng [::nimp::random create]
+	}
+        set codeLeverage [edcLeverage $inputWidth $inputUnit $edcInputWidth $edcOutputWidth $edcMaxDet rng]
+        dictToVars $codeLeverage
+        set leverageFuncs [edcLogicalLeverageVerilogFunction "" $logicalGroups]
+        ::nimp::createFile ${moduleName}_phy_leverage.tcl "set codeLeverage \[dict create ${codeLeverage}\]"
+    }
+``
+
+module `$moduleName` #(
+    parameter CORRECT_EDC_SINGLE_BIT_ERRORS = 1'b0
+    )(
+``if {$dftPorts} {``    
+    input wire tcb_clock_active_se,
+``}``    
+    input wire i_reset,
+    input wire i_clk,
+    input wire [1:0] i_init,
+    input wire [`$inputWidth`-1:0] i_wren,
+    input wire [`$inputWidth`-1:0] i_wr,
+    input wire [`$inputWidth`-1:0] i_rd,
+``if {$ECC} {``
+    output reg o_correction,
+    output reg [`$inputWidth`-1:0] o_correction_pattern,
+``}``
+    output reg o_err,
+    output reg o_err_n
+);
+`$leverageFuncs`
+`hammingCodeVerilogFunction $edcInputWidth $extendedArg $edcOutputWidth`
+``
+set N_CHECKERS [expr ($inputWidth+$edcInputWidth-1) / $edcInputWidth]
+set TOTAL_CHK_WIDTH [expr $N_CHECKERS * $r]
+set CHK_INPUT_WIDTH [expr ($inputWidth+$N_CHECKERS-1) / $N_CHECKERS]
+set TOTAL_INPUT_WIDTH [expr $CHK_INPUT_WIDTH * $N_CHECKERS]
+set dummyBits [expr $edcInputWidth * $N_CHECKERS - $TOTAL_INPUT_WIDTH]
+``
+localparam N_CHECKERS = `$N_CHECKERS`;
+localparam TOTAL_CHK_WIDTH = `$TOTAL_CHK_WIDTH`;
+localparam CHK_INPUT_WIDTH = `$CHK_INPUT_WIDTH`;
+localparam TOTAL_INPUT_WIDTH = `$TOTAL_INPUT_WIDTH`;
+logic [TOTAL_INPUT_WIDTH-1:0] write_val;
+logic [TOTAL_INPUT_WIDTH-1:0] read_val;
+always_comb begin
+    {write_val,read_val} = '0;//force unused bits to 0 (if any)
+    write_val = (i_wr & i_wren) | (i_rd &~i_wren);
+    read_val = i_rd;
+end
+
+logic [TOTAL_CHK_WIDTH-1:0] write_val_chk;
+logic [TOTAL_CHK_WIDTH-1:0] read_val_chk;
+
+always_comb begin: CHECKERS
+    integer checker_index;
+    for(checker_index=0;checker_index<N_CHECKERS;checker_index++) begin
+        write_val_chk[checker_index*`$r`+:`$r`] = `$funcName`(write_val[checker_index*CHK_INPUT_WIDTH+:CHK_INPUT_WIDTH]);
+        read_val_chk [checker_index*`$r`+:`$r`] = `$funcName`(read_val [checker_index*CHK_INPUT_WIDTH+:CHK_INPUT_WIDTH]);
+    end
+end
+
+reg initialized;
+reg [TOTAL_CHK_WIDTH-1:0] checksum_storage;
+wire [TOTAL_CHK_WIDTH-1:0] syndroms = checksum_storage ^ read_val_chk;
+``if { $ECC } {``
+logic [N_CHECKERS-1:0] correctable_errors;
+logic [N_CHECKERS-1:0] uncorrectable_errors;
+localparam LAST_CHK_INPUT_WIDTH = CHK_INPUT_WIDTH-(TOTAL_CHK_WIDTH-`$inputWidth`);
+always_comb begin: ECC_ANALYZERS
+    integer checker_index;
+    logic [`$edcInputWidth`-1:0] full_pattern;
+    for(checker_index=0;checker_index<N_CHECKERS;checker_index++) begin
+        {uncorrectable_errors[checker_index],correctable_errors[checker_index],full_pattern} = `$eccFuncName`(syndroms[checker_index*CHK_INPUT_WIDTH+:CHK_INPUT_WIDTH],CORRECT_EDC_SINGLE_BIT_ERRORS);
+        if(checker_index<N_CHECKERS-1) o_correction_pattern[checker_index*CHK_INPUT_WIDTH+:CHK_INPUT_WIDTH] = full_pattern[0+:CHK_INPUT_WIDTH];
+        else                           o_correction_pattern[checker_index*CHK_INPUT_WIDTH+:LAST_CHK_INPUT_WIDTH] = full_pattern[0+:LAST_CHK_INPUT_WIDTH];
+    end
+end
+always_comb o_correction = |correctable_errors;
+wire mismatch = |uncorrectable_errors | o_err | ~o_err_n;
+``} else {``
+wire mismatch = |syndroms | o_err | ~o_err_n;
+``}``
+wire first_cycle = ~initialized & i_init==2'b01;
+always_ff @(posedge i_clk, posedge i_reset) begin
+    if(i_reset) begin
+        initialized <= 1'b0;
+        o_err <= 1'b0;
+        o_err_n <= 1'b0;
+    end else begin
+		if(first_cycle | i_wren) checksum_storage <= write_val_chk;
+		if(first_cycle) begin
+        	o_err_n <= 1'b1;
+        	initialized <= 1'b1;
+    	end else begin
+        	if(mismatch) begin
+            	o_err <= 1'b1;
+            	o_err_n <= 1'b0;  
+        	end
+		end 
+    end
+end
+endmodule
+``
+    #return all except the last new line character
+    return [string range [::tgpp::getProcOutput] 0 end-1]
+} 
+#end of regFaultDetectorModule
+``
+

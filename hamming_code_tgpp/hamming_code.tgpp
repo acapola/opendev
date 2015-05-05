@@ -82,7 +82,7 @@ proc nextWithHammingWeight { startVal targetHammingWeight {targetWidth 0} } {
 ##############
 
 #compute various parameters used by other procs from the user friendly parameters
-proc hammingCodeFunctionParams { inputWidth {extended 0} {userOutputWidth 0} } {
+proc hammingCodeFunctionParams { inputWidth {code_extention 0} {userOutputWidth 0} } {
     # Computation of EDC parameters #
     #theory: 
     #message length k: number of data bits
@@ -91,11 +91,12 @@ proc hammingCodeFunctionParams { inputWidth {extended 0} {userOutputWidth 0} } {
     #   k = 2^r - r - 1
     #   n = 2^r - 1
     
-    set extendedArg [string tolower $extended]
+    set extendedArg [string tolower $code_extention]
     set ecc 0
     switch $extendedArg {
-        0 { set extended 0 }
-        1 -
+        0 -
+		"normal" { set extended 0 }
+		1 -
         "extended" { set extended 1 }
         "ecc" {
             set extended 1
@@ -136,12 +137,12 @@ proc hammingCodeFunctionParams { inputWidth {extended 0} {userOutputWidth 0} } {
     set nTotalWords [expr 1<<$totalWidth]
     set nValidWords [expr 1<<$k]
 	
-	set funcName hamming_code_${totalWidth}_$k
+	set funcName hamming_code_${totalWidth}_${k}_f
 
     if {$extended} {
         set funcName extended_$funcName
     }
-    set eccFuncName "${funcName}_correction_pattern"
+    set eccFuncName "${funcName}_correction_pattern_f"
     return [dict create r $r k $k n $n totalWidth $totalWidth nTotalWords $nTotalWords nValidWords $nValidWords funcName $funcName eccFuncName $eccFuncName]
 }
 
@@ -254,7 +255,7 @@ proc hammingCodeBalanceLogicDepth { hammingCodeDictName } {
 	
 	set syndroms [dictTransposeIndexes $bits]
 	assertEqual 0 [dictHasDuplicates $syndroms]
-	#printIntDict $syndroms
+	#puts "syndroms";printIntDict $syndroms
 	
 	set stats [dictMinMax $bitsInputs]
 	set minLogicDepth [dict get $stats minValue]
@@ -278,23 +279,19 @@ proc hammingCodeBalanceLogicDepth { hammingCodeDictName } {
 			set longPathBits [dict get $maxCandidates $longPath]
 			foreach candidate $longPathBits {
 				#what the long path would look like without this candidate:
-				#set newLongPath [lsearch -not -all -exact -inline $longPathBits $candidate]
-				#set newLongPath $longPathBits
-				#lremove newLongPath $candidate
 				foreach shortPath [dict key $minOccupied] {
 					set shortPathBits [dict get $minOccupied $shortPath]
 					if {![lcontains $shortPathBits $candidate]} { #if shortPath does not contain the candidate, take a closer look
-						#set newShortPath [lsort [lappend $shortPath $candidate]]
 						set newSyndroms $syndroms
-						#set oldCandidateInputSyndrom [dict get $syndroms $candidate]
-						#set newCandidateInputSyndrom [lsearch -not -all -exact -inline $oldCandidateInputSyndrom $longPath] 
 						set newCandidateInputSyndrom [dict get $syndroms $candidate]
-						lremove newCandidateInputSyndrom $candidate
+						lremove newCandidateInputSyndrom $longPath
 						
 						lappend newCandidateInputSyndrom {*}$shortPath
 						set newCandidateInputSyndrom [lsort -integer $newCandidateInputSyndrom]
 						dict set newSyndroms $candidate $newCandidateInputSyndrom
-						#printIntDict $newSyndroms
+						
+						#puts "new syndroms";printIntDict $newSyndroms
+						
 						if {![dictHasDuplicates $newSyndroms]} {
 							#puts "can move $candidate from $longPath to $shortPath"
 							dict lappend possibleMoves $longPath [dict create $shortPath $candidate]
@@ -435,6 +432,7 @@ proc checkHammingCode { hammingCodeDict } {
 	} 
 	if {[lHasDuplicates $syndroms]} {
 		error "INTERNAL ERROR: duplicated syndroms found:\n${syndroms}\nPlease report this error."
+		#puts "INTERNAL ERROR: duplicated syndroms found:\n${syndroms}\nPlease report this error. -- continue for debug purposes"
 	}
 }
 
@@ -473,6 +471,7 @@ proc checkExtendedHammingCode { hammingCodeDict } {
 		}
 	}
 	
+	#DISABLED
 	if {0 & $ecc} {
 		#test few faults for each bit position
 		for {set i 0} {$i<$inputWidth} {incr i} {
