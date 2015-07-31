@@ -394,6 +394,12 @@ public class Lfsr {
         BigInteger maxLength = BigInteger.ONE.shiftLeft(degree).subtract(BigInteger.ONE);
         return maxLength;
     }
+    public static int maximumLengthToPolynomialDegree(BigInteger maxLength){
+        BigInteger p = maxLength.add(BigInteger.ONE);
+        if(p.bitCount()!=1) throw new RuntimeException("maxLength should be a power of 2 minus 1, got "+maxLength);
+        int out= p.bitLength();
+        return out;
+    }
     static BigInteger irreduciblePolynomialSequencesLength(boolean[] polynomial){
         //TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger,Integer>();
         BigInteger maxLength=Lfsr.polynomialDegreeToMaximumLength(polynomial.length-1);
@@ -417,6 +423,23 @@ public class Lfsr {
         if(Z2.isIrreducible(polynomial)) throw new RuntimeException("fatal internal error");
         else throw new RuntimeException("polynomial is reducible");
     }
+    static Lfsr fromSeqLength(BigInteger length){
+        if(length.bitCount()==1){//power of two, need a primitive polynomial
+            throw new RuntimeException("todo");
+        }else{
+            //try with irreducible polynomial
+            //get the factors we need
+            BigInteger[] mandatoryFactors = PollardRho.factor(length);
+            BigInteger maxLengthCandidate = BigInteger.ONE.shiftLeft(length.bitLength()+1).subtract(BigInteger.ONE);
+            //look for suitable polynomial width
+            while(maxLengthCandidate.mod(length)!=BigInteger.ZERO) maxLengthCandidate=maxLengthCandidate.shiftLeft(1).add(BigInteger.ONE);
+            //now maxLengthCandidate is right, look for an irreducible polynomial of the corresponding width
+            int targetWidth = Lfsr.maximumLengthToPolynomialDegree(maxLengthCandidate);
+            boolean []candidate = Z2.firstWithHammingWeight(3,targetWidth);
+            throw new RuntimeException();
+        }
+    }
+
     /**
      * Compute the length of all sequences
      * @return a Map associating the length of sequence and the number of occurence.

@@ -80,21 +80,23 @@ public class LfsrTest {
     public void testToPolynomial() throws Exception {
         assert (Z2.toPolynomial(Z2.toBooleans("1")).equals("1"));
         assert (Z2.toPolynomial(Z2.toBooleans("01")).equals("x"));
-        assert (Z2.toPolynomial(Z2.toBooleans("11")).equals("1 + x"));
-        assert (Z2.toPolynomial(Z2.toBooleans("111")).equals("1 + x + x2"));
-        assert (Z2.toPolynomial(Z2.toBooleans("1111")).equals("1 + x + x2 + x3"));
-        assert (Z2.toPolynomial(Z2.toBooleans("1010")).equals("1 + x2"));
+        assert (Z2.toPolynomial(Z2.toBooleans("11")).equals("1+x"));
+        assert (Z2.toPolynomial(Z2.toBooleans("111")).equals("1+x+x2"));
+        assert (Z2.toPolynomial(Z2.toBooleans("1111")).equals("1+x+x2+x3"));
+        assert (Z2.toPolynomial(Z2.toBooleans("1010")).equals("1+x2"));
     }
 
     @Test
     public void testGetPolynomial() throws Exception {
+        //not LFSRs...
         //assert(Lfsr.fromBinaryString("1").getPolynomial().equals("1"));
         //assert(Lfsr.fromBinaryString("01").getPolynomial().equals("x"));
-        assert (Lfsr.fromBinaryString("11").getPolynomial().equals("1 + x"));
-        assert (Lfsr.fromBinaryString("111").getPolynomial().equals("1 + x + x2"));
-        assert (Lfsr.fromBinaryString("1111").getPolynomial().equals("1 + x + x2 + x3"));
-        assert (Lfsr.fromBinaryString("1010").getPolynomial().equals("1 + x2"));
-        assert (Lfsr.fromTapsPositions(new int[]{9, 11}).getPolynomial().equals("1 + x9 + x11"));
+
+        assert (Lfsr.fromBinaryString("11").getPolynomial().equals("1+x"));
+        assert (Lfsr.fromBinaryString("111").getPolynomial().equals("1+x+x2"));
+        assert (Lfsr.fromBinaryString("1111").getPolynomial().equals("1+x+x2+x3"));
+        assert (Lfsr.fromBinaryString("1010").getPolynomial().equals("1+x2"));
+        assert (Lfsr.fromTapsPositions(new int[]{9, 11}).getPolynomial().equals("1+x9+x11"));
     }
 
     @Test
@@ -112,10 +114,10 @@ public class LfsrTest {
         assert (Z2.toPolynomial(Z2.polynomialToBooleans("1x")).equals("x"));
         assert (Z2.toPolynomial(Z2.polynomialToBooleans("x2")).equals("x2"));
         assert (Z2.toPolynomial(Z2.polynomialToBooleans("1x2")).equals("x2"));
-        assert (Z2.toPolynomial(Z2.polynomialToBooleans("1x2+1+x")).equals("1 + x + x2"));
-        assert (Z2.toPolynomial(Z2.polynomialToBooleans("0+x2+0+1+1x+0")).equals("1 + x + x2"));
-        assert (Z2.toPolynomial(Z2.polynomialToBooleans("x+ 1x2+ 1+ x")).equals("1 + x2"));
-        assert (Z2.toPolynomial(Z2.polynomialToBooleans(" 1x4+1x5 + 1x234+\t1 + x5  ")).equals("1 + x4 + x234"));
+        assert (Z2.toPolynomial(Z2.polynomialToBooleans("1x2+1+x")).equals("1+x+x2"));
+        assert (Z2.toPolynomial(Z2.polynomialToBooleans("0+x2+0+1+1x+0")).equals("1+x+x2"));
+        assert (Z2.toPolynomial(Z2.polynomialToBooleans("x+ 1x2+ 1+ x")).equals("1+x2"));
+        assert (Z2.toPolynomial(Z2.polynomialToBooleans(" 1x4+1x5 + 1x234+\t1 + x5  ")).equals("1+x4+x234"));
     }
 
 
@@ -133,6 +135,25 @@ public class LfsrTest {
         assert (Lfsr.fromPolynomial("1+x+x4").isMaximumLength());
         assert (Lfsr.fromPolynomial("1+x2+x5").isMaximumLength());
         assert (Lfsr.fromPolynomial("1+x+x6").isMaximumLength());
+    }
+
+    @Test
+    public void testMaximumLengthToPolynomialDegree() throws Exception{
+        assert(3==Lfsr.maximumLengthToPolynomialDegree(BigInteger.valueOf((1<<2)-1)));
+        assert(4==Lfsr.maximumLengthToPolynomialDegree(BigInteger.valueOf((1<<3)-1)));
+        assert(5==Lfsr.maximumLengthToPolynomialDegree(BigInteger.valueOf((1<<4)-1)));
+        assert(6==Lfsr.maximumLengthToPolynomialDegree(BigInteger.valueOf((1<<5)-1)));
+
+    }
+
+    @Test
+    public void testPolynomialDegreeToMaxLength() throws Exception{
+        assert(Lfsr.polynomialDegreeToMaximumLength(3)==BigInteger.valueOf((1<<2)-1));
+        assert(Lfsr.polynomialDegreeToMaximumLength(4)==BigInteger.valueOf((1<<3)-1));
+        assert(Lfsr.polynomialDegreeToMaximumLength(5)==BigInteger.valueOf((1<<4)-1));
+        assert(Lfsr.polynomialDegreeToMaximumLength(6)==BigInteger.valueOf((1<<5)-1));
+        assert(Lfsr.polynomialDegreeToMaximumLength(7)==BigInteger.valueOf((1<<6)-1));
+
     }
 
     @Test

@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Random;
 
 public class Z2Test {
@@ -522,18 +523,18 @@ public class Z2Test {
 
         //row echelon form matrix
         assert(Z2.isRowEchelonMatrix(Z2.toBooleansArray(
-                        "10100\n"+
-                        "01100\n"+
-                        "00010\n"+
-                        "00000\n"+
+                "10100\n" +
+                        "01100\n" +
+                        "00010\n" +
+                        "00000\n" +
                         "00000"
         )));
         assert(Z2.isRowEchelonMatrix(Z2.toBooleansArray(
-                "10101\n"+
-                "01110\n"+
-                "00111\n"+
-                "00010\n"+
-                "00001"
+                "10101\n" +
+                        "01110\n" +
+                        "00111\n" +
+                        "00010\n" +
+                        "00001"
         )));
     }
     @Test
@@ -549,30 +550,30 @@ public class Z2Test {
 
         //column echelon form matrix
         assert(Z2.isColumnEchelonMatrix(Z2.toBooleansArray(new int[][]{
-                        {1,0,0,0},
-                        {1,1,0,0},
-                        {0,1,1,0},
-                        {1,0,0,1}
+                        {1, 0, 0, 0},
+                        {1, 1, 0, 0},
+                        {0, 1, 1, 0},
+                        {1, 0, 0, 1}
                 }
         )));
     }
     @Test
     public void testRowAugmentIdentity() throws Exception {
         assert(Z2.equal(Z2.rowAugmentIdentity(Z2.toBooleansArray(new int[][]{
-                        {1,0,0,0},
-                        {1,1,0,0},
-                        {0,1,0,0},
-                        {1,0,0,1}
+                        {1, 0, 0, 0},
+                        {1, 1, 0, 0},
+                        {0, 1, 0, 0},
+                        {1, 0, 0, 1}
                 }
-        )),Z2.toBooleansArray(new int[][]{
-                        {1,0,0,0},
-                        {1,1,0,0},
-                        {0,1,0,0},
-                        {1,0,0,1},
-                        {1,0,0,0},
-                        {0,1,0,0},
-                        {0,0,1,0},
-                        {0,0,0,1}
+        )), Z2.toBooleansArray(new int[][]{
+                        {1, 0, 0, 0},
+                        {1, 1, 0, 0},
+                        {0, 1, 0, 0},
+                        {1, 0, 0, 1},
+                        {1, 0, 0, 0},
+                        {0, 1, 0, 0},
+                        {0, 0, 1, 0},
+                        {0, 0, 0, 1}
                 }
         )));
     }
@@ -621,7 +622,7 @@ public class Z2Test {
         boolean[] a = Z2.polynomialToBooleans("x2+x");
         boolean[] b = Z2.polynomialToBooleans("x3+x+1");
         boolean[] sum = Z2.polynomialToBooleans("x3+x2+1");
-        assert(Z2.equal(sum,Z2.add(a,b)));
+        assert(Z2.equal(sum,Z2.add(a, b)));
         a = Z2.polynomialToBooleans("x+1");
         b = Z2.X;
         sum=Z2.polynomialToBooleans("1");
@@ -633,7 +634,7 @@ public class Z2Test {
         boolean[] a = Z2.polynomialToBooleans("x2+x");
         boolean[] b = Z2.polynomialToBooleans("x3+x+1");
         boolean[] product = Z2.polynomialToBooleans("x5+x4+x3+x");
-        assert(Z2.equal(product,Z2.mul(a,b)));
+        assert(Z2.equal(product,Z2.mul(a, b)));
     }
 
     @Test
@@ -692,7 +693,7 @@ public class Z2Test {
             int len = rng.nextInt(maxLen);
             boolean[] dat = Z2.randomBooleans(len);
             File tmp = File.createTempFile("Z2Test","testBinaryStringFileToBooleansArray");
-            Z2.toBinaryFile(tmp,dat);
+            Z2.toBinaryFile(tmp, dat);
             boolean[] check = Z2.binaryFileToBooleans(tmp);
             //System.out.println(Z2.toBinaryString(dat));
             //System.out.println(Z2.toBinaryString(check));
@@ -727,10 +728,10 @@ public class Z2Test {
         boolean[] a = Z2.polynomialToBooleans("x2+x");
         boolean[] b = Z2.polynomialToBooleans("x3+x+1");
         boolean[] product = Z2.polynomialToBooleans("x5+x4+x3+x");
-        assert(Z2.equal(b,Z2.div(product,a)));
+        assert(Z2.equal(b, Z2.div(product, a)));
         assert(Z2.equal(a,Z2.div(product,b)));
         boolean[] pa = Z2.add(a,product);
-        assert(Z2.equal(a,Z2.div(pa,b)));
+        assert(Z2.equal(a, Z2.div(pa, b)));
     }
     void checkModExp(String ax, int exp, String mx){
         checkModExp(Z2.polynomialToBooleans(ax),exp,Z2.polynomialToBooleans(mx));
@@ -744,15 +745,15 @@ public class Z2Test {
         expected = Z2.mod(expected,mx);
         boolean[] actual = Z2.modExp(ax,exp,mx);
         System.out.println("expected="+Z2.toPolynomial(expected));
-        System.out.println("actual  ="+Z2.toPolynomial(actual));
+        System.out.println("actual  =" + Z2.toPolynomial(actual));
         assert(Z2.equal(actual,expected));
     }
     @Test
     public void testModExp() throws Exception{
         checkModExp("x",1,"1+x");
         checkModExp("x",2,"1+x+x2");
-        checkModExp("x",10,"1+x+x4");
-        checkModExp("x",13,"1+x+x6");
+        checkModExp("x", 10, "1+x+x4");
+        checkModExp("x", 13, "1+x+x6");
 
     }
     @Test
@@ -787,15 +788,15 @@ public class Z2Test {
         boolean[] gx = Z2.polynomialToBooleans("x10+x9+x8+x6+x5+x4+1");
         boolean[] hx = Z2.polynomialToBooleans("x9+x6+x5+x3+x2+1");
         assert(Z2.equal(Z2.gcd(gx,hx),Z2.polynomialToBooleans("x3+x+1")));
-        assert(Z2.equal(Z2.gcd(gx,hx),Z2.gcd(hx,gx)));
+        assert(Z2.equal(Z2.gcd(gx, hx),Z2.gcd(hx, gx)));
         gx = Z2.polynomialToBooleans("x12+x3+1");
         hx = Z2.polynomialToBooleans("x2+x");
         assert(Z2.equal(Z2.gcd(gx,hx),Z2.ONE));
         gx = Z2.polynomialToBooleans("x2");
-        assert(Z2.equal(Z2.gcd(gx,hx),Z2.X));
+        assert(Z2.equal(Z2.gcd(gx, hx),Z2.X));
         gx = Z2.polynomialToBooleans("x3+x+1");
         hx = Z2.polynomialToBooleans("x2");
-        assert(Z2.equal(Z2.gcd(gx,hx),Z2.ONE));
+        assert(Z2.equal(Z2.gcd(gx, hx),Z2.ONE));
 
     }
 
@@ -958,4 +959,61 @@ public class Z2Test {
             assert (Z2.isPrimitive(Z2.polynomialToBooleans("x2281+x715+1")));
         }
     }
+
+    @Test
+    public void testValToOnesIndexes() throws Exception {
+        Random rng = new Random();
+        for(int test=0;test<10;test++) {
+            boolean[] val = Z2.randomBooleans(Math.abs(rng.nextInt(100)));
+            List<Integer> ones = Z2.valToOnesIndexes(val);
+            for (int i = 0; i < val.length; i++) {
+                assert (ones.contains(i) == val[i]);
+            }
+        }
+    }
+
+    @Test
+    public void testOnesIndexesToVal() throws Exception {
+        Random rng = new Random();
+        for(int test=0;test<10;test++) {
+            boolean[] expectedVal = Z2.randomBooleans(Math.abs(rng.nextInt(100)));
+            List<Integer> ones = Z2.valToOnesIndexes(expectedVal);
+            boolean[] val = Z2.onesIndexesToBooleans(ones, expectedVal.length);
+        }
+    }
+
+    @Test
+    public void testFirstWithHammingWeight() throws Exception {
+        assert(Z2.equal(Z2.toBooleans("1"),  Z2.firstWithHammingWeight(1,1)));
+        assert(Z2.equal(Z2.toBooleans("10"), Z2.firstWithHammingWeight(1,2)));
+        assert(Z2.equal(Z2.toBooleans("100"),Z2.firstWithHammingWeight(1,3)));
+
+        assert(Z2.equal(Z2.toBooleans("110"),Z2.firstWithHammingWeight(2,3)));
+        assert(Z2.equal(Z2.toBooleans("111"),Z2.firstWithHammingWeight(3,3)));
+    }
+
+    @Test
+    public void testNextWithSameHammingWeight() throws Exception {
+        assert(null==Z2.nextWithSameHammingWeigth(Z2.toBooleans("1")));
+        assert(Z2.equal(Z2.toBooleans("01"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("10"))));
+        assert(null==Z2.nextWithSameHammingWeigth(Z2.toBooleans("01")));
+        assert(Z2.equal(Z2.toBooleans("010"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("100"))));
+        assert(Z2.equal(Z2.toBooleans("001"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("010"))));
+        assert(null==Z2.nextWithSameHammingWeigth(Z2.toBooleans("001")));
+        assert(Z2.equal(Z2.toBooleans("1010"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("1100"))));
+        assert(Z2.equal(Z2.toBooleans("0110"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("1010"))));
+        assert(Z2.equal(Z2.toBooleans("1001"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("0110"))));
+        assert(Z2.equal(Z2.toBooleans("0101"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("1001"))));
+        assert(Z2.equal(Z2.toBooleans("0011"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("0101"))));
+        assert(null==Z2.nextWithSameHammingWeigth(Z2.toBooleans("0011")));
+        assert(Z2.equal(Z2.toBooleans("1110 1000"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("1111 0000"))));
+        assert(Z2.equal(Z2.toBooleans("1101 1000"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("1110 1000"))));
+        assert(Z2.equal(Z2.toBooleans("1110 0010"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("0011 1100"))));
+        assert(Z2.equal(Z2.toBooleans("1110 0001"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("0001 1110"))));
+        assert(Z2.equal(Z2.toBooleans("1100 0011"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("0001 1101"))));
+        assert(Z2.equal(Z2.toBooleans("0000 1111"),Z2.nextWithSameHammingWeigth(Z2.toBooleans("0001 0111"))));
+        assert(null==Z2.nextWithSameHammingWeigth(Z2.toBooleans("0000 1111")));
+
+    }
+
 }
