@@ -1,0 +1,58 @@
+#!/bin/env tclsh
+
+set cls ModuleItem
+
+set eles [list \
+	PortDeclaration				ePort     	\
+	NonPortModuleItem			eNonPort	\
+]
+
+proc ele2A {ele} {
+	regsub {^e} $ele A ele
+	return $ele
+}
+
+puts "public class ${cls} {"
+
+foreach {i j} $eles {
+	puts "\tpublic ${cls}(${i} ele) {
+\t\tm_item = new [ele2A $j](ele);
+\t}"
+}
+
+puts "\tprivate enum EType {"
+
+set did 0
+foreach {i j} $eles {
+	if $did {
+		puts ","
+	}
+	puts -nonewline "\t\t${j}"
+	set did 1
+}
+puts "
+\t}
+
+\tprivate A   m_item;
+    
+\tprivate static abstract class A {
+\t\tprotected A(EType e) {
+\t\t\tm_type = e;
+\t\t}
+\t\tfinal EType m_type;    
+\t}
+"
+
+foreach {i j} $eles {
+	set cn [ele2A $j]
+	puts "
+\tprivate static class $cn extends A {
+\t\tprivate ${cn}(${i} ele) {
+\t\t\tsuper(EType.${j});
+\t\t\tm_ele = ele;
+\t\t}
+\t\tprivate ${i} m_ele;
+\t}"
+}
+
+puts "}"

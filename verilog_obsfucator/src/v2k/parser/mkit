@@ -1,0 +1,105 @@
+#!/bin/env tclsh
+
+proc toCC {x} {
+	set r $x
+	while {[regexp {_.} $r m]} {
+		set c [string toupper [string index $m 1]]
+		regsub {_.} $r $c r
+	}
+	return $r
+}
+
+proc genAntlr {x cc cls} {
+	puts "
+${x} returns \[${cls} rid\]
+{ rid=null; Ident id=null;}
+:\tid=identifier \{rid = getTree().${cc}(id);\}
+;"
+}
+
+proc getCcCls {i ccRef clsRef} {
+	upvar $ccRef cc
+	upvar $clsRef cls
+	set cc [toCC $i]
+	regsub hierarchical $i hier ii
+	regsub identifier $ii ident ii
+	set ii [toCC $ii]
+	set cls "[string toupper [string index $ii 0]][string range $ii 1 end]"
+}
+
+set all [list \
+	generate_block_identifier \
+	genvar_identifier \
+	hierarchical_event_identifier \
+	hierarchical_function_identifier \
+	hierarchical_parameter_identifier \
+	hierarchical_task_identifier \
+	module_identifier \
+	module_instance_identifier \
+	net_identifier \
+	parameter_identifier \
+	port_identifier \
+	real_identifier \
+	specparam_identifier \
+	system_function_identifier \
+	variable_identifier \
+	task_identifier \
+] 
+foreach i $all {
+	getCcCls $i cc cls
+	genAntlr $i $cc $cls
+}
+foreach i $all {
+	getCcCls $i cc cls
+	puts "\tpublic $cls ${cc}(Ident id) {
+\t\treturn null;
+\t}"
+}
+foreach i $all {
+	getCcCls $i cc cls
+	puts "\t@Override\n\tpublic $cls ${cc}(Ident id) {
+\t\treturn new ${cls}(id);
+\t}"
+}
+foreach i $all {
+	getCcCls $i cc cls
+	set ofid [open ${cls}.java w]
+	puts $ofid "/*
+*************************************************************************
+*************************************************************************
+**                                                                     **
+**  V2KPARSE                                                           **
+**  Copyright (C) 2008    Karl W. Pfalzer                              **
+**                                                                     **
+**  This program is free software; you can redistribute it and/or      **
+**  modify it under the terms of the GNU General Public License        **
+**  as published by the Free Software Foundation; either version 2     **
+**  of the License, or (at your option) any later version.             **
+**                                                                     **
+**  This program is distributed in the hope that it will be useful,    **
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of     **
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      **
+**  GNU General Public License for more details.                       **
+**                                                                     **
+**  You should have received a copy of the GNU General Public License  **
+**  along with this program; if not, write to the                      **
+**  Free Software Foundation, Inc.                                     **
+**  51 Franklin Street, Fifth Floor                                    **
+**  Boston, MA  02110-1301, USA.                                       **
+**                                                                     **
+*************************************************************************
+*************************************************************************
+*/
+package v2k.parser.tree;
+/**
+ *
+ * @author karl
+ */
+public class ${cls} extends Ident {
+\tpublic ${cls}(Ident id) {
+\t\tsuper(id);
+\t}
+}"
+	close $ofid
+
+}

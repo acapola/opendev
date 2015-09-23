@@ -1,0 +1,59 @@
+#!/bin/env ruby
+
+def info(msg)
+  puts "Info: #{msg}.\n"
+end
+
+def error(msg)
+  puts "Error: #{msg}.\n"
+  exit 1
+end
+
+def process(class_nm, javai)
+  ifid = File.open(javai, "r")
+  info("#{javai}: processing ..")
+  lnum = olnum = 0
+  funcs = []
+  ifid.each_line do |line|
+    lnum += 1
+    line.strip!
+		if line =~ /public\s+final\s+(\S+)\s(\S+)\s*\(/
+			mthd = $2
+			mthd = mthd.gsub(/_([a-z])/) {$1.swapcase}
+			funcs << mthd
+		end
+	end	
+	ifid.close
+	ofn = "#{class_nm}.decls"
+	ofid = File.open(ofn, "w")
+  info("#{ofn}: creating ..")
+	oln = "public class #{class_nm} {\n"
+	idnt = " "*4
+	args = true ? "" : "Object ... args"
+	funcs.sort!
+	funcs.each do |key|
+		oln += "\n#{idnt}public void #{key}(#{args}) {\n"
+		oln += "#{idnt}}\n"
+	end
+	oln += "}\n"
+	ofid << oln
+	ofid.close
+end
+
+#
+# START OF MAIN
+#
+class_name = "ASTreeBase"
+n = ARGV.length
+if 1>n
+  prg = File.basename($0,".*")
+  STDERR << "\nUsage: #{prg} --class className AntlrGeneratedParser.java.\n\n"
+  exit 1
+end
+args = ARGV
+n = args.index("--class")
+if n
+  class_name = args[n+1]
+  args = args - args[n..n+1]
+end
+process(class_name, args[0])

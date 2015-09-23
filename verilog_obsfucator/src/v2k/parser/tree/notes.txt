@@ -1,0 +1,22 @@
+1) 27-apr-2009
+
+So far, symbols defined for declarations of:
+(see the following java class)
+
+    Block
+    TaskDeclaration
+    EventIdentifiers
+    Port
+    FuncDecl
+    ModuleDeclaration
+    TfPortDeclaration
+    RealTime
+    TimeDecl
+    IntegerDecl
+    RealDecl
+    ParameterDeclatation
+    PortDeclaration
+    EventDecl
+    NetDeclaration
+    RegDecl
+

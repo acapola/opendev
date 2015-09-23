@@ -1,0 +1,48 @@
+//	Format is: code format_string
+//  Do ***NOT*** use tabs in this file!!
+
+ARG-1  %s: missing argument.
+ARG-2  %s: "%s": not a readable directory.
+//
+// This one is a bit specific and "%snot" is not a typo!!
+ARG-3  %s: %snot a readable file.
+ARG-4  %s: invalid option.
+
+DBG-1   %s:%d: token=%s
+DBG-2   %s:%d: token=%s
+
+DEFN-1  %s:%d: module '%s' previously defined (at %s).
+DEFN-2  %s:%d: symbol '%s' previously defined (at %s).
+
+ERR-1   %s:%d: %s
+ERR-2   %s
+
+FILE-1  %s:%d: "%s": file already processed.
+// cannot read|write|... file
+FILE-2  "%s": cannot %s file.
+FILE-3  "%s": processing...
+FILE-4  "%s": creating...
+
+INCL-1  %s:%d: include file "%s".
+INCL-2  %s:%d: "%s": could not find include file.
+
+LINK-1  Unresolved: %s.
+LINK-2  Link status: %s.
+LINK-3  Pass %d: %s.
+LINK-4  %s: resolved using +no_defn+ (%d occurence(s)).
+LINK-5  %s: no definition for module.
+
+MACRO-1 %s:%d: `%s: not defined.
+MACRO-2 %s:%d: undef %s: macro never defined.
+MACRO-3 %s:%d: macro '%s' redefined.  First defined at %s.
+
+PARSE-1 %s:%d: %s
+
+PORT-1 %s:%d port '%s' not declared in port list.
+PORT-2 %s:%d port '%s' already defined (at %s).
+
+VPP-1  "%s": creating pre-processed file ...
+VPP-2  "%s": could not create file.
+
+
+
