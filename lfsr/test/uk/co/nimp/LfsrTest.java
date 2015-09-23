@@ -343,6 +343,17 @@ public class LfsrTest {
 
     }
 
+    @Test
+    public void testFromSeqLength() throws Exception {
+        Lfsr l;
+        //l= Lfsr.fromSeqLength(BigInteger.valueOf(4));
+        l= Lfsr.fromSeqLength(BigInteger.valueOf(5));
+        l= Lfsr.fromSeqLength(BigInteger.valueOf(9));
+        System.out.println(l.describe(false,false));
+        //l= Lfsr.fromSeqLength(BigInteger.valueOf(6));
+
+    }
+
     void checkReversedSequenceLfsr(String polynomial) {
         Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
         Lfsr reversed = lfsr.reversedSequenceLfsr();
