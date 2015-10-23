@@ -451,6 +451,7 @@ public class Lfsr {
                 Map<BigInteger,BigInteger> lengths = c.sequencesLength();
                 if(lengths.containsKey(length)){
                     return c;//TODO set initial value
+
                 }
                 do{
                     candidate = Z2.nextWithSameHammingWeigth(candidate);
