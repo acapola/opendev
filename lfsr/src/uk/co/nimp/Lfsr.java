@@ -394,6 +394,12 @@ public class Lfsr {
         BigInteger maxLength = BigInteger.ONE.shiftLeft(degree).subtract(BigInteger.ONE);
         return maxLength;
     }
+    public static int maximumLengthToPolynomialDegree(BigInteger maxLength){
+        BigInteger p = maxLength.add(BigInteger.ONE);
+        if(p.bitCount()!=1) throw new RuntimeException("maxLength should be a power of 2 minus 1, got "+maxLength);
+        int out= p.bitLength();
+        return out;
+    }
     static BigInteger irreduciblePolynomialSequencesLength(boolean[] polynomial){
         //TreeMap<BigInteger,Integer> out = new TreeMap<BigInteger,Integer>();
         BigInteger maxLength=Lfsr.polynomialDegreeToMaximumLength(polynomial.length-1);
@@ -417,6 +423,50 @@ public class Lfsr {
         if(Z2.isIrreducible(polynomial)) throw new RuntimeException("fatal internal error");
         else throw new RuntimeException("polynomial is reducible");
     }
+
+    /**
+     * On going work...
+     * @param length
+     * @return
+     */
+    static Lfsr fromSeqLength(BigInteger length){
+        if(length.add(BigInteger.ONE).bitCount()==1){//length is power of two minus one, need a primitive polynomial (max length LSFR, trivial case)
+            throw new RuntimeException("todo");
+        }else{
+            //try with irreducible polynomial
+            //get the factors we need
+            BigInteger[] mandatoryFactors = PollardRho.factor(length);
+            BigInteger maxLengthCandidate = BigInteger.ONE.shiftLeft(length.bitLength()+1).subtract(BigInteger.ONE);
+            //look for suitable polynomial width
+            while(maxLengthCandidate.mod(length)!=BigInteger.ZERO) {
+                BigInteger next = maxLengthCandidate.shiftLeft(1).add(BigInteger.ONE);
+                maxLengthCandidate = next;
+            }
+            //now maxLengthCandidate is right, look for an irreducible polynomial of the corresponding width
+            int targetWidth = Lfsr.maximumLengthToPolynomialDegree(maxLengthCandidate);
+            int targetHammingWeight = 3;
+            boolean []candidate = Z2.firstWithHammingWeight(targetHammingWeight,targetWidth);
+            while(true){
+                Lfsr c = fromTaps(candidate);
+                Map<BigInteger,BigInteger> lengths = c.sequencesLength();
+                if(lengths.containsKey(length)){
+                    return c;//TODO set initial value
+
+                }
+                do{
+                    candidate = Z2.nextWithSameHammingWeigth(candidate);
+                }while((null!=candidate) && (candidate[0]==false));
+                if(null==candidate){
+                    targetHammingWeight++;
+                    if(targetHammingWeight>targetWidth){
+                        return null;//did not find any solution
+                    }
+                    candidate = Z2.firstWithHammingWeight(targetHammingWeight,targetWidth);
+                }
+            }
+        }
+    }
+
     /**
      * Compute the length of all sequences
      * @return a Map associating the length of sequence and the number of occurence.

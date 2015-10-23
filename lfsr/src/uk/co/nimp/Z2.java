@@ -19,7 +19,7 @@ public class Z2 {
     }
     public static final boolean[] X = TWO;
     static String cleanUp(String in){
-        in = in.replace(" ","");
+        in = in.replace(" ", "");
         in = in.replace("\t","");
         in = in.replace("\n","");
         in = in.replace("_","");
@@ -230,7 +230,7 @@ public class Z2 {
         return true;
     }
     public static boolean[] xor(boolean[] a, boolean[] b){
-        int len = Math.max(a.length,b.length);
+        int len = Math.max(a.length, b.length);
         boolean[] out = new boolean[len];
         copy(a, out);
         for(int i=0;i<b.length;i++){
@@ -307,6 +307,47 @@ public class Z2 {
             out[i] = booleansToBigInteger(in[i]);
         }
         return out;
+    }
+    static boolean[] firstWithHammingWeight(int targetHammingWeight, int targetWidth){
+        boolean[] out = new boolean[targetWidth];
+        for(int i=0;i<targetHammingWeight;i++) out[i]=true;
+        return out;
+    }
+    static List<Integer> valToOnesIndexes(boolean[] in){
+        List<Integer> out = new ArrayList<Integer>();
+        for(int i=0;i<in.length;i++) if(in[i]) out.add(i);
+        return out;
+    }
+    static boolean[] onesIndexesToBooleans(List<Integer> ones, int width) {
+        boolean[] out = new boolean[width];
+        for(int i:ones) out[i]=true;
+        return out;
+    }
+
+    static boolean[] nextWithSameHammingWeigth(boolean[] in){
+        List<Integer> ones = valToOnesIndexes(in);
+        int targetHammingWeight = ones.size();
+        for(int bitIndex=0;bitIndex<targetHammingWeight;bitIndex++){
+            //bitIndex refers to ones
+            //bitPos refers to the binary representation
+            int bitPos = ones.get(bitIndex);
+            int nextBitPos = bitPos+1;
+            int nextBitIndex = bitIndex+1;
+            if(     ((nextBitIndex <  targetHammingWeight) && (nextBitPos<ones.get(nextBitIndex))) ||
+                    ((nextBitIndex == targetHammingWeight) && (nextBitPos<in.length))){
+                //move the bit by one position left
+                ones.set(bitIndex,nextBitPos);
+                if(bitIndex>0){
+                    //reset all lower bits
+                    int cnt=0;
+                    for(int i=0;i<bitIndex;i++) ones.set(i,cnt++);
+                }
+                return onesIndexesToBooleans(ones, in.length);
+            }
+            //this bit cannot be moved further, try the next one
+        }
+        //all numbers enumerated
+        return null;
     }
     public static byte[] toByteArray(boolean[]in){
         int byteLen = (in.length+7)/8;
@@ -1022,6 +1063,7 @@ public class Z2 {
     static final boolean[] X_1 = new boolean[]{true,true};
     static boolean isIrreducible(boolean[] fx){
         assert(fx[fx.length-1] || equal(fx,Z2.ZERO));
+        if(!fx[0]) return false;//divisible by x
         if(Z2.equalValue(X_1,fx)) return true;
         int m = fx.length-1;
         boolean[] ux = X;
@@ -1041,6 +1083,7 @@ public class Z2 {
      */
     static boolean isPrimitive(boolean[] fx){
         assert(fx[fx.length-1] || equal(fx,Z2.ZERO));
+        if(Z2.equalValue(X_1,fx)) return true;
         if(!isIrreducible(fx)) return false;//fx must be irreducible to have a chance to be primitive
         //1 is alsways a factor, so we check it now:
         //if(!isPrimitiveCore(1,fx)) return false;//never going to return false as x is always smaller than fx except in extreme cases fx=1 or fx=x...
