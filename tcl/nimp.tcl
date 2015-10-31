@@ -1,5 +1,6 @@
 
 package require Tcl 8.4 
+package require math::bignum
 
 namespace eval nimp {
     set version 0.2
@@ -278,9 +279,118 @@ proc ::nimp::statStr { stat {title ""} {titleWidth 10} {columnsWidth 10}} {
   return [format "%*s %*s %*s %*s %*s %*s" $titleWidth ${title} $columnsWidth [dict get $stat min] $columnsWidth [dict get $stat max] $columnsWidth ${sum} $columnsWidth ${cnt} $columnsWidth ${average}]
 }
 
+### STRING #######################################################################
+
+::nimp::proc+ ::nimp::str_split { str chunkLen } {
+	Split a string into chuncks of a given length
+	chunkLen: maximum number of characters for chunks
+	Result is a list
+} {
+	set len [string length $str]
+	set nChunks [expr ($len + $chunkLen - 1) / $chunkLen]
+	set out [list]
+	for {set i 0} {$i<$nChunks} {incr i} {
+		lappend out [string range $str [expr $i * $chunkLen ] [expr ($i +1)*$chunkLen -1]]
+	}
+	return $out
+} test {
+	::nimp::assert_equal [list 12 34] [str_split "1234" 2]
+	::nimp::assert_equal [list 12 34 5] [str_split "12345" 2]
+	::nimp::assert_equal [list 1] [str_split "1" 2]
+	::nimp::assert_equal [list] [str_split "" 2]
+}
+
+::nimp::proc+ ::nimp::str_cleanup { str } {
+	remove all white characters from a string
+} {
+	string map {  " " "" "\t" ""  "\r" "" "\n" "" } $str
+} test {
+	::nimp::assert_equal "1234" [str_cleanup " \t12 \n \r \t 34\n\r\t "]
+}
+
+::nimp::proc+ ::nimp::hexstr_cleanup { hexstr } {
+	"Clean-up" an hexadecimal string. That means removing the following (in respective order):
+	- strings 0x data key iv (no matter the casing)
+	- white characters
+	- any non alpha numeric character
+	If the remaining contain non hexadecimal digits, an error is thrown
+	WARNING: this is going to mess up string like "0x3, 0x4": one would expect to get "0304" 
+	but result will be "34", which may break everything silently... 
+} {
+	set hexstr [string map -nocase { 0x "" data "" key "" iv "" } $hexstr]
+	set hexstr [str_cleanup $hexstr]
+	while 1 {
+		set i -1
+		set status [string is alnum -failindex i $hexstr]
+		if {$status} break; #we have an alphanumeric string
+		#otherwise, remove the unmatching char:
+		#puts $hexstr
+		set hexstr "[string range $hexstr 0 [expr $i-1]][string range $hexstr [expr $i+1] end]"
+		#puts $hexstr
+		#puts ""
+	}
+	if {![string is xdigit $hexstr]} {
+		::nimp::report_fatal_error "invalid character in hexadecimal following string \n${hexstr}\n"
+	}
+	return $hexstr
+} test {
+	::nimp::assert_equal "1234AB" [hexstr_cleanup "data 0x12, \t \n \r 0x34_AB--"]
+	::nimp::assert_equal "1234AB" [hexstr_cleanup "-key iv 0x12, 0x34_AB-"]
+}
+
+::nimp::proc+ ::nimp::hexstr_to_bin { hexstr } {
+	Convert an hexadecimal string like "12F4" to binary
+	Input string is cleaned using hexstr_cleanup
+} {
+	binary format H* [hexstr_cleanup $hexstr]
+} test {
+	::nimp::assert_equal "efg" [hexstr_to_bin "656667"]
+}
+
+::nimp::proc+ ::nimp::bin_to_hexstr { bin } {
+	Convert binary data to an hexadecimal string like "12F4"
+} {
+	binary scan $bin H* hexstr
+	string toupper $hexstr
+} test {
+	::nimp::assert_equal "656667" [bin_to_hexstr "efg"]
+}
+
+proc ::nimp::num_to_hexstr { n } {
+    set t [::math::bignum::fromstr [string tolower $n] 16]
+    return [string toupper [::math::bignum::tostr $t 16]]
+}
+
+proc ::nimp::hexstr_xor { a b } {
+    set a [::math::bignum::fromstr [string tolower $a] 16]
+    set b [::math::bignum::fromstr [string tolower $b] 16]
+    set out [::math::bignum::bitxor $a $b]
+    return [string toupper [::math::bignum::tostr $out 16]]
+}
+
+proc ::nimp::hexstr_add { a b } {
+    set a [::math::bignum::fromstr [string tolower $a] 16]
+    set b [::math::bignum::fromstr [string tolower $b] 16]
+    set out [::math::bignum::add $a $b]
+    return [string toupper [::math::bignum::tostr $out 16]]
+}
+
+proc xor128 {a b} {
+    set a [::math::bignum::fromstr [string tolower $a] 16]
+    set b [::math::bignum::fromstr [string tolower $b] 16]
+    set out [::math::bignum::bitxor $a $b]
+    return [numNormalize [::math::bignum::tostr $out 16] 32]
+}
+
+
+
 proc ::nimp::self_test {} {
 	::nimp::show_help_and_test ::nimp
 }
+
+
+
+
 
 package provide nimp $::nimp::version
 

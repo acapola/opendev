@@ -1,10 +1,7 @@
-#source aes.tcl
-#source nimp.tcl
-#source nimp_aes.tcl
-
 lappend ::auto_path [file normalize [file dirname [info script]]]
 
-package ifneeded aes 1.2.1 [list source aes.tcl]
+package ifneeded aes 1.2.1 [list source [file join dependency aes.tcl]]
+package ifneeded math::bignum 3.1.1 [list source [file join dependency bignum.tcl]]
 
 package require nimp::aes
 
