@@ -37,6 +37,16 @@ proc ::nimp::proc+ { name args help body {test_mark ""} {test ""} } {
     set a [proc ${name}_proc_help {} $help_body]
 }
 
+proc ::nimp::var_dbg_str { varname {level 1} } {
+    upvar $level $varname var
+    return "$varname=$var"
+}
+
+proc ::nimp::dbg_puts { varname {level 1} } {
+    upvar $level $varname var
+    puts "$varname=$var"
+}
+
 ::nimp::proc+ ::nimp::report_fatal_error { msg } {
     Format the error message and throw the error
 } {
@@ -56,10 +66,27 @@ proc ::nimp::proc+ { name args help body {test_mark ""} {test ""} } {
         if {-1==[lsearch $args "-no_dump"]} { 
             append msg "\n"
             append msg "\texpected: $expected\n"
-            append msg "\tactual: $actual\n"
+            append msg "\tactual:   $actual\n"
         }        
         ::nimp::report_fatal_error $msg        
     }
+}
+
+proc ::nimp::show_help_and_test { package_name } {
+	set sep [string repeat "-" 80]
+	foreach help [info procs "${package_name}::*_proc_help"] {
+		set p [string range $help 0 end-[string length "_proc_help"]]
+		puts $sep
+		puts "$p [info args $p]"
+		puts [$help]
+		set ptest "${p}_proc_test"
+		if { [string length [info procs $ptest]] > 0 } {
+			puts "run ${ptest}"    
+			$ptest
+			puts "test passed"
+		}
+		puts ""
+	}
 }
 
 ::nimp::proc+ ::nimp::get_caller_proc_name { {level 1} } {
@@ -251,7 +278,9 @@ proc ::nimp::statStr { stat {title ""} {titleWidth 10} {columnsWidth 10}} {
   return [format "%*s %*s %*s %*s %*s %*s" $titleWidth ${title} $columnsWidth [dict get $stat min] $columnsWidth [dict get $stat max] $columnsWidth ${sum} $columnsWidth ${cnt} $columnsWidth ${average}]
 }
 
+proc ::nimp::self_test {} {
+	::nimp::show_help_and_test ::nimp
+}
 
-
-package provide ::nimp $::nimp::version
+package provide nimp $::nimp::version
 
