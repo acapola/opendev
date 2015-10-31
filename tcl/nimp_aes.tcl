@@ -57,17 +57,22 @@ namespace eval nimp::aes {
 	foreach p $plainBlocks {
 		set ib [::nimp::hexstr_to_bin $ctr]
 		set ob [aes::aes -hex -mode ecb -dir encrypt -key $key $ib]
-		set c [::nimp::hexstr_xor $p $ob]
+		set c [::nimp::hexstr_xor $p $ob 32]
 		append out $c
-		set ctr [::nimp::hexstr_add $ctr 1]
+		set ctr [::nimp::hexstr_add $ctr 1 32]
+		::nimp::dbg_puts ctr
 	}
 	string toupper $out
 } test {
-	#AES CBC test vector from NIST sp800-38a
+	#AES CTR test vector from NIST sp800-38a
 	::nimp::assert_equal "874D6191B620E3261BEF6864990DB6CE9806F66B7970FDFF8617187BB9FFFDFF5AE4DF3EDBD5D35E5B4F09020DB03EAB1E031DDA2FBE03D1792170A0F3009CEE" [ctr "f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff" "2b 7e 15 16 28 ae d2 a6 ab f7 15 88 09 cf 4f 3c" "6bc1bee22e409f96e93d7e117393172a_ae2d8a571e03ac9c9eb76fac45af8e51_30c81c46a35ce411e5fbc1191a0a52ef_f69f2445df4f9b17ad2b417be66c3710"]	
 	
 	#decryption
 	::nimp::assert_equal "6BC1BEE22E409F96E93D7E117393172AAE2D8A571E03AC9C9EB76FAC45AF8E5130C81C46A35CE411E5FBC1191A0A52EFF69F2445DF4F9B17AD2B417BE66C3710" [ctr "f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff" "2b 7e 15 16 28 ae d2 a6 ab f7 15 88 09 cf 4f 3c" "874D6191B620E3261BEF6864990DB6CE9806F66B7970FDFF8617187BB9FFFDFF5AE4DF3EDBD5D35E5B4F09020DB03EAB1E031DDA2FBE03D1792170A0F3009CEE"]	
+
+	#custom vector to check we survive overflow of ctr
+	::nimp::assert_equal "E13338E36CB71962E00D020B4CEDBD86D3DAE15B04BB352FA0F59FEBFCB4DA3E67DA610697ED5AAE4B0FA7A0DD783D2961A00AB697367915D23C754BD99E2899" [ctr "ffffffffffffffffffffffffffffffff" "2b 7e 15 16 28 ae d2 a6 ab f7 15 88 09 cf 4f 3c" "6bc1bee22e409f96e93d7e117393172a_ae2d8a571e03ac9c9eb76fac45af8e51_30c81c46a35ce411e5fbc1191a0a52ef_f69f2445df4f9b17ad2b417be66c3710"]	
+		
 }
 
 proc ::nimp::aes::self_test {} {

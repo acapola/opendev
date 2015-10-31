@@ -73,6 +73,14 @@ proc ::nimp::dbg_puts { varname {level 1} } {
     }
 }
 
+::nimp::proc+ ::nimp::assert_string_equal { expected actual {msg ""} args } {
+    Check if expected equals actual, when evaluated as string. If not, throw an error with the specified message.
+    By default a dump of the expected and actual values is appended to the error message.    
+    This can be overriden by setting args to "-no_dump".
+} {
+    assert_equal "\{${expected}\}" "\{${actual}\}" $msg $args
+}
+
 proc ::nimp::show_help_and_test { package_name } {
 	set sep [string repeat "-" 80]
 	foreach help [info procs "${package_name}::*_proc_help"] {
@@ -305,7 +313,7 @@ proc ::nimp::statStr { stat {title ""} {titleWidth 10} {columnsWidth 10}} {
 } {
 	string map {  " " "" "\t" ""  "\r" "" "\n" "" } $str
 } test {
-	::nimp::assert_equal "1234" [str_cleanup " \t12 \n \r \t 34\n\r\t "]
+	::nimp::assert_string_equal "1234" [str_cleanup " \t12 \n \r \t 34\n\r\t "]
 }
 
 ::nimp::proc+ ::nimp::hexstr_cleanup { hexstr } {
@@ -334,8 +342,8 @@ proc ::nimp::statStr { stat {title ""} {titleWidth 10} {columnsWidth 10}} {
 	}
 	return $hexstr
 } test {
-	::nimp::assert_equal "1234AB" [hexstr_cleanup "data 0x12, \t \n \r 0x34_AB--"]
-	::nimp::assert_equal "1234AB" [hexstr_cleanup "-key iv 0x12, 0x34_AB-"]
+	::nimp::assert_string_equal "1234AB" [hexstr_cleanup "data 0x12, \t \n \r 0x34_AB--"]
+	::nimp::assert_string_equal "1234AB" [hexstr_cleanup "-key iv 0x12, 0x34_AB-"]
 }
 
 ::nimp::proc+ ::nimp::hexstr_to_bin { hexstr } {
@@ -344,7 +352,7 @@ proc ::nimp::statStr { stat {title ""} {titleWidth 10} {columnsWidth 10}} {
 } {
 	binary format H* [hexstr_cleanup $hexstr]
 } test {
-	::nimp::assert_equal "efg" [hexstr_to_bin "656667"]
+	::nimp::assert_string_equal "efg" [hexstr_to_bin "656667"]
 }
 
 ::nimp::proc+ ::nimp::bin_to_hexstr { bin } {
@@ -353,36 +361,98 @@ proc ::nimp::statStr { stat {title ""} {titleWidth 10} {columnsWidth 10}} {
 	binary scan $bin H* hexstr
 	string toupper $hexstr
 } test {
-	::nimp::assert_equal "656667" [bin_to_hexstr "efg"]
+	::nimp::assert_string_equal "656667" [bin_to_hexstr "efg"]
 }
 
-proc ::nimp::num_to_hexstr { n } {
-    set t [::math::bignum::fromstr [string tolower $n] 16]
-    return [string toupper [::math::bignum::tostr $t 16]]
+proc ::nimp::hexstr_to_c_bytes { hexstr } {
+	set hexstr [hexstr_cleanup $hexstr]
+	set bytes [str_split $hexstr 2]
+	set sep ""
+	set out ""
+	foreach b $bytes {
+		append out ${sep}0x$b
+		set sep ", "
+	}
+	return $out
 }
 
-proc ::nimp::hexstr_xor { a b } {
+::nimp::proc+ ::nimp::hexstr_pad { hexstrs {nDigits 0} } {
+	Ensure that an hexadecimal string contains a given number of hex digits.
+	If the string is shorter, the most significant digits are padded with zeroes
+	If the string is longer than the requested length, it is left unmodified
+	Setting nDigits to 0 skip the padding operation
+} {
+    set allOut ""
+    foreach a $hexstrs {
+        set out [hexstr_cleanup $a]
+        set len [string length $out]
+        if {$len < $nDigits} {
+            set pad [expr $nDigits - $len]
+            set padStr [string repeat "0" $pad]
+            set out "${padStr}${out}"
+        }
+        append allOut $out
+    }
+    return $allOut
+} test {
+	::nimp::assert_string_equal "1234" [hexstr_pad "1234" 0]
+	::nimp::assert_string_equal "001" [hexstr_pad "1" 3]
+	::nimp::assert_string_equal "000" [hexstr_pad "0" 3]
+	::nimp::assert_string_equal "000" [hexstr_pad [list ""] 3]
+	::nimp::assert_string_equal "" [hexstr_pad "" 3]
+	::nimp::assert_string_equal "1234" [hexstr_pad "1234" 3]
+}
+
+::nimp::proc+ ::nimp::num_to_hexstr { n {nDigits 0} } {
+	Convert a number into an hexadecimal string and optionally pad/truncate it to a given number of digits
+} {
+    set out [::math::bignum::fromstr [string tolower $n]]
+    set out [string toupper [::math::bignum::tostr $out 16]]
+	if {$nDigits} {
+		set out [string range [hexstr_pad $out $nDigits] end-[expr $nDigits-1] end]
+	}
+	return $out
+} test {
+	::nimp::assert_string_equal "02" [num_to_hexstr [expr 1+1] 2]
+	::nimp::assert_string_equal "2" [num_to_hexstr [expr 1+1]]
+	::nimp::assert_string_equal "01" [num_to_hexstr [expr 1 + 0x100] 2]
+}
+
+::nimp::proc+ ::nimp::hexstr_xor { a b {nDigits 0} } {
+	Add two hexadecimal string and optionally pad/truncate the result to a given number of digits
+} {
     set a [::math::bignum::fromstr [string tolower $a] 16]
     set b [::math::bignum::fromstr [string tolower $b] 16]
     set out [::math::bignum::bitxor $a $b]
-    return [string toupper [::math::bignum::tostr $out 16]]
+	set out [string toupper [::math::bignum::tostr $out 16]]
+	if {$nDigits} {
+		set out [string range [hexstr_pad $out $nDigits] end-[expr $nDigits-1] end]
+	}
+	return $out
+} test {
+	::nimp::assert_string_equal "00" [hexstr_xor "FF" "FF" 2]
+	::nimp::assert_string_equal "0F" [hexstr_xor "FF" "F0" 2]
+	::nimp::assert_string_equal "100" [hexstr_xor "FF" "1FF"]
+	::nimp::assert_string_equal "00" [hexstr_xor "FF" "1FF" 2]
 }
 
-proc ::nimp::hexstr_add { a b } {
+::nimp::proc+ ::nimp::hexstr_add { a b {nDigits 0} } {
+	Add two hexadecimal string and optionally pad/truncate the result to a given number of digits
+} {
     set a [::math::bignum::fromstr [string tolower $a] 16]
     set b [::math::bignum::fromstr [string tolower $b] 16]
     set out [::math::bignum::add $a $b]
-    return [string toupper [::math::bignum::tostr $out 16]]
+	set out [string toupper [::math::bignum::tostr $out 16]]
+	if {$nDigits} {
+		set out [string range [hexstr_pad $out $nDigits] end-[expr $nDigits-1] end]
+	}
+	return $out
+} test {
+	::nimp::assert_string_equal "00" [hexstr_add "FF" 1 2]
+	::nimp::assert_string_equal "01" [hexstr_add "FF" 2 2]
+	::nimp::assert_string_equal "02" [hexstr_add 1 1 2]
+	::nimp::assert_string_equal "100" [hexstr_add "FF" 1]
 }
-
-proc xor128 {a b} {
-    set a [::math::bignum::fromstr [string tolower $a] 16]
-    set b [::math::bignum::fromstr [string tolower $b] 16]
-    set out [::math::bignum::bitxor $a $b]
-    return [numNormalize [::math::bignum::tostr $out 16] 32]
-}
-
-
 
 proc ::nimp::self_test {} {
 	::nimp::show_help_and_test ::nimp
