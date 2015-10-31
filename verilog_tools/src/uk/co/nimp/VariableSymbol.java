@@ -8,6 +8,6 @@ package uk.co.nimp;
  * Visit http://www.pragmaticprogrammer.com/titles/tpantlr2 for more book information.
 ***/
 /** Represents a variable definition (name,type) in symbol table */
-public class VariableSymbol extends Symbol {
+public class VariableSymbol extends SymbolClass {
     public VariableSymbol(String name) { super(name); }
 }

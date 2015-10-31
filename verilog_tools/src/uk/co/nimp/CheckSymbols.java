@@ -35,15 +35,47 @@ public class CheckSymbols {
         Verilog2001Parser parser = new Verilog2001Parser(tokens);
         parser.setBuildParseTree(true);
         ParseTree tree = parser.source_text();
+
         // show tree in text form
 //        System.out.println(tree.toStringTree(parser));
-
         ParseTreeWalker walker = new ParseTreeWalker();
         DefPhase def = new DefPhase();
         walker.walk(def, tree);
         // create next phase and feed symbol table info from def to ref phase
         //RefPhase ref = new RefPhase(def.globals, def.scopes);
         //walker.walk(ref, tree);
+        printTree(tree);
+    }
+    static boolean isToken(Object obj){
+        Class<?> c = obj.getClass();
+        for(Class<?> i:c.getInterfaces()){
+            String name = i.getCanonicalName();
+            if(name=="org.antlr.v4.runtime.Token") return true;
+        }
+        return false;
+
+    }
+    static void printTree(ParseTree t){
+        if(null != t ){
+            int children = t.getChildCount();
+            for (int i = 0; i < children; i++ ){
+                ParseTree child = t.getChild(i);
+                if(0==child.getChildCount()) {
+                    //System.out.print(child.getClass()+" ");
+                    String tokenText = child.getText();
+                    if("<EOF>".compareTo(tokenText)!=0) {
+                        System.out.print(tokenText + " ");
+                        if("tmp".equals(tokenText)) {
+                            if (DefPhase.test == child.getPayload()) {
+                                System.out.println("match");
+                            }
+                        }
+                    }
+                }else {
+                    printTree(child);
+                }
+            }
+        }
     }
 
     public static void main(String[] args) throws Exception {

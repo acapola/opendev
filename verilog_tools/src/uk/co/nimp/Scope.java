@@ -1,4 +1,7 @@
 package uk.co.nimp;
+
+import org.antlr.v4.runtime.Token;
+
 /***
  * Excerpted from "The Definitive ANTLR 4 Reference",
  * published by The Pragmatic Bookshelf.
@@ -15,6 +18,10 @@ public interface Scope {
 
     /** Define a symbol in the current scope */
     public void define(Symbol sym);
+
+    void defineVar(Token nameToken);
+
+    void checkIdentifier(Token token);
 
     /** Look up name in this scope or in enclosing scope if not here */
     public Symbol resolve(String name);

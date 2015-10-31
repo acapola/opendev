@@ -10,32 +10,25 @@ package uk.co.nimp;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ModuleSymbol extends Symbol implements Scope {
+public class ModuleSymbol extends BaseScope implements Symbol {
     Map<String, Symbol> arguments = new LinkedHashMap<String, Symbol>();
-    Scope enclosingScope;
-
+    String name;
     public ModuleSymbol(String name,Scope enclosingScope) {
-        super(name);
-        this.enclosingScope = enclosingScope;
+        super(enclosingScope);
+        this.name = name;
     }
 
-    public Symbol resolve(String name) {
-        Symbol s = arguments.get(name);
-        if ( s!=null ) return s;
-        // if not here, check any enclosing scope
-        if ( getEnclosingScope() != null ) {
-            return getEnclosingScope().resolve(name);
-        }
-        return null; // not found
-    }
-
-    public void define(Symbol sym) {
-        arguments.put(sym.name, sym);
-        sym.scope = this; // track the scope in each symbol
-    }
-
-    public Scope getEnclosingScope() { return enclosingScope; }
     public String getScopeName() { return name; }
 
-    public String toString() { return "module"+super.toString()+":"+arguments.values(); }
+    public String toString() { return "module "+super.toString()+":"+arguments.values(); }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setScope(Scope scope) {
+        enclosingScope=scope;
+    }
 }

@@ -595,7 +595,7 @@ public class Z2 {
                 i++;
             }
         }
-        boolean[] out = reverse(quotient,0,i);
+        boolean[] out = reverse(quotient, 0, i);
         assert(out[out.length-1] || equal(out,Z2.ZERO));
         return out;
     }
@@ -861,7 +861,7 @@ public class Z2 {
     public static BigInteger orderOfX(boolean[] irreduciblePolynomial, int power) {
         assert(power>=1);
         BigInteger candidate = Z2.orderOfX(irreduciblePolynomial);
-        boolean[] px = Z2.pow(irreduciblePolynomial,power);
+        boolean[] px = Z2.pow(irreduciblePolynomial, power);
 
         //power : 1   2   3   4   5   6   7   8   9
         //        0   1   2   2   3   3   3   3   4
@@ -1055,7 +1055,7 @@ public class Z2 {
         return true;
     }
     static boolean isPrimitiveCore(BigInteger exp,boolean[] fx){
-        boolean[] lx = Z2.modExp(Z2.X,exp,fx);
+        boolean[] lx = Z2.modExp(Z2.X, exp, fx);
         if(Z2.equal(lx,Z2.ONE)) return false;
         return true;
     }
@@ -1063,7 +1063,7 @@ public class Z2 {
         assert(expInt>=0);
         boolean[] x_exp = new boolean[expInt+1];
         x_exp[expInt]=true;
-        boolean[] lx = Z2.mod(x_exp,fx);
+        boolean[] lx = Z2.mod(x_exp, fx);
         if(Z2.equal(lx,Z2.ONE)) return false;
         return true;
     }
@@ -1134,7 +1134,7 @@ public class Z2 {
         return booleansToByte(toBooleans(binaryString));
     }
     public static boolean[] toBooleans(BigInteger in) {
-        return toBooleans(in,in.bitLength());
+        return toBooleans(in, in.bitLength());
     }
     public static boolean[] toBooleans(BigInteger in, int outputLength) {
         boolean[] out = new boolean[outputLength];
@@ -1191,6 +1191,15 @@ public class Z2 {
     public static boolean []complement(boolean []in,int from, int to){
         boolean []out = new boolean[to-from];
         for(int i=0;i<out.length;i++) out[i] = !in[i];
+        return out;
+    }
+    public static boolean[][] complement(boolean[][] in) {
+        int rows = in.length;
+        int cols = in[0].length;
+        boolean [][]out = new boolean[rows][cols];
+        for(int r=0;r<rows;r++){
+            for(int c=0;c<cols;c++) out[r][c] = !in[r][c];
+        }
         return out;
     }
     static boolean []reverse(boolean []in) {
@@ -1261,11 +1270,38 @@ public class Z2 {
         String out="";
         for(int i=0;i<in.length;i++) out+=Z2.toBinaryString(in[i])+"\n";
         if(out.isEmpty()) return "";
-        return out.substring(0,out.length()-1);
+        return out.substring(0, out.length() - 1);
     }
 
     public static boolean[][] reducedRowEchelonMatrix(boolean[][]in) {
-        return reducedRowEchelonMatrix(in,in[0].length);
+        return reducedRowEchelonMatrix(in, in[0].length);
+    }
+
+    /**
+     * reoder the columns of a matrix to put identity matrix on the left
+     * @param in
+     * @return
+     */
+    public static boolean[][] reorderRowsToStandardForm(boolean[][]in) {
+        int rows = in.length;
+        int cols = in[0].length;
+        boolean [][]out = in.clone();
+        for(int r=0;r<rows;r++){//iterate for each row
+            //search the matching column
+            int c;
+            for(c = r;c<cols;c++){
+                int i;
+                for(i=0;i<rows;i++){
+                    if(out[i][c]^(i==r)) break;//not the column we want
+                }
+                if(i==rows){//found the right column
+                    if(r!=c) swapColumns(out,r,c);
+                    break;
+                }
+            }
+            if(c==cols) throw new RuntimeException("Could not find an identity matrix by reordering columns in\n"+Z2.toBinaryString(in));
+        }
+        return out;
     }
 
     /*
@@ -1331,9 +1367,15 @@ end function
         in[i] = in[j];
         in[j] = tmp;
     }
+    public static void swapColumns(boolean[][]in,int i,int j){
+        boolean[] tmp = new boolean[in.length];
+        for(int r=0;r<in.length;r++) tmp[r] = in[r][i];
+        for(int r=0;r<in.length;r++) in[r][i] = in[r][j];
+        for(int r=0;r<in.length;r++) in[r][j] = tmp[r];
+    }
 
     public static boolean[][] columnEchelonMatrix(boolean[][] in) {
-        return Z2.columnEchelonMatrix(in,in[0].length);
+        return Z2.columnEchelonMatrix(in, in[0].length);
     }
     public static boolean[][] columnEchelonMatrix(boolean[][] in,int maxRow) {
         boolean[][]out = Z2.transpose(in);
@@ -1422,7 +1464,7 @@ end function
         int nColumns = in[0].length;
         if(nRows!=nColumns) throw new RuntimeException("Square matrix expected");
         boolean[][] identity = Z2.identityMatrix(nRows);
-        return Z2.rowAugment(in,identity);
+        return Z2.rowAugment(in, identity);
     }
     public static boolean[][] columnAugmentIdentity(boolean[][] in){
         int nRows = in.length;
@@ -1439,7 +1481,7 @@ end function
     public static boolean[][] matrixKernelBasisAsColumns(boolean[][]in){
         int maxRow = in.length;
         boolean[][] tmp = Z2.rowAugmentIdentity(in);
-        tmp = Z2.columnEchelonMatrix(tmp,maxRow);
+        tmp = Z2.columnEchelonMatrix(tmp, maxRow);
         int colOffset=0;
         for(int i=0;i<maxRow;i++){
             if(firstOneIndex(in[i])==-1) {
@@ -1447,7 +1489,7 @@ end function
                 break;
             }
         }
-        boolean[][]out = copySubMatrix(tmp,maxRow,colOffset);
+        boolean[][]out = copySubMatrix(tmp, maxRow, colOffset);
         //System.out.println(Z2.toBinaryString(out));
         return out;
     }
@@ -1468,7 +1510,7 @@ end function
 
         int rowOffset=0;
         for(int i=0;i<maxColumn;i++){
-            if(firstOneIndexInColumn(in,i)==-1) {
+            if(firstOneIndexInColumn(in, i)==-1) {
                 rowOffset = i;
                 break;
             }
@@ -1483,7 +1525,7 @@ end function
     static boolean[] mul(Collection<boolean[]> in){
         boolean[] out=Z2.ONE;
         for(boolean[] term:in){
-            out = Z2.mul(out,term);
+            out = Z2.mul(out, term);
         }
         return out;
     }
@@ -1506,7 +1548,7 @@ end function
     static boolean[] mulBi(Collection<BigInteger> in){
         boolean[] out=Z2.ONE;
         for(BigInteger term:in){
-            out = Z2.mul(out,Z2.toBooleans(term));
+            out = Z2.mul(out, Z2.toBooleans(term));
         }
         return out;
     }
@@ -1554,7 +1596,7 @@ end function
         for(BigInteger fBi: in){
             int power = 1;
             if(factorsMap.containsKey(fBi)) power += factorsMap.get(fBi);
-            factorsMap.put(fBi,power);
+            factorsMap.put(fBi, power);
         }
         return factorsMap;
     }
@@ -1595,7 +1637,7 @@ end function
             out.addAll(factors);
         }
 
-        Collections.sort(out,comparator);
+        Collections.sort(out, comparator);
         return out;
     }
 
@@ -1639,7 +1681,7 @@ end function
                 F.addAll(sqrtFactors);
             }
         }
-        Collections.sort(F,comparator);
+        Collections.sort(F, comparator);
         return F;
     }
 
@@ -1733,6 +1775,7 @@ end function
         assert(Z2.equalValue(product,hx));
         return out;
     }
+
     static class Z2Comparator implements Comparator<boolean[]>{
         @Override
         public int compare(boolean[] a, boolean[] b) {

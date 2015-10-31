@@ -7,43 +7,296 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2dabf7c-fc5d-4270-b7fd-cc71fe693d9b" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/GlobalScope.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Main.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.random.ko.cmd" afterPath="$PROJECT_DIR$/../random_c/.random.ko.cmd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.random.mod.o.cmd" afterPath="$PROJECT_DIR$/../random_c/.random.mod.o.cmd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.random.o.cmd" afterPath="$PROJECT_DIR$/../random_c/.random.o.cmd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ASTreeBase.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ASTreeBase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/AlwaysConstruct.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/AlwaysConstruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/BaseScope.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/BaseScope.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BinaryOp.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BinaryOp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Block.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Block.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockItemDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockItemDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockRealType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockRealType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockVariableType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockVariableType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockingAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockingAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/CaseGenerateConstruct.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/CaseGenerateConstruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/CaseGenerateItem.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/CaseGenerateItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/CaseItem.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/CaseItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/CaseStatement.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/CaseStatement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/CheckSymbols.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/CheckSymbols.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Concatenation.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Concatenation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConditionalGenerateConstruct.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConditionalGenerateConstruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConditionalStatement.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConditionalStatement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConstExpression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConstExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConstMinTypMaxExpression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConstMinTypMaxExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConstPrimary.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConstPrimary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConstRangeExpression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ConstRangeExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ContinuousAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ContinuousAssign.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Debug.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Debug.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/DefPhase.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/DefPhase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DefparamAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DefparamAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Delay2.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Delay2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Delay3.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Delay3.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DelayControl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DelayControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DelayOrEventControl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DelayOrEventControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DelayValue.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DelayValue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Dimension.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Dimension.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DisableStmt.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/DisableStmt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventControl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventExpression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventIdentifiers.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventIdentifiers.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventTrigger.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventTrigger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/message/ExceptionBase.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/message/ExceptionBase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Expression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Expression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncItemDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncItemDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncStatement.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncStatement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FunctionCall.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FunctionCall.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenerateBlock.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenerateBlock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenerateBlockIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenerateBlockIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarExpression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarInit.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarInit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarIteration.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarIteration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarPrimary.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/GenvarPrimary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierEventIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierEventIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierFunctionIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierFunctionIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierParameterIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierParameterIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierTaskIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/HierTaskIdent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/Hypotenuse.java" afterPath="$PROJECT_DIR$/src/util/Hypotenuse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Ident.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Ident.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/IfGenerateConstruct.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/IfGenerateConstruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/InitialConstruct.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/InitialConstruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/IntegerDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/IntegerDecl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LICENSE" afterPath="$PROJECT_DIR$/../LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Lexer.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Lexer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ListOf.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ListOf.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/LocalParameterDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/LocalParameterDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/LocalScope.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/LocalScope.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Location.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Location.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/LoopGenerateConstruct.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/LoopGenerateConstruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/LoopStatement.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/LoopStatement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Lvalue.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Lvalue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/lfsr/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/out/production/lfsr/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../mamasync/src/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/MacroVal.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/MacroVal.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" afterPath="$PROJECT_DIR$/../mamasync/src/sample/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/uk/co/nimp/Main.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/uk/co/nimp/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Main.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Makefile" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/lfsr/uk/co/nimp/MersenneNumbersFactors.txt" afterPath="$PROJECT_DIR$/out/production/lfsr/uk/co/nimp/MersenneNumbersFactors.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/MersenneNumbersFactors.txt" afterPath="$PROJECT_DIR$/src/uk/co/nimp/MersenneNumbersFactors.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Message.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Message.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/message/MessageMgr.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/message/MessageMgr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/MinTypMaxExpression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/MinTypMaxExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/basic/Module.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/basic/Module.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleDeclaration.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleDeclaration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleInstance.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleInstance.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleInstanceIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleInstanceIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleItem.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleOrGenerateItem.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleOrGenerateItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleOrGenerateItemDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ModuleOrGenerateItemDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/ModuleSymbol.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/ModuleSymbol.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/MultConcatenation.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/MultConcatenation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NamedParamAssignment.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NamedParamAssignment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NamedPortConnection.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NamedPortConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetDeclAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetDeclAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetDeclaration.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetDeclaration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetIdentifiers.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetIdentifiers.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NonBlockingAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NonBlockingAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NonPortModuleItem.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NonPortModuleItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/OutputVarType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/OutputVarType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/util/Pair.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/util/Pair.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParBlock.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParBlock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParamAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParamAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterAssignment.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterAssignment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterDeclaration.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterDeclaration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterValueAssignment.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParameterValueAssignment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParseTree.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParseTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/basic/ParseTree.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/basic/ParseTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Parser.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Parser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PartSelect.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PartSelect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Port.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Port.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortConnection.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortDeclaration.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortDeclaration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/appl/PortDiff.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/appl/PortDiff.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortExpression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortIdents.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortIdents.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortReference.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/PortReference.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Preproc.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Preproc.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Primary.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Primary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/util/ProcArgs.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/util/ProcArgs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ProceduralContinuousAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ProceduralContinuousAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ProceduralTimingControl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ProceduralTimingControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ProceduralTimingControlStatement.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ProceduralTimingControlStatement.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Range.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Range.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RangeExpression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RangeExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RealDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RealDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RealIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RealIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RealType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RealType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RealtimeDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RealtimeDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RegDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/RegDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Scope.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Scope.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Scope.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Scope.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/ScopeManager.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/ScopeManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SeqBlock.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SeqBlock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SpecparamAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SpecparamAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SpecparamDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SpecparamDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SpecparamIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SpecparamIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Statement.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Statement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Symbol.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Symbol.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Symbol.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Symbol.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemFunctionCall.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemFunctionCall.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemFunctionIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemFunctionIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemTaskEnable.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemTaskEnable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemTaskIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemTaskIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Table.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Table.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskDeclaration.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskDeclaration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskEnable.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskEnable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskItemDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskItemDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskPortType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TaskPortType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TfPortDeclaration.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TfPortDeclaration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TimeDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TimeDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TreeSymbol.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/TreeSymbol.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/UnaryOp.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/UnaryOp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/util/Utils.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/util/Utils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableAssignment.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableAssignment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/VariableSymbol.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/VariableSymbol.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Verilog2001.g4" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Verilog2001.g4" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001.tokens" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001.tokens" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001BaseListener.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001BaseListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001BaseVisitor.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001BaseVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Lexer.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Lexer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Lexer.tokens" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Lexer.tokens" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Listener.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Listener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Parser.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Parser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Visitor.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Visitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Vlog.g" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Vlog.g" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogLexer.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogLexer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogLexer.smap" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogLexer.smap" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogLexer.txt" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogLexer.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParser.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParser.smap" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParser.smap" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParser.txt" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParser.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParserTokenTypes.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParserTokenTypes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParserTokenTypes.txt" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogParserTokenTypes.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Vlogpp.g" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Vlogpp.g" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogppLexer.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogppLexer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogppLexer.smap" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogppLexer.smap" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogppLexerTokenTypes.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogppLexerTokenTypes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogppLexerTokenTypes.txt" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/VlogppLexerTokenTypes.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Vnumber.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Vnumber.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Vstring.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Vstring.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/WaitStatement.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/WaitStatement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/ant.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/check.cpp" afterPath="$PROJECT_DIR$/../ftdi/check.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/crc32.cpp" afterPath="$PROJECT_DIR$/../ftdi/crc32.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/crc32.h" afterPath="$PROJECT_DIR$/../ftdi/crc32.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/test/edc_ecc_hc_rtl.v" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/test/edc_ecc_hc_rtl.v" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/test/edc_ecc_hc_test.v" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/test/edc_ecc_hc_test.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/edc_leverage.tgpp" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/edc_leverage.tgpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/edc_logical_leverage.tgpp.v" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/edc_logical_leverage.tgpp.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tgpp/factor.tcl" afterPath="$PROJECT_DIR$/tgpp/factor.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/ftd2xx.h" afterPath="$PROJECT_DIR$/../ftdi/ftd2xx.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/ftd2xx_windows.h" afterPath="$PROJECT_DIR$/../ftdi/ftd2xx_windows.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/ftdi.mk" afterPath="$PROJECT_DIR$/../ftdi/ftdi.mk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/ftdi.project" afterPath="$PROJECT_DIR$/../ftdi/ftdi.project" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/.codelite/ftdi.session" afterPath="$PROJECT_DIR$/../ftdi/.codelite/ftdi.session" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/ftdi.txt" afterPath="$PROJECT_DIR$/../ftdi/ftdi.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/.codelite/ftdi.workspace.seb" afterPath="$PROJECT_DIR$/../ftdi/.codelite/ftdi.workspace.seb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/.codelite/ftdi.workspace.sebastien_riou" afterPath="$PROJECT_DIR$/../ftdi/.codelite/ftdi.workspace.sebastien_riou" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/ftdi_raw_data_source.cpp" afterPath="$PROJECT_DIR$/../ftdi/ftdi_raw_data_source.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/ftdi_raw_data_source.h" afterPath="$PROJECT_DIR$/../ftdi/ftdi_raw_data_source.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/genClass" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/genClass" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.cache/wt/java_command_handlers.wdf" afterPath="$PROJECT_DIR$/../songpa/songpa.cache/wt/java_command_handlers.wdf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/hamming_code.tgpp.tcl" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/hamming_code.tgpp.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/hamming_code.tgpp.v" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/hamming_code.tgpp.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.srcs/sources_1/new/keyed_permutation.v" afterPath="$PROJECT_DIR$/../songpa/songpa.srcs/sources_1/new/keyed_permutation.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v" afterPath="$PROJECT_DIR$/../songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/leakage resilient cipher.txt" afterPath="$PROJECT_DIR$/../songpa/leakage resilient cipher.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lfsr.iml" afterPath="$PROJECT_DIR$/lfsr.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/libraries/lib.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/logical_connection.v" afterPath="$PROJECT_DIR$/../songpa/logical_connection.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/mamasync.iml" afterPath="$PROJECT_DIR$/../mamasync/mamasync.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tgpp/mersennes.tgpp.txt" afterPath="$PROJECT_DIR$/tgpp/mersennes.tgpp.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/misc.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/misc.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/misc.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/misc_utils.tcl" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/misc_utils.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/mkastree" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/mkastree" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/mkit" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/mkit" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/modules.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/modules.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/modules.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/notes.txt" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/notes.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/open test chip.txt" afterPath="$PROJECT_DIR$/../songpa/open test chip.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../serial_cpp/os.h" afterPath="$PROJECT_DIR$/../serial_cpp/os.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/props/parser.msg.txt" afterPath="$PROJECT_DIR$/../verilog_obsfucator/props/parser.msg.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/copyright/profiles_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/copyright/profiles_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/project-template.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/project-template.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/project-template.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/project-template.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/random.h" afterPath="$PROJECT_DIR$/../random_c/random.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/random.mod.c" afterPath="$PROJECT_DIR$/../random_c/random.mod.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/random.tcl" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/random.tcl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../prng_tgpp/random32.tgpp.v" afterPath="$PROJECT_DIR$/../prng_tgpp/random32.tgpp.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/random_asg.tcl" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/random_asg.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/raw_data_source.h" afterPath="$PROJECT_DIR$/../ftdi/raw_data_source.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/safe_stream.cpp" afterPath="$PROJECT_DIR$/../ftdi/safe_stream.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/safe_stream.h" afterPath="$PROJECT_DIR$/../ftdi/safe_stream.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/src/sample/sample.fxml" afterPath="$PROJECT_DIR$/../mamasync/src/sample/sample.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../serial_cpp/serial_cpp.mk" afterPath="$PROJECT_DIR$/../serial_cpp/serial_cpp.mk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../serial_cpp/serial_cpp.txt" afterPath="$PROJECT_DIR$/../serial_cpp/serial_cpp.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../sfr_gen/sfr_gen.tcl" afterPath="$PROJECT_DIR$/../sfr_gen/sfr_gen.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../sfr_gen/sfr_gen_apb.tgpp.v" afterPath="$PROJECT_DIR$/../sfr_gen/sfr_gen_apb.tgpp.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/test_misc_utils.tcl" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/test_misc_utils.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../sfr_gen/trng_apbif.v" afterPath="$PROJECT_DIR$/../sfr_gen/trng_apbif.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/uiDesigner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.cache/wt/webtalk_pa.xml" afterPath="$PROJECT_DIR$/../songpa/songpa.cache/wt/webtalk_pa.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/verilog_obsfucator.iml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/verilog_obsfucator.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/verilog_tools.iml" afterPath="$PROJECT_DIR$/../verilog_tools/verilog_tools.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ftdi/wintypes.h" afterPath="$PROJECT_DIR$/../ftdi/wintypes.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tgpp/yafu.ini" afterPath="$PROJECT_DIR$/tgpp/yafu.ini" />
     </list>
     <ignored path="lfsr.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/tgpp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,106 +307,98 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="lfsr" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="KeyedPermutation.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/KeyedPermutation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2735043" vertical-offset="96" max-vertical-offset="2856">
-              <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cipher.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/Cipher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4128" max-vertical-offset="4896">
-              <caret line="172" column="40" selection-start-line="172" selection-start-column="40" selection-end-line="172" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="X.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/X.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="384">
-              <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Z2.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Z2.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="29688" max-vertical-offset="43512">
-              <caret line="1237" column="11" selection-start-line="1237" selection-start-column="11" selection-end-line="1237" selection-end-column="11" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1200" column="57" selection-start-line="1200" selection-start-column="57" selection-end-line="1200" selection-end-column="57" />
+              <folding>
+                <element signature="e#20998#20999#0" expanded="true" />
+                <element signature="e#21036#21037#0" expanded="true" />
+                <element signature="e#27890#27891#0" expanded="true" />
+                <element signature="e#27943#27944#0" expanded="true" />
+                <element signature="e#44885#44886#0" expanded="true" />
+                <element signature="e#44937#44938#0" expanded="true" />
+                <element signature="e#45648#45649#0" expanded="true" />
+                <element signature="e#45711#45712#0" expanded="true" />
+                <element signature="e#45767#45768#0" expanded="true" />
+                <element signature="e#45820#45821#0" expanded="true" />
+                <element signature="e#46167#46168#0" expanded="true" />
+                <element signature="e#46218#46219#0" expanded="true" />
+                <element signature="e#46561#46562#0" expanded="true" />
+                <element signature="e#46612#46613#0" expanded="true" />
+                <element signature="e#47385#47386#0" expanded="true" />
+                <element signature="e#47436#47437#0" expanded="true" />
+                <element signature="e#47980#47981#0" expanded="true" />
+                <element signature="e#48028#48029#0" expanded="true" />
+                <element signature="e#49607#49608#0" expanded="true" />
+                <element signature="e#49644#49645#0" expanded="true" />
+                <element signature="e#49814#49815#0" expanded="true" />
+                <element signature="e#49871#49872#0" expanded="true" />
+                <element signature="e#50174#50175#0" expanded="true" />
+                <element signature="e#50233#50234#0" expanded="true" />
+                <element signature="e#54232#54233#0" expanded="true" />
+                <element signature="e#54295#54296#0" expanded="true" />
+                <element signature="e#62390#62410#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Z2Test.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="959" column="5" selection-start-line="959" selection-start-column="5" selection-end-line="959" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Toy32.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/Toy32.java">
+      <file leaf-file-name="BiorthogonalCode.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="576">
-              <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.7752809">
+              <caret line="43" column="44" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Toy32Test.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/songpa/Toy32Test.java">
+      <file leaf-file-name="Lfsr.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="792" max-vertical-offset="2112">
-              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="436" column="32" selection-start-line="436" selection-start-column="32" selection-end-line="436" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScramblerAnalyzer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/ScramblerAnalyzer.java">
+      <file leaf-file-name="LfsrTool.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3888" max-vertical-offset="4104">
-              <caret line="162" column="86" selection-start-line="162" selection-start-column="86" selection-end-line="162" selection-end-column="86" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scrambler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Scrambler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="408">
-              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FullWidthXor.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/FullWidthXor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="504" max-vertical-offset="720">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="97" column="63" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="63" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -163,59 +408,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
-    <option name="changedFiles">
+    <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/NullScrambler.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/Scrambler.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/OffsetScrambler.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/ScramblerTest.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/DpeScrambler.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/HammingDistance.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/ATimeUtilities.java" />
-        <option value="$PROJECT_DIR$/src/sieve/SieveDiagnostic.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/Scrambler_5_64.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/Sbox4.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/BooleanFunction.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/Sbox.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/AesKeySearch.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/Z2PolyAnalysis.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/MersenneFactorCheck.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
-        <option value="$PROJECT_DIR$/src/MersenneNumbersFactors.txt" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/MersenneNumbers.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/MersenneNumbersFactors.txt" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/KeyedPermatuation.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/X.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/S.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/M.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/P.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/songpa/AesMixColumnTest.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/AesMixColumns.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/K.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/AlternatingPrng.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/toy32.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/songpa/FullWidthXor.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/AesSubBytes.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/Toy32.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/FullWidthXor.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/songpa/KeyedPermutationTest.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/Cipher.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/ScramblerAnalyzer.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/songpa/KeyedPermutation.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/songpa/Toy32Test.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java" />
       </list>
     </option>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="37" />
@@ -248,8 +455,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -265,7 +472,7 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lfsr" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -275,15 +482,15 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lfsr" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="nimp" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -293,33 +500,11 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lfsr" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="nimp" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="songpa" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lfsr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lfsr" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -329,19 +514,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lfsr" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="nimp" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lfsr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lfsr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nimp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -393,24 +601,9 @@
       <recent name="uk.co.nimp.app" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.KeyedPermutationTest">
-    <configuration default="false" name="Z2PolyAnalysis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="uk.co.nimp.app.Z2PolyAnalysis" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="lfsr" />
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Application.BiorthogonalCode">
     <configuration default="false" name="MersenneFactorCheck" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="qnd.MersenneFactorCheck" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -427,6 +620,7 @@
       <method />
     </configuration>
     <configuration default="false" name="ConsoleInterface" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="sieve.ConsoleInterface" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -443,6 +637,7 @@
       <method />
     </configuration>
     <configuration default="false" name="MersenneNumbers" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="uk.co.nimp.MersenneNumbers" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -459,6 +654,7 @@
       <method />
     </configuration>
     <configuration default="false" name="PollardRho" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="uk.co.nimp.PollardRho" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -474,32 +670,30 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <module name="" />
+    <configuration default="false" name="BiorthogonalCode" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="uk.co.nimp.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="uk.co.nimp.app.BiorthogonalCode" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
+      <module name="lfsr" />
       <envs />
-      <patterns />
       <method />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -543,26 +737,17 @@
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
+      <module />
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -576,7 +761,58 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -604,6 +840,7 @@
       <method />
     </configuration>
     <configuration default="false" name="LfsrTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="lfsr" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -632,6 +869,7 @@
       <method />
     </configuration>
     <configuration default="false" name="ScramblerTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="lfsr" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -654,6 +892,7 @@
       <method />
     </configuration>
     <configuration default="false" name="Z2Test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="lfsr" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -682,6 +921,7 @@
       <method />
     </configuration>
     <configuration default="false" name="PollardRhoTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="lfsr" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -704,6 +944,7 @@
       <method />
     </configuration>
     <configuration default="false" name="BooleanFunctionTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="lfsr" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -732,6 +973,7 @@
       <method />
     </configuration>
     <configuration default="false" name="KeyedPermutationTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="lfsr" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -760,6 +1002,7 @@
       <method />
     </configuration>
     <configuration default="false" name="AesMixColumnTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="lfsr" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -788,6 +1031,7 @@
       <method />
     </configuration>
     <configuration default="false" name="Toy32Test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="lfsr" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -818,19 +1062,19 @@
       <item index="5" class="java.lang.String" itemvalue="JUnit.KeyedPermutationTest" />
       <item index="6" class="java.lang.String" itemvalue="JUnit.AesMixColumnTest" />
       <item index="7" class="java.lang.String" itemvalue="JUnit.Toy32Test" />
-      <item index="8" class="java.lang.String" itemvalue="Application.Z2PolyAnalysis" />
-      <item index="9" class="java.lang.String" itemvalue="Application.MersenneFactorCheck" />
-      <item index="10" class="java.lang.String" itemvalue="Application.ConsoleInterface" />
-      <item index="11" class="java.lang.String" itemvalue="Application.MersenneNumbers" />
-      <item index="12" class="java.lang.String" itemvalue="Application.PollardRho" />
+      <item index="8" class="java.lang.String" itemvalue="Application.MersenneFactorCheck" />
+      <item index="9" class="java.lang.String" itemvalue="Application.ConsoleInterface" />
+      <item index="10" class="java.lang.String" itemvalue="Application.MersenneNumbers" />
+      <item index="11" class="java.lang.String" itemvalue="Application.PollardRho" />
+      <item index="12" class="java.lang.String" itemvalue="Application.BiorthogonalCode" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.MersenneNumbers" />
-        <item index="1" class="java.lang.String" itemvalue="Application.PollardRho" />
-        <item index="2" class="java.lang.String" itemvalue="Application.ConsoleInterface" />
-        <item index="3" class="java.lang.String" itemvalue="Application.MersenneFactorCheck" />
-        <item index="4" class="java.lang.String" itemvalue="Application.Z2PolyAnalysis" />
+        <item index="0" class="java.lang.String" itemvalue="Application.BiorthogonalCode" />
+        <item index="1" class="java.lang.String" itemvalue="Application.MersenneNumbers" />
+        <item index="2" class="java.lang.String" itemvalue="Application.PollardRho" />
+        <item index="3" class="java.lang.String" itemvalue="Application.ConsoleInterface" />
+        <item index="4" class="java.lang.String" itemvalue="Application.MersenneFactorCheck" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -846,6 +1090,7 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="e2dabf7c-fc5d-4270-b7fd-cc71fe693d9b" name="Default" comment="" />
       <created>1404068127716</created>
+      <option name="number" value="Default" />
       <updated>1404068127716</updated>
     </task>
     <servers />
@@ -871,32 +1116,33 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="37" width="2560" height="1215" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="37" width="2560" height="1215" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18460111" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18460111" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46474954" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46421847" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11526232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14348172" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15974441" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32768363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23083067" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42486086" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42467043" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283859" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -910,11 +1156,6 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -926,7 +1167,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java</url>
-          <line>1228</line>
+          <line>1237</line>
           <properties />
           <option name="timeStamp" value="74" />
         </line-breakpoint>
@@ -943,151 +1184,131 @@
           <option name="timeStamp" value="79" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="80" />
+      <option name="time" value="82" />
     </breakpoint-manager>
+    <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sieve/SieveDiagnostic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
-          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/Arrays.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="80517" max-vertical-offset="120024">
+        <state vertical-scroll-proportion="0.0">
           <caret line="3434" column="0" selection-start-line="3434" selection-start-column="0" selection-end-line="3434" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/DpeScrambler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="192" max-vertical-offset="1560">
+        <state vertical-scroll-proportion="0.0">
           <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/runners/model/FrameworkMethod.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1272">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-6-openjdk-amd64/jre/lib/rt.jar!/java/lang/String.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4305" max-vertical-offset="5016">
+        <state vertical-scroll-proportion="0.0">
           <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-6-openjdk-amd64/jre/lib/rt.jar!/java/math/BigInteger.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6627635" vertical-offset="5861" max-vertical-offset="6288">
+        <state vertical-scroll-proportion="0.6627635">
           <caret line="257" column="0" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Scrambler_5_64.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="389" max-vertical-offset="1536">
+        <state vertical-scroll-proportion="0.0">
           <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/BooleanFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="24" max-vertical-offset="1896">
+        <state vertical-scroll-proportion="0.0">
           <caret line="15" column="39" selection-start-line="14" selection-start-column="8" selection-end-line="15" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4225352" vertical-offset="0" max-vertical-offset="568">
+        <state vertical-scroll-proportion="0.4225352">
           <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Sbox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3" max-vertical-offset="1056">
+        <state vertical-scroll-proportion="0.0">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Sbox4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1872">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/HammingDistance.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1344" max-vertical-offset="3024">
+        <state vertical-scroll-proportion="0.0">
           <caret line="90" column="39" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/SymKeySearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2936" max-vertical-offset="4176">
+        <state vertical-scroll-proportion="0.0">
           <caret line="140" column="35" selection-start-line="140" selection-start-column="35" selection-end-line="140" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/Z2PolyAnalysis.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="384" max-vertical-offset="2976">
+        <state vertical-scroll-proportion="0.0">
           <caret line="26" column="95" selection-start-line="26" selection-start-column="95" selection-end-line="26" selection-end-column="95" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2904">
+        <state vertical-scroll-proportion="0.0">
           <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10368">
+        <state vertical-scroll-proportion="0.0">
           <caret line="14" column="41" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="22373" max-vertical-offset="23088">
-          <caret line="959" column="5" selection-start-line="959" selection-start-column="5" selection-end-line="959" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/qnd/MersenneFactorCheck.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.9132867" vertical-offset="0" max-vertical-offset="1824">
+        <state vertical-scroll-proportion="1.9132867">
           <caret line="57" column="58" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4746" max-vertical-offset="5784">
-          <caret line="236" column="26" selection-start-line="236" selection-start-column="26" selection-end-line="236" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4933" max-vertical-offset="13032">
+        <state vertical-scroll-proportion="0.0">
           <caret line="220" column="55" selection-start-line="220" selection-start-column="55" selection-end-line="220" selection-end-column="55" />
           <folding />
         </state>
@@ -1095,171 +1316,147 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sieve/primes">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="84408">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sieve/ConsoleInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="64" max-vertical-offset="792">
+        <state vertical-scroll-proportion="0.0">
           <caret line="26" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sieve/Sieve.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="392" max-vertical-offset="9120">
+        <state vertical-scroll-proportion="0.0">
           <caret line="38" column="6" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sieve/SieveDiagnosticAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1248">
+        <state vertical-scroll-proportion="0.0">
           <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/rsa/RSA.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2458792" vertical-offset="509" max-vertical-offset="1560">
+        <state vertical-scroll-proportion="1.2458792">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sieve/LinearAlgebra.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
+        <state vertical-scroll-proportion="0.0">
           <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/PollardRhoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1084" max-vertical-offset="1944">
+        <state vertical-scroll-proportion="0.0">
           <caret line="65" column="26" selection-start-line="65" selection-start-column="26" selection-end-line="65" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="8892" max-vertical-offset="22104">
-          <caret line="406" column="70" selection-start-line="406" selection-start-column="70" selection-end-line="406" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/MersenneNumbers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2823" max-vertical-offset="3648">
+        <state vertical-scroll-proportion="0.0">
           <caret line="140" column="20" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/MersenneNumbersFactors.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6471" max-vertical-offset="7296">
+        <state vertical-scroll-proportion="0.0">
           <caret line="298" column="181" selection-start-line="298" selection-start-column="181" selection-end-line="298" selection-end-column="181" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/PollardRho.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="15222" max-vertical-offset="16296">
+        <state vertical-scroll-proportion="0.0">
           <caret line="672" column="0" selection-start-line="672" selection-start-column="0" selection-end-line="672" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/ScramblerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="1152">
+        <state vertical-scroll-proportion="0.0">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/WbAesEp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.93296087" vertical-offset="3076" max-vertical-offset="3888">
+        <state vertical-scroll-proportion="0.93296087">
           <caret line="172" column="0" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/S.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/P.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="552">
+        <state vertical-scroll-proportion="0.0">
           <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/M.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/songpa/AesMixColumnTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="591" max-vertical-offset="1440">
+        <state vertical-scroll-proportion="0.0">
           <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/AesMixColumns.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="951" max-vertical-offset="1776">
+        <state vertical-scroll-proportion="0.0">
           <caret line="75" column="35" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/K.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+        <state vertical-scroll-proportion="0.0">
           <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/AesSubBytes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="552">
+        <state vertical-scroll-proportion="0.0">
           <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/AlternatingPrng.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="333" max-vertical-offset="1536">
+        <state vertical-scroll-proportion="0.0">
           <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/X.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="384">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="28670" max-vertical-offset="42552">
-          <caret line="1237" column="11" selection-start-line="1237" selection-start-column="11" selection-end-line="1237" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Scrambler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+        <state vertical-scroll-proportion="0.0">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
           <folding />
         </state>
@@ -1267,31 +1464,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/Toy32.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
+        <state vertical-scroll-proportion="0.0">
           <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/Cipher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3627" max-vertical-offset="4896">
-          <caret line="172" column="40" selection-start-line="172" selection-start-column="40" selection-end-line="172" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/ScramblerAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3435" max-vertical-offset="4080">
+        <state vertical-scroll-proportion="0.0">
           <caret line="162" column="86" selection-start-line="162" selection-start-column="86" selection-end-line="162" selection-end-column="86" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#219#220#0" expanded="false" />
+            <element signature="e#249#250#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/songpa/KeyedPermutationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.954416" vertical-offset="315" max-vertical-offset="1584">
+        <state vertical-scroll-proportion="0.954416">
           <caret line="64" column="67" selection-start-line="64" selection-start-column="67" selection-end-line="64" selection-end-column="67" />
           <folding />
         </state>
@@ -1299,24 +1492,157 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/FullWidthXor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
+        <state vertical-scroll-proportion="0.0">
           <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-          <folding />
+          <folding>
+            <element signature="e#191#192#0" expanded="false" />
+            <element signature="e#229#230#0" expanded="false" />
+            <element signature="e#302#303#0" expanded="false" />
+            <element signature="e#340#341#0" expanded="false" />
+            <element signature="e#385#386#0" expanded="false" />
+            <element signature="e#415#416#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/songpa/Toy32Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="483" max-vertical-offset="1728">
+        <state vertical-scroll-proportion="0.0">
           <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#252#253#0" expanded="false" />
+            <element signature="e#304#305#0" expanded="false" />
+            <element signature="e#368#369#0" expanded="false" />
+            <element signature="e#423#424#0" expanded="false" />
+            <element signature="e#2030#2031#0" expanded="false" />
+            <element signature="e#2070#2071#0" expanded="false" />
+            <element signature="e#2126#2127#0" expanded="false" />
+            <element signature="e#2170#2171#0" expanded="false" />
+            <element signature="e#2226#2227#0" expanded="false" />
+            <element signature="e#2267#2268#0" expanded="false" />
+            <element signature="e#2321#2322#0" expanded="false" />
+            <element signature="e#2369#2370#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/X.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14021422">
+          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/Cipher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29892892">
+          <caret line="172" column="40" selection-start-line="172" selection-start-column="40" selection-end-line="172" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#612#613#0" expanded="false" />
+            <element signature="e#671#672#0" expanded="false" />
+            <element signature="e#701#702#0" expanded="false" />
+            <element signature="e#762#763#0" expanded="false" />
+            <element signature="e#939#940#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1100#1101#0" expanded="false" />
+            <element signature="e#1126#1127#0" expanded="false" />
+            <element signature="e#1167#1168#0" expanded="false" />
+            <element signature="e#1197#1198#0" expanded="false" />
+            <element signature="e#6395#6396#0" expanded="false" />
+            <element signature="e#6425#6426#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/songpa/KeyedPermutation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2735043" vertical-offset="96" max-vertical-offset="2856">
+        <state vertical-scroll-proportion="0.0">
           <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1006#1007#0" expanded="false" />
+            <element signature="e#1058#1059#0" expanded="false" />
+            <element signature="e#1127#1128#0" expanded="false" />
+            <element signature="e#1187#1188#0" expanded="false" />
+            <element signature="e#1230#1231#0" expanded="false" />
+            <element signature="e#1258#1259#0" expanded="false" />
+            <element signature="e#1305#1306#0" expanded="false" />
+            <element signature="e#1337#1338#0" expanded="false" />
+            <element signature="e#1381#1382#0" expanded="false" />
+            <element signature="e#1410#1411#0" expanded="false" />
+            <element signature="e#1455#1456#0" expanded="false" />
+            <element signature="e#1485#1486#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="436" column="32" selection-start-line="436" selection-start-column="32" selection-end-line="436" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="97" column="63" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="959" column="5" selection-start-line="959" selection-start-column="5" selection-end-line="959" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1200" column="57" selection-start-line="1200" selection-start-column="57" selection-end-line="1200" selection-end-column="57" />
+          <folding>
+            <element signature="e#20998#20999#0" expanded="true" />
+            <element signature="e#21036#21037#0" expanded="true" />
+            <element signature="e#27890#27891#0" expanded="true" />
+            <element signature="e#27943#27944#0" expanded="true" />
+            <element signature="e#44885#44886#0" expanded="true" />
+            <element signature="e#44937#44938#0" expanded="true" />
+            <element signature="e#45648#45649#0" expanded="true" />
+            <element signature="e#45711#45712#0" expanded="true" />
+            <element signature="e#45767#45768#0" expanded="true" />
+            <element signature="e#45820#45821#0" expanded="true" />
+            <element signature="e#46167#46168#0" expanded="true" />
+            <element signature="e#46218#46219#0" expanded="true" />
+            <element signature="e#46561#46562#0" expanded="true" />
+            <element signature="e#46612#46613#0" expanded="true" />
+            <element signature="e#47385#47386#0" expanded="true" />
+            <element signature="e#47436#47437#0" expanded="true" />
+            <element signature="e#47980#47981#0" expanded="true" />
+            <element signature="e#48028#48029#0" expanded="true" />
+            <element signature="e#49607#49608#0" expanded="true" />
+            <element signature="e#49644#49645#0" expanded="true" />
+            <element signature="e#49814#49815#0" expanded="true" />
+            <element signature="e#49871#49872#0" expanded="true" />
+            <element signature="e#50174#50175#0" expanded="true" />
+            <element signature="e#50233#50234#0" expanded="true" />
+            <element signature="e#54232#54233#0" expanded="true" />
+            <element signature="e#54295#54296#0" expanded="true" />
+            <element signature="e#62390#62410#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7752809">
+          <caret line="43" column="44" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -1400,4 +1726,3 @@
     </states>
   </component>
 </project>
-

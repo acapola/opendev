@@ -7,7 +7,7 @@ package uk.co.nimp;
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/tpantlr2 for more book information.
 ***/
-public class GlobalScope extends BaseScope {
-    public GlobalScope(Scope enclosingScope) { super(enclosingScope); }
+public class FileScope extends BaseScope {
+    public FileScope(Scope enclosingScope) { super(enclosingScope); }
     public String getScopeName() { return "globals"; }
 }
