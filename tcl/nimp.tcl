@@ -365,7 +365,7 @@ proc ::nimp::statStr { stat {title ""} {titleWidth 10} {columnsWidth 10}} {
 }
 
 proc ::nimp::hexstr_to_c_bytes { hexstr } {
-	set hexstr [hexstr_cleanup $hexstr]
+	set hexstr [string toupper [hexstr_cleanup $hexstr]]
 	set bytes [str_split $hexstr 2]
 	set sep ""
 	set out ""
@@ -374,6 +374,10 @@ proc ::nimp::hexstr_to_c_bytes { hexstr } {
 		set sep ", "
 	}
 	return $out
+}
+
+proc ::nimp::cpp_comment { txt } {
+	return "// [string map {"\n" "\n// "} $txt]"
 }
 
 ::nimp::proc+ ::nimp::hexstr_pad { hexstrs {nDigits 0} } {

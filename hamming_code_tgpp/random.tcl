@@ -1,3 +1,4 @@
+package require nimp
 package provide nimpRandom 1.0
 namespace eval ::nimp::random {
     #Pseudo Random Number Generator using home made structure
@@ -13,7 +14,8 @@ namespace eval ::nimp::random {
         setSeed "::nimp::random::setSeed_cmd  [namespace current]::context" \
         reset   "::nimp::random::reset_cmd    [namespace current]::context" \
         step    "::nimp::random::step_cmd     [namespace current]::context" \
-        getBits "::nimp::random::getBits_cmd  [namespace current]::context"]
+        getBits "::nimp::random::getBits_cmd  [namespace current]::context" \
+		getHexStr "::nimp::random::getHexStr_cmd  [namespace current]::context"]
     }
     # Make the createRandom procedure an ensemble command
     namespace ensemble create -map {
@@ -83,11 +85,17 @@ namespace eval ::nimp::random {
     proc getBits_cmd {name {width 1} } {
         upvar 1 $name context
         set out 0
-	for {set i 0} {$i<$width} {incr i} {	
-	    set out [expr ($out << 1) | [step_cmd  context]]
-	}
-	return $out
+		for {set i 0} {$i<$width} {incr i} {	
+			set out [expr ($out << 1) | [step_cmd  context]]
+		}
+		return $out
     }
+    proc getHexStr_cmd {name {width 1} } {
+        upvar 1 $name context
+        set out [getBits_cmd context $width]
+		::nimp::num_to_hexstr $out [expr ($width+3)/4]
+    }
+
     ############# P R I V A T E   P R O C S ###############
     proc lfsrExponentsToMask { args } {
 	set out 0
