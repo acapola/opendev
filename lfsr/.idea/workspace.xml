@@ -7,8 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2dabf7c-fc5d-4270-b7fd-cc71fe693d9b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/GlobalScope.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Main.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.random.ko.cmd" afterPath="$PROJECT_DIR$/../random_c/.random.ko.cmd" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.random.mod.o.cmd" afterPath="$PROJECT_DIR$/../random_c/.random.mod.o.cmd" />
@@ -17,6 +15,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/AlwaysConstruct.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/AlwaysConstruct.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/BaseScope.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/BaseScope.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BinaryOp.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BinaryOp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Block.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Block.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockIdent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockItemDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/BlockItemDecl.java" />
@@ -55,6 +54,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventTrigger.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/EventTrigger.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/message/ExceptionBase.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/message/ExceptionBase.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Expression.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Expression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/FileScope.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/FileScope.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncDecl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncIdent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncItemDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/FuncItemDecl.java" />
@@ -80,6 +80,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/IntegerDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/IntegerDecl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LICENSE" afterPath="$PROJECT_DIR$/../LICENSE" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Lexer.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/Lexer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" afterPath="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ListOf.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ListOf.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/LocalParameterDecl.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/LocalParameterDecl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/LocalScope.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/LocalScope.java" />
@@ -120,6 +121,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NetType.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NonBlockingAssign.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NonBlockingAssign.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NonPortModuleItem.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/NonPortModuleItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Obfuscator.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Obfuscator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/OutputVarType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/OutputVarType.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/util/Pair.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/util/Pair.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParBlock.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/ParBlock.java" />
@@ -164,7 +166,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SpecparamIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SpecparamIdent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Statement.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/Statement.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Symbol.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/symbol/Symbol.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Symbol.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Symbol.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/SymbolClass.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/SymbolClass.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemFunctionCall.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemFunctionCall.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemFunctionIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemFunctionIdent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemTaskEnable.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/SystemTaskEnable.java" />
@@ -184,12 +186,15 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableIdent.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableIdent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/VariableSymbol.java" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/VariableSymbol.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableType.java" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/VariableType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/out/production/verilog_tools/uk/co/nimp/Verilog2001.g4" afterPath="$PROJECT_DIR$/../verilog_tools/out/production/verilog_tools/uk/co/nimp/Verilog2001.g4" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Verilog2001.g4" afterPath="$PROJECT_DIR$/../verilog_tools/src/uk/co/nimp/Verilog2001.g4" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001.tokens" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001.tokens" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/out/production/verilog_tools/uk/co/nimp/Verilog2001.tokens" afterPath="$PROJECT_DIR$/../verilog_tools/out/production/verilog_tools/uk/co/nimp/Verilog2001.tokens" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001BaseListener.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001BaseListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001BaseVisitor.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001BaseVisitor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Lexer.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Lexer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Lexer.tokens" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Lexer.tokens" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/out/production/verilog_tools/uk/co/nimp/Verilog2001Lexer.tokens" afterPath="$PROJECT_DIR$/../verilog_tools/out/production/verilog_tools/uk/co/nimp/Verilog2001Lexer.tokens" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Listener.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Listener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Parser.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Visitor.java" afterPath="$PROJECT_DIR$/../verilog_tools/gen/uk/co/nimp/Verilog2001Visitor.java" />
@@ -241,6 +246,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.srcs/sources_1/new/keyed_permutation.v" afterPath="$PROJECT_DIR$/../songpa/songpa.srcs/sources_1/new/keyed_permutation.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v" afterPath="$PROJECT_DIR$/../songpa/songpa.srcs/sim_1/new/keyed_permutation_tb.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/leakage resilient cipher.txt" afterPath="$PROJECT_DIR$/../songpa/leakage resilient cipher.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tgpp/length_to_lfsr.tcl" afterPath="$PROJECT_DIR$/tgpp/length_to_lfsr.tcl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lfsr.iml" afterPath="$PROJECT_DIR$/lfsr.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/libraries/lib.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/logical_connection.v" afterPath="$PROJECT_DIR$/../songpa/logical_connection.v" />
@@ -255,10 +261,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/modules.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/modules.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/modules.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../tcl/nimp_aes.tcl" afterPath="$PROJECT_DIR$/../tcl/nimp_aes.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../tcl/nimp_des.tcl" afterPath="$PROJECT_DIR$/../tcl/nimp_des.tcl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/notes.txt" afterPath="$PROJECT_DIR$/../verilog_obsfucator/src/v2k/parser/tree/notes.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../songpa/open test chip.txt" afterPath="$PROJECT_DIR$/../songpa/open test chip.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../serial_cpp/os.h" afterPath="$PROJECT_DIR$/../serial_cpp/os.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/props/parser.msg.txt" afterPath="$PROJECT_DIR$/../verilog_obsfucator/props/parser.msg.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../tcl/pkgIndex.tcl" afterPath="$PROJECT_DIR$/../tcl/pkgIndex.tcl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/copyright/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/../verilog_tools/.idea/copyright/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/project-template.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/project-template.xml" />
@@ -276,7 +285,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../serial_cpp/serial_cpp.txt" afterPath="$PROJECT_DIR$/../serial_cpp/serial_cpp.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../sfr_gen/sfr_gen.tcl" afterPath="$PROJECT_DIR$/../sfr_gen/sfr_gen.tcl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../sfr_gen/sfr_gen_apb.tgpp.v" afterPath="$PROJECT_DIR$/../sfr_gen/sfr_gen_apb.tgpp.v" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../tcl/test.tcl" afterPath="$PROJECT_DIR$/../tcl/test.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_tools/test_data/test.v" afterPath="$PROJECT_DIR$/../verilog_tools/test_data/test.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hamming_code_tgpp/test_misc_utils.tcl" afterPath="$PROJECT_DIR$/../hamming_code_tgpp/test_misc_utils.tcl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../tcl/tgppScript.tcl" afterPath="$PROJECT_DIR$/../tcl/tgppScript.tcl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../sfr_gen/trng_apbif.v" afterPath="$PROJECT_DIR$/../sfr_gen/trng_apbif.v" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/../mamasync/.idea/uiDesigner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../verilog_obsfucator/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/../verilog_obsfucator/.idea/uiDesigner.xml" />
@@ -317,36 +329,18 @@
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="1200" column="57" selection-start-line="1200" selection-start-column="57" selection-end-line="1200" selection-end-column="57" />
-              <folding>
-                <element signature="e#20998#20999#0" expanded="true" />
-                <element signature="e#21036#21037#0" expanded="true" />
-                <element signature="e#27890#27891#0" expanded="true" />
-                <element signature="e#27943#27944#0" expanded="true" />
-                <element signature="e#44885#44886#0" expanded="true" />
-                <element signature="e#44937#44938#0" expanded="true" />
-                <element signature="e#45648#45649#0" expanded="true" />
-                <element signature="e#45711#45712#0" expanded="true" />
-                <element signature="e#45767#45768#0" expanded="true" />
-                <element signature="e#45820#45821#0" expanded="true" />
-                <element signature="e#46167#46168#0" expanded="true" />
-                <element signature="e#46218#46219#0" expanded="true" />
-                <element signature="e#46561#46562#0" expanded="true" />
-                <element signature="e#46612#46613#0" expanded="true" />
-                <element signature="e#47385#47386#0" expanded="true" />
-                <element signature="e#47436#47437#0" expanded="true" />
-                <element signature="e#47980#47981#0" expanded="true" />
-                <element signature="e#48028#48029#0" expanded="true" />
-                <element signature="e#49607#49608#0" expanded="true" />
-                <element signature="e#49644#49645#0" expanded="true" />
-                <element signature="e#49814#49815#0" expanded="true" />
-                <element signature="e#49871#49872#0" expanded="true" />
-                <element signature="e#50174#50175#0" expanded="true" />
-                <element signature="e#50233#50234#0" expanded="true" />
-                <element signature="e#54232#54233#0" expanded="true" />
-                <element signature="e#54295#54296#0" expanded="true" />
-                <element signature="e#62390#62410#0" expanded="true" />
-              </folding>
+              <caret line="1800" column="45" selection-start-line="1800" selection-start-column="45" selection-end-line="1800" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LfsrTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.702045">
+              <caret line="220" column="55" selection-start-line="220" selection-start-column="55" selection-end-line="220" selection-end-column="55" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -356,17 +350,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="959" column="5" selection-start-line="959" selection-start-column="5" selection-end-line="959" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BiorthogonalCode.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7752809">
-              <caret line="43" column="44" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -385,7 +371,17 @@
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="97" column="63" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="63" />
+              <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainHelpers.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -418,6 +414,7 @@
       <list>
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
       </list>
     </option>
   </component>
@@ -455,8 +452,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -549,6 +544,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -575,7 +572,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../NimpSwTools" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/seb/dev/opendev/lfsr/test/uk/co/nimp/songpa/AesMixColumnTest.java" />
   </component>
   <component name="RecentsManager">
@@ -1121,28 +1118,28 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18460111" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46421847" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15974441" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32768363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23083067" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15974441" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23083067" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42467043" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46421847" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32768363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42467043" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1167,7 +1164,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java</url>
-          <line>1237</line>
+          <line>1243</line>
           <properties />
           <option name="timeStamp" value="74" />
         </line-breakpoint>
@@ -1284,13 +1281,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/BooleanFunctionTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1303,14 +1293,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.9132867">
           <caret line="57" column="58" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="220" column="55" selection-start-line="220" selection-start-column="55" selection-end-line="220" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1458,7 +1440,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1466,7 +1447,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1474,11 +1454,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="162" column="86" selection-start-line="162" selection-start-column="86" selection-end-line="162" selection-end-column="86" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#219#220#0" expanded="false" />
-            <element signature="e#249#250#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1486,7 +1461,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.954416">
           <caret line="64" column="67" selection-start-line="64" selection-start-column="67" selection-end-line="64" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1494,14 +1468,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-          <folding>
-            <element signature="e#191#192#0" expanded="false" />
-            <element signature="e#229#230#0" expanded="false" />
-            <element signature="e#302#303#0" expanded="false" />
-            <element signature="e#340#341#0" expanded="false" />
-            <element signature="e#385#386#0" expanded="false" />
-            <element signature="e#415#416#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1509,21 +1475,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#252#253#0" expanded="false" />
-            <element signature="e#304#305#0" expanded="false" />
-            <element signature="e#368#369#0" expanded="false" />
-            <element signature="e#423#424#0" expanded="false" />
-            <element signature="e#2030#2031#0" expanded="false" />
-            <element signature="e#2070#2071#0" expanded="false" />
-            <element signature="e#2126#2127#0" expanded="false" />
-            <element signature="e#2170#2171#0" expanded="false" />
-            <element signature="e#2226#2227#0" expanded="false" />
-            <element signature="e#2267#2268#0" expanded="false" />
-            <element signature="e#2321#2322#0" expanded="false" />
-            <element signature="e#2369#2370#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1531,7 +1482,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14021422">
           <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1561,21 +1511,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1006#1007#0" expanded="false" />
-            <element signature="e#1058#1059#0" expanded="false" />
-            <element signature="e#1127#1128#0" expanded="false" />
-            <element signature="e#1187#1188#0" expanded="false" />
-            <element signature="e#1230#1231#0" expanded="false" />
-            <element signature="e#1258#1259#0" expanded="false" />
-            <element signature="e#1305#1306#0" expanded="false" />
-            <element signature="e#1337#1338#0" expanded="false" />
-            <element signature="e#1381#1382#0" expanded="false" />
-            <element signature="e#1410#1411#0" expanded="false" />
-            <element signature="e#1455#1456#0" expanded="false" />
-            <element signature="e#1485#1486#0" expanded="false" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="97" selection-start-line="44" selection-start-column="97" selection-end-line="44" selection-end-column="97" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1587,62 +1546,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="63" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/Z2Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="959" column="5" selection-start-line="959" selection-start-column="5" selection-end-line="959" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="1200" column="57" selection-start-line="1200" selection-start-column="57" selection-end-line="1200" selection-end-column="57" />
-          <folding>
-            <element signature="e#20998#20999#0" expanded="true" />
-            <element signature="e#21036#21037#0" expanded="true" />
-            <element signature="e#27890#27891#0" expanded="true" />
-            <element signature="e#27943#27944#0" expanded="true" />
-            <element signature="e#44885#44886#0" expanded="true" />
-            <element signature="e#44937#44938#0" expanded="true" />
-            <element signature="e#45648#45649#0" expanded="true" />
-            <element signature="e#45711#45712#0" expanded="true" />
-            <element signature="e#45767#45768#0" expanded="true" />
-            <element signature="e#45820#45821#0" expanded="true" />
-            <element signature="e#46167#46168#0" expanded="true" />
-            <element signature="e#46218#46219#0" expanded="true" />
-            <element signature="e#46561#46562#0" expanded="true" />
-            <element signature="e#46612#46613#0" expanded="true" />
-            <element signature="e#47385#47386#0" expanded="true" />
-            <element signature="e#47436#47437#0" expanded="true" />
-            <element signature="e#47980#47981#0" expanded="true" />
-            <element signature="e#48028#48029#0" expanded="true" />
-            <element signature="e#49607#49608#0" expanded="true" />
-            <element signature="e#49644#49645#0" expanded="true" />
-            <element signature="e#49814#49815#0" expanded="true" />
-            <element signature="e#49871#49872#0" expanded="true" />
-            <element signature="e#50174#50175#0" expanded="true" />
-            <element signature="e#50233#50234#0" expanded="true" />
-            <element signature="e#54232#54233#0" expanded="true" />
-            <element signature="e#54295#54296#0" expanded="true" />
-            <element signature="e#62390#62410#0" expanded="true" />
-          </folding>
+          <caret line="1800" column="45" selection-start-line="1800" selection-start-column="45" selection-end-line="1800" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java">
+    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7752809">
-          <caret line="43" column="44" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+        <state vertical-scroll-proportion="-4.702045">
+          <caret line="220" column="55" selection-start-line="220" selection-start-column="55" selection-end-line="220" selection-end-column="55" />
           <folding />
         </state>
       </provider>

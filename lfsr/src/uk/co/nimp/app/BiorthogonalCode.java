@@ -40,8 +40,11 @@ public class BiorthogonalCode {
         System.out.println("Parity check matrix:\n"+Z2.toBinaryString(H) + "\n");
 
         for(int i=0;i<1<<k;i++){
-            boolean []u = Z2.toBooleans(i,k);
-            boolean []c = Z2.matrixMul(u,G);
+            boolean [][]u = Z2.toRowMatrix(i,k);
+            boolean [][]c = Z2.matrixMul(u,G);
+            System.out.println("data = "+Z2.toBinaryString(u)+" -> code = " +Z2.toBinaryString(c));
         }
+
+
     }
 }

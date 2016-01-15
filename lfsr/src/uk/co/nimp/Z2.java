@@ -877,7 +877,7 @@ public class Z2 {
             int pow = factorsMap.get(fx);
             maxPow = Math.max(maxPow,pow);
             BigInteger orderOfX = Z2.orderOfX(Z2.toBooleans(fx));//recursion will go to the irreducible case
-            e = Z2.lcmBi(e,orderOfX);
+            e = Z2.lcmBi(e, orderOfX);
         }
         if(maxPow>1) {
             assert(!Z2.isOne(Z2.modExp(Z2.X, e, polynomial)));//check that we need that multiplication indeed
@@ -1201,6 +1201,12 @@ public class Z2 {
     }
     public static boolean[] toBooleans(long in) {
         return toBooleans(in, bitWidth(in));
+    }
+    public static boolean[][] toRowMatrix(int in, int rowWidth){
+        boolean [][] out = new boolean[1][rowWidth];
+        boolean [] bits = toBooleans(in,rowWidth);
+        for(int i=0;i<rowWidth;i++) out[0][i] = bits[i];
+        return out;
     }
     public static boolean[] toBooleans(long in, int outputLength) {
         boolean[] out = new boolean[outputLength];
@@ -1816,6 +1822,30 @@ end function
         boolean[] product = Z2.mulBi(out);
         //System.out.println(dbgLevel+"product="+Z2.toPolynomial(product)+", factors: "+Z2.join(Z2.bigIntegersToPolynomials(out),","));dbgLevel=dbgLevel.substring(0,dbgLevel.length()-1);
         assert(Z2.equalValue(product,hx));
+        return out;
+    }
+
+    public static boolean[][] matrixMul(boolean[] u, boolean[][] g) {
+        boolean [][] out = new boolean[u.length][g[0].length];
+        //if(g.length!=out.length) throw new RuntimeException("Cannot multiply matrices due to dimensions mismatch");
+        for(int i=0;i<u.length;i++){
+            for(int j=0;j<g.length;j++){
+                out[i][j]=u[i]&g[j][i];
+            }
+        }
+        return out;
+    }
+
+    public static boolean[][] matrixMul(boolean[][] u, boolean[][] g) {
+        boolean [][] out = new boolean[u.length][g[0].length];
+        if(g.length!=u[0].length) throw new RuntimeException("Cannot multiply matrices due to dimensions mismatch");
+        for(int i=0;i<u.length;i++){
+            for(int j=0;j<g[0].length;j++){
+                for(int k=0;k<g.length;k++) {
+                    out[i][j] ^= u[i][k] & g[k][j];
+                }
+            }
+        }
         return out;
     }
 
