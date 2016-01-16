@@ -430,40 +430,57 @@ public class Lfsr {
      * @return
      */
     static Lfsr fromSeqLength(BigInteger length){
-        if(length.add(BigInteger.ONE).bitCount()==1){//length is power of two minus one, need a primitive polynomial (max length LSFR, trivial case)
+        /*if(length.add(BigInteger.ONE).bitCount()==1){//length is power of two minus one, need a primitive polynomial (max length LSFR, trivial case)
             throw new RuntimeException("todo");
-        }else{
+        }else*/{
             //try with irreducible polynomial
             //get the factors we need
             BigInteger[] mandatoryFactors = PollardRho.factor(length);
             BigInteger maxLengthCandidate = BigInteger.ONE.shiftLeft(length.bitLength()+1).subtract(BigInteger.ONE);
             //look for suitable polynomial width
-            while(maxLengthCandidate.mod(length)!=BigInteger.ZERO) {
+            /*while(maxLengthCandidate.mod(length)!=BigInteger.ZERO) {
                 BigInteger next = maxLengthCandidate.shiftLeft(1).add(BigInteger.ONE);
                 maxLengthCandidate = next;
-            }
+            }*/
             //now maxLengthCandidate is right, look for an irreducible polynomial of the corresponding width
-            int targetWidth = Lfsr.maximumLengthToPolynomialDegree(maxLengthCandidate);
-            int targetHammingWeight = 3;
-            boolean []candidate = Z2.firstWithHammingWeight(targetHammingWeight,targetWidth);
-            while(true){
-                Lfsr c = fromTaps(candidate);
-                Map<BigInteger,BigInteger> lengths = c.sequencesLength();
-                if(lengths.containsKey(length)){
-                    return c;//TODO set initial value
-
-                }
-                do{
-                    candidate = Z2.nextWithSameHammingWeigth(candidate);
-                }while((null!=candidate) && (candidate[0]==false));
-                if(null==candidate){
-                    targetHammingWeight++;
-                    if(targetHammingWeight>targetWidth){
-                        return null;//did not find any solution
+            int targetWidth = Lfsr.maximumLengthToPolynomialDegree(maxLengthCandidate)-1;
+            int maxTargetWidth = targetWidth*2;
+            targetWidth = 3;
+            //Lfsr debug = Lfsr.fromPolynomial("1 + x8 + x16");
+            while(targetWidth<=maxTargetWidth) {
+                int targetHammingWeight = 2;
+                boolean[] candidateCore = Z2.firstWithHammingWeight(targetHammingWeight-2, targetWidth-2);
+                boolean[] candidate = new boolean[targetWidth];
+                candidate[0]=true;
+                candidate[targetWidth-1]=true;
+                while (true) {
+                    System.arraycopy(candidateCore,0,candidate,1,targetWidth-2);
+                    BigInteger orderOfX = Z2.orderOfX(candidate);
+                    if(orderOfX.equals(length)){
+                        Lfsr c = fromTaps(candidate);
+                        return c;//TODO set initial value
                     }
-                    candidate = Z2.firstWithHammingWeight(targetHammingWeight,targetWidth);
+                    if(orderOfX.equals(BigInteger.ONE)) {//order of X = 1 tells us nothing, have to look in detail into that one
+                        Lfsr c = fromTaps(candidate);
+                        Map<BigInteger, BigInteger> lengths = c.sequencesLength();
+                        if (lengths.containsKey(length)) {
+                            return c;//TODO set initial value
+                        }
+                    }
+                    candidateCore = Z2.nextWithSameHammingWeigth(candidateCore);
+                    if (null == candidateCore) {
+                        targetHammingWeight++;
+                        if (targetHammingWeight > targetWidth) {
+                            //did not find any solution for that width
+                            targetWidth++;
+                            break;
+                        }
+                        candidateCore = Z2.firstWithHammingWeight(targetHammingWeight-2, targetWidth-2);
+                    }
                 }
             }
+            //did not find any solution
+            return null;
         }
     }
 
@@ -698,7 +715,7 @@ public class Lfsr {
     void buildFactors(){
         if(null==factors) {
             factors = new ArrayList<Factor>();
-            boolean[][] factorsAsBooleans = Z2.factorPolynomial(getTaps());
+            boolean[][] factorsAsBooleans = Z2.factorPolynomial(Z2.minimumLengthCopy(getTaps()));//Z2.factorPolynomial(getTaps());
             for (boolean[] f : factorsAsBooleans) {
                 factors.add(Factor.create(f));
             }

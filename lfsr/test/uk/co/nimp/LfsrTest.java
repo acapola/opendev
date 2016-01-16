@@ -179,6 +179,7 @@ public class LfsrTest {
 
     }
 
+
     static void checkSequencesLengthEqual(String polynomial, int[][] expected) {
         Lfsr lfsr = Lfsr.fromPolynomial(polynomial);
         Map<BigInteger, BigInteger> actual = lfsr.sequencesLength();
@@ -231,8 +232,112 @@ public class LfsrTest {
         }
     }
 
+    static boolean hasSequenceLength(Lfsr lfsr, BigInteger len) {
+        Map<BigInteger, BigInteger> actual = lfsr.sequencesLength();
+        for (BigInteger actualLen:actual.keySet()) {
+            if(actualLen.equals(len)) return true;
+        }
+        return false;
+    }
+
+    static void checkFromSequenceLength(BigInteger len) {
+        Lfsr lfsr = Lfsr.fromSeqLength(len);
+        if(null==lfsr){
+            System.out.println("no LFSR found for length "+len);
+            assert(false);
+        }
+        System.out.println(lfsr.describe(false,false));
+        if(!hasSequenceLength(lfsr,len)){
+
+            assert(false);
+        }
+    }
+
+
+    @Test
+    public void testFromSeqLength() {
+        //checkFromSequenceLength(BigInteger.valueOf(11));
+        //checkFromSequenceLength(BigInteger.valueOf(2720));
+        /*checkFromSequenceLength(BigInteger.valueOf(56));
+        checkFromSequenceLength(BigInteger.valueOf(21));
+        checkFromSequenceLength(BigInteger.valueOf(14));
+        checkFromSequenceLength(BigInteger.valueOf(10));
+        checkFromSequenceLength(BigInteger.valueOf(8));
+        checkFromSequenceLength(BigInteger.valueOf(6));
+        checkFromSequenceLength(BigInteger.valueOf(5));*/
+        for(int i=3;i<53;i++){
+            switch(i){
+                case 11:
+                case 13:
+                case 19:
+                case 22:
+                case 25:
+                case 26:
+                case 27:
+                case 29:
+                case 32:
+                case 37:
+                case 38:
+                case 41:
+                case 43:
+                case 47:
+                case 49:
+                case 50:
+                case 52:
+                    break;
+                default:
+                    checkFromSequenceLength(BigInteger.valueOf(i));
+            }
+
+        }
+    }
+
+    /*@Test
+    public void logSeqLength() {
+        int targetWidth = 3;
+        int maxTargetWidth = targetWidth*2;
+        while(targetWidth<=maxTargetWidth) {
+            int targetHammingWeight = 2;
+            boolean[] candidateCore = Z2.firstWithHammingWeight(targetHammingWeight-2, targetWidth-2);
+            boolean[] candidate = new boolean[targetWidth];
+            candidate[0]=true;
+            candidate[targetWidth-1]=true;
+            while (true) {
+                System.arraycopy(candidateCore,0,candidate,1,targetWidth-2);
+                BigInteger orderOfX = Z2.orderOfX(candidate);
+                if(orderOfX.equals(length)){
+                    Lfsr c = fromTaps(candidate);
+                    return c;//TODO set initial value
+                } else if(orderOfX.equals(BigInteger.ONE)) {//order of X = 1 tells us nothing, have to look in detail into that one
+                    Lfsr c = fromTaps(candidate);
+                    Map<BigInteger, BigInteger> lengths = c.sequencesLength();
+                    if (lengths.containsKey(length)) {
+                        return c;//TODO set initial value
+                    }
+                }
+                candidateCore = Z2.nextWithSameHammingWeigth(candidateCore);
+                if (null == candidateCore) {
+                    targetHammingWeight++;
+                    if (targetHammingWeight > targetWidth) {
+                        //did not find any solution for that width
+                        targetWidth++;
+                        break;
+                    }
+                    candidateCore = Z2.firstWithHammingWeight(targetHammingWeight-2, targetWidth-2);
+                }
+            }
+        }
+    }*/
+
+
     @Test
     public void testSequencesLength() throws Exception {
+        /*Lfsr c = Lfsr.fromBinaryString("1100010");
+        System.out.println(c);
+        System.out.println(c.describe(false,false));
+        checkSequencesLengthEqual("1+x+x5", new int[][]{{1, 1}, {5, 6}});*/
+
+
         checkSequencesLengthEqual("1+x5", new int[][]{{1, 1}, {5, 6}});
         checkSequencesLengthEqual("1+x11", new int[][]{{1, 1}, {11, 186}});
 
