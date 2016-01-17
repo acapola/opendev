@@ -90,7 +90,7 @@ public class Z2 {
 
     public static String toPolynomial(boolean []in){
         String out="";
-        String separator = "+";
+        String separator = " + ";
         if(in.length>0 && in[0]) out +="1"+separator;
         if(in.length>1 && in[1]) out +="x"+separator;
         for(int i=2;i<in.length;i++){

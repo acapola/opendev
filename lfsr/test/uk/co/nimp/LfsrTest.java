@@ -254,17 +254,11 @@ public class LfsrTest {
     }
 
 
-    @Test
+
     public void testFromSeqLength() {
         //checkFromSequenceLength(BigInteger.valueOf(11));
         //checkFromSequenceLength(BigInteger.valueOf(2720));
-        /*checkFromSequenceLength(BigInteger.valueOf(56));
-        checkFromSequenceLength(BigInteger.valueOf(21));
-        checkFromSequenceLength(BigInteger.valueOf(14));
-        checkFromSequenceLength(BigInteger.valueOf(10));
-        checkFromSequenceLength(BigInteger.valueOf(8));
-        checkFromSequenceLength(BigInteger.valueOf(6));
-        checkFromSequenceLength(BigInteger.valueOf(5));*/
+
         for(int i=3;i<53;i++){
             switch(i){
                 case 11:

@@ -7,8 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2dabf7c-fc5d-4270-b7fd-cc71fe693d9b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/co/nimp/Nlfsr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/uk/co/nimp/NlfsrTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.random.ko.cmd" afterPath="$PROJECT_DIR$/../random_c/.random.ko.cmd" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../random_c/.random.mod.o.cmd" afterPath="$PROJECT_DIR$/../random_c/.random.mod.o.cmd" />
@@ -333,11 +331,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Z2.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Z2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.611111">
-              <caret line="102" column="28" selection-start-line="102" selection-start-column="28" selection-end-line="102" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.4096">
+              <caret line="92" column="31" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -346,14 +344,10 @@
       <file leaf-file-name="LfsrTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.277779">
-              <caret line="173" column="31" selection-start-line="173" selection-start-column="31" selection-end-line="173" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="79" column="16" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
               <folding>
-                <element signature="e#9215#9216#0" expanded="true" />
-                <element signature="e#9280#9281#0" expanded="true" />
-                <element signature="e#26840#26841#0" expanded="true" />
-                <element signature="e#26904#26905#0" expanded="true" />
-                <element signature="e#31201#31218#0" expanded="true" />
+                <element signature="e#30793#30810#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -366,8 +360,6 @@
               <caret line="236" column="41" selection-start-line="236" selection-start-column="41" selection-end-line="236" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1026#1044#0" expanded="true" />
-                <element signature="e#1116#1134#0" expanded="true" />
                 <element signature="e#1206#1223#0" expanded="true" />
                 <element signature="e#2784#2785#0" expanded="true" />
                 <element signature="e#2847#2848#0" expanded="true" />
@@ -390,10 +382,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NlfsrTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NlfsrTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/NlfsrTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4992">
+            <state vertical-scroll-proportion="0.0">
               <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -405,26 +397,14 @@
       <file leaf-file-name="Lfsr.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.666667">
-              <caret line="220" column="4" selection-start-line="203" selection-start-column="4" selection-end-line="220" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="227" column="33" selection-start-line="227" selection-start-column="33" selection-end-line="227" selection-end-column="33" />
               <folding>
-                <element signature="e#1381#1382#0" expanded="true" />
-                <element signature="e#1405#1406#0" expanded="true" />
-                <element signature="e#6915#6916#0" expanded="true" />
-                <element signature="e#6952#6953#0" expanded="true" />
-                <element signature="e#7658#7659#0" expanded="true" />
-                <element signature="e#7705#7706#0" expanded="true" />
-                <element signature="e#7740#7741#0" expanded="true" />
-                <element signature="e#7802#7803#0" expanded="true" />
-                <element signature="e#7835#7836#0" expanded="true" />
-                <element signature="e#7866#7867#0" expanded="true" />
-                <element signature="e#19764#19788#0" expanded="true" />
-                <element signature="e#20535#20555#0" expanded="true" />
-                <element signature="e#26067#26084#0" expanded="true" />
-                <element signature="e#30754#30773#0" expanded="true" />
+                <element signature="e#6259#6260#0" expanded="true" />
+                <element signature="e#6331#6332#0" expanded="true" />
+                <element signature="e#20561#20581#0" expanded="true" />
+                <element signature="e#30780#30799#0" expanded="true" />
                 <element signature="method#sequences#2;class#Lfsr#0" expanded="false" />
-                <element signature="e#40837#40838#0" expanded="true" />
-                <element signature="e#40872#40873#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -436,19 +416,6 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="135" column="29" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="29" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainHelpers.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/MainHelpers.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-              <folding>
-                <element signature="e#388#389#0" expanded="true" />
-                <element signature="e#464#465#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -478,13 +445,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/BiorthogonalCode.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java" />
-        <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
-        <option value="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
         <option value="$PROJECT_DIR$/src/uk/co/nimp/Nlfsr.java" />
         <option value="$PROJECT_DIR$/test/uk/co/nimp/NlfsrTest.java" />
+        <option value="$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java" />
+        <option value="$PROJECT_DIR$/src/uk/co/nimp/Z2.java" />
       </list>
     </option>
   </component>
@@ -523,7 +490,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -594,6 +560,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -646,44 +613,7 @@
       <recent name="uk.co.nimp.app" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.NlfsrTest">
-    <configuration default="false" name="MersenneNumbers" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="uk.co.nimp.MersenneNumbers" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="lfsr" />
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="BiorthogonalCode" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="uk.co.nimp.app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="uk.co.nimp.app.BiorthogonalCode" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="lfsr" />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.LfsrTest">
     <configuration default="false" name="LfsrTest.testFromSeqLength" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -750,6 +680,58 @@
       <option name="MAIN_CLASS_NAME" value="uk.co.nimp.NlfsrTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="LfsrTest.testGetPolynomial" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="uk.co.nimp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="lfsr" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="uk.co.nimp" />
+      <option name="MAIN_CLASS_NAME" value="uk.co.nimp.LfsrTest" />
+      <option name="METHOD_NAME" value="testGetPolynomial" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="LfsrTest.testToPolynomial" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="uk.co.nimp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="lfsr" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="uk.co.nimp" />
+      <option name="MAIN_CLASS_NAME" value="uk.co.nimp.LfsrTest" />
+      <option name="METHOD_NAME" value="testToPolynomial" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -1134,19 +1116,19 @@
       <item index="5" class="java.lang.String" itemvalue="JUnit.KeyedPermutationTest" />
       <item index="6" class="java.lang.String" itemvalue="JUnit.AesMixColumnTest" />
       <item index="7" class="java.lang.String" itemvalue="JUnit.Toy32Test" />
-      <item index="8" class="java.lang.String" itemvalue="Application.MersenneNumbers" />
-      <item index="9" class="java.lang.String" itemvalue="Application.BiorthogonalCode" />
-      <item index="10" class="java.lang.String" itemvalue="JUnit.LfsrTest.testFromSeqLength" />
-      <item index="11" class="java.lang.String" itemvalue="JUnit.LfsrTest.testSequencesLength" />
-      <item index="12" class="java.lang.String" itemvalue="JUnit.NlfsrTest" />
+      <item index="8" class="java.lang.String" itemvalue="JUnit.LfsrTest.testFromSeqLength" />
+      <item index="9" class="java.lang.String" itemvalue="JUnit.LfsrTest.testSequencesLength" />
+      <item index="10" class="java.lang.String" itemvalue="JUnit.NlfsrTest" />
+      <item index="11" class="java.lang.String" itemvalue="JUnit.LfsrTest.testGetPolynomial" />
+      <item index="12" class="java.lang.String" itemvalue="JUnit.LfsrTest.testToPolynomial" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.NlfsrTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.LfsrTest.testFromSeqLength" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.LfsrTest.testSequencesLength" />
-        <item index="3" class="java.lang.String" itemvalue="Application.BiorthogonalCode" />
-        <item index="4" class="java.lang.String" itemvalue="Application.MersenneNumbers" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.LfsrTest.testToPolynomial" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.LfsrTest.testGetPolynomial" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.NlfsrTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.LfsrTest.testFromSeqLength" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.LfsrTest.testSequencesLength" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -1189,7 +1171,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="37" width="2560" height="1215" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18460111" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1199,12 +1181,11 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37853107" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37853107" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15974441" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32768363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23083067" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15974441" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23083067" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1215,6 +1196,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32768363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1259,7 +1241,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java</url>
-          <line>547</line>
+          <line>541</line>
           <properties />
           <option name="timeStamp" value="66" />
         </line-breakpoint>
@@ -1283,19 +1265,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java</url>
-          <line>445</line>
+          <line>446</line>
           <properties />
           <option name="timeStamp" value="87" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java</url>
-          <line>451</line>
+          <line>452</line>
           <properties />
           <option name="timeStamp" value="90" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java</url>
-          <line>458</line>
+          <line>459</line>
           <properties />
           <option name="timeStamp" value="95" />
         </line-breakpoint>
@@ -1311,8 +1293,20 @@
           <properties />
           <option name="timeStamp" value="101" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java</url>
+          <line>92</line>
+          <properties />
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java</url>
+          <line>227</line>
+          <properties />
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="102" />
+      <option name="time" value="104" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1325,13 +1319,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="39" selection-start-line="14" selection-start-column="8" selection-end-line="15" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4225352">
-          <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1623,7 +1610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.2941175">
           <caret line="1045" column="0" selection-start-line="1045" selection-start-column="0" selection-end-line="1045" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1631,7 +1617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.647059">
           <caret line="278" column="0" selection-start-line="278" selection-start-column="0" selection-end-line="278" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1639,15 +1624,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35424355">
           <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.611111">
-          <caret line="102" column="28" selection-start-line="102" selection-start-column="28" selection-end-line="102" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1662,59 +1638,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.277779">
-          <caret line="173" column="31" selection-start-line="173" selection-start-column="31" selection-end-line="173" selection-end-column="31" />
-          <folding>
-            <element signature="e#9215#9216#0" expanded="true" />
-            <element signature="e#9280#9281#0" expanded="true" />
-            <element signature="e#26840#26841#0" expanded="true" />
-            <element signature="e#26904#26905#0" expanded="true" />
-            <element signature="e#31201#31218#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="135" column="29" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.666667">
-          <caret line="220" column="4" selection-start-line="203" selection-start-column="4" selection-end-line="220" selection-end-column="4" />
-          <folding>
-            <element signature="e#1381#1382#0" expanded="true" />
-            <element signature="e#1405#1406#0" expanded="true" />
-            <element signature="e#6915#6916#0" expanded="true" />
-            <element signature="e#6952#6953#0" expanded="true" />
-            <element signature="e#7658#7659#0" expanded="true" />
-            <element signature="e#7705#7706#0" expanded="true" />
-            <element signature="e#7740#7741#0" expanded="true" />
-            <element signature="e#7802#7803#0" expanded="true" />
-            <element signature="e#7835#7836#0" expanded="true" />
-            <element signature="e#7866#7867#0" expanded="true" />
-            <element signature="e#19764#19788#0" expanded="true" />
-            <element signature="e#20535#20555#0" expanded="true" />
-            <element signature="e#26067#26084#0" expanded="true" />
-            <element signature="e#30754#30773#0" expanded="true" />
-            <element signature="method#sequences#2;class#Lfsr#0" expanded="false" />
-            <element signature="e#40837#40838#0" expanded="true" />
-            <element signature="e#40872#40873#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-6-openjdk-amd64/jre/lib/rt.jar!/java/util/Arrays.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3691275">
           <caret line="2182" column="0" selection-start-line="2182" selection-start-column="0" selection-end-line="2182" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1724,8 +1651,6 @@
           <caret line="236" column="41" selection-start-line="236" selection-start-column="41" selection-end-line="236" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1026#1044#0" expanded="true" />
-            <element signature="e#1116#1134#0" expanded="true" />
             <element signature="e#1206#1223#0" expanded="true" />
             <element signature="e#2784#2785#0" expanded="true" />
             <element signature="e#2847#2848#0" expanded="true" />
@@ -1749,11 +1674,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/NlfsrTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4992">
+        <state vertical-scroll-proportion="0.0">
           <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/app/LfsrTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="135" column="29" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5323475">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/uk/co/nimp/LfsrTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="79" column="16" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
+          <folding>
+            <element signature="e#30793#30810#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Lfsr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="227" column="33" selection-start-line="227" selection-start-column="33" selection-end-line="227" selection-end-column="33" />
+          <folding>
+            <element signature="e#6259#6260#0" expanded="true" />
+            <element signature="e#6331#6332#0" expanded="true" />
+            <element signature="e#20561#20581#0" expanded="true" />
+            <element signature="e#30780#30799#0" expanded="true" />
+            <element signature="method#sequences#2;class#Lfsr#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/co/nimp/Z2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4096">
+          <caret line="92" column="31" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -225,7 +225,8 @@ public class Lfsr {
         return out;
     }
     public String getPolynomial(){
-        return Z2.toPolynomial(getTaps());
+        String out = Z2.toPolynomial(getTaps());
+        return out;
     }
     public String getStateString(){
         return Z2.toBinaryString(state);
