@@ -14,6 +14,9 @@ public class Nlfsr {
             NAND,
             OR,
             NOR,
+            OA,
+            OX,
+            OX2,
             XOR,
             XNOR;
             boolean isUnary(){
@@ -31,6 +34,9 @@ public class Nlfsr {
                 opToString.put(NAND, "!&");
                 opToString.put(OR, "|");
                 opToString.put(NOR, "!|");
+                opToString.put(OA, "OA");
+                opToString.put(OX, "OX");
+                opToString.put(OX2, "O2");
                 opToString.put(XOR, "^");
                 opToString.put(XNOR, "!^");
                 intToOp = new Operator[opToString.size()];
@@ -38,7 +44,7 @@ public class Nlfsr {
                 for(Operator op:opToString.keySet()){
                     //intToOp[i++] = op;
                     String s = opToString.get(op);
-                    if(!s.startsWith("!")) s=" "+s;
+                    if(s.length()<2) s=" "+s;
                     opToLongString.put(op,s);
                     longStringToOp.put(s,op);
                 }
@@ -49,6 +55,9 @@ public class Nlfsr {
                 intToOp[i++] = NAND;
                 intToOp[i++] = OR;
                 intToOp[i++] = NOR;
+                intToOp[i++] = OA;
+                intToOp[i++] = OX;
+                intToOp[i++] = OX2;
                 intToOp[i++] = XOR;
                 intToOp[i++] = XNOR;
             }
@@ -76,6 +85,17 @@ public class Nlfsr {
                 for(int i=0;i<val.size();i++) out[i] = intToOp[val.get(i)];
                 return out;
             }
+            static String getNext(String str, int offset){
+                String out = str.substring(offset,offset+1);
+                if(out.equals("!")) return str.substring(offset,offset+2);
+                if(out.equals("O")) return str.substring(offset,offset+2);
+                /*if(out.equals("O")){
+                    String s = str.substring(offset,offset+2);
+                    char next = s.charAt(offset+1);
+                    if((next>='2') || (next<='5')) return s;
+                }*/
+                return out;
+            }
             static Operator[] toOperator(String str){
                 str = str.replace(" ","");
                 str = str.replace("\t","");
@@ -83,12 +103,10 @@ public class Nlfsr {
                 str = str.replace("\n","");
                 String s="";
                 for(int i=0;i<str.length();i++) {
-                    String opStr = str.substring(i, i + 1);
-                    if (opStr.equals("!")){
-                        s += str.substring(i, i + 2);
-                        i++;
-                    }
-                    else s += " " + opStr;
+                    String opStr = getNext(str,i);
+                    if(opStr.length()==2) i++;
+                    else opStr=" "+opStr;
+                    s+=opStr;
                 }
                 Operator out[]=new Operator[s.length()/2];
                 for(int i=0;i<out.length;i++) out[i] = longStringToOp.get(s.substring(2*i,2*(i+1)));
@@ -97,7 +115,26 @@ public class Nlfsr {
             public String toString(){
                 return opToLongString.get(this);
             }
+
+        public boolean isLinear() {
+            switch(this){
+                case SHIFT:
+                case NOT:
+                case XOR:
+                case XNOR:
+                    return true;
+                default: return false;
+            }
         }
+        public boolean isCommonCell() {
+            switch(this){
+                case OX:
+                case OX2:
+                    return false;
+                default: return true;
+            }
+        }
+    }
 
 
     final int stateWidth;//number of bits to store the state
@@ -135,6 +172,8 @@ public class Nlfsr {
     public boolean step(){
         boolean out = state[0];
         boolean s0= state[0];
+        boolean s1= state[1];
+        boolean s2= state[2];
         for(int i=1;i<stateWidth;i++){
             switch(taps[i]){
                 case SHIFT: state[i-1]=   state[i];break;
@@ -142,6 +181,9 @@ public class Nlfsr {
                 case AND:   state[i-1]=   state[i] & s0;break;
                 case NAND:  state[i-1]=!( state[i] & s0);break;
                 case OR:    state[i-1]= ( state[i] | s0);break;
+                case OA:    state[i-1]= ( state[i] & (s0 | s1));break;
+                case OX:    state[i-1]= ( state[i] ^ (s0 | s1));break;
+                case OX2:   state[i-1]= ( state[i] ^ (s0 | s2));break;
                 case NOR:   state[i-1]=!( state[i] | s0);break;
                 case XOR:   state[i-1]= ( state[i] ^ s0);break;
                 case XNOR:  state[i-1]=!( state[i] ^ s0);break;
@@ -272,8 +314,13 @@ public class Nlfsr {
     }
 
     public String getTapsString() {
-        return Arrays.toString(taps);
+        String out = "";
+        for(Operator tap:taps){
+            out+=tap;
+        }
+        return out;
     }
+
     public String getStateString(){
         return Z2.toBinaryString(state);
     }
@@ -310,11 +357,24 @@ public class Nlfsr {
                 //System.out.println("\t"+len);
             }
         }while (cnt.next());
-        //show frequencies
-
-        for(Integer len:out.keySet()){
-            System.out.println(len+"; "+out.get(len).size());
-        }
         return out;
+    }
+    public boolean isLinear(){
+        for(int i=0;i<taps.length;i++){
+            if(!taps[i].isLinear()) return false;
+        }
+        return true;
+    }
+    public boolean isCommonCell(){
+        for(int i=0;i<taps.length;i++){
+            if(!taps[i].isCommonCell()) return false;
+        }
+        return true;
+    }
+    public boolean isPureShiftingRegister(){
+        for(int i=0;i<taps.length;i++){
+            if(!taps[i].isUnary()) return false;
+        }
+        return true;
     }
 }
