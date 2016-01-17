@@ -1,8 +1,5 @@
 package uk.co.nimp;
 
-import java.io.File;
-import java.io.IOException;
-import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -10,17 +7,7 @@ import java.util.*;
  */
 public class Nlfsr {
 
-    static public class Tap {
-        public static Tap[] fromString(String tapsStr) {
-            Operator ops[] = Operator.fromString(tapsStr);
-            Tap out[] = new Tap[ops.length];
-            for(int i=0;i<ops.length;i++) {
-                out[i] = new Tap(ops[i]);
-            }
-            return out;
-        }
-
-        static public enum Operator {
+    static public enum Operator {
             SHIFT,
             NOT,
             AND,
@@ -36,6 +23,7 @@ public class Nlfsr {
             static Map<Operator,String> opToString = new HashMap<Operator, String>();
             static Map<Operator,String> opToLongString = new HashMap<Operator, String>();
             static Map<String,Operator> longStringToOp = new HashMap<String,Operator>();
+            static Operator[] intToOp;
             static {
                 opToString.put(SHIFT, ">");
                 opToString.put(NOT, "~");
@@ -45,20 +33,50 @@ public class Nlfsr {
                 opToString.put(NOR, "!|");
                 opToString.put(XOR, "^");
                 opToString.put(XNOR, "!^");
+                intToOp = new Operator[opToString.size()];
+                int i=0;
                 for(Operator op:opToString.keySet()){
+                    //intToOp[i++] = op;
                     String s = opToString.get(op);
                     if(!s.startsWith("!")) s=" "+s;
                     opToLongString.put(op,s);
                     longStringToOp.put(s,op);
                 }
+                //force unary operators in lowest numbers
+                intToOp[i++] = SHIFT;
+                intToOp[i++] = NOT;
+                intToOp[i++] = AND;
+                intToOp[i++] = NAND;
+                intToOp[i++] = OR;
+                intToOp[i++] = NOR;
+                intToOp[i++] = XOR;
+                intToOp[i++] = XNOR;
+            }
+            static int opCnt(){
+                return intToOp.length;
+            }
+            static private final int UNARY_OP_CNT = 2;
+            static int unaryOpCnt(){
+                return UNARY_OP_CNT;
+            }
+            static int binaryOpCnt(){
+                return intToOp.length-UNARY_OP_CNT;
             }
 
-            /**
-             *
-             * @param str
-             * @return
-             */
-            static Operator[] fromString(String str){
+            static Operator toOperator(int val) {
+                return intToOp[val];
+            }
+            static Operator[] toOperator(int val[]) {
+                Operator[] out = new Operator[val.length];
+                for(int i=0;i<val.length;i++) out[i] = intToOp[val[i]];
+                return out;
+            }
+            static Operator[] toOperator(List<Integer>val) {
+                Operator[] out = new Operator[val.size()];
+                for(int i=0;i<val.size();i++) out[i] = intToOp[val.get(i)];
+                return out;
+            }
+            static Operator[] toOperator(String str){
                 str = str.replace(" ","");
                 str = str.replace("\t","");
                 str = str.replace("\r","");
@@ -80,25 +98,15 @@ public class Nlfsr {
                 return opToLongString.get(this);
             }
         }
-        final Operator operator;
 
-        public Tap(Operator operator) {
-            this.operator = operator;
-        }
-
-        @Override
-        public String toString() {
-            return operator.toString();
-        }
-    }
 
     final int stateWidth;//number of bits to store the state
-    final Tap[] taps;
+    final Operator[] taps;
     boolean state[];
     final boolean [] nullState;
 
-    protected Nlfsr(Tap[] taps) {
-        if(!taps[0].operator.isUnary()) throw new RuntimeException("first tap must have unary operator");
+    protected Nlfsr(Operator[] taps) {
+        if(!taps[0].isUnary()) throw new RuntimeException("first tap must have unary operator");
         this.taps = taps.clone();
         stateWidth = taps.length;
         state = new boolean[stateWidth];
@@ -107,12 +115,20 @@ public class Nlfsr {
         Arrays.fill(nullState,false);
     }
 
-    static public Nlfsr fromTaps(Tap[] taps){
+    static public Nlfsr fromTaps(Operator[] taps){
         return new Nlfsr(taps);
     }
 
+    static public Nlfsr fromTaps(int[] taps){
+        return new Nlfsr(Operator.toOperator(taps));
+    }
+
+    static public Nlfsr fromTaps(List<Integer> taps){
+        return new Nlfsr(Operator.toOperator(taps));
+    }
+
     static public Nlfsr fromTaps(String tapsStr){
-        Tap[] taps = Tap.fromString(tapsStr);
+        Operator[] taps = Operator.toOperator(tapsStr);
         return new Nlfsr(taps);
     }
 
@@ -120,7 +136,7 @@ public class Nlfsr {
         boolean out = state[0];
         boolean s0= state[0];
         for(int i=1;i<stateWidth;i++){
-            switch(taps[i].operator){
+            switch(taps[i]){
                 case SHIFT: state[i-1]=   state[i];break;
                 case NOT:   state[i-1]=  !state[i];break;
                 case AND:   state[i-1]=   state[i] & s0;break;
@@ -131,7 +147,7 @@ public class Nlfsr {
                 case XNOR:  state[i-1]=!( state[i] ^ s0);break;
             }
         }
-        switch(taps[0].operator){
+        switch(taps[0]){
             case SHIFT: state[stateWidth-1]= s0;break;
             case NOT:   state[stateWidth-1]=!s0;break;
         }
@@ -238,10 +254,8 @@ public class Nlfsr {
                 sum+=len*counts.get(len);
                 out+=String.format("%10d",len)+" bits sequences: "+counts.get(len)+" occurences"+"\n";
             }
-            //out+=sum+" states in total\n";
             if(sum==Lfsr.polynomialDegreeToMaximumLength(stateWidth).intValue()) out+="All sequences are mutually exclusive\n";
             else out +="Some sequences have part in common\n";
-            //if(sum<200) {//for debug
             List<boolean[]> sequencesLength=new ArrayList<boolean[]>();
             sequencesLength.addAll(sequences.keySet());
             Collections.sort(sequencesLength,Z2.comparator);
@@ -251,10 +265,8 @@ public class Nlfsr {
                     boolean[][] states = sequences.get(seq);
                     for (int i = 0; i < states.length; i++)
                         out+=tab+tab+tab + Z2.toBinaryString(states[i])+"\n";
-                    //out+="\n";
                 }
             }
-            //}
         }
         return out;
     }
@@ -266,5 +278,43 @@ public class Nlfsr {
         return Z2.toBinaryString(state);
     }
 
+    /**
+     * Explore what sequence length can be optained with Nlfsr of a given width
+     * Ignore sequences below minLength
+     * @param stateWidth
+     * @return map of sequence length to Nlfsr
+     */
+    static public Map<Integer,List<Nlfsr>> explore(int stateWidth, int minLength){
+        Map<Integer,List<Nlfsr>> out = new HashMap<Integer, List<Nlfsr>>();
 
+        List<Integer> operatorBounds = new ArrayList<Integer>();
+        operatorBounds.add(Operator.unaryOpCnt());//first operator must be unary
+        for(int i=1;i<stateWidth;i++) operatorBounds.add(Operator.opCnt());
+        GenericCounter cnt = new GenericCounter(operatorBounds);
+        do{
+            List<Integer> operatorVals = cnt.getCount();
+            //filter out pure shift registers
+            if(operatorVals.stream().noneMatch(opVal -> opVal >= Operator.unaryOpCnt())) continue;
+            //build the NLFSR
+            Nlfsr n = Nlfsr.fromTaps(operatorVals);
+            //System.out.println(n);
+            //generate the sequences
+            Map<boolean[],boolean[][]> sequences = n.sequences(true);
+            //add each one to the output
+            for(boolean[] seq: sequences.keySet()){
+                int len = seq.length;
+                if(len<minLength) continue;
+                if(!out.containsKey(len)) out.put(len,new ArrayList<Nlfsr>());
+                List<Nlfsr> l = out.get(len);
+                l.add(n);
+                //System.out.println("\t"+len);
+            }
+        }while (cnt.next());
+        //show frequencies
+
+        for(Integer len:out.keySet()){
+            System.out.println(len+"; "+out.get(len).size());
+        }
+        return out;
+    }
 }

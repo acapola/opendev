@@ -326,10 +326,10 @@ public class LfsrTest {
 
     @Test
     public void testSequencesLength() throws Exception {
-        /*Lfsr c = Lfsr.fromBinaryString("1100010");
+        /*Lfsr c = Lfsr.fromPolynomial("1+x4+x5");
         System.out.println(c);
         System.out.println(c.describe(false,false));
-        checkSequencesLengthEqual("1+x+x5", new int[][]{{1, 1}, {5, 6}});*/
+        checkSequencesLengthEqual("1+x4+x5", new int[][]{{3, 1}, {7, 1}, {21, 1}});*/
 
 
         checkSequencesLengthEqual("1+x5", new int[][]{{1, 1}, {5, 6}});
