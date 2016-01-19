@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * General class for non linear feedback shift register. LFSR are covered by this class as well, this is just a corner case among many possible feedback functions.
  */
-public class Nlfsr {
+public class Nlfsr  {
 
     static public enum Operator {
             SHIFT,
@@ -152,6 +152,12 @@ public class Nlfsr {
         Arrays.fill(nullState,false);
     }
 
+    static public Nlfsr copy(Nlfsr n){
+        Nlfsr out = new Nlfsr(n.taps);
+        out.setState(n.getState());
+        return out;
+    }
+
     static public Nlfsr fromTaps(Operator[] taps){
         return new Nlfsr(taps);
     }
@@ -205,7 +211,7 @@ public class Nlfsr {
                 '}';
     }
 
-    private Map<boolean[],boolean[][]> sequences(boolean excludeP) {
+    public Map<boolean[],boolean[][]> sequences(boolean excludeP) {
         boolean[] done = new boolean[1<<stateWidth];
         boolean[] startStateToDo = new boolean[1<<stateWidth];
         HashMap<boolean[],boolean[][]> out = new HashMap<boolean[],boolean[][]>();
@@ -331,7 +337,7 @@ public class Nlfsr {
      * @param stateWidth
      * @return map of sequence length to Nlfsr
      */
-    static public Map<Integer,List<Nlfsr>> explore(int stateWidth, int minLength){
+    static public Map<Integer,List<Nlfsr>> explore(int stateWidth, int minLength) {
         Map<Integer,List<Nlfsr>> out = new HashMap<Integer, List<Nlfsr>>();
 
         List<Integer> operatorBounds = new ArrayList<Integer>();
@@ -353,7 +359,9 @@ public class Nlfsr {
                 if(len<minLength) continue;
                 if(!out.containsKey(len)) out.put(len,new ArrayList<Nlfsr>());
                 List<Nlfsr> l = out.get(len);
-                l.add(n);
+                Nlfsr nForSeq = Nlfsr.copy(n);
+                nForSeq.setState(sequences.get(seq)[0]);
+                l.add(nForSeq);
                 //System.out.println("\t"+len);
             }
         }while (cnt.next());
