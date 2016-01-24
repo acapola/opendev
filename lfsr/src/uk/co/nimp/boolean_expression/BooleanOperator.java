@@ -31,6 +31,11 @@ public abstract class BooleanOperator {
         intToOp[op.id] = op;
     }
 
+    public static int getOpCnt(){
+        if (!initialized) init();
+        return opCnt;
+    }
+
     protected static void init() {
         addOp(new BufBooleanOperator());
         addOp(new NotBooleanOperator());
@@ -50,6 +55,7 @@ public abstract class BooleanOperator {
     }
 
     public static BooleanOperator get(int id) {
+        if (!initialized) init();
         BooleanOperator existing = intToOp[id];
         return existing;
     }

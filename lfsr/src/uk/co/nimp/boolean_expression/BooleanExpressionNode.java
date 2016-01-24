@@ -20,6 +20,19 @@ public class BooleanExpressionNode implements Operand {
     public static BooleanExpressionNode toExpression(String ... tokens){
         return toExpression(0,tokens);
     }
+    public static BooleanExpressionNode copy(BooleanExpressionNode a){
+        return toExpression(0,a.toString());
+    }
+    public BooleanExpressionNode copy(){
+        return toExpression(this.toString());
+    }
+    public static BooleanExpressionNode toExpression(Integer operatorId, List<Integer> operands){
+        return new BooleanExpressionNode(
+                BooleanOperator.get(operatorId),
+                operands.stream().map(o -> new BooleanExpressionInputNode(o)).collect(Collectors.toList()));
+    }
+
+
     static BooleanExpressionNode toExpression (int offset, String ... tokens){
         String token = tokens[offset];
         BooleanOperator op = BooleanOperator.get(token);

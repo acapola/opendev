@@ -1,0 +1,89 @@
+max length: OA!^ > >
+max length: OA > >!^
+2 max length NLFSR found for stateWidth = 4
+max length: OA >!^ > >
+max length: OA > >!^ >
+2 max length NLFSR found for stateWidth = 5
+max length: OA!^ > > > >
+max length: OA > > > >!^
+2 max length NLFSR found for stateWidth = 6
+max length: OA!^ > > > > >
+max length: OA > >!^ > > >
+max length: OA > > >!^ > >
+max length: OA > > > > >!^
+4 max length NLFSR found for stateWidth = 7
+0 max length NLFSR found for stateWidth = 8
+max length: OA > > >!^ > > > >
+max length: OA > > > >!^ > > >
+2 max length NLFSR found for stateWidth = 9
+max length: OA > >!^ > > > > > >
+max length: OA > > > > > >!^ > >
+2 max length NLFSR found for stateWidth = 10
+max length: OA >!^ > > > > > > > >
+max length: OA > > > > > > > >!^ >
+2 max length NLFSR found for stateWidth = 11
+0 max length NLFSR found for stateWidth = 12
+0 max length NLFSR found for stateWidth = 13
+0 max length NLFSR found for stateWidth = 14
+max length: OA!^ > > > > > > > > > > > > >
+max length: OA > > >!^ > > > > > > > > > >
+max length: OA > > > > > >!^ > > > > > > >
+max length: OA > > > > > > >!^ > > > > > >
+max length: OA > > > > > > > > > >!^ > > >
+max length: OA > > > > > > > > > > > > >!^
+6 max length NLFSR found for stateWidth = 15
+0 max length NLFSR found for stateWidth = 16
+max length: OA > >!^ > > > > > > > > > > > > >
+max length: OA > > > >!^ > > > > > > > > > > >
+max length: OA > > > > >!^ > > > > > > > > > >
+max length: OA > > > > > > > > > >!^ > > > > >
+max length: OA > > > > > > > > > > >!^ > > > >
+max length: OA > > > > > > > > > > > > >!^ > >
+6 max length NLFSR found for stateWidth = 17
+max length: OA > > > > > >!^ > > > > > > > > > >
+max length: OA > > > > > > > > > >!^ > > > > > >
+2 max length NLFSR found for stateWidth = 18
+0 max length NLFSR found for stateWidth = 19
+max length: OA > >!^ > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > >!^ > >
+2 max length NLFSR found for stateWidth = 20
+max length: OA >!^ > > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > > >!^ >
+2 max length NLFSR found for stateWidth = 21
+max length: OA!^ > > > > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > > > > >!^
+2 max length NLFSR found for stateWidth = 22
+max length: OA > > > >!^ > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > >!^ > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > >!^ > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > >!^ > > > >
+4 max length NLFSR found for stateWidth = 23
+0 max length NLFSR found for stateWidth = 24
+max length: OA > >!^ > > > > > > > > > > > > > > > > > > > > >
+max length: OA > > > > > >!^ > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > >!^ > > > > > >
+max length: OA > > > > > > > > > > > > > > > > > > > > >!^ > >
+4 max length NLFSR found for stateWidth = 25
+0 max length NLFSR found for stateWidth = 26
+0 max length NLFSR found for stateWidth = 27
+max length: OA > >!^ > > > > > > > > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > >!^ > > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > >!^ > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > >!^ > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > > >!^ > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > > > > > > > > >!^ > >
+6 max length NLFSR found for stateWidth = 28
+max length: OA >!^ > > > > > > > > > > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > > > > > > > > > > >!^ >
+2 max length NLFSR found for stateWidth = 29
+0 max length NLFSR found for stateWidth = 30
+max length: OA > >!^ > > > > > > > > > > > > > > > > > > > > > > > > > > >
+max length: OA > > > > >!^ > > > > > > > > > > > > > > > > > > > > > > > >
+max length: OA > > > > > >!^ > > > > > > > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > >!^ > > > > > > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > >!^ > > > > > > > > > > > >
+max length: OA > > > > > > > > > > > > > > > > > > > > > > >!^ > > > > > >
+max length: OA > > > > > > > > > > > > > > > > > > > > > > > >!^ > > > > >
+max length: OA > > > > > > > > > > > > > > > > > > > > > > > > > > >!^ > >
+8 max length NLFSR found for stateWidth = 31
+

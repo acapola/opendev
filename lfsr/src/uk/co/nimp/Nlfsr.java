@@ -1,6 +1,8 @@
 package uk.co.nimp;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * General class for non linear feedback shift register. LFSR are covered by this class as well, this is just a corner case among many possible feedback functions.
@@ -24,6 +26,7 @@ public class Nlfsr  {
                 return false;
             }
             static Map<Operator,String> opToString = new HashMap<Operator, String>();
+            static Map<Operator,Integer> opToInt = new HashMap<Operator, Integer>();
             static Map<Operator,String> opToLongString = new HashMap<Operator, String>();
             static Map<String,Operator> longStringToOp = new HashMap<String,Operator>();
             static Operator[] intToOp;
@@ -47,6 +50,7 @@ public class Nlfsr  {
                     if(s.length()<2) s=" "+s;
                     opToLongString.put(op,s);
                     longStringToOp.put(s,op);
+
                 }
                 //force unary operators in lowest numbers
                 intToOp[i++] = SHIFT;
@@ -60,6 +64,7 @@ public class Nlfsr  {
                 intToOp[i++] = OX2;
                 intToOp[i++] = XOR;
                 intToOp[i++] = XNOR;
+                for(i=0;i<intToOp.length;i++) opToInt.put(intToOp[i],i);
             }
             static int opCnt(){
                 return intToOp.length;
@@ -115,6 +120,7 @@ public class Nlfsr  {
             public String toString(){
                 return opToLongString.get(this);
             }
+            public Integer toInt() {return opToInt.get(this);}
 
         public boolean isLinear() {
             switch(this){
@@ -143,7 +149,7 @@ public class Nlfsr  {
     final boolean [] nullState;
 
     protected Nlfsr(Operator[] taps) {
-        if(!taps[0].isUnary()) throw new RuntimeException("first tap must have unary operator");
+        //if(!taps[0].isUnary()) throw new RuntimeException("first tap must have unary operator");
         this.taps = taps.clone();
         stateWidth = taps.length;
         state = new boolean[stateWidth];
@@ -180,25 +186,27 @@ public class Nlfsr  {
         boolean s0= state[0];
         boolean s1= state[1];
         boolean s2= state[2];
-        for(int i=1;i<stateWidth;i++){
-            switch(taps[i]){
-                case SHIFT: state[i-1]=   state[i];break;
-                case NOT:   state[i-1]=  !state[i];break;
-                case AND:   state[i-1]=   state[i] & s0;break;
-                case NAND:  state[i-1]=!( state[i] & s0);break;
-                case OR:    state[i-1]= ( state[i] | s0);break;
-                case OA:    state[i-1]= ( state[i] & (s0 | s1));break;
-                case OX:    state[i-1]= ( state[i] ^ (s0 | s1));break;
-                case OX2:   state[i-1]= ( state[i] ^ (s0 | s2));break;
-                case NOR:   state[i-1]=!( state[i] | s0);break;
-                case XOR:   state[i-1]= ( state[i] ^ s0);break;
-                case XNOR:  state[i-1]=!( state[i] ^ s0);break;
+        boolean[] stateBu = state.clone();
+        for(int i=1;i<=stateWidth;i++){
+            int safeI = i%stateWidth;
+            switch(taps[safeI]){
+                case SHIFT: state[i-1]=   stateBu[safeI];break;
+                case NOT:   state[i-1]=  !stateBu[safeI];break;
+                case AND:   state[i-1]=   stateBu[safeI] & s0;break;
+                case NAND:  state[i-1]=!( stateBu[safeI] & s0);break;
+                case OR:    state[i-1]= ( stateBu[safeI] | s0);break;
+                case OA:    state[i-1]= ( stateBu[safeI] & (s0 | s1));break;
+                case OX:    state[i-1]= ( stateBu[safeI] ^ (s0 | s1));break;
+                case OX2:   state[i-1]= ( stateBu[safeI] ^ (s0 | s2));break;
+                case NOR:   state[i-1]=!( stateBu[safeI] | s0);break;
+                case XOR:   state[i-1]= ( stateBu[safeI] ^ s0);break;
+                case XNOR:  state[i-1]=!( stateBu[safeI] ^ s0);break;
             }
         }
-        switch(taps[0]){
+        /*switch(taps[0]){
             case SHIFT: state[stateWidth-1]= s0;break;
             case NOT:   state[stateWidth-1]=!s0;break;
-        }
+        }*/
         return out;
     }
 
@@ -210,6 +218,66 @@ public class Nlfsr  {
                 ", state=" + Arrays.toString(state) +
                 '}';
     }
+
+    public boolean isMaxLength_Storage() {
+        final int maxLen= (1<<stateWidth)-1;
+        int startState=0;
+        boolean[] initState = Z2.toBooleans(startState);
+        setState(initState);
+        boolean[] trace = new boolean[1<<stateWidth];//used to detects loops
+        trace[startState] = true;
+        int j=0;
+        do{
+            boolean newBit = step();
+            j++;
+            int coveredState = Z2.booleansToInt(getState());
+            if(trace[coveredState]) {
+                if(Z2.equalValue(state,initState) ) {
+                    if((j==1) && (startState==0)){//single state cycle, maybe all other states are in a max length seq., try it
+                        startState=1;
+                        initState = Z2.toBooleans(startState);
+                        setState(initState);
+                        trace[startState] = true;
+                        j=0;
+                        continue;
+                    }
+                    if(maxLen<=j) return true;
+                    else return false;
+                } else {//this sequence has a P shape: go straight and then loop
+                    return false;
+                }
+            }
+            trace[coveredState] = true;
+        }while(maxLen>j);
+        return true;
+    }
+
+
+    public boolean isMaxLength() {
+        final long maxLen= (1L<<stateWidth)-1;
+        int startState=0;
+        boolean[] initState = Z2.toBooleans(startState);
+        setState(initState);
+        long j=0;
+        do{
+            boolean newBit = step();
+            j++;
+
+            if(Z2.equalValue(state,initState) ) {
+                if((j==1) && (startState==0)){//single state cycle, maybe all other states are in a max length seq., try it
+                    startState=1;
+                    initState = Z2.toBooleans(startState);
+                    setState(initState);
+                    j=0;
+                    continue;
+                }
+                if(maxLen<=j) return true;
+                else return false;
+            }
+        }while(maxLen>j);
+        return true;
+    }
+
 
     public Map<boolean[],boolean[][]> sequences(boolean excludeP) {
         boolean[] done = new boolean[1<<stateWidth];
@@ -330,6 +398,147 @@ public class Nlfsr  {
     public String getStateString(){
         return Z2.toBinaryString(state);
     }
+
+    public static List<Nlfsr> findMaxLengthNlfsr(int stateWidth, int maxResults) {
+        List<Nlfsr> out = new ArrayList<>();
+        List<Integer> operatorBounds = new ArrayList<Integer>();
+        operatorBounds.add(Operator.unaryOpCnt());//first operator must be unary
+        for(int i=1;i<stateWidth;i++) operatorBounds.add(Operator.opCnt());
+        GenericCounter cnt = new GenericCounter(operatorBounds);
+        int j=0;
+        Predicate<Integer> rejected = new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                switch(Operator.toOperator(integer)){
+                    case OX2:
+                    case SHIFT:
+                    case OX:
+                    case XNOR:
+                        return true;
+                }
+                return false;
+            }
+        };
+        do{
+            List<Integer> operatorVals = cnt.getCount();
+            if(operatorVals.stream().anyMatch(rejected)) continue;
+            //filter out pure shift registers
+            if(operatorVals.stream().noneMatch(opVal -> opVal >= Operator.unaryOpCnt())) continue;
+            //build the NLFSR
+            Nlfsr n = Nlfsr.fromTaps(operatorVals);
+            //System.out.println(n);
+            //check
+            if(n.isLinear()) continue;
+            if(j++ % 0x10000 == 0) System.out.println(n.getTapsString());
+            //check
+            if(n.isMaxLength()){
+                out.add(n);
+                System.out.println("max length: " + n.getTapsString());
+                if(out.size()==maxResults) return out;
+            }
+        }while (cnt.next());
+        return out;
+    }
+
+    public static List<Nlfsr> findMaxLengthNlfsrNOAX(int stateWidth, int maxResults) {
+        List<Nlfsr> out = new ArrayList<>();
+        int operatorBounds = 0;
+        if(stateWidth>=32) throw new RuntimeException();
+        List<Integer> base = new ArrayList<>();
+        int notId = Operator.NOT.toInt();
+        int xorId = Operator.XOR.toInt();
+        base.add(notId);
+        base.add(Operator.OA.toInt());
+        int cnt=0;
+        int cntLimit = 1<<(stateWidth-2);
+        do{
+            List<Integer> operatorVals = new ArrayList<>(32);
+            operatorVals.addAll(base);
+            for(int i=0;i<stateWidth-2;i++){
+                if((1&(cnt>>i))==0) operatorVals.add(notId);
+                else operatorVals.add(xorId);
+            }
+            cnt++;
+            //build the NLFSR
+            Nlfsr n = Nlfsr.fromTaps(operatorVals);
+            //System.out.println(n);
+            //check
+            if(n.isLinear()) continue;
+            if(cnt % 0x10000 == 0) System.out.println(n.getTapsString());
+            //check
+            if(n.isMaxLength()){
+                out.add(n);
+                System.out.println("max length: " + n.getTapsString());
+                if(out.size()==maxResults) return out;
+            }
+        }while (cnt<cntLimit);
+        return out;
+    }
+
+    public static List<Nlfsr> findMaxLengthNlfsrNOAX1(int stateWidth, int maxResults) {
+        List<Nlfsr> out = new ArrayList<>();
+        List<Integer> base = new ArrayList<>();
+        int notId = Operator.NOT.toInt();
+        int xorId = Operator.XOR.toInt();
+        base.add(notId);
+        base.add(Operator.OA.toInt());
+        for(int i = 0;i<stateWidth-3;i++) base.add(notId);
+        int cnt=0;
+        int cntLimit = stateWidth-2;
+        do{
+            List<Integer> operatorVals = new LinkedList<>();
+            operatorVals.addAll(base);
+            operatorVals.add(2 + cnt, xorId);
+            cnt++;
+            //build the NLFSR
+            Nlfsr n = Nlfsr.fromTaps(operatorVals);
+            //System.out.println(n);
+            //check
+            if(n.isLinear()) continue;
+            if(cnt % 0x10000 == 0) System.out.println(n.getTapsString());
+            //check
+            if(n.isMaxLength()){
+                out.add(n);
+                System.out.println("max length: " + n.getTapsString());
+                if(out.size()==maxResults) return out;
+            }
+        }while (cnt<cntLimit);
+        return out;
+    }
+
+    public static List<Nlfsr> findMaxLengthNlfsrOAX(int stateWidth, int maxResults) {
+        List<Nlfsr> out = new ArrayList<>();
+        List<Integer> base = new ArrayList<>();
+        int notId = Operator.SHIFT.toInt();
+        int xorId = Operator.XNOR.toInt();
+        int oaId = Operator.OA.toInt();
+        base.add(oaId);
+        for(int i = 1;i<stateWidth-1;i++) base.add(notId);
+        //base.add(xorId);
+        int cnt=0;
+        int cntLimit = stateWidth-1;
+        do{
+            List<Integer> operatorVals = new LinkedList<>();
+            operatorVals.addAll(base);
+            operatorVals.add(1+cnt, xorId);
+            cnt++;
+            //build the NLFSR
+            Nlfsr n = Nlfsr.fromTaps(operatorVals);
+            //System.out.println(n);
+            //check
+            if(n.isLinear()) continue;
+            if(cnt % 0x10000 == 0) System.out.println(n.getTapsString());
+            //check
+            if(n.isMaxLength()){
+                out.add(n);
+                System.out.println("max length: " + n.getTapsString());
+                //System.out.println(n.describe(true,true));
+                if(out.size()==maxResults) return out;
+            }
+        }while (cnt<cntLimit);
+        return out;
+    }
+
 
     /**
      * Explore what sequence length can be optained with Nlfsr of a given width

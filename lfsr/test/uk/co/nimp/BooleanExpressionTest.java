@@ -75,6 +75,5 @@ public class BooleanExpressionTest {
         checkApply("nand nand 0 nand 0 1 nand 1 nand 0 1",i -> i[1] ^ i[0]);//decomposed xor
         checkApply("nor nor 0 nor 0 1 nor 1 nor 0 1",i -> !i[1] ^ i[0]);//decomposed xnor
         checkApply("not nor nor buf 0 nor buf 0 buf 1 nor buf 1 nor buf 0 buf 1",i -> i[1] ^ i[0]);//decomposed xor with not and buf
-
     }
 }
