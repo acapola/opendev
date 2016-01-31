@@ -203,10 +203,6 @@ public class Nlfsr  {
                 case XNOR:  state[i-1]=!( stateBu[safeI] ^ s0);break;
             }
         }
-        /*switch(taps[0]){
-            case SHIFT: state[stateWidth-1]= s0;break;
-            case NOT:   state[stateWidth-1]=!s0;break;
-        }*/
         return out;
     }
 
@@ -248,12 +244,25 @@ public class Nlfsr  {
                 }
             }
             trace[coveredState] = true;
-        }while(maxLen>j);
-        return true;
+        }while(maxLen+1>j);
+        return false;
     }
 
 
     public boolean isMaxLength() {
+        if(taps[0]==Operator.OA) {
+            int xnorPos=-1;
+            for(int i = 1;i<stateWidth;i++){//check there is only 1 xnor and find out its position
+                if(taps[i]==Operator.XNOR)
+                    xnorPos=i;
+                else if(taps[i]!=Operator.SHIFT){
+                    xnorPos=-1;
+                    break;
+                }
+            }
+            if(-1!=xnorPos)
+                return isMaxLengthOAXN(xnorPos);
+        }
         final long maxLen= (1L<<stateWidth)-1;
         int startState=0;
         boolean[] initState = Z2.toBooleans(startState);
@@ -274,8 +283,38 @@ public class Nlfsr  {
                 if(maxLen<=j) return true;
                 else return false;
             }
-        }while(maxLen>j);
-        return true;
+        }while(maxLen+1>j);
+        return false;
+    }
+    public boolean isMaxLengthOAXN(int xnorPos) {
+        //System.out.println(this.describe(true,true));
+        final long maxLen= (1L<<stateWidth)-1;
+        long startState=0;
+        long lState = startState;
+        long j=0;
+
+        long tapsMask = (Long.MIN_VALUE-1) & ~(1L<<(stateWidth-1)) & ~(1L<<(xnorPos-1));//0 where we have to compute something
+
+        do{
+            long shiftedState = (lState>>1)  & tapsMask;
+            long lastTap = lState>>1;
+            lastTap = ((lState & (lastTap | lState)) & 1)<<(stateWidth-1);
+            long tapXn =(((lState>>xnorPos) ^ ~lState) & 1) << (xnorPos-1);
+            lState = shiftedState | lastTap | tapXn;
+            j++;
+
+            if(lState==startState ) {
+                if((j==1) && (startState==0)){//single state cycle, maybe all other states are in a max length seq., try it
+                    startState=1;
+                    lState = startState;
+                    j=0;
+                    continue;
+                }
+                if(maxLen<=j) return true;
+                else return false;
+            }
+        }while(maxLen+1>j);
+        return false;
     }
 
 
@@ -510,8 +549,9 @@ public class Nlfsr  {
         List<Nlfsr> out = new ArrayList<>();
         List<Integer> base = new ArrayList<>();
         int notId = Operator.SHIFT.toInt();
-        int xorId = Operator.XNOR.toInt();
-        int oaId = Operator.OA.toInt();
+        int xorId = Operator.XOR.toInt();
+        int oaId = Operator.SHIFT.toInt();
+        //int oaId = Operator.NOT.toInt();
         base.add(oaId);
         for(int i = 1;i<stateWidth-1;i++) base.add(notId);
         //base.add(xorId);
@@ -526,7 +566,7 @@ public class Nlfsr  {
             Nlfsr n = Nlfsr.fromTaps(operatorVals);
             //System.out.println(n);
             //check
-            if(n.isLinear()) continue;
+            //if(n.isLinear()) continue;
             if(cnt % 0x10000 == 0) System.out.println(n.getTapsString());
             //check
             if(n.isMaxLength()){

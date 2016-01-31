@@ -41,7 +41,7 @@ public class MaxLengthNlfsr {
     }
 
     public static void main(String args[]) throws FileNotFoundException {
-        for(int stateWidth = 32;stateWidth<40;stateWidth++) {
+        for(int stateWidth = 4;stateWidth<20;stateWidth++) {
             List<Nlfsr> out = Nlfsr.findMaxLengthNlfsrOAX(stateWidth, Integer.MAX_VALUE);
             System.out.println(out.size() + " max length NLFSR found for stateWidth = " + stateWidth);
             Predicate<Nlfsr> acceptAll = new Predicate<Nlfsr>() {
@@ -51,7 +51,7 @@ public class MaxLengthNlfsr {
                 }
             };
             //System.out.println(out.get(0).describe(true,true));
-            dumpToCsvFile(new File("MaxLenNlfsrOAXDb" + stateWidth + "_NL.csv"), out, acceptAll);
+            //dumpToCsvFile(new File("MaxLenNlfsrOAXDb" + stateWidth + "_NL.csv"), out, acceptAll);
         }
     }
 }
