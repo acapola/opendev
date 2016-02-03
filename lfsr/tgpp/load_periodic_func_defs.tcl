@@ -94,9 +94,9 @@ proc periodic_func_defs::convert_taps_from_nlfsrdb { taps } {
 	set out [dict create]
 	set nTaps [expr  $len / 2]
 	for {set i 0} {$i<$nTaps} {incr i} {
-		set func [list]
 		set in1 [expr ($i+1) % $nTaps]
-		set tap [string range $taps [expr 2*$i] [expr 2*$i+1]]
+		set func [list]
+		set tap [string range $taps [expr 2*$in1] [expr 2*$in1+1]]
 		#puts "\t'$tap'"
 		switch $tap {
 			" >" {lappend func $in1}
@@ -109,7 +109,7 @@ proc periodic_func_defs::convert_taps_from_nlfsrdb { taps } {
 			"!^" {lappend func xnor $in1 0}
 			"OA" {lappend func and $in1 or 1 0}
 			"OX" {lappend func xor $in1 or 1 0}
-			"O2" {lappend func xor $in1 or 1 2}
+			"O2" {lappend func xor $in1 or 2 0}
 		}
 		dict set out $i $func
 	}
@@ -120,7 +120,7 @@ proc periodic_func_defs::convert_taps_from_nlfsrdb { taps } {
 # The cache file is created by a TGPP file although it could be easily done here.
 # if that's desired, it is as simple as writing out $periodic_func_defs::defs to the file
 # the file must assign the resulting dict to the variable name periodic_func_defs::defs
-set cached_defs "periodic_func_defs.tcl"
+set cached_defs [file join [file dirname [info script]] periodic_func_defs.tcl]
 if {[file exist $cached_defs]} {
 	source $cached_defs
 } else {

@@ -6,7 +6,7 @@ proc periodic_func { periodic_func_spec } {
 	# read parameters and check them
 	set period [dict get $periodic_func_spec period]
 	set taps [dict get $periodic_func_spec taps]
-    set init [dict get $periodic_func_spec init]
+    set init [string reverse [dict get $periodic_func_spec init]]
     set width [dict size $taps]
 	set init_len [string length $init]
 	if {[expr $width != $init_len]} {
@@ -51,7 +51,7 @@ function automatic [`$msb`:0] `$name_val`;
 	integer i;
 	begin
 		tmp = `$width`'b`$init`;
-		for(i=0;i<target_count;i=i+1'b1) tmp = `$name_next`(tmp);
+		for(i=0;i<target_step;i=i+1'b1) tmp = `$name_next`(tmp);
 		`$name_val` = tmp;
 	end
 endfunction
@@ -72,7 +72,7 @@ endfunction
 }
 
 # sourcing a pure TCL file to get the mapping of period to boolean function
-source load_periodic_func_defs.tcl
+source [file join [file dirname [info script]] load_periodic_func_defs.tcl]
 
 ##################################
 # command line arguments parsing #
